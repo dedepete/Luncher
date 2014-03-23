@@ -1,0 +1,852 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="ProfileName.Location" type="System.Drawing.Point, System.Drawing">
+    <value>145, 20</value>
+  </data>
+  <data name="ProfileName.Size" type="System.Drawing.Size, System.Drawing">
+    <value>177, 21</value>
+  </data>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="ProfileName.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;ProfileName.Name" xml:space="preserve">
+    <value>ProfileName</value>
+  </data>
+  <data name="&gt;&gt;ProfileName.Type" xml:space="preserve">
+    <value>Telerik.WinControls.UI.RadTextBox, Telerik.WinControls.UI, Version=2014.1.226.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
+  </data>
+  <data name="&gt;&gt;ProfileName.Parent" xml:space="preserve">
+    <value>radGroupBox1</value>
+  </data>
+  <data name="&gt;&gt;ProfileName.ZOrder" xml:space="preserve">
+    <value>9</value>
+  </data>
+  <data name="radLabel1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>5, 21</value>
+  </data>
+  <data name="radLabel1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>107, 18</value>
+  </data>
+  <data name="radLabel1.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="radLabel1.Text" xml:space="preserve">
+    <value>Название профиля:</value>
+  </data>
+  <data name="&gt;&gt;radLabel1.Name" xml:space="preserve">
+    <value>radLabel1</value>
+  </data>
+  <data name="&gt;&gt;radLabel1.Type" xml:space="preserve">
+    <value>Telerik.WinControls.UI.RadLabel, Telerik.WinControls.UI, Version=2014.1.226.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
+  </data>
+  <data name="&gt;&gt;radLabel1.Parent" xml:space="preserve">
+    <value>radGroupBox1</value>
+  </data>
+  <data name="&gt;&gt;radLabel1.ZOrder" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <data name="resource.Text" xml:space="preserve">
+    <value>Название профиля:</value>
+  </data>
+  <data name="radLabel4.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 96</value>
+  </data>
+  <data name="radLabel4.Size" type="System.Drawing.Size, System.Drawing">
+    <value>83, 18</value>
+  </data>
+  <data name="radLabel4.TabIndex" type="System.Int32, mscorlib">
+    <value>9</value>
+  </data>
+  <data name="radLabel4.Text" xml:space="preserve">
+    <value>После запуска Minecraft:</value>
+  </data>
+  <data name="&gt;&gt;radLabel4.Name" xml:space="preserve">
+    <value>radLabel4</value>
+  </data>
+  <data name="&gt;&gt;radLabel4.Type" xml:space="preserve">
+    <value>Telerik.WinControls.UI.RadLabel, Telerik.WinControls.UI, Version=2014.1.226.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
+  </data>
+  <data name="&gt;&gt;radLabel4.Parent" xml:space="preserve">
+    <value>radGroupBox1</value>
+  </data>
+  <data name="&gt;&gt;radLabel4.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="resource.Text1" xml:space="preserve">
+    <value>После запуска Minecraft:</value>
+  </data>
+  <data name="radLabel3.Location" type="System.Drawing.Point, System.Drawing">
+    <value>224, 73</value>
+  </data>
+  <data name="radLabel3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>13, 18</value>
+  </data>
+  <data name="radLabel3.TabIndex" type="System.Int32, mscorlib">
+    <value>8</value>
+  </data>
+  <data name="radLabel3.Text" xml:space="preserve">
+    <value>Х</value>
+  </data>
+  <data name="&gt;&gt;radLabel3.Name" xml:space="preserve">
+    <value>radLabel3</value>
+  </data>
+  <data name="&gt;&gt;radLabel3.Type" xml:space="preserve">
+    <value>Telerik.WinControls.UI.RadLabel, Telerik.WinControls.UI, Version=2014.1.226.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
+  </data>
+  <data name="&gt;&gt;radLabel3.Parent" xml:space="preserve">
+    <value>radGroupBox1</value>
+  </data>
+  <data name="&gt;&gt;radLabel3.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="resource.Text2" xml:space="preserve">
+    <value>Х</value>
+  </data>
+  <data name="ResY.Location" type="System.Drawing.Point, System.Drawing">
+    <value>243, 72</value>
+  </data>
+  <data name="ResY.Size" type="System.Drawing.Size, System.Drawing">
+    <value>79, 21</value>
+  </data>
+  <data name="ResY.TabIndex" type="System.Int32, mscorlib">
+    <value>7</value>
+  </data>
+  <data name="ResY.Text" xml:space="preserve">
+    <value>480</value>
+  </data>
+  <data name="&gt;&gt;ResY.Name" xml:space="preserve">
+    <value>ResY</value>
+  </data>
+  <data name="&gt;&gt;ResY.Type" xml:space="preserve">
+    <value>Telerik.WinControls.UI.RadTextBox, Telerik.WinControls.UI, Version=2014.1.226.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
+  </data>
+  <data name="&gt;&gt;ResY.Parent" xml:space="preserve">
+    <value>radGroupBox1</value>
+  </data>
+  <data name="&gt;&gt;ResY.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="ResX.Location" type="System.Drawing.Point, System.Drawing">
+    <value>145, 72</value>
+  </data>
+  <data name="ResX.Size" type="System.Drawing.Size, System.Drawing">
+    <value>73, 21</value>
+  </data>
+  <data name="ResX.TabIndex" type="System.Int32, mscorlib">
+    <value>6</value>
+  </data>
+  <data name="ResX.Text" xml:space="preserve">
+    <value>854</value>
+  </data>
+  <data name="&gt;&gt;ResX.Name" xml:space="preserve">
+    <value>ResX</value>
+  </data>
+  <data name="&gt;&gt;ResX.Type" xml:space="preserve">
+    <value>Telerik.WinControls.UI.RadTextBox, Telerik.WinControls.UI, Version=2014.1.226.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
+  </data>
+  <data name="&gt;&gt;ResX.Parent" xml:space="preserve">
+    <value>radGroupBox1</value>
+  </data>
+  <data name="&gt;&gt;ResX.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="radLabel2.Location" type="System.Drawing.Point, System.Drawing">
+    <value>5, 73</value>
+  </data>
+  <data name="radLabel2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>85, 18</value>
+  </data>
+  <data name="radLabel2.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <data name="radLabel2.Text" xml:space="preserve">
+    <value>Размер экрана:</value>
+  </data>
+  <data name="&gt;&gt;radLabel2.Name" xml:space="preserve">
+    <value>radLabel2</value>
+  </data>
+  <data name="&gt;&gt;radLabel2.Type" xml:space="preserve">
+    <value>Telerik.WinControls.UI.RadLabel, Telerik.WinControls.UI, Version=2014.1.226.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
+  </data>
+  <data name="&gt;&gt;radLabel2.Parent" xml:space="preserve">
+    <value>radGroupBox1</value>
+  </data>
+  <data name="&gt;&gt;radLabel2.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="resource.Text3" xml:space="preserve">
+    <value>Размер экрана:</value>
+  </data>
+  <data name="radListDataItem1.TextWrap" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="radListDataItem2.TextWrap" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="radListDataItem3.TextWrap" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="LState.Location" type="System.Drawing.Point, System.Drawing">
+    <value>145, 96</value>
+  </data>
+  <data name="LState.Size" type="System.Drawing.Size, System.Drawing">
+    <value>177, 21</value>
+  </data>
+  <data name="LState.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="LState.Text" xml:space="preserve">
+    <value>Оставить лаунчер открытым</value>
+  </data>
+  <data name="&gt;&gt;LState.Name" xml:space="preserve">
+    <value>LState</value>
+  </data>
+  <data name="&gt;&gt;LState.Type" xml:space="preserve">
+    <value>Telerik.WinControls.UI.RadDropDownList, Telerik.WinControls.UI, Version=2014.1.226.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
+  </data>
+  <data name="&gt;&gt;LState.Parent" xml:space="preserve">
+    <value>radGroupBox1</value>
+  </data>
+  <data name="&gt;&gt;LState.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="Gamedir.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="Gamedir.Location" type="System.Drawing.Point, System.Drawing">
+    <value>145, 46</value>
+  </data>
+  <data name="Gamedir.Size" type="System.Drawing.Size, System.Drawing">
+    <value>177, 21</value>
+  </data>
+  <data name="Gamedir.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;Gamedir.Name" xml:space="preserve">
+    <value>Gamedir</value>
+  </data>
+  <data name="&gt;&gt;Gamedir.Type" xml:space="preserve">
+    <value>Telerik.WinControls.UI.RadTextBox, Telerik.WinControls.UI, Version=2014.1.226.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
+  </data>
+  <data name="&gt;&gt;Gamedir.Parent" xml:space="preserve">
+    <value>radGroupBox1</value>
+  </data>
+  <data name="&gt;&gt;Gamedir.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="UseDirectory.Location" type="System.Drawing.Point, System.Drawing">
+    <value>5, 47</value>
+  </data>
+  <data name="UseDirectory.Size" type="System.Drawing.Size, System.Drawing">
+    <value>134, 18</value>
+  </data>
+  <data name="UseDirectory.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="UseDirectory.Text" xml:space="preserve">
+    <value>Игровая директория:</value>
+  </data>
+  <data name="&gt;&gt;UseDirectory.Name" xml:space="preserve">
+    <value>UseDirectory</value>
+  </data>
+  <data name="&gt;&gt;UseDirectory.Type" xml:space="preserve">
+    <value>Telerik.WinControls.UI.RadCheckBox, Telerik.WinControls.UI, Version=2014.1.226.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
+  </data>
+  <data name="&gt;&gt;UseDirectory.Parent" xml:space="preserve">
+    <value>radGroupBox1</value>
+  </data>
+  <data name="&gt;&gt;UseDirectory.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="resource.Text4" xml:space="preserve">
+    <value>Игровая директория:</value>
+  </data>
+  <data name="radGroupBox1.HeaderText" xml:space="preserve">
+    <value>Основные настройки профиля</value>
+  </data>
+  <data name="radGroupBox1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>7, 4</value>
+  </data>
+  <data name="radGroupBox1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>330, 121</value>
+  </data>
+  <data name="radGroupBox1.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="radGroupBox1.Text" xml:space="preserve">
+    <value>Основные настройки профиля</value>
+  </data>
+  <data name="&gt;&gt;radGroupBox1.Name" xml:space="preserve">
+    <value>radGroupBox1</value>
+  </data>
+  <data name="&gt;&gt;radGroupBox1.Type" xml:space="preserve">
+    <value>Telerik.WinControls.UI.RadGroupBox, Telerik.WinControls.UI, Version=2014.1.226.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
+  </data>
+  <data name="&gt;&gt;radGroupBox1.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;radGroupBox1.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="EnableOther.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 93</value>
+  </data>
+  <data name="EnableOther.Size" type="System.Drawing.Size, System.Drawing">
+    <value>156, 18</value>
+  </data>
+  <data name="EnableOther.TabIndex" type="System.Int32, mscorlib">
+    <value>7</value>
+  </data>
+  <data name="EnableOther.Text" xml:space="preserve">
+    <value>Включить прочие версии</value>
+  </data>
+  <data name="&gt;&gt;EnableOther.Name" xml:space="preserve">
+    <value>EnableOther</value>
+  </data>
+  <data name="&gt;&gt;EnableOther.Type" xml:space="preserve">
+    <value>Telerik.WinControls.UI.RadCheckBox, Telerik.WinControls.UI, Version=2014.1.226.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
+  </data>
+  <data name="&gt;&gt;EnableOther.Parent" xml:space="preserve">
+    <value>radGroupBox2</value>
+  </data>
+  <data name="&gt;&gt;EnableOther.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="resource.Text5" xml:space="preserve">
+    <value>Включить прочие версии</value>
+  </data>
+  <data name="Versions.Location" type="System.Drawing.Point, System.Drawing">
+    <value>5, 114</value>
+  </data>
+  <data name="Versions.Size" type="System.Drawing.Size, System.Drawing">
+    <value>317, 21</value>
+  </data>
+  <data name="Versions.TabIndex" type="System.Int32, mscorlib">
+    <value>6</value>
+  </data>
+  <data name="&gt;&gt;Versions.Name" xml:space="preserve">
+    <value>Versions</value>
+  </data>
+  <data name="&gt;&gt;Versions.Type" xml:space="preserve">
+    <value>Telerik.WinControls.UI.RadDropDownList, Telerik.WinControls.UI, Version=2014.1.226.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
+  </data>
+  <data name="&gt;&gt;Versions.Parent" xml:space="preserve">
+    <value>radGroupBox2</value>
+  </data>
+  <data name="&gt;&gt;Versions.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="EnableAlpha.Location" type="System.Drawing.Point, System.Drawing">
+    <value>5, 69</value>
+  </data>
+  <data name="EnableAlpha.Size" type="System.Drawing.Size, System.Drawing">
+    <value>240, 18</value>
+  </data>
+  <data name="EnableAlpha.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <data name="EnableAlpha.Text" xml:space="preserve">
+    <value>Включить старые "Alpha" сборки(от 2010)</value>
+  </data>
+  <data name="&gt;&gt;EnableAlpha.Name" xml:space="preserve">
+    <value>EnableAlpha</value>
+  </data>
+  <data name="&gt;&gt;EnableAlpha.Type" xml:space="preserve">
+    <value>Telerik.WinControls.UI.RadCheckBox, Telerik.WinControls.UI, Version=2014.1.226.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
+  </data>
+  <data name="&gt;&gt;EnableAlpha.Parent" xml:space="preserve">
+    <value>radGroupBox2</value>
+  </data>
+  <data name="&gt;&gt;EnableAlpha.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="resource.Text6" xml:space="preserve">
+    <value>Включить старые "Alpha" сборки(от 2010)</value>
+  </data>
+  <data name="EnableBeta.Location" type="System.Drawing.Point, System.Drawing">
+    <value>5, 45</value>
+  </data>
+  <data name="EnableBeta.Size" type="System.Drawing.Size, System.Drawing">
+    <value>248, 18</value>
+  </data>
+  <data name="EnableBeta.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="EnableBeta.Text" xml:space="preserve">
+    <value>Включить старые "Beta" сборки(2010-2011)</value>
+  </data>
+  <data name="&gt;&gt;EnableBeta.Name" xml:space="preserve">
+    <value>EnableBeta</value>
+  </data>
+  <data name="&gt;&gt;EnableBeta.Type" xml:space="preserve">
+    <value>Telerik.WinControls.UI.RadCheckBox, Telerik.WinControls.UI, Version=2014.1.226.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
+  </data>
+  <data name="&gt;&gt;EnableBeta.Parent" xml:space="preserve">
+    <value>radGroupBox2</value>
+  </data>
+  <data name="&gt;&gt;EnableBeta.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="resource.Text7" xml:space="preserve">
+    <value>Включить старые "Beta" сборки(2010-2011)</value>
+  </data>
+  <data name="EnableExp.Location" type="System.Drawing.Point, System.Drawing">
+    <value>5, 21</value>
+  </data>
+  <data name="EnableExp.Size" type="System.Drawing.Size, System.Drawing">
+    <value>290, 18</value>
+  </data>
+  <data name="EnableExp.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="EnableExp.Text" xml:space="preserve">
+    <value>Включить эксперементальные сборки ("snapshots")</value>
+  </data>
+  <data name="&gt;&gt;EnableExp.Name" xml:space="preserve">
+    <value>EnableExp</value>
+  </data>
+  <data name="&gt;&gt;EnableExp.Type" xml:space="preserve">
+    <value>Telerik.WinControls.UI.RadCheckBox, Telerik.WinControls.UI, Version=2014.1.226.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
+  </data>
+  <data name="&gt;&gt;EnableExp.Parent" xml:space="preserve">
+    <value>radGroupBox2</value>
+  </data>
+  <data name="&gt;&gt;EnableExp.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="resource.Text8" xml:space="preserve">
+    <value>Включить эксперементальные сборки ("snapshots")</value>
+  </data>
+  <data name="radGroupBox2.HeaderText" xml:space="preserve">
+    <value>Выбор версии</value>
+  </data>
+  <data name="radGroupBox2.Location" type="System.Drawing.Point, System.Drawing">
+    <value>7, 131</value>
+  </data>
+  <data name="radGroupBox2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>330, 143</value>
+  </data>
+  <data name="radGroupBox2.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="radGroupBox2.Text" xml:space="preserve">
+    <value>Выбор версии</value>
+  </data>
+  <data name="&gt;&gt;radGroupBox2.Name" xml:space="preserve">
+    <value>radGroupBox2</value>
+  </data>
+  <data name="&gt;&gt;radGroupBox2.Type" xml:space="preserve">
+    <value>Telerik.WinControls.UI.RadGroupBox, Telerik.WinControls.UI, Version=2014.1.226.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
+  </data>
+  <data name="&gt;&gt;radGroupBox2.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;radGroupBox2.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="ExecJava.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="ExecJava.Location" type="System.Drawing.Point, System.Drawing">
+    <value>145, 20</value>
+  </data>
+  <data name="ExecJava.Size" type="System.Drawing.Size, System.Drawing">
+    <value>177, 21</value>
+  </data>
+  <data name="ExecJava.TabIndex" type="System.Int32, mscorlib">
+    <value>7</value>
+  </data>
+  <data name="&gt;&gt;ExecJava.Name" xml:space="preserve">
+    <value>ExecJava</value>
+  </data>
+  <data name="&gt;&gt;ExecJava.Type" xml:space="preserve">
+    <value>Telerik.WinControls.UI.RadTextBox, Telerik.WinControls.UI, Version=2014.1.226.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
+  </data>
+  <data name="&gt;&gt;ExecJava.Parent" xml:space="preserve">
+    <value>radGroupBox3</value>
+  </data>
+  <data name="&gt;&gt;ExecJava.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="UseExec.Location" type="System.Drawing.Point, System.Drawing">
+    <value>7, 21</value>
+  </data>
+  <data name="UseExec.Size" type="System.Drawing.Size, System.Drawing">
+    <value>128, 18</value>
+  </data>
+  <data name="UseExec.TabIndex" type="System.Int32, mscorlib">
+    <value>6</value>
+  </data>
+  <data name="UseExec.Text" xml:space="preserve">
+    <value>Исполняемый файл:</value>
+  </data>
+  <data name="&gt;&gt;UseExec.Name" xml:space="preserve">
+    <value>UseExec</value>
+  </data>
+  <data name="&gt;&gt;UseExec.Type" xml:space="preserve">
+    <value>Telerik.WinControls.UI.RadCheckBox, Telerik.WinControls.UI, Version=2014.1.226.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
+  </data>
+  <data name="&gt;&gt;UseExec.Parent" xml:space="preserve">
+    <value>radGroupBox3</value>
+  </data>
+  <data name="&gt;&gt;UseExec.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="resource.Text9" xml:space="preserve">
+    <value>Исполняемый файл:</value>
+  </data>
+  <data name="Args.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="Args.Location" type="System.Drawing.Point, System.Drawing">
+    <value>145, 47</value>
+  </data>
+  <data name="Args.Size" type="System.Drawing.Size, System.Drawing">
+    <value>177, 21</value>
+  </data>
+  <data name="Args.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <data name="&gt;&gt;Args.Name" xml:space="preserve">
+    <value>Args</value>
+  </data>
+  <data name="&gt;&gt;Args.Type" xml:space="preserve">
+    <value>Telerik.WinControls.UI.RadTextBox, Telerik.WinControls.UI, Version=2014.1.226.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
+  </data>
+  <data name="&gt;&gt;Args.Parent" xml:space="preserve">
+    <value>radGroupBox3</value>
+  </data>
+  <data name="&gt;&gt;Args.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="UseArgs.Location" type="System.Drawing.Point, System.Drawing">
+    <value>7, 48</value>
+  </data>
+  <data name="UseArgs.Size" type="System.Drawing.Size, System.Drawing">
+    <value>83, 18</value>
+  </data>
+  <data name="UseArgs.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="UseArgs.Text" xml:space="preserve">
+    <value>Аргументы:</value>
+  </data>
+  <data name="&gt;&gt;UseArgs.Name" xml:space="preserve">
+    <value>UseArgs</value>
+  </data>
+  <data name="&gt;&gt;UseArgs.Type" xml:space="preserve">
+    <value>Telerik.WinControls.UI.RadCheckBox, Telerik.WinControls.UI, Version=2014.1.226.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
+  </data>
+  <data name="&gt;&gt;UseArgs.Parent" xml:space="preserve">
+    <value>radGroupBox3</value>
+  </data>
+  <data name="&gt;&gt;UseArgs.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="resource.Text10" xml:space="preserve">
+    <value>Аргументы:</value>
+  </data>
+  <data name="radGroupBox3.HeaderText" xml:space="preserve">
+    <value>Настройки Java</value>
+  </data>
+  <data name="radGroupBox3.Location" type="System.Drawing.Point, System.Drawing">
+    <value>7, 272</value>
+  </data>
+  <data name="radGroupBox3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>330, 75</value>
+  </data>
+  <data name="radGroupBox3.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="radGroupBox3.Text" xml:space="preserve">
+    <value>Настройки Java</value>
+  </data>
+  <data name="&gt;&gt;radGroupBox3.Name" xml:space="preserve">
+    <value>radGroupBox3</value>
+  </data>
+  <data name="&gt;&gt;radGroupBox3.Type" xml:space="preserve">
+    <value>Telerik.WinControls.UI.RadGroupBox, Telerik.WinControls.UI, Version=2014.1.226.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
+  </data>
+  <data name="&gt;&gt;radGroupBox3.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;radGroupBox3.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="radButton1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left</value>
+  </data>
+  <data name="radButton1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>1, 389</value>
+  </data>
+  <data name="radButton1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>78, 24</value>
+  </data>
+  <data name="radButton1.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <data name="radButton1.Text" xml:space="preserve">
+    <value>Отмена</value>
+  </data>
+  <data name="&gt;&gt;radButton1.Name" xml:space="preserve">
+    <value>radButton1</value>
+  </data>
+  <data name="&gt;&gt;radButton1.Type" xml:space="preserve">
+    <value>Telerik.WinControls.UI.RadButton, Telerik.WinControls.UI, Version=2014.1.226.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
+  </data>
+  <data name="&gt;&gt;radButton1.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;radButton1.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="radButton2.Location" type="System.Drawing.Point, System.Drawing">
+    <value>220, 352</value>
+  </data>
+  <data name="radButton2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>117, 34</value>
+  </data>
+  <data name="radButton2.TabIndex" type="System.Int32, mscorlib">
+    <value>6</value>
+  </data>
+  <data name="radButton2.Text" xml:space="preserve">
+    <value>Сохранить профиль</value>
+  </data>
+  <data name="&gt;&gt;radButton2.Name" xml:space="preserve">
+    <value>radButton2</value>
+  </data>
+  <data name="&gt;&gt;radButton2.Type" xml:space="preserve">
+    <value>Telerik.WinControls.UI.RadButton, Telerik.WinControls.UI, Version=2014.1.226.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
+  </data>
+  <data name="&gt;&gt;radButton2.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;radButton2.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="radButton3.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI, 8.25pt</value>
+  </data>
+  <data name="radButton3.Location" type="System.Drawing.Point, System.Drawing">
+    <value>103, 352</value>
+  </data>
+  <data name="radButton3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>111, 34</value>
+  </data>
+  <data name="radButton3.TabIndex" type="System.Int32, mscorlib">
+    <value>7</value>
+  </data>
+  <data name="radButton3.Text" xml:space="preserve">
+    <value>Открыть игр. директорию</value>
+  </data>
+  <data name="&gt;&gt;radButton3.Name" xml:space="preserve">
+    <value>radButton3</value>
+  </data>
+  <data name="&gt;&gt;radButton3.Type" xml:space="preserve">
+    <value>Telerik.WinControls.UI.RadButton, Telerik.WinControls.UI, Version=2014.1.226.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
+  </data>
+  <data name="&gt;&gt;radButton3.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;radButton3.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="radButton4.Location" type="System.Drawing.Point, System.Drawing">
+    <value>103, 389</value>
+  </data>
+  <data name="radButton4.Size" type="System.Drawing.Size, System.Drawing">
+    <value>234, 24</value>
+  </data>
+  <data name="radButton4.TabIndex" type="System.Int32, mscorlib">
+    <value>8</value>
+  </data>
+  <data name="radButton4.Text" xml:space="preserve">
+    <value>Удалить профиль</value>
+  </data>
+  <data name="&gt;&gt;radButton4.Name" xml:space="preserve">
+    <value>radButton4</value>
+  </data>
+  <data name="&gt;&gt;radButton4.Type" xml:space="preserve">
+    <value>Telerik.WinControls.UI.RadButton, Telerik.WinControls.UI, Version=2014.1.226.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
+  </data>
+  <data name="&gt;&gt;radButton4.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;radButton4.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
+    <value>6, 13</value>
+  </data>
+  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
+    <value>341, 414</value>
+  </data>
+  <data name="$this.MaximumSize" type="System.Drawing.Size, System.Drawing">
+    <value>349, 447</value>
+  </data>
+  <data name="$this.MinimumSize" type="System.Drawing.Size, System.Drawing">
+    <value>349, 420</value>
+  </data>
+  <data name="$this.Text" xml:space="preserve">
+    <value>Profile Editor</value>
+  </data>
+  <data name="&gt;&gt;$this.Name" xml:space="preserve">
+    <value>ProfileForm</value>
+  </data>
+  <data name="&gt;&gt;$this.Type" xml:space="preserve">
+    <value>Telerik.WinControls.UI.RadForm, Telerik.WinControls.UI, Version=2014.1.226.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
+  </data>
+  <data name="message.error" xml:space="preserve">
+    <value>Ошибка!</value>
+  </data>
+  <data name="message.deleteprofile" xml:space="preserve">
+    <value>Удаление профиля</value>
+  </data>
+  <data name="message.deleteprofiletext" xml:space="preserve">
+    <value>Вы действительно хотите удалить этот профиль?</value>
+  </data>
+  <data name="message.errornull" xml:space="preserve">
+    <value>Выбранная версия не может быть null!</value>
+  </data>
+  <data name="message.invalidname" xml:space="preserve">
+    <value>Данное имя недоступно!</value>
+  </data>
+  <data name="uselastversion" xml:space="preserve">
+    <value>Использовать последнюю версию</value>
+  </data>
+  <data name="message.deleteprofilelast" xml:space="preserve">
+    <value>Данный профиль является последним. Удаление невозможно!</value>
+  </data>
+  <data name="data.close" xml:space="preserve">
+    <value>Закрыть лаунчер</value>
+  </data>
+  <data name="data.minsize" xml:space="preserve">
+    <value>Спрятать лаунчер</value>
+  </data>
+  <data name="data.keepopen" xml:space="preserve">
+    <value>Оставить лаунчер открытым</value>
+  </data>
+</root>
