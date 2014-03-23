@@ -1,7 +1,7 @@
 Luncher
 =======
 
-Open source C# Minecraft piracy launcher
+Open source Minecraft piracy launcher
 
 Requires .Net Framework 4.0
 
