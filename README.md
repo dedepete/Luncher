@@ -8,8 +8,8 @@ Requires .Net Framework 4.0
 Using assemblies
 =======
 
-RadControls
+Telerik RadControls (http://www.telerik.com/products/winforms.aspx)
 
-Ionic.Zip
+Ionic.Zip (http://dotnetzip.codeplex.com/)
 
-JSON.Net
+JSON.Net (http://james.newtonking.com/json)
