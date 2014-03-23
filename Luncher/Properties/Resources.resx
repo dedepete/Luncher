@@ -121,13 +121,7 @@
   <data name="1328800264_minecraft-logo" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\1328800264_minecraft-logo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="ws_Brown_Pixels_1024x768" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ws_Brown_Pixels_1024x768.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="518718704" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\518718704.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="minecraft_dirt_wallpaper_by_thedevartist-d3l1qoj" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="minecraft_dirt_wallpaper_by_thedevartist_d3l1qoj" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\minecraft_dirt_wallpaper_by_thedevartist-d3l1qoj.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>
