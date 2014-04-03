@@ -1,4 +1,5 @@
 ﻿using Ionic.Zip;
+using Microsoft.VisualBasic.Devices;
 using Microsoft.Win32;
 using Newtonsoft.Json.Linq;
 using System;
@@ -28,6 +29,16 @@ namespace Luncher
         {
             Thread.CurrentThread.CurrentUICulture = new CultureInfo(Program.lang);
             InitializeComponent();
+            RadMenuItem openVer = new RadMenuItem();
+            openVer.Text = "Показать в проводнике";
+            openVer.Click += new EventHandler(openVer_Clicked);
+            VerContext.Items.Add(openVer);
+            RadMenuSeparatorItem VerS = new RadMenuSeparatorItem();
+            VerContext.Items.Add(VerS);
+            RadMenuItem delVer = new RadMenuItem();
+            delVer.Text = "Удалить";
+            delVer.Click += new EventHandler(delVer_Clicked);
+            VerContext.Items.Add(delVer);
         }
 
         [DllImport("user32.dll")]
@@ -36,6 +47,30 @@ namespace Luncher
         ResourceManager LocRM = new ResourceManager("Luncher.Launcher", typeof(Launcher).Assembly);
 
         string minecraft = Program.minecraft;
+        private void openVer_Clicked(object sender, EventArgs e)
+        {
+            Process.Start(Variables.MCVersions + "/" + radListView1.SelectedItem[0] + "/");
+        }
+
+        private void delVer_Clicked(object sender, EventArgs e)
+        {
+            DialogResult dr = RadMessageBox.Show("Вы действительно хотите удалить эту версию(" + radListView1.SelectedItem[0] + ")?", "Подтверждение",
+                MessageBoxButtons.YesNo, RadMessageIcon.Question);
+            if (dr == System.Windows.Forms.DialogResult.Yes)
+            {
+                MLog("Удаление " + radListView1.SelectedItem[0] + "...");
+                try
+                {
+                    Directory.Delete(Variables.MCVersions + "/" + radListView1.SelectedItem[0] + "/", true);
+                    GetVersions();
+                    GetSelectedVersion(SelectProfile.SelectedItem.Text);
+                }
+                catch (Exception ex)
+                {
+                    ELog("Во время удаления версии возникла ошибка:\n" + ex.ToString());
+                }
+            }
+        }
 
         private void Launcher_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -1384,6 +1419,11 @@ namespace Luncher
                     }
                 }
             }
+        }
+
+        private void radListView1_ItemMouseClick(object sender, ListViewItemEventArgs e)
+        {
+            radListView1.SelectedItem = e.Item;
         }
     }
 }
