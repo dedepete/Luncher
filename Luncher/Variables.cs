@@ -15,19 +15,16 @@ namespace Luncher
 
         private static string minecraft = Program.minecraft;
         // keep in mind these variables are available anywhere using Variables.varName
-        public static List<string> availableVersions = new List<string>();
         public static string localProfileList = minecraft + "\\launcher_profiles.json";
-        public static string specVersionJSON = @"https://s3.amazonaws.com/Minecraft.Download/versions/";
         public static string profileJSONFile = minecraft + @"\launcher_profiles.json";
+        public static string profileNamesJSONFile = minecraft + @"\user_profiles.json";
         public static string userName = null;
         public static string clientToken = null;
         public static string accessToken = null;
         public static string mainClass = null;
-        public static string userFile = @"user.usr";
         public static string authServer = @"https://authserver.mojang.com/";
         public static string MCFolder = minecraft;
         public static string MCVersions = Path.Combine(minecraft, "versions");
-        public static string setFile = Path.Combine(Application.StartupPath, "IMMSet.xml");
         public static string javaExe = GetJavaInstallationPath() + @"\bin\java.exe";
         // custom versioning
         public static string netJsonVersion = "6.0r1";
