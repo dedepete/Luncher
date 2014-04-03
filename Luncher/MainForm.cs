@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Net;
+using System.Reflection;
 using System.Windows.Forms;
 using Telerik.WinControls;
 using Telerik.WinControls.UI;
@@ -30,7 +31,7 @@ namespace Luncher
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            MLog(ProductName + " " + ProductVersion + "[Beta]");
+            MLog(ProductName + " " + ProductVersion + "[RC1]");
             MLog("");
             try
             {
@@ -45,8 +46,6 @@ namespace Luncher
             MLog("JSON.NET " + Variables.netJsonVersion);
             MLog("DotNetZip " + Variables.netZipVersion);
             MLog("");
-            MLog("ВНИМАНИЕ! BETA ТЕСТ!");
-            MLog("Данная программа находится на стадии бета теста");
             if (!Directory.Exists(minecraft))
             {
                 Directory.CreateDirectory(minecraft);
@@ -113,20 +112,37 @@ namespace Luncher
                 File.WriteAllText(Variables.localProfileList, parsedjson.ToString());
             }
             JObject ljson = JObject.Parse(File.ReadAllText(Variables.localProfileList));
-            if (ljson["profiles"] != null)
+            try
             {
-                if (ljson["selectedProfile"] != null)
+                if (ljson["luncher"].ToString() == "true")
                 {
-                    MLog("launcher_profiles.json загружен успешно");
+                    if (ljson["selectedProfile"] != null)
+                    {
+                        MLog("launcher_profiles.json загружен успешно");
+                    }
+                    else
+                    {
+                        throw new Exception("Один из важных разделов файла повреждён!");
+                    }
                 }
                 else
                 {
-                    throw new Exception("Один из важных разделов файла повреждён!");
+                    string newname = DateTime.Now.ToString("HHmmss") + ".json";
+                    MLog("Создание бэк-апа старого файла профилей(launcher_profiles.bup." + newname + ")...");
+                    File.Move(Variables.localProfileList, Variables.MCFolder + "/launcher_profiles.bup." + newname);
+                    JObject jsn = JObject.Parse(File.ReadAllText(Variables.MCFolder + "/launcher_profiles.bup." + newname));
+                    jsn.Add(new JProperty("luncher", "true"));
+                    File.WriteAllText(Variables.localProfileList, jsn.ToString());
                 }
             }
-            else
+            catch
             {
-                throw new Exception("Один из важных разделов файла повреждён!");
+                string newname = DateTime.Now.ToString("HHmmss") + ".json";
+                MLog("Создание бэк-апа старого файла профилей(launcher_profiles.bup." + newname + ")...");
+                File.Move(Variables.localProfileList, Variables.MCFolder + "/launcher_profiles.bup." + newname);
+                JObject jsn = JObject.Parse(File.ReadAllText(Variables.MCFolder + "/launcher_profiles.bup." + newname));
+                jsn.Add(new JProperty("luncher", "true"));
+                File.WriteAllText(Variables.localProfileList, jsn.ToString());
             }
         }
         void MLog(string text)
@@ -284,6 +300,23 @@ namespace Luncher
                                 break;
                             }
                         }
+                        JObject jo = JObject.Parse(File.ReadAllText(Variables.MCVersions + "/versions.json"));
+                        JObject njo;
+                        using (WebClient client = new WebClient())
+                        {
+                            if (!File.Exists(Variables.MCVersions + "/versions.temp.json"))
+                            {
+                                client.DownloadFile(
+                                    "https://s3.amazonaws.com/Minecraft.Download/versions/versions.json",
+                                    Variables.MCVersions + "/versions.temp.json");
+                            }
+                            njo = JObject.Parse(File.ReadAllText(Variables.MCVersions + "/versions.temp.json"));
+                        }
+                        MLog("Локальных версий: " + ((JArray)jo["versions"]).Count + ". Версий на удалённом сервере: " + ((JArray)njo["versions"]).Count);
+                        if (((JArray) jo["versions"]).Count != ((JArray) njo["versions"]).Count)
+                        {
+                            updatefound = true;
+                        }
                         Variables.lastRelease = latestrelease;
                         Variables.lastSnapshot = latestsnaphot;
                         if (updatefound == true)
@@ -401,6 +434,13 @@ namespace Luncher
         {
             try
             {
+                try
+                {
+                    File.Delete(Variables.MCVersions + "/versions.temp.json");
+                }
+                catch
+                {
+                }
                 Launcher ln = new Launcher();
                 ln.Size = this.Size;
                 ln.Location = this.Location;
