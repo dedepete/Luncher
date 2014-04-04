@@ -1080,7 +1080,7 @@ Copyright SESMC(c)2014</value>
     <value>0</value>
   </data>
   <metadata name="Dark.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>14, 7</value>
+    <value>328, 17</value>
   </metadata>
   <data name="NewsBrowser.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
@@ -1274,6 +1274,12 @@ Copyright SESMC(c)2014</value>
   <data name="radListView1.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>
   </data>
+  <metadata name="radContextMenuManager1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
+  <metadata name="VerContext.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>216, 17</value>
+  </metadata>
   <data name="radListView1.Size" type="System.Drawing.Size, System.Drawing">
     <value>791, 301</value>
   </data>
@@ -1332,6 +1338,114 @@ Copyright SESMC(c)2014</value>
     <value>radPageView2</value>
   </data>
   <data name="&gt;&gt;radPageViewPage2.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="label10.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label10.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI, 9pt</value>
+  </data>
+  <data name="label10.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="label10.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 15</value>
+  </data>
+  <data name="label10.Size" type="System.Drawing.Size, System.Drawing">
+    <value>67, 15</value>
+  </data>
+  <data name="label10.TabIndex" type="System.Int32, mscorlib">
+    <value>6</value>
+  </data>
+  <data name="label10.Text" xml:space="preserve">
+    <value>GitHub link</value>
+  </data>
+  <data name="&gt;&gt;label10.Name" xml:space="preserve">
+    <value>label10</value>
+  </data>
+  <data name="&gt;&gt;label10.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label10.Parent" xml:space="preserve">
+    <value>radPageViewPage6</value>
+  </data>
+  <data name="&gt;&gt;label10.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="label9.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label9.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 0</value>
+  </data>
+  <data name="label9.Size" type="System.Drawing.Size, System.Drawing">
+    <value>287, 13</value>
+  </data>
+  <data name="label9.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="label9.Text" xml:space="preserve">
+    <value>Processing code belongs to Ilan321. All rights reserved</value>
+  </data>
+  <data name="&gt;&gt;label9.Name" xml:space="preserve">
+    <value>label9</value>
+  </data>
+  <data name="&gt;&gt;label9.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label9.Parent" xml:space="preserve">
+    <value>radPageViewPage6</value>
+  </data>
+  <data name="&gt;&gt;label9.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="radPageViewPage6.Location" type="System.Drawing.Point, System.Drawing">
+    <value>155, 4</value>
+  </data>
+  <data name="radPageViewPage6.Size" type="System.Drawing.Size, System.Drawing">
+    <value>622, 258</value>
+  </data>
+  <data name="radPageViewPage6.Text" xml:space="preserve">
+    <value>Processing code</value>
+  </data>
+  <data name="&gt;&gt;radPageViewPage6.Name" xml:space="preserve">
+    <value>radPageViewPage6</value>
+  </data>
+  <data name="&gt;&gt;radPageViewPage6.Type" xml:space="preserve">
+    <value>Telerik.WinControls.UI.RadPageViewPage, Telerik.WinControls.UI, Version=2014.1.226.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
+  </data>
+  <data name="&gt;&gt;radPageViewPage6.Parent" xml:space="preserve">
+    <value>radPageView3</value>
+  </data>
+  <data name="&gt;&gt;radPageViewPage6.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="radPageView3.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="radPageView3.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="radPageView3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>781, 266</value>
+  </data>
+  <data name="radPageView3.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="radPageView3.Text" xml:space="preserve">
+    <value>radPageView3</value>
+  </data>
+  <data name="&gt;&gt;radPageView3.Name" xml:space="preserve">
+    <value>radPageView3</value>
+  </data>
+  <data name="&gt;&gt;radPageView3.Type" xml:space="preserve">
+    <value>Telerik.WinControls.UI.RadPageView, Telerik.WinControls.UI, Version=2014.1.226.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
+  </data>
+  <data name="&gt;&gt;radPageView3.Parent" xml:space="preserve">
+    <value>radPageViewPage3</value>
+  </data>
+  <data name="&gt;&gt;radPageView3.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
   <data name="radPageViewPage3.Location" type="System.Drawing.Point, System.Drawing">
@@ -1523,6 +1637,33 @@ Copyright SESMC(c)2014</value>
   <data name="&gt;&gt;progressBar1.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
+  <data name="Nickname.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="Nickname.Location" type="System.Drawing.Point, System.Drawing">
+    <value>285, 6</value>
+  </data>
+  <data name="Nickname.NullText" xml:space="preserve">
+    <value>Ник</value>
+  </data>
+  <data name="Nickname.Size" type="System.Drawing.Size, System.Drawing">
+    <value>231, 21</value>
+  </data>
+  <data name="Nickname.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;Nickname.Name" xml:space="preserve">
+    <value>Nickname</value>
+  </data>
+  <data name="&gt;&gt;Nickname.Type" xml:space="preserve">
+    <value>Telerik.WinControls.UI.RadDropDownList, Telerik.WinControls.UI, Version=2014.1.226.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
+  </data>
+  <data name="&gt;&gt;Nickname.Parent" xml:space="preserve">
+    <value>radPanel1</value>
+  </data>
+  <data name="&gt;&gt;Nickname.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <data name="SelectedVersion.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
   </data>
@@ -1554,7 +1695,7 @@ Copyright SESMC(c)2014</value>
     <value>radPanel1</value>
   </data>
   <data name="&gt;&gt;SelectedVersion.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="pictureBox1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
@@ -1581,7 +1722,7 @@ Copyright SESMC(c)2014</value>
     <value>radPanel1</value>
   </data>
   <data name="&gt;&gt;pictureBox1.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="LaunchButton.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top</value>
@@ -1608,33 +1749,6 @@ Copyright SESMC(c)2014</value>
     <value>radPanel1</value>
   </data>
   <data name="&gt;&gt;LaunchButton.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="Nickname.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top</value>
-  </data>
-  <data name="Nickname.Location" type="System.Drawing.Point, System.Drawing">
-    <value>285, 6</value>
-  </data>
-  <data name="Nickname.NullText" xml:space="preserve">
-    <value>Ник</value>
-  </data>
-  <data name="Nickname.Size" type="System.Drawing.Size, System.Drawing">
-    <value>231, 21</value>
-  </data>
-  <data name="Nickname.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
-  </data>
-  <data name="&gt;&gt;Nickname.Name" xml:space="preserve">
-    <value>Nickname</value>
-  </data>
-  <data name="&gt;&gt;Nickname.Type" xml:space="preserve">
-    <value>Telerik.WinControls.UI.RadTextBox, Telerik.WinControls.UI, Version=2014.1.226.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
-  </data>
-  <data name="&gt;&gt;Nickname.Parent" xml:space="preserve">
-    <value>radPanel1</value>
-  </data>
-  <data name="&gt;&gt;Nickname.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
   <data name="SelectProfile.Location" type="System.Drawing.Point, System.Drawing">
@@ -4278,50 +4392,32 @@ Copyright SESMC(c)2014</value>
   <data name="&gt;&gt;Dark.Type" xml:space="preserve">
     <value>Telerik.WinControls.Themes.VisualStudio2012DarkTheme, Telerik.WinControls.Themes.VisualStudio2012Dark, Version=2014.1.226.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
   </data>
+  <data name="&gt;&gt;radContextMenuManager1.Name" xml:space="preserve">
+    <value>radContextMenuManager1</value>
+  </data>
+  <data name="&gt;&gt;radContextMenuManager1.Type" xml:space="preserve">
+    <value>Telerik.WinControls.UI.RadContextMenuManager, Telerik.WinControls.UI, Version=2014.1.226.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
+  </data>
+  <data name="&gt;&gt;VerContext.Name" xml:space="preserve">
+    <value>VerContext</value>
+  </data>
+  <data name="&gt;&gt;VerContext.Type" xml:space="preserve">
+    <value>Telerik.WinControls.UI.RadContextMenu, Telerik.WinControls.UI, Version=2014.1.226.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
+  </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>Launcher</value>
   </data>
   <data name="&gt;&gt;$this.Type" xml:space="preserve">
     <value>Telerik.WinControls.UI.RadForm, Telerik.WinControls.UI, Version=2014.1.226.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
   </data>
-  <data name="launch.launchtext" xml:space="preserve">
-    <value>Запуск</value>
-  </data>
-  <data name="launch.text1p" xml:space="preserve">
-    <value>Запуск</value>
-  </data>
-  <data name="launch.text2p" xml:space="preserve">
-    <value>Профиль:</value>
-  </data>
-  <data name="launch.error" xml:space="preserve">
-    <value>Во время запуска возникла ошибка:</value>
-  </data>
   <data name="getversions.error" xml:space="preserve">
     <value>Во время получения сведений об установленных версиях возникла ошибка:</value>
   </data>
-  <data name="resources.completed1p" xml:space="preserve">
-    <value>Проверка ресурсов завершена. Всего файлов:</value>
-  </data>
-  <data name="resources.completed2p" xml:space="preserve">
-    <value>Из них отсутствует:</value>
-  </data>
-  <data name="resources.checking" xml:space="preserve">
-    <value>Проверяется наличие необходимых ресурсов...</value>
-  </data>
-  <data name="resources.reconstructing" xml:space="preserve">
-    <value>Выполняется перестойка ресурсов...</value>
-  </data>
-  <data name="resources.reconstructioncanceled" xml:space="preserve">
-    <value>Перестройка ресурсов была отменена пользователем</value>
-  </data>
-  <data name="resources.reconstructionerror" xml:space="preserve">
-    <value>Во время перестройки ресурсов возникла ошибка:</value>
+  <data name="downloader.inprogress" xml:space="preserve">
+    <value>Выполняется загрузка</value>
   </data>
   <data name="downloader.error" xml:space="preserve">
     <value>Во время подготовки к скачиванию возникла ошибка:</value>
-  </data>
-  <data name="downloader.inprogress" xml:space="preserve">
-    <value>Выполняется загрузка</value>
   </data>
   <data name="downloading.completed" xml:space="preserve">
     <value>завершена!</value>
@@ -4334,6 +4430,15 @@ Copyright SESMC(c)2014</value>
   </data>
   <data name="launch.command" xml:space="preserve">
     <value>Команда:</value>
+  </data>
+  <data name="launch.error" xml:space="preserve">
+    <value>Во время запуска возникла ошибка:</value>
+  </data>
+  <data name="launch.text1p" xml:space="preserve">
+    <value>Запуск</value>
+  </data>
+  <data name="launch.text2p" xml:space="preserve">
+    <value>Профиль:</value>
   </data>
   <data name="launch.workingdir" xml:space="preserve">
     <value>Используемая папка:</value>
@@ -4371,9 +4476,6 @@ Copyright SESMC(c)2014</value>
   <data name="profile.delete.canceled" xml:space="preserve">
     <value>Отменено</value>
   </data>
-  <data name="profile.editing" xml:space="preserve">
-    <value>Изменение профиля</value>
-  </data>
   <data name="profile.delete.succes" xml:space="preserve">
     <value>Профиль успешно удалён!</value>
   </data>
@@ -4383,13 +4485,40 @@ Copyright SESMC(c)2014</value>
   <data name="profile.edited.complete2p" xml:space="preserve">
     <value>изменён успешно!</value>
   </data>
+  <data name="profile.editing" xml:space="preserve">
+    <value>Изменение профиля</value>
+  </data>
   <data name="program.started" xml:space="preserve">
     <value>Лаунчер успешно запущен.</value>
+  </data>
+  <data name="resources.checking" xml:space="preserve">
+    <value>Проверяется наличие необходимых ресурсов...</value>
+  </data>
+  <data name="resources.completed1p" xml:space="preserve">
+    <value>Проверка ресурсов завершена. Всего файлов:</value>
+  </data>
+  <data name="resources.completed2p" xml:space="preserve">
+    <value>Из них отсутствует:</value>
+  </data>
+  <data name="resources.reconstructing" xml:space="preserve">
+    <value>Выполняется перестойка ресурсов...</value>
+  </data>
+  <data name="resources.reconstructioncanceled" xml:space="preserve">
+    <value>Перестройка ресурсов была отменена пользователем</value>
+  </data>
+  <data name="resources.reconstructionerror" xml:space="preserve">
+    <value>Во время перестройки ресурсов возникла ошибка:</value>
   </data>
   <data name="resources.recostructionsuccestotal" xml:space="preserve">
     <value>Перестройка завершена. Всего файлов ресурсов:</value>
   </data>
   <data name="resources.recostructionsuccestotalrecostructed" xml:space="preserve">
     <value>Из них было перестроено:</value>
+  </data>
+  <data name="launch.launchtext" xml:space="preserve">
+    <value>Запуск</value>
+  </data>
+  <data name="lib.downloadingcomplete" xml:space="preserve">
+    <value>Завершена загрузка {0}. Размер загруженной библиотеки: {1} байт(ов)</value>
   </data>
 </root>

@@ -389,4 +389,10 @@ Copyright SESMC(c)2014</value>
   <data name="label8.Text" xml:space="preserve">
     <value>Rename game window:</value>
   </data>
+  <data name="label9.Text" xml:space="preserve">
+    <value>Processing code belongs to Ilan321. All rights reserved</value>
+  </data>
+  <data name="lib.downloadingcomplete" xml:space="preserve">
+    <value>Finished downloading {0}. Library size: {1} byte(s)</value>
+  </data>
 </root>
