@@ -49,27 +49,44 @@ namespace Luncher
         string minecraft = Program.minecraft;
         private void openVer_Clicked(object sender, EventArgs e)
         {
-            Process.Start(Variables.MCVersions + "/" + radListView1.SelectedItem[0] + "/");
+            try
+            {
+                if (!String.IsNullOrEmpty(radListView1.SelectedItem[0].ToString()))
+                {
+                    Process.Start(Variables.MCVersions + "/" + radListView1.SelectedItem[0] + "/");
+                }
+            }
+            catch { }
         }
 
         private void delVer_Clicked(object sender, EventArgs e)
         {
-            DialogResult dr = RadMessageBox.Show("Вы действительно хотите удалить эту версию(" + radListView1.SelectedItem[0] + ")?", "Подтверждение",
-                MessageBoxButtons.YesNo, RadMessageIcon.Question);
-            if (dr == System.Windows.Forms.DialogResult.Yes)
+            try
             {
-                MLog("Удаление " + radListView1.SelectedItem[0] + "...");
-                try
+                if (!String.IsNullOrEmpty(radListView1.SelectedItem[0].ToString()))
                 {
-                    Directory.Delete(Variables.MCVersions + "/" + radListView1.SelectedItem[0] + "/", true);
-                    GetVersions();
-                    GetSelectedVersion(SelectProfile.SelectedItem.Text);
-                }
-                catch (Exception ex)
-                {
-                    ELog("Во время удаления версии возникла ошибка:\n" + ex.ToString());
+                    DialogResult dr =
+                        RadMessageBox.Show(
+                            "Вы действительно хотите удалить эту версию(" + radListView1.SelectedItem[0] + ")?",
+                            "Подтверждение",
+                            MessageBoxButtons.YesNo, RadMessageIcon.Question);
+                    if (dr == System.Windows.Forms.DialogResult.Yes)
+                    {
+                        MLog("Удаление " + radListView1.SelectedItem[0] + "...");
+                        try
+                        {
+                            Directory.Delete(Variables.MCVersions + "/" + radListView1.SelectedItem[0] + "/", true);
+                            GetVersions();
+                            GetSelectedVersion(SelectProfile.SelectedItem.Text);
+                        }
+                        catch (Exception ex)
+                        {
+                            ELog("Во время удаления версии возникла ошибка:\n" + ex.ToString());
+                        }
+                    }
                 }
             }
+            catch { }
         }
 
         private void Launcher_FormClosing(object sender, FormClosingEventArgs e)
@@ -638,6 +655,12 @@ namespace Luncher
         }
         private void LibCompleted(object sender, AsyncCompletedEventArgs e)
         {
+            string lname = libstodownload[lcur];
+            string size = new FileInfo(Variables.MCFolder + "\\libraries\\" + lname).Length.ToString();
+            string completedtext = LocRM.GetString("lib.downloadingcomplete");
+            completedtext = completedtext.Replace("{0}", lname);
+            completedtext = completedtext.Replace("{1}", size);
+            MLog(completedtext);
             lsw.Reset();
             lcur++;
             if (lcur == ltotal)
@@ -1424,6 +1447,11 @@ namespace Luncher
         private void radListView1_ItemMouseClick(object sender, ListViewItemEventArgs e)
         {
             radListView1.SelectedItem = e.Item;
+        }
+
+        private void label10_Click(object sender, EventArgs e)
+        {
+            Process.Start(@"https://github.com/Ilan321/MCLauncher");
         }
     }
 }
