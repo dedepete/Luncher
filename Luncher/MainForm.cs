@@ -31,7 +31,7 @@ namespace Luncher
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            MLog(ProductName + " " + ProductVersion + "[RC1]");
+            MLog(ProductName + " " + ProductVersion + "[RC2]");
             MLog("");
             try
             {
