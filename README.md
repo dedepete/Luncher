@@ -5,7 +5,7 @@ Open source Minecraft piracy launcher
 
 Requires .Net Framework 4.0
 
-Using assemblies
+Used assemblies
 =======
 
 Telerik RadControls (http://www.telerik.com/products/winforms.aspx)
