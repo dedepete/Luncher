@@ -27,8 +27,9 @@ namespace Luncher
         public static string MCVersions = Path.Combine(minecraft, "versions");
         public static string javaExe = GetJavaInstallationPath() + @"\bin\java.exe";
         // custom versioning
-        public static string netJsonVersion = "6.0r1";
-        public static string netZipVersion = "1.9.1.8";
+        public static string netJsonVersion = "6.0r2";
+        public static string netZipVersion = "1.9.2";
+        public static string NDOptions = "0.2.1";
         // last versions
         public static string lastRelease = null;
         public static string lastSnapshot = null;

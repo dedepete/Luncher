@@ -31,7 +31,7 @@ namespace Luncher
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            MLog(ProductName + " " + ProductVersion + "[RC2]");
+            MLog(ProductName + " " + ProductVersion);
             MLog("");
             try
             {
@@ -45,6 +45,7 @@ namespace Luncher
             }
             MLog("JSON.NET " + Variables.netJsonVersion);
             MLog("DotNetZip " + Variables.netZipVersion);
+            MLog("NDesk.Options " + Variables.NDOptions);
             MLog("");
             if (!Directory.Exists(minecraft))
             {
