@@ -30,13 +30,13 @@ namespace Luncher
             Thread.CurrentThread.CurrentUICulture = new CultureInfo(Program.lang);
             InitializeComponent();
             RadMenuItem openVer = new RadMenuItem();
-            openVer.Text = "Показать в проводнике";
+            openVer.Text = LocRM.GetString("contextver.open");
             openVer.Click += new EventHandler(openVer_Clicked);
             VerContext.Items.Add(openVer);
             RadMenuSeparatorItem VerS = new RadMenuSeparatorItem();
             VerContext.Items.Add(VerS);
             RadMenuItem delVer = new RadMenuItem();
-            delVer.Text = "Удалить";
+            delVer.Text = LocRM.GetString("contextver.del");
             delVer.Click += new EventHandler(delVer_Clicked);
             VerContext.Items.Add(delVer);
         }
@@ -67,12 +67,12 @@ namespace Luncher
                 {
                     DialogResult dr =
                         RadMessageBox.Show(
-                            "Вы действительно хотите удалить эту версию(" + radListView1.SelectedItem[0] + ")?",
-                            "Подтверждение",
+                            LocRM.GetString("contextver.del.a") + "(" + radListView1.SelectedItem[0] + ")?",
+                            LocRM.GetString("contextver.del.b"),
                             MessageBoxButtons.YesNo, RadMessageIcon.Question);
                     if (dr == System.Windows.Forms.DialogResult.Yes)
                     {
-                        MLog("Удаление " + radListView1.SelectedItem[0] + "...");
+                        MLog(LocRM.GetString("contextver.del.progress") + " " + radListView1.SelectedItem[0] + "...");
                         try
                         {
                             Directory.Delete(Variables.MCVersions + "/" + radListView1.SelectedItem[0] + "/", true);
@@ -81,7 +81,7 @@ namespace Luncher
                         }
                         catch (Exception ex)
                         {
-                            ELog("Во время удаления версии возникла ошибка:\n" + ex.ToString());
+                            ELog(LocRM.GetString("contextver.del.error") + "\n" + ex.ToString());
                         }
                     }
                 }
@@ -526,8 +526,10 @@ namespace Luncher
                 for (int i = 0; i < jr.Count; i++)
                 {
                     all++;
-                    temp2[0] = json["libraries"][i]["name"].ToString().Split(':')[0]; // will be net.sf.jopt-simple
-                    temp2[1] = json["libraries"][i]["name"].ToString().Split(':')[1] + @"\" + json["libraries"][i]["name"].ToString().Split(':')[2]; // will be jopt-simple\4.5
+                    string url = null;
+                    temp2[0] = json["libraries"][i]["name"].ToString().Split(':')[0];
+                    temp2[1] = json["libraries"][i]["name"].ToString().Split(':')[1] + @"\" + json["libraries"][i]["name"].ToString().Split(':')[2];
+                    try { url = json["libraries"][i]["url"].ToString(); } catch { }
                     if (json["libraries"][i]["natives"] != null)
                     {
                         if (json["libraries"][i]["natives"]["windows"] != null)
@@ -577,13 +579,42 @@ namespace Luncher
                     }
                     else
                     {
-                        nsb.Append(finalPath + ";");
+                        if (json["libraries"][i]["rules"] != null)
+                        {
+                            if (json["libraries"][i]["rules"].Count() < 2)
+                            {
+                                if (json["libraries"][i]["rules"][0]["action"].ToString() == "allow" &&
+                                    json["libraries"][i]["rules"][0]["os"]["name"].ToString() == "osx")
+                                {
+                                }
+                                else if (json["libraries"][i]["rules"][0]["action"].ToString() == "allow" &&
+                                         json["libraries"][i]["rules"][0]["os"]["name"].ToString() == "windows")
+                                {
+                                    nsb.Append(finalPath + ";");
+                                }
+                            }
+                            else
+                            {
+                                nsb.Append(finalPath + ";");
+                            }
+                        }
+                        else
+                        {
+                            nsb.Append(finalPath + ";");
+                        }
                     }
                     if (!File.Exists(Path.Combine(minecraft + "/libraries", temp2[0], temp2[1], libFileName)))
                     {
                         missing++;
                         ELog(Path.Combine(minecraft + "/libraries", temp2[0], temp2[1], libFileName) + ", " + LocRM.GetString("lib.notfound"));
-                        sb.Append(finalPath + ";");
+                        if (url == null)
+                        {
+                            sb.Append(finalPath + ";");
+                        }
+                        else
+                        {
+                            sb.Append(finalPath + "@" + url + ";");
+                        }
                     }
                 }
                 MLog(LocRM.GetString("lib.completed1p") + " " + all + ". " + LocRM.GetString("lib.completed2p") + " " + missing);
@@ -620,9 +651,21 @@ namespace Luncher
         int ltotal = 0;
         int lcur = 0;
         Stopwatch lsw = new Stopwatch();
-        void DownloadLibs()
+
+        private void DownloadLibs()
         {
-            string filename = libstodownload[lcur];
+            string filename;
+            string url = null;
+            if (libstodownload[lcur].Contains('@'))
+            {
+                
+                filename = libstodownload[lcur].Split('@')[0];
+                url = libstodownload[lcur].Split('@')[1];
+            }
+            else
+            {
+                filename = libstodownload[lcur];
+            }
             WebClient webc = new WebClient();
             if (Directory.Exists(minecraft) == false)
             {
@@ -639,7 +682,16 @@ namespace Luncher
                 webc.DownloadFileCompleted += new AsyncCompletedEventHandler(LibCompleted);
                 webc.DownloadProgressChanged += new DownloadProgressChangedEventHandler(ProgressChangedLib);
                 MLog(LocRM.GetString("downloadprocess.downloading") + " " + filename + "...");
-                webc.DownloadFileAsync(new Uri("https://libraries.minecraft.net/" + filename), minecraft + "\\libraries\\" + filename);
+                if (url == null)
+                {
+                    webc.DownloadFileAsync(new Uri("https://libraries.minecraft.net/" + filename),
+                        minecraft + "\\libraries\\" + filename);
+                }
+                else
+                {
+                    webc.DownloadFileAsync(new Uri(url + filename),
+                        minecraft + "\\libraries\\" + filename);
+                }
             }
             catch (Exception ex)
             {
