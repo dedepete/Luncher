@@ -395,4 +395,13 @@ Copyright SESMC(c)2014</value>
   <data name="lib.downloadingcomplete" xml:space="preserve">
     <value>Finished downloading {0}. Library size: {1} byte(s)</value>
   </data>
+  <data name="contextver.del" xml:space="preserve">
+    <value>Remove</value>
+  </data>
+  <data name="contextver.open" xml:space="preserve">
+    <value>Show in explorer</value>
+  </data>
+  <data name="contextver.del.a" xml:space="preserve">
+    <value>Are you sure wanna to delete this version</value>
+  </data>
 </root>

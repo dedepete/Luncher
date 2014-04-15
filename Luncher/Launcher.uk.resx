@@ -390,4 +390,28 @@ Copyright SESMC (с) 2014</value>
   <data name="label9.Text" xml:space="preserve">
     <value>Processing code belongs to Ilan321. All rights reserved</value>
   </data>
+  <data name="label8.Text" xml:space="preserve">
+    <value>Перейменувати вікно:</value>
+  </data>
+  <data name="lib.downloadingcomplete" xml:space="preserve">
+    <value>Завершене завантаження {0}. Розмір завантаженої бібліотеки: {1} байт(ів)</value>
+  </data>
+  <data name="contextver.open" xml:space="preserve">
+    <value>Показати у провіднику</value>
+  </data>
+  <data name="contextver.del" xml:space="preserve">
+    <value>Видалити</value>
+  </data>
+  <data name="contextver.del.a" xml:space="preserve">
+    <value>Ви дійсно хочете видалити цю версію</value>
+  </data>
+  <data name="contextver.del.progress" xml:space="preserve">
+    <value>Видалення</value>
+  </data>
+  <data name="contextver.del.error" xml:space="preserve">
+    <value>Під час видалення версії виникла помилка:</value>
+  </data>
+  <data name="contextver.del.b" xml:space="preserve">
+    <value>Підтвердження</value>
+  </data>
 </root>
