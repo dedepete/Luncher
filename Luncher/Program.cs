@@ -1,44 +1,57 @@
-﻿using System;
+﻿using Luncher.Properties;
+using NDesk.Options;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Telerik.WinControls;
 
 namespace Luncher
 {
-    static class Program
+    internal static class Program
     {
         /// <summary>
         /// Главная точка входа для приложения.
         /// </summary>
-         
+
         public static string minecraft = "";
+
         public static string lang = "uk";
+
         [STAThread]
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             ThemeResolutionService.ApplicationThemeName = "VisualStudio2012Dark";
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
             if (args.Length != 0)
             {
-                int argint = args.Length;
-                while (argint != 0)
+                var p = new OptionSet()
                 {
-                    argint = argint - 1;
-                    if (args[argint].Contains("/directory="))
                     {
-                        minecraft = args[argint].Split('=')[1];
-                        minecraft = minecraft.Replace("$_", " ");
-                    }
+                        "d|directory=", "minecraft custom {PATH}.",
+                        v => minecraft = v
+                    },
+                };
+                try
+                {
+                    p.Parse(args);
                 }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("###########################");
+                    Console.WriteLine(ex.ToString());
+                    minecraft = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\.minecraft";
+                }
+                Application.Run(new MainForm());
             }
             else
             {
                 minecraft = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\.minecraft";
+                Application.Run(new MainForm());
             }
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MainForm());
         }
     }
 }
