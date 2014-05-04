@@ -19,15 +19,14 @@ namespace Luncher
         public static string profileJSONFile = minecraft + @"\launcher_profiles.json";
         public static string profileNamesJSONFile = minecraft + @"\user_profiles.json";
         public static string userName = null;
-        public static string clientToken = null;
-        public static string accessToken = null;
+        public static string clientToken = "someInterestingClientToken";
+        public static string accessToken = "someInterestingAccessToken";
         public static string mainClass = null;
-        public static string authServer = @"https://authserver.mojang.com/";
         public static string MCFolder = minecraft;
         public static string MCVersions = Path.Combine(minecraft, "versions");
         public static string javaExe = GetJavaInstallationPath() + @"\bin\java.exe";
         // custom versioning
-        public static string netJsonVersion = "6.0r2";
+        public static string netJsonVersion = "6.0r3";
         public static string netZipVersion = "1.9.2";
         public static string NDOptions = "0.2.1";
         // last versions
