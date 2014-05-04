@@ -314,7 +314,7 @@ namespace Luncher
             JObject json1 = (JObject)json["profiles"];
             JObject curprofile = (JObject)json1[profile];
             bool allowed = true;
-            if (changed == true)
+            if (changed)
             {
                 foreach (JProperty peep in json["profiles"])
                 {
@@ -335,7 +335,7 @@ namespace Luncher
                 error = LocRM.GetString("message.errornull");
                 allowed = false;
             }
-            if (allowed == true)
+            if (allowed)
             {
                 json["profiles"] = Launcher.Rename(json1, name => name == profile ? ProfileName.Text : name);
                 json["selectedProfile"] = ProfileName.Text;
