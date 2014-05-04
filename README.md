@@ -14,6 +14,8 @@ Ionic.Zip (http://dotnetzip.codeplex.com/)
 
 JSON.Net (http://james.newtonking.com/json)
 
+NDesk.Options (http://www.ndesk.org/Options)
+
 Download launcher
 =======
 
