@@ -499,11 +499,6 @@ namespace Luncher
                 }
                 ln.ReconstructingIndex.Text = LoadConfiguration.resoucerrebuildresource;
                 ln.usingAssets.Text = LoadConfiguration.resoucerassetspath;
-                if (File.Exists(Variables.MCFolder + "/lastlogin"))
-                {
-                    string nickname = File.ReadAllText(Variables.MCFolder + "/lastlogin");
-                    ln.Nickname.Text = nickname;
-                }
                 ln.RenameWindow.SelectedIndex = Convert.ToInt32(LoadConfiguration.mainrenamewindow);
                 ln.Show();
             }

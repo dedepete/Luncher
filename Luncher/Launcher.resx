@@ -202,7 +202,7 @@
     <value>radLabel5</value>
   </data>
   <data name="&gt;&gt;radLabel5.Type" xml:space="preserve">
-    <value>Telerik.WinControls.UI.RadLabel, Telerik.WinControls.UI, Version=2014.1.226.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
+    <value>Telerik.WinControls.UI.RadLabel, Telerik.WinControls.UI, Version=2014.1.402.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
   </data>
   <data name="&gt;&gt;radLabel5.Parent" xml:space="preserve">
     <value>radScrollablePanel2.PanelContainer</value>
@@ -235,7 +235,7 @@
     <value>AboutVersion</value>
   </data>
   <data name="&gt;&gt;AboutVersion.Type" xml:space="preserve">
-    <value>Telerik.WinControls.UI.RadLabel, Telerik.WinControls.UI, Version=2014.1.226.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
+    <value>Telerik.WinControls.UI.RadLabel, Telerik.WinControls.UI, Version=2014.1.402.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
   </data>
   <data name="&gt;&gt;AboutVersion.Parent" xml:space="preserve">
     <value>radScrollablePanel2.PanelContainer</value>
@@ -268,7 +268,7 @@
     <value>radLabel1</value>
   </data>
   <data name="&gt;&gt;radLabel1.Type" xml:space="preserve">
-    <value>Telerik.WinControls.UI.RadLabel, Telerik.WinControls.UI, Version=2014.1.226.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
+    <value>Telerik.WinControls.UI.RadLabel, Telerik.WinControls.UI, Version=2014.1.402.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
   </data>
   <data name="&gt;&gt;radLabel1.Parent" xml:space="preserve">
     <value>radScrollablePanel2.PanelContainer</value>
@@ -450,7 +450,7 @@ Copyright SESMC(c)2014</value>
     <value>radLabel2</value>
   </data>
   <data name="&gt;&gt;radLabel2.Type" xml:space="preserve">
-    <value>Telerik.WinControls.UI.RadLabel, Telerik.WinControls.UI, Version=2014.1.226.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
+    <value>Telerik.WinControls.UI.RadLabel, Telerik.WinControls.UI, Version=2014.1.402.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
   </data>
   <data name="&gt;&gt;radLabel2.Parent" xml:space="preserve">
     <value>radScrollablePanel2.PanelContainer</value>
@@ -480,7 +480,7 @@ Copyright SESMC(c)2014</value>
     <value>radLabel3</value>
   </data>
   <data name="&gt;&gt;radLabel3.Type" xml:space="preserve">
-    <value>Telerik.WinControls.UI.RadLabel, Telerik.WinControls.UI, Version=2014.1.226.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
+    <value>Telerik.WinControls.UI.RadLabel, Telerik.WinControls.UI, Version=2014.1.402.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
   </data>
   <data name="&gt;&gt;radLabel3.Parent" xml:space="preserve">
     <value>radScrollablePanel2.PanelContainer</value>
@@ -498,7 +498,7 @@ Copyright SESMC(c)2014</value>
     <value>radScrollablePanel2.PanelContainer</value>
   </data>
   <data name="&gt;&gt;radScrollablePanel2.PanelContainer.Type" xml:space="preserve">
-    <value>Telerik.WinControls.UI.RadScrollablePanelContainer, Telerik.WinControls.UI, Version=2014.1.226.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
+    <value>Telerik.WinControls.UI.RadScrollablePanelContainer, Telerik.WinControls.UI, Version=2014.1.402.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
   </data>
   <data name="&gt;&gt;radScrollablePanel2.PanelContainer.Parent" xml:space="preserve">
     <value>radScrollablePanel2</value>
@@ -519,7 +519,7 @@ Copyright SESMC(c)2014</value>
     <value>radScrollablePanel2</value>
   </data>
   <data name="&gt;&gt;radScrollablePanel2.Type" xml:space="preserve">
-    <value>Telerik.WinControls.UI.RadScrollablePanel, Telerik.WinControls.UI, Version=2014.1.226.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
+    <value>Telerik.WinControls.UI.RadScrollablePanel, Telerik.WinControls.UI, Version=2014.1.402.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
   </data>
   <data name="&gt;&gt;radScrollablePanel2.Parent" xml:space="preserve">
     <value>radPageViewPage2</value>
@@ -549,7 +549,7 @@ Copyright SESMC(c)2014</value>
     <value>radLabel6</value>
   </data>
   <data name="&gt;&gt;radLabel6.Type" xml:space="preserve">
-    <value>Telerik.WinControls.UI.RadLabel, Telerik.WinControls.UI, Version=2014.1.226.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
+    <value>Telerik.WinControls.UI.RadLabel, Telerik.WinControls.UI, Version=2014.1.402.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
   </data>
   <data name="&gt;&gt;radLabel6.Parent" xml:space="preserve">
     <value>radGroupBox3</value>
@@ -576,7 +576,7 @@ Copyright SESMC(c)2014</value>
     <value>usingAssets</value>
   </data>
   <data name="&gt;&gt;usingAssets.Type" xml:space="preserve">
-    <value>Telerik.WinControls.UI.RadTextBox, Telerik.WinControls.UI, Version=2014.1.226.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
+    <value>Telerik.WinControls.UI.RadTextBox, Telerik.WinControls.UI, Version=2014.1.402.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
   </data>
   <data name="&gt;&gt;usingAssets.Parent" xml:space="preserve">
     <value>radGroupBox3</value>
@@ -600,7 +600,7 @@ Copyright SESMC(c)2014</value>
     <value>AllowReconstruct</value>
   </data>
   <data name="&gt;&gt;AllowReconstruct.Type" xml:space="preserve">
-    <value>Telerik.WinControls.UI.RadCheckBox, Telerik.WinControls.UI, Version=2014.1.226.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
+    <value>Telerik.WinControls.UI.RadCheckBox, Telerik.WinControls.UI, Version=2014.1.402.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
   </data>
   <data name="&gt;&gt;AllowReconstruct.Parent" xml:space="preserve">
     <value>radGroupBox3</value>
@@ -624,7 +624,7 @@ Copyright SESMC(c)2014</value>
     <value>ReconstructingIndex</value>
   </data>
   <data name="&gt;&gt;ReconstructingIndex.Type" xml:space="preserve">
-    <value>Telerik.WinControls.UI.RadTextBox, Telerik.WinControls.UI, Version=2014.1.226.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
+    <value>Telerik.WinControls.UI.RadTextBox, Telerik.WinControls.UI, Version=2014.1.402.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
   </data>
   <data name="&gt;&gt;ReconstructingIndex.Parent" xml:space="preserve">
     <value>radGroupBox3</value>
@@ -648,7 +648,7 @@ Copyright SESMC(c)2014</value>
     <value>radLabel4</value>
   </data>
   <data name="&gt;&gt;radLabel4.Type" xml:space="preserve">
-    <value>Telerik.WinControls.UI.RadLabel, Telerik.WinControls.UI, Version=2014.1.226.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
+    <value>Telerik.WinControls.UI.RadLabel, Telerik.WinControls.UI, Version=2014.1.402.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
   </data>
   <data name="&gt;&gt;radLabel4.Parent" xml:space="preserve">
     <value>radGroupBox3</value>
@@ -678,7 +678,7 @@ Copyright SESMC(c)2014</value>
     <value>radGroupBox3</value>
   </data>
   <data name="&gt;&gt;radGroupBox3.Type" xml:space="preserve">
-    <value>Telerik.WinControls.UI.RadGroupBox, Telerik.WinControls.UI, Version=2014.1.226.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
+    <value>Telerik.WinControls.UI.RadGroupBox, Telerik.WinControls.UI, Version=2014.1.402.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
   </data>
   <data name="&gt;&gt;radGroupBox3.Parent" xml:space="preserve">
     <value>radScrollablePanel1.PanelContainer</value>
@@ -732,7 +732,7 @@ Copyright SESMC(c)2014</value>
     <value>RenameWindow</value>
   </data>
   <data name="&gt;&gt;RenameWindow.Type" xml:space="preserve">
-    <value>Telerik.WinControls.UI.RadDropDownList, Telerik.WinControls.UI, Version=2014.1.226.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
+    <value>Telerik.WinControls.UI.RadDropDownList, Telerik.WinControls.UI, Version=2014.1.402.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
   </data>
   <data name="&gt;&gt;RenameWindow.Parent" xml:space="preserve">
     <value>radGroupBox2</value>
@@ -783,7 +783,7 @@ Copyright SESMC(c)2014</value>
     <value>UseGamePrefix</value>
   </data>
   <data name="&gt;&gt;UseGamePrefix.Type" xml:space="preserve">
-    <value>Telerik.WinControls.UI.RadCheckBox, Telerik.WinControls.UI, Version=2014.1.226.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
+    <value>Telerik.WinControls.UI.RadCheckBox, Telerik.WinControls.UI, Version=2014.1.402.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
   </data>
   <data name="&gt;&gt;UseGamePrefix.Parent" xml:space="preserve">
     <value>radGroupBox2</value>
@@ -807,7 +807,7 @@ Copyright SESMC(c)2014</value>
     <value>EnableMinecraftLogging</value>
   </data>
   <data name="&gt;&gt;EnableMinecraftLogging.Type" xml:space="preserve">
-    <value>Telerik.WinControls.UI.RadCheckBox, Telerik.WinControls.UI, Version=2014.1.226.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
+    <value>Telerik.WinControls.UI.RadCheckBox, Telerik.WinControls.UI, Version=2014.1.402.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
   </data>
   <data name="&gt;&gt;EnableMinecraftLogging.Parent" xml:space="preserve">
     <value>radGroupBox2</value>
@@ -834,7 +834,7 @@ Copyright SESMC(c)2014</value>
     <value>radGroupBox2</value>
   </data>
   <data name="&gt;&gt;radGroupBox2.Type" xml:space="preserve">
-    <value>Telerik.WinControls.UI.RadGroupBox, Telerik.WinControls.UI, Version=2014.1.226.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
+    <value>Telerik.WinControls.UI.RadGroupBox, Telerik.WinControls.UI, Version=2014.1.402.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
   </data>
   <data name="&gt;&gt;radGroupBox2.Parent" xml:space="preserve">
     <value>radScrollablePanel1.PanelContainer</value>
@@ -882,7 +882,7 @@ Copyright SESMC(c)2014</value>
     <value>radLabel7</value>
   </data>
   <data name="&gt;&gt;radLabel7.Type" xml:space="preserve">
-    <value>Telerik.WinControls.UI.RadLabel, Telerik.WinControls.UI, Version=2014.1.226.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
+    <value>Telerik.WinControls.UI.RadLabel, Telerik.WinControls.UI, Version=2014.1.402.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
   </data>
   <data name="&gt;&gt;radLabel7.Parent" xml:space="preserve">
     <value>radGroupBox1</value>
@@ -936,7 +936,7 @@ Copyright SESMC(c)2014</value>
     <value>LangDropDownList</value>
   </data>
   <data name="&gt;&gt;LangDropDownList.Type" xml:space="preserve">
-    <value>Telerik.WinControls.UI.RadDropDownList, Telerik.WinControls.UI, Version=2014.1.226.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
+    <value>Telerik.WinControls.UI.RadDropDownList, Telerik.WinControls.UI, Version=2014.1.402.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
   </data>
   <data name="&gt;&gt;LangDropDownList.Parent" xml:space="preserve">
     <value>radGroupBox1</value>
@@ -960,7 +960,7 @@ Copyright SESMC(c)2014</value>
     <value>EnableMinecraftUpdateAlerts</value>
   </data>
   <data name="&gt;&gt;EnableMinecraftUpdateAlerts.Type" xml:space="preserve">
-    <value>Telerik.WinControls.UI.RadCheckBox, Telerik.WinControls.UI, Version=2014.1.226.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
+    <value>Telerik.WinControls.UI.RadCheckBox, Telerik.WinControls.UI, Version=2014.1.402.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
   </data>
   <data name="&gt;&gt;EnableMinecraftUpdateAlerts.Parent" xml:space="preserve">
     <value>radGroupBox1</value>
@@ -984,7 +984,7 @@ Copyright SESMC(c)2014</value>
     <value>AllowUpdateVersions</value>
   </data>
   <data name="&gt;&gt;AllowUpdateVersions.Type" xml:space="preserve">
-    <value>Telerik.WinControls.UI.RadCheckBox, Telerik.WinControls.UI, Version=2014.1.226.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
+    <value>Telerik.WinControls.UI.RadCheckBox, Telerik.WinControls.UI, Version=2014.1.402.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
   </data>
   <data name="&gt;&gt;AllowUpdateVersions.Parent" xml:space="preserve">
     <value>radGroupBox1</value>
@@ -1008,7 +1008,7 @@ Copyright SESMC(c)2014</value>
     <value>radCheckBox1</value>
   </data>
   <data name="&gt;&gt;radCheckBox1.Type" xml:space="preserve">
-    <value>Telerik.WinControls.UI.RadCheckBox, Telerik.WinControls.UI, Version=2014.1.226.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
+    <value>Telerik.WinControls.UI.RadCheckBox, Telerik.WinControls.UI, Version=2014.1.402.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
   </data>
   <data name="&gt;&gt;radCheckBox1.Parent" xml:space="preserve">
     <value>radGroupBox1</value>
@@ -1035,7 +1035,7 @@ Copyright SESMC(c)2014</value>
     <value>radGroupBox1</value>
   </data>
   <data name="&gt;&gt;radGroupBox1.Type" xml:space="preserve">
-    <value>Telerik.WinControls.UI.RadGroupBox, Telerik.WinControls.UI, Version=2014.1.226.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
+    <value>Telerik.WinControls.UI.RadGroupBox, Telerik.WinControls.UI, Version=2014.1.402.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
   </data>
   <data name="&gt;&gt;radGroupBox1.Parent" xml:space="preserve">
     <value>radScrollablePanel1.PanelContainer</value>
@@ -1050,7 +1050,7 @@ Copyright SESMC(c)2014</value>
     <value>radScrollablePanel1.PanelContainer</value>
   </data>
   <data name="&gt;&gt;radScrollablePanel1.PanelContainer.Type" xml:space="preserve">
-    <value>Telerik.WinControls.UI.RadScrollablePanelContainer, Telerik.WinControls.UI, Version=2014.1.226.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
+    <value>Telerik.WinControls.UI.RadScrollablePanelContainer, Telerik.WinControls.UI, Version=2014.1.402.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
   </data>
   <data name="&gt;&gt;radScrollablePanel1.PanelContainer.Parent" xml:space="preserve">
     <value>radScrollablePanel1</value>
@@ -1071,7 +1071,7 @@ Copyright SESMC(c)2014</value>
     <value>radScrollablePanel1</value>
   </data>
   <data name="&gt;&gt;radScrollablePanel1.Type" xml:space="preserve">
-    <value>Telerik.WinControls.UI.RadScrollablePanel, Telerik.WinControls.UI, Version=2014.1.226.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
+    <value>Telerik.WinControls.UI.RadScrollablePanel, Telerik.WinControls.UI, Version=2014.1.402.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
   </data>
   <data name="&gt;&gt;radScrollablePanel1.Parent" xml:space="preserve">
     <value>radPageViewPage4</value>
@@ -1128,7 +1128,7 @@ Copyright SESMC(c)2014</value>
     <value>radButton2</value>
   </data>
   <data name="&gt;&gt;radButton2.Type" xml:space="preserve">
-    <value>Telerik.WinControls.UI.RadButton, Telerik.WinControls.UI, Version=2014.1.226.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
+    <value>Telerik.WinControls.UI.RadButton, Telerik.WinControls.UI, Version=2014.1.402.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
   </data>
   <data name="&gt;&gt;radButton2.Parent" xml:space="preserve">
     <value>radPanel2</value>
@@ -1155,7 +1155,7 @@ Copyright SESMC(c)2014</value>
     <value>radButton1</value>
   </data>
   <data name="&gt;&gt;radButton1.Type" xml:space="preserve">
-    <value>Telerik.WinControls.UI.RadButton, Telerik.WinControls.UI, Version=2014.1.226.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
+    <value>Telerik.WinControls.UI.RadButton, Telerik.WinControls.UI, Version=2014.1.402.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
   </data>
   <data name="&gt;&gt;radButton1.Parent" xml:space="preserve">
     <value>radPanel2</value>
@@ -1182,7 +1182,7 @@ Copyright SESMC(c)2014</value>
     <value>radPanel2</value>
   </data>
   <data name="&gt;&gt;radPanel2.Type" xml:space="preserve">
-    <value>Telerik.WinControls.UI.RadPanel, Telerik.WinControls.UI, Version=2014.1.226.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
+    <value>Telerik.WinControls.UI.RadPanel, Telerik.WinControls.UI, Version=2014.1.402.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
   </data>
   <data name="&gt;&gt;radPanel2.Parent" xml:space="preserve">
     <value>News</value>
@@ -1203,7 +1203,7 @@ Copyright SESMC(c)2014</value>
     <value>News</value>
   </data>
   <data name="&gt;&gt;News.Type" xml:space="preserve">
-    <value>Telerik.WinControls.UI.RadPageViewPage, Telerik.WinControls.UI, Version=2014.1.226.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
+    <value>Telerik.WinControls.UI.RadPageViewPage, Telerik.WinControls.UI, Version=2014.1.402.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
   </data>
   <data name="&gt;&gt;News.Parent" xml:space="preserve">
     <value>radPageView1</value>
@@ -1257,7 +1257,7 @@ Copyright SESMC(c)2014</value>
     <value>ConsolePage</value>
   </data>
   <data name="&gt;&gt;ConsolePage.Type" xml:space="preserve">
-    <value>Telerik.WinControls.UI.RadPageViewPage, Telerik.WinControls.UI, Version=2014.1.226.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
+    <value>Telerik.WinControls.UI.RadPageViewPage, Telerik.WinControls.UI, Version=2014.1.402.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
   </data>
   <data name="&gt;&gt;ConsolePage.Parent" xml:space="preserve">
     <value>radPageView1</value>
@@ -1290,7 +1290,7 @@ Copyright SESMC(c)2014</value>
     <value>radListView1</value>
   </data>
   <data name="&gt;&gt;radListView1.Type" xml:space="preserve">
-    <value>Telerik.WinControls.UI.RadListView, Telerik.WinControls.UI, Version=2014.1.226.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
+    <value>Telerik.WinControls.UI.RadListView, Telerik.WinControls.UI, Version=2014.1.402.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
   </data>
   <data name="&gt;&gt;radListView1.Parent" xml:space="preserve">
     <value>EditVersions</value>
@@ -1311,7 +1311,7 @@ Copyright SESMC(c)2014</value>
     <value>EditVersions</value>
   </data>
   <data name="&gt;&gt;EditVersions.Type" xml:space="preserve">
-    <value>Telerik.WinControls.UI.RadPageViewPage, Telerik.WinControls.UI, Version=2014.1.226.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
+    <value>Telerik.WinControls.UI.RadPageViewPage, Telerik.WinControls.UI, Version=2014.1.402.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
   </data>
   <data name="&gt;&gt;EditVersions.Parent" xml:space="preserve">
     <value>radPageView1</value>
@@ -1332,7 +1332,7 @@ Copyright SESMC(c)2014</value>
     <value>radPageViewPage2</value>
   </data>
   <data name="&gt;&gt;radPageViewPage2.Type" xml:space="preserve">
-    <value>Telerik.WinControls.UI.RadPageViewPage, Telerik.WinControls.UI, Version=2014.1.226.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
+    <value>Telerik.WinControls.UI.RadPageViewPage, Telerik.WinControls.UI, Version=2014.1.402.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
   </data>
   <data name="&gt;&gt;radPageViewPage2.Parent" xml:space="preserve">
     <value>radPageView2</value>
@@ -1413,7 +1413,7 @@ Copyright SESMC(c)2014</value>
     <value>radPageViewPage6</value>
   </data>
   <data name="&gt;&gt;radPageViewPage6.Type" xml:space="preserve">
-    <value>Telerik.WinControls.UI.RadPageViewPage, Telerik.WinControls.UI, Version=2014.1.226.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
+    <value>Telerik.WinControls.UI.RadPageViewPage, Telerik.WinControls.UI, Version=2014.1.402.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
   </data>
   <data name="&gt;&gt;radPageViewPage6.Parent" xml:space="preserve">
     <value>radPageView3</value>
@@ -1440,7 +1440,7 @@ Copyright SESMC(c)2014</value>
     <value>radPageView3</value>
   </data>
   <data name="&gt;&gt;radPageView3.Type" xml:space="preserve">
-    <value>Telerik.WinControls.UI.RadPageView, Telerik.WinControls.UI, Version=2014.1.226.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
+    <value>Telerik.WinControls.UI.RadPageView, Telerik.WinControls.UI, Version=2014.1.402.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
   </data>
   <data name="&gt;&gt;radPageView3.Parent" xml:space="preserve">
     <value>radPageViewPage3</value>
@@ -1461,7 +1461,7 @@ Copyright SESMC(c)2014</value>
     <value>radPageViewPage3</value>
   </data>
   <data name="&gt;&gt;radPageViewPage3.Type" xml:space="preserve">
-    <value>Telerik.WinControls.UI.RadPageViewPage, Telerik.WinControls.UI, Version=2014.1.226.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
+    <value>Telerik.WinControls.UI.RadPageViewPage, Telerik.WinControls.UI, Version=2014.1.402.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
   </data>
   <data name="&gt;&gt;radPageViewPage3.Parent" xml:space="preserve">
     <value>radPageView2</value>
@@ -1482,7 +1482,7 @@ Copyright SESMC(c)2014</value>
     <value>radPageViewPage4</value>
   </data>
   <data name="&gt;&gt;radPageViewPage4.Type" xml:space="preserve">
-    <value>Telerik.WinControls.UI.RadPageViewPage, Telerik.WinControls.UI, Version=2014.1.226.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
+    <value>Telerik.WinControls.UI.RadPageViewPage, Telerik.WinControls.UI, Version=2014.1.402.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
   </data>
   <data name="&gt;&gt;radPageViewPage4.Parent" xml:space="preserve">
     <value>radPageView2</value>
@@ -1509,7 +1509,7 @@ Copyright SESMC(c)2014</value>
     <value>radPageView2</value>
   </data>
   <data name="&gt;&gt;radPageView2.Type" xml:space="preserve">
-    <value>Telerik.WinControls.UI.RadPageView, Telerik.WinControls.UI, Version=2014.1.226.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
+    <value>Telerik.WinControls.UI.RadPageView, Telerik.WinControls.UI, Version=2014.1.402.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
   </data>
   <data name="&gt;&gt;radPageView2.Parent" xml:space="preserve">
     <value>radPageViewPage1</value>
@@ -1530,7 +1530,7 @@ Copyright SESMC(c)2014</value>
     <value>radPageViewPage1</value>
   </data>
   <data name="&gt;&gt;radPageViewPage1.Type" xml:space="preserve">
-    <value>Telerik.WinControls.UI.RadPageViewPage, Telerik.WinControls.UI, Version=2014.1.226.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
+    <value>Telerik.WinControls.UI.RadPageViewPage, Telerik.WinControls.UI, Version=2014.1.402.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
   </data>
   <data name="&gt;&gt;radPageViewPage1.Parent" xml:space="preserve">
     <value>radPageView1</value>
@@ -1554,7 +1554,7 @@ Copyright SESMC(c)2014</value>
     <value>openModList</value>
   </data>
   <data name="&gt;&gt;openModList.Type" xml:space="preserve">
-    <value>Telerik.WinControls.UI.RadButton, Telerik.WinControls.UI, Version=2014.1.226.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
+    <value>Telerik.WinControls.UI.RadButton, Telerik.WinControls.UI, Version=2014.1.402.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
   </data>
   <data name="&gt;&gt;openModList.Parent" xml:space="preserve">
     <value>radPageViewPage5</value>
@@ -1575,7 +1575,7 @@ Copyright SESMC(c)2014</value>
     <value>radPageViewPage5</value>
   </data>
   <data name="&gt;&gt;radPageViewPage5.Type" xml:space="preserve">
-    <value>Telerik.WinControls.UI.RadPageViewPage, Telerik.WinControls.UI, Version=2014.1.226.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
+    <value>Telerik.WinControls.UI.RadPageViewPage, Telerik.WinControls.UI, Version=2014.1.402.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
   </data>
   <data name="&gt;&gt;radPageViewPage5.Parent" xml:space="preserve">
     <value>radPageView1</value>
@@ -1602,7 +1602,7 @@ Copyright SESMC(c)2014</value>
     <value>radPageView1</value>
   </data>
   <data name="&gt;&gt;radPageView1.Type" xml:space="preserve">
-    <value>Telerik.WinControls.UI.RadPageView, Telerik.WinControls.UI, Version=2014.1.226.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
+    <value>Telerik.WinControls.UI.RadPageView, Telerik.WinControls.UI, Version=2014.1.402.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
   </data>
   <data name="&gt;&gt;radPageView1.Parent" xml:space="preserve">
     <value>$this</value>
@@ -1629,13 +1629,37 @@ Copyright SESMC(c)2014</value>
     <value>progressBar1</value>
   </data>
   <data name="&gt;&gt;progressBar1.Type" xml:space="preserve">
-    <value>Telerik.WinControls.UI.RadProgressBar, Telerik.WinControls.UI, Version=2014.1.226.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
+    <value>Telerik.WinControls.UI.RadProgressBar, Telerik.WinControls.UI, Version=2014.1.402.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
   </data>
   <data name="&gt;&gt;progressBar1.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
   <data name="&gt;&gt;progressBar1.ZOrder" xml:space="preserve">
     <value>1</value>
+  </data>
+  <data name="radButton3.Location" type="System.Drawing.Point, System.Drawing">
+    <value>495, 6</value>
+  </data>
+  <data name="radButton3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>21, 21</value>
+  </data>
+  <data name="radButton3.TabIndex" type="System.Int32, mscorlib">
+    <value>7</value>
+  </data>
+  <data name="radButton3.Text" xml:space="preserve">
+    <value>+</value>
+  </data>
+  <data name="&gt;&gt;radButton3.Name" xml:space="preserve">
+    <value>radButton3</value>
+  </data>
+  <data name="&gt;&gt;radButton3.Type" xml:space="preserve">
+    <value>Telerik.WinControls.UI.RadButton, Telerik.WinControls.UI, Version=2014.1.402.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
+  </data>
+  <data name="&gt;&gt;radButton3.Parent" xml:space="preserve">
+    <value>radPanel1</value>
+  </data>
+  <data name="&gt;&gt;radButton3.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
   <data name="Nickname.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top</value>
@@ -1647,7 +1671,7 @@ Copyright SESMC(c)2014</value>
     <value>Ник</value>
   </data>
   <data name="Nickname.Size" type="System.Drawing.Size, System.Drawing">
-    <value>231, 21</value>
+    <value>204, 21</value>
   </data>
   <data name="Nickname.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -1656,13 +1680,13 @@ Copyright SESMC(c)2014</value>
     <value>Nickname</value>
   </data>
   <data name="&gt;&gt;Nickname.Type" xml:space="preserve">
-    <value>Telerik.WinControls.UI.RadDropDownList, Telerik.WinControls.UI, Version=2014.1.226.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
+    <value>Telerik.WinControls.UI.RadDropDownList, Telerik.WinControls.UI, Version=2014.1.402.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
   </data>
   <data name="&gt;&gt;Nickname.Parent" xml:space="preserve">
     <value>radPanel1</value>
   </data>
   <data name="&gt;&gt;Nickname.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="SelectedVersion.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
@@ -1695,7 +1719,7 @@ Copyright SESMC(c)2014</value>
     <value>radPanel1</value>
   </data>
   <data name="&gt;&gt;SelectedVersion.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="pictureBox1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
@@ -1722,7 +1746,7 @@ Copyright SESMC(c)2014</value>
     <value>radPanel1</value>
   </data>
   <data name="&gt;&gt;pictureBox1.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="LaunchButton.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top</value>
@@ -1743,13 +1767,13 @@ Copyright SESMC(c)2014</value>
     <value>LaunchButton</value>
   </data>
   <data name="&gt;&gt;LaunchButton.Type" xml:space="preserve">
-    <value>Telerik.WinControls.UI.RadButton, Telerik.WinControls.UI, Version=2014.1.226.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
+    <value>Telerik.WinControls.UI.RadButton, Telerik.WinControls.UI, Version=2014.1.402.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
   </data>
   <data name="&gt;&gt;LaunchButton.Parent" xml:space="preserve">
     <value>radPanel1</value>
   </data>
   <data name="&gt;&gt;LaunchButton.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>4</value>
   </data>
   <data name="SelectProfile.Location" type="System.Drawing.Point, System.Drawing">
     <value>6, 6</value>
@@ -1764,13 +1788,13 @@ Copyright SESMC(c)2014</value>
     <value>SelectProfile</value>
   </data>
   <data name="&gt;&gt;SelectProfile.Type" xml:space="preserve">
-    <value>Telerik.WinControls.UI.RadDropDownList, Telerik.WinControls.UI, Version=2014.1.226.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
+    <value>Telerik.WinControls.UI.RadDropDownList, Telerik.WinControls.UI, Version=2014.1.402.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
   </data>
   <data name="&gt;&gt;SelectProfile.Parent" xml:space="preserve">
     <value>radPanel1</value>
   </data>
   <data name="&gt;&gt;SelectProfile.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>5</value>
   </data>
   <data name="EditProfile.Location" type="System.Drawing.Point, System.Drawing">
     <value>122, 33</value>
@@ -1788,13 +1812,13 @@ Copyright SESMC(c)2014</value>
     <value>EditProfile</value>
   </data>
   <data name="&gt;&gt;EditProfile.Type" xml:space="preserve">
-    <value>Telerik.WinControls.UI.RadButton, Telerik.WinControls.UI, Version=2014.1.226.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
+    <value>Telerik.WinControls.UI.RadButton, Telerik.WinControls.UI, Version=2014.1.402.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
   </data>
   <data name="&gt;&gt;EditProfile.Parent" xml:space="preserve">
     <value>radPanel1</value>
   </data>
   <data name="&gt;&gt;EditProfile.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>6</value>
   </data>
   <data name="AddProfile.Location" type="System.Drawing.Point, System.Drawing">
     <value>6, 33</value>
@@ -1812,13 +1836,13 @@ Copyright SESMC(c)2014</value>
     <value>AddProfile</value>
   </data>
   <data name="&gt;&gt;AddProfile.Type" xml:space="preserve">
-    <value>Telerik.WinControls.UI.RadButton, Telerik.WinControls.UI, Version=2014.1.226.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
+    <value>Telerik.WinControls.UI.RadButton, Telerik.WinControls.UI, Version=2014.1.402.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
   </data>
   <data name="&gt;&gt;AddProfile.Parent" xml:space="preserve">
     <value>radPanel1</value>
   </data>
   <data name="&gt;&gt;AddProfile.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>7</value>
   </data>
   <data name="radPanel1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Bottom</value>
@@ -1836,7 +1860,7 @@ Copyright SESMC(c)2014</value>
     <value>radPanel1</value>
   </data>
   <data name="&gt;&gt;radPanel1.Type" xml:space="preserve">
-    <value>Telerik.WinControls.UI.RadPanel, Telerik.WinControls.UI, Version=2014.1.226.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
+    <value>Telerik.WinControls.UI.RadPanel, Telerik.WinControls.UI, Version=2014.1.402.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
   </data>
   <data name="&gt;&gt;radPanel1.Parent" xml:space="preserve">
     <value>$this</value>
@@ -4390,40 +4414,58 @@ Copyright SESMC(c)2014</value>
     <value>Dark</value>
   </data>
   <data name="&gt;&gt;Dark.Type" xml:space="preserve">
-    <value>Telerik.WinControls.Themes.VisualStudio2012DarkTheme, Telerik.WinControls.Themes.VisualStudio2012Dark, Version=2014.1.226.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
+    <value>Telerik.WinControls.Themes.VisualStudio2012DarkTheme, Telerik.WinControls.Themes.VisualStudio2012Dark, Version=2014.1.402.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
   </data>
   <data name="&gt;&gt;radContextMenuManager1.Name" xml:space="preserve">
     <value>radContextMenuManager1</value>
   </data>
   <data name="&gt;&gt;radContextMenuManager1.Type" xml:space="preserve">
-    <value>Telerik.WinControls.UI.RadContextMenuManager, Telerik.WinControls.UI, Version=2014.1.226.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
+    <value>Telerik.WinControls.UI.RadContextMenuManager, Telerik.WinControls.UI, Version=2014.1.402.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
   </data>
   <data name="&gt;&gt;VerContext.Name" xml:space="preserve">
     <value>VerContext</value>
   </data>
   <data name="&gt;&gt;VerContext.Type" xml:space="preserve">
-    <value>Telerik.WinControls.UI.RadContextMenu, Telerik.WinControls.UI, Version=2014.1.226.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
+    <value>Telerik.WinControls.UI.RadContextMenu, Telerik.WinControls.UI, Version=2014.1.402.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>Launcher</value>
   </data>
   <data name="&gt;&gt;$this.Type" xml:space="preserve">
-    <value>Telerik.WinControls.UI.RadForm, Telerik.WinControls.UI, Version=2014.1.226.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
+    <value>Telerik.WinControls.UI.RadForm, Telerik.WinControls.UI, Version=2014.1.402.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
   </data>
-  <data name="getversions.error" xml:space="preserve">
-    <value>Во время получения сведений об установленных версиях возникла ошибка:</value>
+  <data name="contextver.del" xml:space="preserve">
+    <value>Удалить</value>
   </data>
-  <data name="downloader.inprogress" xml:space="preserve">
-    <value>Выполняется загрузка</value>
+  <data name="contextver.del.a" xml:space="preserve">
+    <value>Вы действительно хотите удалить эту версию</value>
+  </data>
+  <data name="contextver.del.b" xml:space="preserve">
+    <value>Подтверждение</value>
+  </data>
+  <data name="contextver.del.error" xml:space="preserve">
+    <value>Во время удаления версии возникла ошибка:</value>
+  </data>
+  <data name="contextver.del.progress" xml:space="preserve">
+    <value>Удаление</value>
+  </data>
+  <data name="contextver.open" xml:space="preserve">
+    <value>Показать в проводнике</value>
   </data>
   <data name="downloader.error" xml:space="preserve">
     <value>Во время подготовки к скачиванию возникла ошибка:</value>
+  </data>
+  <data name="downloader.inprogress" xml:space="preserve">
+    <value>Выполняется загрузка</value>
   </data>
   <data name="downloading.completed" xml:space="preserve">
     <value>завершена!</value>
   </data>
   <data name="downloadprocess.downloading" xml:space="preserve">
     <value>Загрузка</value>
+  </data>
+  <data name="getversions.error" xml:space="preserve">
+    <value>Во время получения сведений об установленных версиях возникла ошибка:</value>
   </data>
   <data name="lang.changemessage" xml:space="preserve">
     <value>Изменения вступят в силу только после перезагрузки лаунчера</value>
@@ -4433,6 +4475,9 @@ Copyright SESMC(c)2014</value>
   </data>
   <data name="launch.error" xml:space="preserve">
     <value>Во время запуска возникла ошибка:</value>
+  </data>
+  <data name="launch.launchtext" xml:space="preserve">
+    <value>Запуск</value>
   </data>
   <data name="launch.text1p" xml:space="preserve">
     <value>Запуск</value>
@@ -4463,6 +4508,9 @@ Copyright SESMC(c)2014</value>
   </data>
   <data name="lib.completed2p" xml:space="preserve">
     <value>Из них отсутствует:</value>
+  </data>
+  <data name="lib.downloadingcomplete" xml:space="preserve">
+    <value>Завершена загрузка {0}. Размер загруженной библиотеки: {1} байт(ов)</value>
   </data>
   <data name="lib.notfound" xml:space="preserve">
     <value>не найдено!</value>
@@ -4514,29 +4562,5 @@ Copyright SESMC(c)2014</value>
   </data>
   <data name="resources.recostructionsuccestotalrecostructed" xml:space="preserve">
     <value>Из них было перестроено:</value>
-  </data>
-  <data name="launch.launchtext" xml:space="preserve">
-    <value>Запуск</value>
-  </data>
-  <data name="lib.downloadingcomplete" xml:space="preserve">
-    <value>Завершена загрузка {0}. Размер загруженной библиотеки: {1} байт(ов)</value>
-  </data>
-  <data name="contextver.del" xml:space="preserve">
-    <value>Удалить</value>
-  </data>
-  <data name="contextver.open" xml:space="preserve">
-    <value>Показать в проводнике</value>
-  </data>
-  <data name="contextver.del.a" xml:space="preserve">
-    <value>Вы действительно хотите удалить эту версию</value>
-  </data>
-  <data name="contextver.del.progress" xml:space="preserve">
-    <value>Удаление</value>
-  </data>
-  <data name="contextver.del.error" xml:space="preserve">
-    <value>Во время удаления версии возникла ошибка:</value>
-  </data>
-  <data name="contextver.del.b" xml:space="preserve">
-    <value>Подтверждение</value>
   </data>
 </root>
