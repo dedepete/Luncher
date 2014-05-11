@@ -88,8 +88,6 @@
             this.label10 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.radPageViewPage4 = new Telerik.WinControls.UI.RadPageViewPage();
-            this.radPageViewPage5 = new Telerik.WinControls.UI.RadPageViewPage();
-            this.openModList = new Telerik.WinControls.UI.RadButton();
             this.progressBar1 = new Telerik.WinControls.UI.RadProgressBar();
             this.radPanel1 = new Telerik.WinControls.UI.RadPanel();
             this.radButton3 = new Telerik.WinControls.UI.RadButton();
@@ -151,8 +149,6 @@
             this.radPageView3.SuspendLayout();
             this.radPageViewPage6.SuspendLayout();
             this.radPageViewPage4.SuspendLayout();
-            this.radPageViewPage5.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.openModList)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.progressBar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radPanel1)).BeginInit();
             this.radPanel1.SuspendLayout();
@@ -498,7 +494,6 @@
             this.radPageView1.Controls.Add(this.ConsolePage);
             this.radPageView1.Controls.Add(this.EditVersions);
             this.radPageView1.Controls.Add(this.radPageViewPage1);
-            this.radPageView1.Controls.Add(this.radPageViewPage5);
             resources.ApplyResources(this.radPageView1, "radPageView1");
             this.radPageView1.Name = "radPageView1";
             this.radPageView1.SelectedPage = this.News;
@@ -616,12 +611,14 @@
             // radPageViewPage2
             // 
             this.radPageViewPage2.Controls.Add(this.radScrollablePanel2);
+            this.radPageViewPage2.ItemSize = new System.Drawing.SizeF(267F, 24F);
             resources.ApplyResources(this.radPageViewPage2, "radPageViewPage2");
             this.radPageViewPage2.Name = "radPageViewPage2";
             // 
             // radPageViewPage3
             // 
             this.radPageViewPage3.Controls.Add(this.radPageView3);
+            this.radPageViewPage3.ItemSize = new System.Drawing.SizeF(259F, 24F);
             resources.ApplyResources(this.radPageViewPage3, "radPageViewPage3");
             this.radPageViewPage3.Name = "radPageViewPage3";
             // 
@@ -659,22 +656,9 @@
             // radPageViewPage4
             // 
             this.radPageViewPage4.Controls.Add(this.radScrollablePanel1);
+            this.radPageViewPage4.ItemSize = new System.Drawing.SizeF(263F, 24F);
             resources.ApplyResources(this.radPageViewPage4, "radPageViewPage4");
             this.radPageViewPage4.Name = "radPageViewPage4";
-            // 
-            // radPageViewPage5
-            // 
-            this.radPageViewPage5.Controls.Add(this.openModList);
-            this.radPageViewPage5.ItemSize = new System.Drawing.SizeF(83F, 24F);
-            resources.ApplyResources(this.radPageViewPage5, "radPageViewPage5");
-            this.radPageViewPage5.Name = "radPageViewPage5";
-            // 
-            // openModList
-            // 
-            resources.ApplyResources(this.openModList, "openModList");
-            this.openModList.Name = "openModList";
-            this.openModList.ThemeName = "VisualStudio2012Dark";
-            this.openModList.Click += new System.EventHandler(this.openModList_Click);
             // 
             // progressBar1
             // 
@@ -702,6 +686,7 @@
             // 
             resources.ApplyResources(this.radButton3, "radButton3");
             this.radButton3.Name = "radButton3";
+            this.radButton3.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.radButton3.ThemeName = "VisualStudio2012Dark";
             this.radButton3.Click += new System.EventHandler(this.radButton3_Click);
             // 
@@ -826,8 +811,6 @@
             this.radPageViewPage6.ResumeLayout(false);
             this.radPageViewPage6.PerformLayout();
             this.radPageViewPage4.ResumeLayout(false);
-            this.radPageViewPage5.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.openModList)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.progressBar1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.radPanel1)).EndInit();
             this.radPanel1.ResumeLayout(false);
@@ -898,8 +881,6 @@
         public Telerik.WinControls.UI.RadCheckBox EnableMinecraftUpdateAlerts;
         public Telerik.WinControls.UI.RadTextBox usingAssets;
         public Telerik.WinControls.UI.RadLabel radLabel6;
-        private Telerik.WinControls.UI.RadPageViewPage radPageViewPage5;
-        private Telerik.WinControls.UI.RadButton openModList;
         public Telerik.WinControls.UI.RadLabel radLabel7;
         private Telerik.WinControls.UI.RadDropDownList LangDropDownList;
         private System.Windows.Forms.Label label8;
