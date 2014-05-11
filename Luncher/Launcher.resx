@@ -1538,51 +1538,6 @@ Copyright SESMC(c)2014</value>
   <data name="&gt;&gt;radPageViewPage1.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
-  <data name="openModList.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 3</value>
-  </data>
-  <data name="openModList.Size" type="System.Drawing.Size, System.Drawing">
-    <value>129, 24</value>
-  </data>
-  <data name="openModList.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="openModList.Text" xml:space="preserve">
-    <value>Открыть ModList(BETA)</value>
-  </data>
-  <data name="&gt;&gt;openModList.Name" xml:space="preserve">
-    <value>openModList</value>
-  </data>
-  <data name="&gt;&gt;openModList.Type" xml:space="preserve">
-    <value>Telerik.WinControls.UI.RadButton, Telerik.WinControls.UI, Version=2014.1.402.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
-  </data>
-  <data name="&gt;&gt;openModList.Parent" xml:space="preserve">
-    <value>radPageViewPage5</value>
-  </data>
-  <data name="&gt;&gt;openModList.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="radPageViewPage5.Location" type="System.Drawing.Point, System.Drawing">
-    <value>5, 30</value>
-  </data>
-  <data name="radPageViewPage5.Size" type="System.Drawing.Size, System.Drawing">
-    <value>791, 301</value>
-  </data>
-  <data name="radPageViewPage5.Text" xml:space="preserve">
-    <value>Extra(Прочее)</value>
-  </data>
-  <data name="&gt;&gt;radPageViewPage5.Name" xml:space="preserve">
-    <value>radPageViewPage5</value>
-  </data>
-  <data name="&gt;&gt;radPageViewPage5.Type" xml:space="preserve">
-    <value>Telerik.WinControls.UI.RadPageViewPage, Telerik.WinControls.UI, Version=2014.1.402.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
-  </data>
-  <data name="&gt;&gt;radPageViewPage5.Parent" xml:space="preserve">
-    <value>radPageView1</value>
-  </data>
-  <data name="&gt;&gt;radPageViewPage5.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
   <data name="radPageView1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
   </data>
@@ -4562,5 +4517,8 @@ Copyright SESMC(c)2014</value>
   </data>
   <data name="resources.recostructionsuccestotalrecostructed" xml:space="preserve">
     <value>Из них было перестроено:</value>
+  </data>
+  <data name="close.text" xml:space="preserve">
+    <value>Закрыть</value>
   </data>
 </root>

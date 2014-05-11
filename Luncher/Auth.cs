@@ -1,8 +1,6 @@
 ﻿using Newtonsoft.Json.Linq;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Text;
 
@@ -19,8 +17,8 @@ namespace Luncher
             json = json.Replace("${username}", user).Replace("${password}", password);
             try
             {
-                JObject jo = JObject.Parse(MakePOST.mPOSTJSON(AuthShemes.authserver + AuthShemes.authenticate, json));
-                Username uname = new Username()
+                var jo = JObject.Parse(MakePOST.mPOSTJSON(AuthShemes.authserver + AuthShemes.authenticate, json));
+                var uname = new Username()
                 {
                     uuid = jo["selectedProfile"]["id"].ToString()
                 };
@@ -72,7 +70,7 @@ namespace Luncher
                     stream.Write(body, 0, body.Length);
                     stream.Close();
                 }
-                using (HttpWebResponse response = (HttpWebResponse) request.GetResponse())
+                using (var response = (HttpWebResponse) request.GetResponse())
                 {
                     using (var streamReader = new StreamReader(response.GetResponseStream()))
                     {

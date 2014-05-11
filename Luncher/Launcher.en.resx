@@ -139,9 +139,6 @@ Copyright SESMC(c)2014</value>
   <data name="Nickname.NullText" xml:space="preserve">
     <value>Nickname</value>
   </data>
-  <data name="openModList.Text" xml:space="preserve">
-    <value>Open ModList(BETA)</value>
-  </data>
   <data name="radButton1.Text" xml:space="preserve">
     <value>&gt;</value>
   </data>
@@ -168,9 +165,6 @@ Copyright SESMC(c)2014</value>
   </data>
   <data name="resource.Text1" xml:space="preserve">
     <value>0.0.0.000</value>
-  </data>
-  <data name="radPageViewPage5.Text" xml:space="preserve">
-    <value>Other</value>
   </data>
   <data name="radPageViewPage4.Text" xml:space="preserve">
     <value>Options</value>
@@ -403,5 +397,8 @@ Copyright SESMC(c)2014</value>
   </data>
   <data name="contextver.del.a" xml:space="preserve">
     <value>Are you sure wanna to delete this version</value>
+  </data>
+  <data name="close.text" xml:space="preserve">
+    <value>Close</value>
   </data>
 </root>

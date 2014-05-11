@@ -30,65 +30,66 @@ namespace Luncher
                 {
                     if (!String.IsNullOrEmpty(a) && !a.Contains('#'))
                     {
-                        string[] parsingvalue = a.Split("="[0]);
-                        string pvalue = parsingvalue[1];
-                        string[] parse = parsingvalue[0].Split('.');
-                        string main = parse[0];
-                        string token = parse[1];
+                        var parsingvalue = a.Split("="[0]);
+                        var pvalue = parsingvalue[1];
+                        var parse = parsingvalue[0].Split('.');
+                        var main = parse[0];
+                        var token = parse[1];
                         string token2 = parse[2];
                         if (main == "luncher")
                         {
-                            if (token == "main")
+                            switch (token)
                             {
-                                if (token2 == "lang")
-                                {
-                                    mainlang = pvalue;
-                                }
-                                if (token2 == "renamewindow")
-                                {
-                                    mainrenamewindow = pvalue;
-                                }
-                            }
-                            else if (token == "gamelogging")
-                            {
-                                if (token2 == "enable")
-                                {
-                                    gamelogging = pvalue;
-                                }
-                                else if (token2 == "usegameprefix")
-                                {
-                                    gameloggingusegameprefix = pvalue;
-                                }
-                            }
-                            else if (token == "updater")
-                            {
-                                if (token2 == "updateversions")
-                                {
-                                    updaterupdateversions = pvalue;
-                                }
-                                else if (token2 == "updateprogram")
-                                {
-                                    updaterupdateprogram = pvalue;
-                                }
-                                else if (token2 == "alerts")
-                                {
-                                    updateralerts = pvalue;
-                                }
-                            }
-                            else if (token == "resources")
-                            {
-                                if (token2 == "enablerebuilding")
-                                {
-                                    resoucersenablerebuilding = pvalue;
-                                }
-                                else if (token2 == "rebuildresource")
-                                {
-                                    resoucerrebuildresource = pvalue;
-                                }
-                                else if (token2 == "assetspath")
-                                {
-                                    resoucerassetspath = pvalue;
-                                }
+                                case "main":
+                                    switch (token2)
+                                    {
+                                        case "lang":
+                                            mainlang = pvalue;
+                                            break;
+                                        case "renamewindow":
+                                            mainrenamewindow = pvalue;
+                                            break;
+                                    }
+                                    break;
+                                case "gamelogging":
+                                    switch (token2)
+                                    {
+                                        case "enable":
+                                            gamelogging = pvalue;
+                                            break;
+                                        case "usegameprefix":
+                                            gameloggingusegameprefix = pvalue;
+                                            break;
+                                    }
+                                    break;
+                                case "updater":
+                                    switch (token2)
+                                    {
+                                        case "updateversions":
+                                            updaterupdateversions = pvalue;
+                                            break;
+                                        case "updateprogram":
+                                            updaterupdateprogram = pvalue;
+                                            break;
+                                        case "alerts":
+                                            updateralerts = pvalue;
+                                            break;
+                                    }
+                                    break;
+                                case "resources":
+                                    switch (token2)
+                                    {
+                                        case "enablerebuilding":
+                                            resoucersenablerebuilding = pvalue;
+                                            break;
+                                        case "rebuildresource":
+                                            resoucerrebuildresource = pvalue;
+                                            break;
+                                        case "assetspath":
+                                            resoucerassetspath = pvalue;
+                                            break;
+                                    }
+                                    break;
                             }
                         }
                     }
@@ -101,7 +102,7 @@ namespace Luncher
                     Directory.CreateDirectory(Program.minecraft + "\\luncher\\");
                 }
                 catch { }
-                StringBuilder sb = new StringBuilder();
+                var sb = new StringBuilder();
                 sb.AppendLine("#Luncher configuration file");
                 sb.AppendLine("#");
                 sb.AppendLine();

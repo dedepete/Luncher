@@ -165,9 +165,6 @@
   <data name="LaunchButton.Text" xml:space="preserve">
     <value>Запуск</value>
   </data>
-  <data name="radPageViewPage5.Text" xml:space="preserve">
-    <value>інше</value>
-  </data>
   <data name="resource.Text" xml:space="preserve">
     <value>Партнери</value>
   </data>
@@ -191,9 +188,6 @@
   </data>
   <data name="Nickname.NullText" xml:space="preserve">
     <value>Логін</value>
-  </data>
-  <data name="openModList.Text" xml:space="preserve">
-    <value>Відкрити ModList(BETA)</value>
   </data>
   <data name="radButton1.Text" xml:space="preserve">
     <value>&gt;</value>
@@ -413,5 +407,8 @@ Copyright SESMC (с) 2014</value>
   </data>
   <data name="contextver.del.b" xml:space="preserve">
     <value>Підтвердження</value>
+  </data>
+  <data name="close.text" xml:space="preserve">
+    <value>Закрити</value>
   </data>
 </root>

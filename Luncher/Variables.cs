@@ -17,7 +17,6 @@ namespace Luncher
         // keep in mind these variables are available anywhere using Variables.varName
         public static string localProfileList = minecraft + "\\launcher_profiles.json";
         public static string profileJSONFile = minecraft + @"\launcher_profiles.json";
-        public static string profileNamesJSONFile = minecraft + @"\user_profiles.json";
         public static string userName = null;
         public static string clientToken = "someInterestingClientToken";
         public static string accessToken = "someInterestingAccessToken";
@@ -37,10 +36,10 @@ namespace Luncher
         {
             try
             {
-                String javaKey = "SOFTWARE\\JavaSoft\\Java Runtime Environment";
+                var javaKey = "SOFTWARE\\JavaSoft\\Java Runtime Environment";
                 using (var baseKey = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry64).OpenSubKey(javaKey))
                 {
-                    String currentVersion = baseKey.GetValue("CurrentVersion").ToString();
+                    var currentVersion = baseKey.GetValue("CurrentVersion").ToString();
                     using (var homeKey = baseKey.OpenSubKey(currentVersion))
                     {
                         return homeKey.GetValue("JavaHome").ToString();
@@ -49,10 +48,10 @@ namespace Luncher
             }
             catch
             {
-                String javaKey = "SOFTWARE\\Wow6432Node\\JavaSoft\\Java Runtime Environment";
+                var javaKey = "SOFTWARE\\Wow6432Node\\JavaSoft\\Java Runtime Environment";
                 using (var baseKey = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry64).OpenSubKey(javaKey))
                 {
-                    String currentVersion = baseKey.GetValue("CurrentVersion").ToString();
+                    var currentVersion = baseKey.GetValue("CurrentVersion").ToString();
                     using (var homeKey = baseKey.OpenSubKey(currentVersion))
                     {
                         return homeKey.GetValue("JavaHome").ToString();

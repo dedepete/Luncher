@@ -1,22 +1,18 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using System.Linq;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Diagnostics;
-using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Resources;
-using System.Text;
 using System.Threading;
 using System.Windows.Forms;
-using Telerik.WinControls;
 using Telerik.WinControls.UI;
 
 namespace Luncher
 {
-    public partial class ProfileForm : Telerik.WinControls.UI.RadForm
+    public partial class ProfileForm : RadForm
     {
         public ProfileForm()
         {
@@ -31,13 +27,14 @@ namespace Luncher
 
         private void ProfileForm_Load(object sender, EventArgs e)
         {
-            if (radButton4.Enabled == false)
+            switch (radButton4.Enabled)
             {
-                this.Size = this.MinimumSize;
-            }
-            else
-            {
-                this.Size = this.MaximumSize;
+                case false:
+                    Size = MinimumSize;
+                    break;
+                default:
+                    Size = MaximumSize;
+                    break;
             }
             profile = ProfileName.Text;
             getVersions(EnableExp.Checked, EnableBeta.Checked, EnableAlpha.Checked, EnableOther.Checked);
@@ -50,15 +47,14 @@ namespace Luncher
 
             oldver = Versions.Text;
             Versions.Items.Clear();
-            string ver = null;
             Versions.Items.Add(LocRM.GetString("uselastversion"));
-            List<string> list = new List<string>();
-            JObject json = JObject.Parse(File.ReadAllText(Variables.MCFolder + "/versions/versions.json"));
-            JArray jr = (JArray) json["versions"];
-            for (int i = 0; i < jr.Count; i++)
+            var list = new List<string>();
+            var json = JObject.Parse(File.ReadAllText(Variables.MCFolder + "/versions/versions.json"));
+            var jr = (JArray) json["versions"];
+            for (var i = 0; i < jr.Count; i++)
             {
-                string id = "null";
-                string type = "null";
+                var id = "null";
+                var type = "null";
                 try
                 {
                     id = json["versions"][i]["id"].ToString();
@@ -69,15 +65,15 @@ namespace Luncher
                 {
                 }
                 list.Add(type + " " + id);
-                if (type == "snapshot" & useexperementbuilds == true)
+                if (type == "snapshot" & useexperementbuilds)
                 {
                     Versions.Items.Add(type + " " + id);
                 }
-                else if (type == "old_beta" & usebetabuilds == true)
+                else if (type == "old_beta" & usebetabuilds)
                 {
                     Versions.Items.Add(type + " " + id);
                 }
-                else if (type == "old_alpha" & usealphabuilds == true)
+                else if (type == "old_alpha" & usealphabuilds)
                 {
                     Versions.Items.Add(type + " " + id);
                 }
@@ -86,28 +82,24 @@ namespace Luncher
                     Versions.Items.Add(type + " " + id);
                 }
                 else if (type != "release" & type != "snapshot" & type != "old_alpha" & type != "old_beta" &
-                         useotherbuilds == true)
+                         useotherbuilds)
                 {
                     Versions.Items.Add(type + " " + id);
                 }
             }
             foreach (string b in Directory.GetDirectories(minecraft + "\\versions\\"))
             {
-                bool add = true;
-                string type = "null";
-                foreach (string a in list)
+                var add = true;
+                var type = "null";
+                foreach (var splitted in from a in list let splitted = a.Split(' ') where a.Contains(new DirectoryInfo(b).Name) select splitted)
                 {
-                    string[] splitted = a.Split(' ');
-                    if (a.Contains(new DirectoryInfo(b).Name))
-                    {
-                        type = splitted[0];
-                        add = false;
-                        break;
-                    }
+                    type = splitted[0];
+                    add = false;
+                    break;
                 }
-                if (add == true)
+                if (add)
                 {
-                    JObject info = JObject.Parse(File.ReadAllText(Variables.MCFolder + "/versions/" + new DirectoryInfo(b).Name + "/" + new DirectoryInfo(b).Name + ".json"));
+                    var info = JObject.Parse(File.ReadAllText(Variables.MCFolder + "/versions/" + new DirectoryInfo(b).Name + "/" + new DirectoryInfo(b).Name + ".json"));
                     Versions.Items.Add(info["type"] + " " + info["id"]);
                 }
             }
@@ -115,15 +107,12 @@ namespace Luncher
             {
                 if (oldver != null & oldver != "")
                 {
-                    bool founded = false;
-                    foreach (RadListDataItem a in Versions.Items)
+                    var founded = false;
+                    foreach (var a in Versions.Items.Where(a => a.Text.Contains(oldver)))
                     {
-                        if (a.Text.Contains(oldver))
-                        {
-                            Versions.SelectedItem = a;
-                            founded = true;
-                            break;
-                        }
+                        Versions.SelectedItem = a;
+                        founded = true;
+                        break;
                     }
                     if (founded != true)
                     {
@@ -140,10 +129,10 @@ namespace Luncher
 
         void getParams(string pName)
         {
-            JObject json = JObject.Parse(File.ReadAllText(Variables.localProfileList));
+            var json = JObject.Parse(File.ReadAllText(Variables.localProfileList));
             try
             {
-                JArray allowedVersions = (JArray)json["profiles"][pName]["allowedReleaseTypes"];
+                var allowedVersions = (JArray)json["profiles"][pName]["allowedReleaseTypes"];
                 if (allowedVersions.ToString().Contains("old_alpha"))
                 {
                     EnableAlpha.ToggleState = Telerik.WinControls.Enumerations.ToggleState.On;
@@ -215,22 +204,19 @@ namespace Luncher
             }
             try
             {
-                JObject jsonVer = JObject.Parse(File.ReadAllText(minecraft + "\\versions\\" + ver + "\\" + ver + ".json"));
+                var jsonVer = JObject.Parse(File.ReadAllText(minecraft + "\\versions\\" + ver + "\\" + ver + ".json"));
                 Versions.SelectedItem = Versions.FindItemExact(jsonVer["type"].ToString() + " " + ver, true);
             }
             catch
             {
                 if (ver != null & ver != "")
                 {
-                    bool founded = false;
-                    foreach (RadListDataItem a in Versions.Items)
+                    var founded = false;
+                    foreach (RadListDataItem a in Versions.Items.Where(a => a.Text.Contains(ver)))
                     {
-                        if (a.Text.Contains(ver))
-                        {
-                            Versions.SelectedItem = a;
-                            founded = true;
-                            break;
-                        }
+                        Versions.SelectedItem = a;
+                        founded = true;
+                        break;
                     }
                     if (founded != true)
                     {
@@ -244,40 +230,39 @@ namespace Luncher
             }
             try
             {
-                if (json["profiles"][pName]["launcherVisibilityOnGameClose"].ToString() == "close launcher when game starts")
+                switch (json["profiles"][pName]["launcherVisibilityOnGameClose"].ToString())
                 {
-                    LState.SelectedIndex = 2;
-                }
-                else if (json["profiles"][pName]["launcherVisibilityOnGameClose"].ToString() ==
-                         "hide launcher and re-open when game closes")
-                {
-                    LState.SelectedIndex = 1;
-                }
-                else if (json["profiles"][pName]["launcherVisibilityOnGameClose"].ToString() == "keep the launcher open")
-                {
-                    LState.SelectedIndex = 0;
+                    case "close launcher when game starts":
+                        LState.SelectedIndex = 2;
+                        break;
+                    case "hide launcher and re-open when game closes":
+                        LState.SelectedIndex = 1;
+                        break;
+                    case "keep the launcher open":
+                        LState.SelectedIndex = 0;
+                        break;
                 }
             }
             catch { LState.SelectedIndex = 0; }
             changed = false;
         }
 
-        private void EnableExp_ToggleStateChanged(object sender, Telerik.WinControls.UI.StateChangedEventArgs args)
+        private void EnableExp_ToggleStateChanged(object sender, StateChangedEventArgs args)
         {
             getVersions(EnableExp.Checked, EnableBeta.Checked, EnableAlpha.Checked, EnableOther.Checked);
         }
 
-        private void EnableBeta_ToggleStateChanged(object sender, Telerik.WinControls.UI.StateChangedEventArgs args)
+        private void EnableBeta_ToggleStateChanged(object sender, StateChangedEventArgs args)
         {
             getVersions(EnableExp.Checked, EnableBeta.Checked, EnableAlpha.Checked, EnableOther.Checked);
         }
 
-        private void EnableAlpha_ToggleStateChanged(object sender, Telerik.WinControls.UI.StateChangedEventArgs args)
+        private void EnableAlpha_ToggleStateChanged(object sender, StateChangedEventArgs args)
         {
             getVersions(EnableExp.Checked, EnableBeta.Checked, EnableAlpha.Checked, EnableOther.Checked);
         }
 
-        private void UseDirectory_ToggleStateChanged(object sender, Telerik.WinControls.UI.StateChangedEventArgs args)
+        private void UseDirectory_ToggleStateChanged(object sender, StateChangedEventArgs args)
         {
             if (UseDirectory.ToggleState == Telerik.WinControls.Enumerations.ToggleState.On)
             {
@@ -302,17 +287,17 @@ namespace Luncher
         {
             newprofilename = profile;
             canceled = true;
-            this.Close();
+            Close();
         }
 
         public string newprofilename = null;
-        bool changed = false;
+        bool changed;
         private void radButton2_Click(object sender, EventArgs e)
         {
             string error = null;
-            JObject json = JObject.Parse(File.ReadAllText(Variables.localProfileList));
-            JObject json1 = (JObject)json["profiles"];
-            JObject curprofile = (JObject)json1[profile];
+            var json = JObject.Parse(File.ReadAllText(Variables.localProfileList));
+            var json1 = (JObject)json["profiles"];
+            var curprofile = (JObject)json1[profile];
             bool allowed = true;
             if (changed)
             {
@@ -413,7 +398,7 @@ namespace Luncher
                 }
                 try
                 {
-                    JArray item = new JArray();
+                    var item = new JArray();
                     if (EnableExp.ToggleState == Telerik.WinControls.Enumerations.ToggleState.On)
                     {
                         item.Add("snapshot");
@@ -445,7 +430,7 @@ namespace Luncher
                 }
                 json["profiles"][ProfileName.Text] = curprofile;
                 File.WriteAllText(Variables.localProfileList, json.ToString());
-                this.Close();
+                Close();
             }
             else
             {
@@ -497,18 +482,18 @@ namespace Luncher
         public bool deleted = false;
         private void radButton4_Click(object sender, EventArgs e)
         {
-            JObject json = JObject.Parse(File.ReadAllText(Variables.localProfileList));
-            JObject json1 = (JObject)json["profiles"];
+            var json = JObject.Parse(File.ReadAllText(Variables.localProfileList));
+            var json1 = (JObject)json["profiles"];
             if (json1.Count - 1 != 0)
             {
-                DialogResult dr = MessageBox.Show(LocRM.GetString("message.deleteprofiletext"), LocRM.GetString("message.deleteprofile"),
+                var dr = MessageBox.Show(LocRM.GetString("message.deleteprofiletext"), LocRM.GetString("message.deleteprofile"),
                     MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                if (dr == System.Windows.Forms.DialogResult.Yes)
+                if (dr == DialogResult.Yes)
                 {
                     json1.Property(profile).Remove();
                     File.WriteAllText(Variables.localProfileList, json.ToString());
                     deleted = true;
-                    this.Close();
+                    Close();
                 }
             }
             else

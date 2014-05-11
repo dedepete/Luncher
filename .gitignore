@@ -213,3 +213,6 @@ pip-log.txt
 
 #Mr Developer
 .mr.developer.cfg
+*.dll
+Luncher/Launcher.ru.resx
+Luncher/packages.config
