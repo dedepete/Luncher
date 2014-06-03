@@ -139,7 +139,7 @@
     <value>11</value>
   </data>
   <data name="label6.Text" xml:space="preserve">
-    <value>http://mcoffline.ru</value>
+    <value>http://vk.com/mcoffline</value>
   </data>
   <data name="&gt;&gt;label6.Name" xml:space="preserve">
     <value>label6</value>
@@ -359,8 +359,8 @@
     <value>3</value>
   </data>
   <data name="label1.Text" xml:space="preserve">
-    <value>Разработчик: dedepete
-Copyright SESMC(c)2014</value>
+    <value>Разработано Space Earth Studio Minecraft
+Издано Space Earth Studio</value>
   </data>
   <data name="&gt;&gt;label1.Name" xml:space="preserve">
     <value>label1</value>

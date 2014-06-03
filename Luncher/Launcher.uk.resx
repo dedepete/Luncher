@@ -145,7 +145,7 @@
     <value>LUNCHER</value>
   </data>
   <data name="label6.Text" xml:space="preserve">
-    <value>http://mcoffline.ru</value>
+    <value>http://vk.com/mcoffline</value>
   </data>
   <data name="label5.Text" xml:space="preserve">
     <value>http://ru-minecraft.ru</value>
@@ -226,9 +226,9 @@
     <value>Для перестроювання ресурсів використовувати ресурси</value>
   </data>
   <data name="label1.Text" xml:space="preserve">
-    <value>Розробник: dedepete 
-Переклад: Alex G. 
-Copyright SESMC (с) 2014</value>
+    <value>Розроблено Space Earth Studio Minecraft
+Надруковано Space Earth Studio
+Перекладено Alex G. </value>
   </data>
   <data name="label2.Text" xml:space="preserve">
     <value>Абревіатура SESMC розшифровується як простір Space Earth Studio Minecraft. 

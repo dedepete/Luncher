@@ -118,8 +118,8 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="label1.Text" xml:space="preserve">
-    <value>Developer: dedepete
-Copyright SESMC(c)2014</value>
+    <value>Developed by Space Earth Studio Minecraft
+Published by Space Earth Studio</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>Luncher</value>
@@ -203,7 +203,7 @@ Copyright SESMC(c)2014</value>
     <value>http://ru-minecraft.ru</value>
   </data>
   <data name="label6.Text" xml:space="preserve">
-    <value>http://mcoffline.ru</value>
+    <value>http://vk.com/mcoffline</value>
   </data>
   <data name="label7.Text" xml:space="preserve">
     <value>MCoffline - лучшая программа для серверных администраторов!</value>
@@ -312,7 +312,7 @@ Copyright SESMC(c)2014</value>
     <value>Finished checking libraries. Total files:</value>
   </data>
   <data name="lib.checking" xml:space="preserve">
-    <value>Checking if required libraries...</value>
+    <value>Checking required libraries availability...</value>
   </data>
   <data name="lib.notfound" xml:space="preserve">
     <value>not found!</value>
@@ -324,7 +324,7 @@ Copyright SESMC(c)2014</value>
     <value>Finished checking resources. Total files:</value>
   </data>
   <data name="resources.checking" xml:space="preserve">
-    <value>Checking if required resources...</value>
+    <value>Checking required resources availability...</value>
   </data>
   <data name="resources.reconstructing" xml:space="preserve">
     <value>Reconstructing resources...</value>
