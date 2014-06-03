@@ -7,9 +7,9 @@ using System.Resources;
 // набора атрибутов. Измените значения этих атрибутов, чтобы изменить сведения,
 // связанные со сборкой.
 [assembly: AssemblyTitle("Luncher")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Open Source Minecraft piracy launcher")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Space Earth Studio")]
+[assembly: AssemblyCompany("Space Earth Studio Minecraft")]
 [assembly: AssemblyProduct("Luncher")]
 [assembly: AssemblyCopyright("Copyright SESMC©  2014")]
 [assembly: AssemblyTrademark("")]
@@ -33,6 +33,6 @@ using System.Resources;
 // Можно задать все значения или принять номера сборки и редакции по умолчанию 
 // используя "*", как показано ниже:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.2.1.1505")]
-[assembly: AssemblyFileVersion("1.2.1.1505")]
+[assembly: AssemblyVersion("1.2.3.1561")]
+[assembly: AssemblyFileVersion("1.2.3.1561")]
 [assembly: NeutralResourcesLanguageAttribute("ru-RU")]
