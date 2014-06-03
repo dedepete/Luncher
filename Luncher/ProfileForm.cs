@@ -16,14 +16,14 @@ namespace Luncher
     {
         public ProfileForm()
         {
-            Thread.CurrentThread.CurrentUICulture = new CultureInfo(Program.lang);
+            Thread.CurrentThread.CurrentUICulture = new CultureInfo(Program.Lang);
             InitializeComponent();
         }
 
-        ResourceManager LocRM = new ResourceManager("Luncher.ProfileForm", typeof(ProfileForm).Assembly);
+        readonly ResourceManager _locRm = new ResourceManager("Luncher.ProfileForm", typeof(ProfileForm).Assembly);
 
-        string minecraft = Program.minecraft;
-        string profile;
+        readonly string _minecraft = Program.Minecraft;
+        string _profile;
 
         private void ProfileForm_Load(object sender, EventArgs e)
         {
@@ -36,20 +36,20 @@ namespace Luncher
                     Size = MaximumSize;
                     break;
             }
-            profile = ProfileName.Text;
-            getVersions(EnableExp.Checked, EnableBeta.Checked, EnableAlpha.Checked, EnableOther.Checked);
-            getParams(ProfileName.Text);
+            _profile = ProfileName.Text;
+            GetVersions(EnableExp.Checked, EnableBeta.Checked, EnableAlpha.Checked, EnableOther.Checked);
+            GetParams(ProfileName.Text);
         }
 
-        string oldver;
-        void getVersions(bool useexperementbuilds, bool usebetabuilds, bool usealphabuilds, bool useotherbuilds)
+        string _oldver;
+        void GetVersions(bool useexperementbuilds, bool usebetabuilds, bool usealphabuilds, bool useotherbuilds)
         {
 
-            oldver = Versions.Text;
+            _oldver = Versions.Text;
             Versions.Items.Clear();
-            Versions.Items.Add(LocRM.GetString("uselastversion"));
+            Versions.Items.Add(_locRm.GetString("uselastversion"));
             var list = new List<string>();
-            var json = JObject.Parse(File.ReadAllText(Variables.MCFolder + "/versions/versions.json"));
+            var json = JObject.Parse(File.ReadAllText(Variables.McFolder + "/versions/versions.json"));
             var jr = (JArray) json["versions"];
             for (var i = 0; i < jr.Count; i++)
             {
@@ -61,54 +61,37 @@ namespace Luncher
                     type = json["versions"][i]["type"].ToString();
 
                 }
-                catch
-                {
-                }
+                catch { }
                 list.Add(type + " " + id);
-                if (type == "snapshot" & useexperementbuilds)
+                switch (type)
                 {
-                    Versions.Items.Add(type + " " + id);
-                }
-                else if (type == "old_beta" & usebetabuilds)
-                {
-                    Versions.Items.Add(type + " " + id);
-                }
-                else if (type == "old_alpha" & usealphabuilds)
-                {
-                    Versions.Items.Add(type + " " + id);
-                }
-                else if (type == "release")
-                {
-                    Versions.Items.Add(type + " " + id);
-                }
-                else if (type != "release" & type != "snapshot" & type != "old_alpha" & type != "old_beta" &
-                         useotherbuilds)
-                {
-                    Versions.Items.Add(type + " " + id);
+                    case "snapshot":
+                        if (useexperementbuilds) Versions.Items.Add(type + " " + id);
+                        break;
+                    case "old_beta":
+                        if (usebetabuilds) Versions.Items.Add(type + " " + id);
+                        break;
+                    case "old_alpha":
+                        if (usealphabuilds) Versions.Items.Add(type + " " + id);
+                        break;
+                    case "release":
+                        Versions.Items.Add(type + " " + id);
+                        break;
+                    default:
+                        if (useotherbuilds) Versions.Items.Add(type + " " + id);
+                        break;
                 }
             }
-            foreach (string b in Directory.GetDirectories(minecraft + "\\versions\\"))
+            foreach (var info in from b in Directory.GetDirectories(_minecraft + "\\versions\\") let add = !(from a in list let splitted = a.Split(' ') where a.Contains(new DirectoryInfo(b).Name) select splitted).Any() where add select JObject.Parse(File.ReadAllText(Variables.McFolder + "/versions/" + new DirectoryInfo(b).Name + "/" + new DirectoryInfo(b).Name + ".json")))
             {
-                var add = true;
-                var type = "null";
-                foreach (var splitted in from a in list let splitted = a.Split(' ') where a.Contains(new DirectoryInfo(b).Name) select splitted)
-                {
-                    type = splitted[0];
-                    add = false;
-                    break;
-                }
-                if (add)
-                {
-                    var info = JObject.Parse(File.ReadAllText(Variables.MCFolder + "/versions/" + new DirectoryInfo(b).Name + "/" + new DirectoryInfo(b).Name + ".json"));
-                    Versions.Items.Add(info["type"] + " " + info["id"]);
-                }
+                Versions.Items.Add(info["type"] + " " + info["id"]);
             }
             try
             {
-                if (oldver != null & oldver != "")
+                if (_oldver != null & _oldver != "")
                 {
                     var founded = false;
-                    foreach (var a in Versions.Items.Where(a => a.Text.Contains(oldver)))
+                    foreach (var a in Versions.Items.Where(a => a.Text.Contains(_oldver)))
                     {
                         Versions.SelectedItem = a;
                         founded = true;
@@ -127,9 +110,9 @@ namespace Luncher
             catch { Versions.SelectedIndex = 0; }
         }
 
-        void getParams(string pName)
+        void GetParams(string pName)
         {
-            var json = JObject.Parse(File.ReadAllText(Variables.localProfileList));
+            var json = JObject.Parse(File.ReadAllText(Variables.LocalProfileList));
             try
             {
                 var allowedVersions = (JArray)json["profiles"][pName]["allowedReleaseTypes"];
@@ -162,10 +145,10 @@ namespace Luncher
                 }
                 else
                 {
-                    Gamedir.Text = minecraft;
+                    Gamedir.Text = _minecraft;
                 }
             }
-            catch { Gamedir.Text = minecraft; }
+            catch { Gamedir.Text = _minecraft; }
             try
             {
                 if (json["profiles"][pName]["javaDir"].ToString() != null)
@@ -175,10 +158,10 @@ namespace Luncher
                 }
                 else
                 {
-                    ExecJava.Text = Variables.javaExe;
+                    ExecJava.Text = Variables.JavaExe;
                 }
             }
-            catch { ExecJava.Text = Variables.javaExe; }
+            catch { ExecJava.Text = Variables.JavaExe; }
             try
             {
                 if (json["profiles"][pName]["javaArgs"].ToString() != null)
@@ -192,27 +175,26 @@ namespace Luncher
                 }
             }
             catch { Args.Text = "-Xmx1G"; }
-            string useversion = null;
             string ver = null;
             try
             {
-                ver = json["profiles"][profile]["lastVersionId"].ToString();
+                ver = json["profiles"][_profile]["lastVersionId"].ToString();
             }
             catch
             {
-                useversion = LocRM.GetString("uselastversion");
+                _locRm.GetString("uselastversion");
             }
             try
             {
-                var jsonVer = JObject.Parse(File.ReadAllText(minecraft + "\\versions\\" + ver + "\\" + ver + ".json"));
-                Versions.SelectedItem = Versions.FindItemExact(jsonVer["type"].ToString() + " " + ver, true);
+                var jsonVer = JObject.Parse(File.ReadAllText(_minecraft + "\\versions\\" + ver + "\\" + ver + ".json"));
+                Versions.SelectedItem = Versions.FindItemExact(jsonVer["type"] + " " + ver, true);
             }
             catch
             {
                 if (ver != null & ver != "")
                 {
                     var founded = false;
-                    foreach (RadListDataItem a in Versions.Items.Where(a => a.Text.Contains(ver)))
+                    foreach (var a in Versions.Items.Where(a => a.Text.Contains(ver)))
                     {
                         Versions.SelectedItem = a;
                         founded = true;
@@ -244,34 +226,27 @@ namespace Luncher
                 }
             }
             catch { LState.SelectedIndex = 0; }
-            changed = false;
+            _changed = false;
         }
 
         private void EnableExp_ToggleStateChanged(object sender, StateChangedEventArgs args)
         {
-            getVersions(EnableExp.Checked, EnableBeta.Checked, EnableAlpha.Checked, EnableOther.Checked);
+            GetVersions(EnableExp.Checked, EnableBeta.Checked, EnableAlpha.Checked, EnableOther.Checked);
         }
 
         private void EnableBeta_ToggleStateChanged(object sender, StateChangedEventArgs args)
         {
-            getVersions(EnableExp.Checked, EnableBeta.Checked, EnableAlpha.Checked, EnableOther.Checked);
+            GetVersions(EnableExp.Checked, EnableBeta.Checked, EnableAlpha.Checked, EnableOther.Checked);
         }
 
         private void EnableAlpha_ToggleStateChanged(object sender, StateChangedEventArgs args)
         {
-            getVersions(EnableExp.Checked, EnableBeta.Checked, EnableAlpha.Checked, EnableOther.Checked);
+            GetVersions(EnableExp.Checked, EnableBeta.Checked, EnableAlpha.Checked, EnableOther.Checked);
         }
 
         private void UseDirectory_ToggleStateChanged(object sender, StateChangedEventArgs args)
         {
-            if (UseDirectory.ToggleState == Telerik.WinControls.Enumerations.ToggleState.On)
-            {
-                Gamedir.Enabled = true;
-            }
-            else
-            {
-                Gamedir.Enabled = false;
-            }
+            Gamedir.Enabled = UseDirectory.ToggleState == Telerik.WinControls.Enumerations.ToggleState.On;
         }
 
         private void radButton3_Click(object sender, EventArgs e)
@@ -282,52 +257,44 @@ namespace Luncher
             }catch{}
         }
 
-        public bool canceled = false;
+        public bool Canceled;
         private void radButton1_Click(object sender, EventArgs e)
         {
-            newprofilename = profile;
-            canceled = true;
+            Newprofilename = _profile;
+            Canceled = true;
             Close();
         }
 
-        public string newprofilename = null;
-        bool changed;
+        public string Newprofilename;
+        bool _changed;
         private void radButton2_Click(object sender, EventArgs e)
         {
             string error = null;
-            var json = JObject.Parse(File.ReadAllText(Variables.localProfileList));
+            var json = JObject.Parse(File.ReadAllText(Variables.LocalProfileList));
             var json1 = (JObject)json["profiles"];
-            var curprofile = (JObject)json1[profile];
-            bool allowed = true;
-            if (changed)
+            var curprofile = (JObject)json1[_profile];
+            var allowed = true;
+            if (_changed)
             {
-                foreach (JProperty peep in json["profiles"])
+                if (json["profiles"].Cast<JProperty>().Any(peep => peep.Name == ProfileName.Text))
                 {
-                    if (peep.Name == ProfileName.Text)
-                    {
-                        error = LocRM.GetString("message.invalidname");
-                        allowed = false;
-                        break;
-                    }
-                    else
-                    {
-                        allowed = true;
-                    }
+                    error = _locRm.GetString("message.invalidname");
+                    allowed = false;
                 }
             }
             if (Versions.SelectedItem == null)
             {
-                error = LocRM.GetString("message.errornull");
+                error = _locRm.GetString("message.errornull");
                 allowed = false;
             }
             if (allowed)
             {
-                json["profiles"] = Launcher.Rename(json1, name => name == profile ? ProfileName.Text : name);
+                json["profiles"] = Processing.Rename(json1, name => name == _profile ? ProfileName.Text : name);
                 json["selectedProfile"] = ProfileName.Text;
-                newprofilename = ProfileName.Text;
-                if (!Versions.SelectedItem.Text.Contains(LocRM.GetString("uselastversion")))
+                Newprofilename = ProfileName.Text;
+                if (!Versions.SelectedItem.Text.Contains(_locRm.GetString("uselastversion")))
                 {
-                    string[] lastversionid = Versions.SelectedItem.Text.Split(' ');
+                    var lastversionid = Versions.SelectedItem.Text.Split(' ');
                     curprofile["lastVersionId"] = lastversionid[1];
                 }
                 else
@@ -429,49 +396,28 @@ namespace Luncher
                     curprofile["name"].AddAfterSelf(new JProperty("launcherVisibilityOnGameClose", LState.SelectedItem.Tag.ToString()));
                 }
                 json["profiles"][ProfileName.Text] = curprofile;
-                File.WriteAllText(Variables.localProfileList, json.ToString());
+                File.WriteAllText(Variables.LocalProfileList, json.ToString());
                 Close();
             }
             else
             {
-                MessageBox.Show(error, LocRM.GetString("message.error"), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Logging.Log("err", true, true, error);
             }
         }
 
         private void ProfileName_TextChanged(object sender, EventArgs e)
         {
-            if (profile == ProfileName.Text)
-            {
-                changed = false;
-            }
-            else
-            {
-                changed = true;
-            }
+            _changed = _profile != ProfileName.Text;
         }
 
         private void UseExec_ToggleStateChanged(object sender, StateChangedEventArgs args)
         {
-            if (UseExec.ToggleState == Telerik.WinControls.Enumerations.ToggleState.On)
-            {
-                ExecJava.Enabled = true;
-            }
-            else
-            {
-                ExecJava.Enabled = false;
-            }
+            ExecJava.Enabled = UseExec.ToggleState == Telerik.WinControls.Enumerations.ToggleState.On;
         }
 
         private void UseArgs_ToggleStateChanged(object sender, StateChangedEventArgs args)
         {
-            if (UseArgs.ToggleState == Telerik.WinControls.Enumerations.ToggleState.On)
-            {
-                Args.Enabled = true;
-            }
-            else
-            {
-                Args.Enabled = false;
-            }
+            Args.Enabled = UseArgs.ToggleState == Telerik.WinControls.Enumerations.ToggleState.On;
         }
 
         private void Versions_SelectedIndexChanged(object sender, Telerik.WinControls.UI.Data.PositionChangedEventArgs e)
@@ -479,26 +425,26 @@ namespace Luncher
 
         }
 
-        public bool deleted = false;
+        public bool Deleted;
         private void radButton4_Click(object sender, EventArgs e)
         {
-            var json = JObject.Parse(File.ReadAllText(Variables.localProfileList));
+            var json = JObject.Parse(File.ReadAllText(Variables.LocalProfileList));
             var json1 = (JObject)json["profiles"];
             if (json1.Count - 1 != 0)
             {
-                var dr = MessageBox.Show(LocRM.GetString("message.deleteprofiletext"), LocRM.GetString("message.deleteprofile"),
+                var dr = MessageBox.Show(_locRm.GetString("message.deleteprofiletext"), _locRm.GetString("message.deleteprofile"),
                     MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (dr == DialogResult.Yes)
                 {
-                    json1.Property(profile).Remove();
-                    File.WriteAllText(Variables.localProfileList, json.ToString());
-                    deleted = true;
+                    json1.Property(_profile).Remove();
+                    File.WriteAllText(Variables.LocalProfileList, json.ToString());
+                    Deleted = true;
                     Close();
                 }
             }
             else
             {
-                MessageBox.Show(LocRM.GetString("message.deleteprofilelast"), LocRM.GetString("message.error"), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(_locRm.GetString("message.deleteprofilelast"), _locRm.GetString("message.error"), MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

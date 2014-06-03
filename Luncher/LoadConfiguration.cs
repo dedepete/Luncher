@@ -8,25 +8,25 @@ namespace Luncher
 {
     public static class LoadConfiguration
     {
-        public static string gamelogging = "True";
-        public static string gameloggingusegameprefix = "False";
+        public static string Gamelogging = "True";
+        public static string GameLoggingusegameprefix = "False";
 
-        public static string updaterupdateversions = "True";
-        public static string updaterupdateprogram = "True";
-        public static string updateralerts = "True";
+        public static string Updaterupdateversions = "True";
+        public static string Updaterupdateprogram = "True";
+        public static string Updateralerts = "True";
 
-        public static string resoucersenablerebuilding = "True"; 
-        public static string resoucerrebuildresource = "1.7.4";
-        public static string resoucerassetspath = "${AppData}\\.minecraft\\assets\\";
+        public static string Resoucersenablerebuilding = "True"; 
+        public static string Resoucerrebuildresource = "1.7.4";
+        public static string Resoucerassetspath = "${AppData}\\.minecraft\\assets\\";
 
-        public static string mainlang = "";
-        public static string mainrenamewindow = "1";
+        public static string Mainlang = "";
+        public static string Mainrenamewindow = "1";
 
         public static void LoadConfigurationFile()
         {
-            if (File.Exists(Program.minecraft + "\\luncher\\configuration.cfg"))
+            if (File.Exists(Program.Minecraft + "\\luncher\\configuration.cfg"))
             {
-                foreach (string a in File.ReadAllLines(Program.minecraft + "\\luncher\\configuration.cfg"))
+                foreach (var a in File.ReadAllLines(Program.Minecraft + "\\luncher\\configuration.cfg"))
                 {
                     if (!String.IsNullOrEmpty(a) && !a.Contains('#'))
                     {
@@ -35,7 +35,7 @@ namespace Luncher
                         var parse = parsingvalue[0].Split('.');
                         var main = parse[0];
                         var token = parse[1];
-                        string token2 = parse[2];
+                        var token2 = parse[2];
                         if (main == "luncher")
                         {
                             switch (token)
@@ -44,21 +44,21 @@ namespace Luncher
                                     switch (token2)
                                     {
                                         case "lang":
-                                            mainlang = pvalue;
+                                            Mainlang = pvalue;
                                             break;
                                         case "renamewindow":
-                                            mainrenamewindow = pvalue;
+                                            Mainrenamewindow = pvalue;
                                             break;
                                     }
                                     break;
-                                case "gamelogging":
+                                case "gamLogging.ErrorLogging":
                                     switch (token2)
                                     {
                                         case "enable":
-                                            gamelogging = pvalue;
+                                            Gamelogging = pvalue;
                                             break;
                                         case "usegameprefix":
-                                            gameloggingusegameprefix = pvalue;
+                                            GameLoggingusegameprefix = pvalue;
                                             break;
                                     }
                                     break;
@@ -66,13 +66,13 @@ namespace Luncher
                                     switch (token2)
                                     {
                                         case "updateversions":
-                                            updaterupdateversions = pvalue;
+                                            Updaterupdateversions = pvalue;
                                             break;
                                         case "updateprogram":
-                                            updaterupdateprogram = pvalue;
+                                            Updaterupdateprogram = pvalue;
                                             break;
                                         case "alerts":
-                                            updateralerts = pvalue;
+                                            Updateralerts = pvalue;
                                             break;
                                     }
                                     break;
@@ -80,13 +80,13 @@ namespace Luncher
                                     switch (token2)
                                     {
                                         case "enablerebuilding":
-                                            resoucersenablerebuilding = pvalue;
+                                            Resoucersenablerebuilding = pvalue;
                                             break;
                                         case "rebuildresource":
-                                            resoucerrebuildresource = pvalue;
+                                            Resoucerrebuildresource = pvalue;
                                             break;
                                         case "assetspath":
-                                            resoucerassetspath = pvalue;
+                                            Resoucerassetspath = pvalue;
                                             break;
                                     }
                                     break;
@@ -97,11 +97,8 @@ namespace Luncher
             }
             else
             {
-                try
-                {
-                    Directory.CreateDirectory(Program.minecraft + "\\luncher\\");
-                }
-                catch { }
+                string path = Program.Minecraft + "\\luncher\\";
+                if (!Directory.Exists(path)) Directory.CreateDirectory(path);
                 var sb = new StringBuilder();
                 sb.AppendLine("#Luncher configuration file");
                 sb.AppendLine("#");
@@ -109,8 +106,8 @@ namespace Luncher
                 sb.AppendLine("luncher.main.lang=");
                 sb.AppendLine("luncher.main.renamewindow=1");
                 sb.AppendLine();
-                sb.AppendLine("luncher.gamelogging.enable=True");
-                sb.AppendLine("luncher.gamelogging.usegameprefix=False");
+                sb.AppendLine("luncher.gamLogging.ErrorLogging.enable=True");
+                sb.AppendLine("luncher.gamLogging.ErrorLogging.usegameprefix=False");
                 sb.AppendLine();
                 sb.AppendLine("luncher.updater.updateversions=True");
                 sb.AppendLine("luncher.updater.updateprogram=True");
@@ -119,7 +116,7 @@ namespace Luncher
                 sb.AppendLine("luncher.resources.enablerebuilding=True");
                 sb.AppendLine("luncher.resources.rebuildresource=1.7.4");
                 sb.AppendLine("luncher.resources.assetspath=${AppData}\\.minecraft\\assets\\");
-                File.WriteAllText(Program.minecraft + "\\luncher\\configuration.cfg", sb.ToString());
+                File.WriteAllText(Program.Minecraft + "\\luncher\\configuration.cfg", sb.ToString());
             }
         }
     }

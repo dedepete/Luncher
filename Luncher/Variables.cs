@@ -11,53 +11,25 @@ namespace Luncher
 {
     public static class Variables
     {
-        public static bool workingOffline = false;
+        public static bool WorkingOffline = false;
 
-        private static string minecraft = Program.minecraft;
+        private static readonly string Minecraft = Program.Minecraft;
         // keep in mind these variables are available anywhere using Variables.varName
-        public static string localProfileList = minecraft + "\\launcher_profiles.json";
-        public static string profileJSONFile = minecraft + @"\launcher_profiles.json";
-        public static string userName = null;
-        public static string clientToken = "someInterestingClientToken";
-        public static string accessToken = "someInterestingAccessToken";
-        public static string mainClass = null;
-        public static string MCFolder = minecraft;
-        public static string MCVersions = Path.Combine(minecraft, "versions");
-        public static string javaExe = GetJavaInstallationPath() + @"\bin\java.exe";
+        public static readonly string LocalProfileList = Minecraft + "\\launcher_profiles.json";
+        public static readonly string ProfileJsonFile = Minecraft + @"\launcher_profiles.json";
+        public static string UserName;
+        public static string ClientToken = "someInterestingClientToken";
+        public static string AccessToken = "someInterestingAccessToken";
+        public static string MainClass;
+        public static readonly string McFolder = Minecraft;
+        public static readonly string McVersions = Path.Combine(Minecraft, "versions");
+        public static readonly string JavaExe = Processing.GetJavaInstallationPath() + @"\bin\java.exe";
         // custom versioning
-        public static string netJsonVersion = "6.0r3";
-        public static string netZipVersion = "1.9.2";
-        public static string NDOptions = "0.2.1";
+        public const string NetJsonVersion = "6.0r3";
+        public const string NetZipVersion = "1.9.2";
+        public const string NdOptions = "0.2.1";
         // last versions
-        public static string lastRelease = null;
-        public static string lastSnapshot = null;
-        //
-        public static String GetJavaInstallationPath()
-        {
-            try
-            {
-                var javaKey = "SOFTWARE\\JavaSoft\\Java Runtime Environment";
-                using (var baseKey = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry64).OpenSubKey(javaKey))
-                {
-                    var currentVersion = baseKey.GetValue("CurrentVersion").ToString();
-                    using (var homeKey = baseKey.OpenSubKey(currentVersion))
-                    {
-                        return homeKey.GetValue("JavaHome").ToString();
-                    }
-                }
-            }
-            catch
-            {
-                var javaKey = "SOFTWARE\\Wow6432Node\\JavaSoft\\Java Runtime Environment";
-                using (var baseKey = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry64).OpenSubKey(javaKey))
-                {
-                    var currentVersion = baseKey.GetValue("CurrentVersion").ToString();
-                    using (var homeKey = baseKey.OpenSubKey(currentVersion))
-                    {
-                        return homeKey.GetValue("JavaHome").ToString();
-                    }
-                }
-            }
-        }
+        public static string LastRelease;
+        public static string LastSnapshot;
     }
 }

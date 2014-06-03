@@ -8,55 +8,56 @@ namespace Luncher
 {
     public class Auth
     {
-        public string user { get; set; }
-        public string password { get; set; }
+        public string User { private get; set; }
+        public string Password { private get; set; }
 
         public String Authenticate()
         {
-            string json = JObject.Parse(AuthShemes.authenticatesheme).ToString();
-            json = json.Replace("${username}", user).Replace("${password}", password);
+            Logging.Log("", true, false,  "Authenticating...");
+            var json = JObject.Parse(AuthShemes.Authenticatesheme).ToString();
+            json = json.Replace("${username}", User).Replace("${password}", Password);
+            var response = MakePost.MPostjson(AuthShemes.Authserver + AuthShemes.Authenticate, json);
             try
             {
-                var jo = JObject.Parse(MakePOST.mPOSTJSON(AuthShemes.authserver + AuthShemes.authenticate, json));
-                var uname = new Username()
+                var jo = JObject.Parse(response);
+                var uname = new Username
                 {
-                    uuid = jo["selectedProfile"]["id"].ToString()
+                    Uuid = jo["selectedProfile"]["id"].ToString()
                 };
-                return uname.GetUsernameByUUID() + ":" + jo["accessToken"].ToString() + ":" + jo["clientToken"].ToString() + ":" + jo["selectedProfile"]["id"].ToString();
+                return uname.GetUsernameByUuid() + ":" + jo["accessToken"] + ":" + jo["clientToken"] + ":" + jo["selectedProfile"]["id"];
             }
-            catch (Exception ex)
+            catch
             {
-                return "Error occupied while autheticating.\n" + ex.ToString();
+                string cause = null;
+                switch (response) {
+                    case "ProtocolError":
+                        cause = "Invalid credentials";
+                        break;
+                }
+                return cause;
             }
         }
         public String Logout()
         {
-            string json = JObject.Parse(AuthShemes.signoutsheme).ToString();
-            json = json.Replace("${username}", user).Replace("${password}", password);
-            if (MakePOST.mPOSTJSON(AuthShemes.authserver + AuthShemes.signout, json) == string.Empty)
-            {
-                return "Successful";
-            }
-            else
-            {
-                return "Unsuccessful";
-            }
+            string json = JObject.Parse(AuthShemes.Signoutsheme).ToString();
+            json = json.Replace("${username}", User).Replace("${password}", Password);
+            return MakePost.MPostjson(AuthShemes.Authserver + AuthShemes.Signout, json) == string.Empty ? "Successful" : "Unsuccessful";
         }
     }
 
     public class Username
     {
-        public string uuid { get; set; }
+        public string Uuid { private get; set; }
 
-        public String GetUsernameByUUID()
+        public String GetUsernameByUuid()
         {
-            JObject jo = JObject.Parse(new WebClient().DownloadString("https://sessionserver.mojang.com/session/minecraft/profile/" + uuid));
+            var jo = JObject.Parse(new WebClient().DownloadString("https://sessionserver.mojang.com/session/minecraft/profile/" + Uuid));
             return jo["name"].ToString();
         }
     }
-    public static class MakePOST
+    public static class MakePost
     {
-        public static String mPOSTJSON(string httpreq, string topost)
+        public static String MPostjson(string httpreq, string topost)
         {
             try
             {
@@ -65,7 +66,7 @@ namespace Luncher
                 request.Method = "POST";
                 request.ContentType = "application/json";
                 request.ContentLength = body.Length;
-                using (Stream stream = request.GetRequestStream())
+                using (var stream = request.GetRequestStream())
                 {
                     stream.Write(body, 0, body.Length);
                     stream.Close();
@@ -78,9 +79,9 @@ namespace Luncher
                     }
                 }
             }
-            catch (Exception av)
+            catch (WebException av)
             {
-                return "Error\n" + av.ToString();
+                return av.Status.ToString();
             }
         }
     }

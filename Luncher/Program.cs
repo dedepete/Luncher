@@ -10,16 +10,16 @@ namespace Luncher
         /// Главная точка входа для приложения.
         /// </summary>
 
-        public static string minecraft = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\.minecraft";
+        public static string Minecraft = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\.minecraft";
 
-        public static string lang = "uk";
+        public static string Lang = "uk";
 
-        public static string[] arg;
+        public static string[] Arg;
 
         [STAThread]
         private static void Main(string[] args)
         {
-            arg = args;
+            Arg = args;
             ThemeResolutionService.ApplicationThemeName = "VisualStudio2012Dark";
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);

@@ -1,21 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace Luncher
+﻿namespace Luncher
 {
     class AuthShemes
     {
-        public static string authserver = @"https://authserver.mojang.com";
+        public const string Authserver = @"https://authserver.mojang.com";
 
-        public static string authenticate = @"/authenticate";
-        public static string refresh = @"/refresh";
-        public static string validate = @"/validate";
-        public static string signout = @"/signout";
-        public static string invalidate = @"/invalidate";
+        public const string Authenticate = @"/authenticate";
+        public const string Refresh = @"/refresh";
+        public const string Validate = @"/validate";
+        public const string Signout = @"/signout";
+        public const string Invalidate = @"/invalidate";
 
-        public static string authenticatesheme = @"{
+        public const string Authenticatesheme = @"{
   'agent': {
     'name': 'Minecraft',           
     'version': 1
@@ -23,7 +18,7 @@ namespace Luncher
   'username': '${username}',
   'password': '${password}',
 }";
-        public static string signoutsheme = @"{
+        public const string Signoutsheme = @"{
   'username': '${username}',
   'password': '${password}',
 }";

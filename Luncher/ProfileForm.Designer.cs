@@ -166,13 +166,13 @@
             // 
             this.LState.DropDownStyle = Telerik.WinControls.RadDropDownStyle.DropDownList;
             radListDataItem1.Tag = "keep the launcher open";
-            radListDataItem1.Text = LocRM.GetString("data.keepopen");
+            radListDataItem1.Text = _locRm.GetString("data.keepopen");
             resources.ApplyResources(radListDataItem1, "radListDataItem1");
             radListDataItem2.Tag = "hide launcher and re-open when game closes";
-            radListDataItem2.Text = LocRM.GetString("data.minsize");
+            radListDataItem2.Text = _locRm.GetString("data.minsize");
             resources.ApplyResources(radListDataItem2, "radListDataItem2");
             radListDataItem3.Tag = "close launcher when game starts";
-            radListDataItem3.Text = LocRM.GetString("data.close");
+            radListDataItem3.Text = _locRm.GetString("data.close");
             resources.ApplyResources(radListDataItem3, "radListDataItem3");
             this.LState.Items.Add(radListDataItem1);
             this.LState.Items.Add(radListDataItem2);
