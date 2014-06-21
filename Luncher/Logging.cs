@@ -7,30 +7,32 @@ namespace Luncher
 {
     public static class Logging
     {
-        public static void Log(string type, bool showprefix, bool colored, string text)
+        public static void Log(int code, bool colored, string text)
         {
             var logBox = LogBox._LogBox as RichTextBox;
             string finalstring;
             var time = DateTime.Now.ToString("dd-MM-yy HH:mm:ss");
             var color = Color.Black;
-            if (showprefix)
-                switch (type)
-                {
-                    case "warn":
-                        if (colored) color = Color.Orange;
-                        finalstring = String.Format("[Luncher][WARNING][{0}] {1}", time, text);
-                        break;
-                    case "err":
-                        if (colored) color = Color.Red;
-                        finalstring = String.Format("[Luncher][ERROR][{0}] {1}", time, text);
-                        break;
-                    default:
-                        finalstring = String.Format("[Luncher][INFO][{0}] {1}", time, text);
-                        break;
-                }
-            else
+            switch (code)
             {
-                finalstring = String.Format("{0}", text);
+                case 0:
+                //Nothing TAG
+                    finalstring = String.Format("{0}", text);
+                    break;
+                case 1:
+                //Warning TAG
+                    if (colored) color = Color.Orange;
+                    finalstring = String.Format("[Luncher][WARNING][{0}] {1}", time, text);
+                    break;
+                case 2:
+                //Error TAG
+                    if (colored) color = Color.Red;
+                    finalstring = String.Format("[Luncher][ERROR][{0}] {1}", time, text);
+                    break;
+                case 3:
+                //Info TAG
+                    finalstring = String.Format("[Luncher][INFO][{0}] {1}", time, text);
+                    break;
             }
             if (logBox != null)
             {
