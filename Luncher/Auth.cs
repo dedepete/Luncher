@@ -29,10 +29,9 @@ namespace Luncher
             catch
             {
                 string cause = null;
-                switch (response) {
-                    case "ProtocolError":
-                        cause = "Invalid credentials";
-                        break;
+                if (response == "ProtocolError")
+                {
+                    cause = "Invalid credentials";
                 }
                 return cause;
             }
