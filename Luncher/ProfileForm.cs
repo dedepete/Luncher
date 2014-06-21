@@ -27,14 +27,12 @@ namespace Luncher
 
         private void ProfileForm_Load(object sender, EventArgs e)
         {
-            switch (radButton4.Enabled)
+            if (!radButton4.Enabled)
             {
-                case false:
                     Size = MinimumSize;
-                    break;
-                default:
+            else
+            {
                     Size = MaximumSize;
-                    break;
             }
             _profile = ProfileName.Text;
             GetVersions(EnableExp.Checked, EnableBeta.Checked, EnableAlpha.Checked, EnableOther.Checked);
