@@ -1,17 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.IO;
-using System.Windows.Forms;
-using Microsoft.Win32;
+﻿using System.IO;
 
 namespace Luncher
 {
     public static class Variables
     {
-        public static bool WorkingOffline = false;
+        public static bool WorkingOffline;
 
         private static readonly string Minecraft = Program.Minecraft;
         // keep in mind these variables are available anywhere using Variables.varName

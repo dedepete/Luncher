@@ -22,6 +22,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -86,12 +87,14 @@
       <DependentUpon>Launcher.cs</DependentUpon>
     </Compile>
     <Compile Include="LoadConfiguration.cs" />
+    <Compile Include="Logging.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="MinecraftProcess.cs" />
     <Compile Include="Processing.cs" />
     <Compile Include="ProfileForm.cs">
       <SubType>Form</SubType>
@@ -110,6 +113,7 @@
     <Compile Include="Variables.cs" />
     <EmbeddedResource Include="Launcher.en.resx">
       <DependentUpon>Launcher.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Launcher.resx">
       <DependentUpon>Launcher.cs</DependentUpon>
@@ -172,7 +176,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties StartAt="12.01.2014 0:00:00" Versioning="1" IncrementAction="2" IncrementOnBuild="True" IncrementOnRebuild="True" />
+      <UserProperties IncrementInformational="False" IncrementOnRebuild="True" IncrementOnBuild="True" IncrementAction="2" Versioning="0" StartAt="" />
     </VisualStudio>
   </ProjectExtensions>
   <PropertyGroup>

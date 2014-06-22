@@ -6,7 +6,7 @@ namespace Luncher
 {
     public partial class LoginDialog : Telerik.WinControls.UI.RadForm
     {
-        public string Result { get; set; }
+        public string Result { get; private set; }
         public LoginDialog()
         {
             InitializeComponent();
@@ -22,7 +22,7 @@ namespace Luncher
             var a = auth.Authenticate();
             if (!a.Contains(":"))
             {
-                Logging.Log("", true, false,  a);
+                Logging.Info(a);
                 radLabel1.Text = a;
             }
             else

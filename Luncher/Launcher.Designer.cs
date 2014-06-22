@@ -529,14 +529,14 @@
             resources.ApplyResources(this.radButton2, "radButton2");
             this.radButton2.Name = "radButton2";
             this.radButton2.ThemeName = "VisualStudio2012Dark";
-            this.radButton2.Click += new System.EventHandler(this.radButton2_Click);
+            this.radButton2.Click += new System.EventHandler(this.BackButton_Click);
             // 
             // radButton1
             // 
             resources.ApplyResources(this.radButton1, "radButton1");
             this.radButton1.Name = "radButton1";
             this.radButton1.ThemeName = "VisualStudio2012Dark";
-            this.radButton1.Click += new System.EventHandler(this.radButton1_Click);
+            this.radButton1.Click += new System.EventHandler(this.ForwardButton_Click);
             // 
             // ConsolePage
             // 

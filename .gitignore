@@ -216,3 +216,4 @@ pip-log.txt
 *.dll
 Luncher/Launcher.ru.resx
 Luncher/packages.config
+Luncher/Luncher.csproj.DotSettings

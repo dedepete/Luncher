@@ -13,7 +13,7 @@ namespace Luncher
 
         public String Authenticate()
         {
-            Logging.Log("", true, false,  "Authenticating...");
+            Logging.Info("Authenticating...");
             var json = JObject.Parse(AuthShemes.Authenticatesheme).ToString();
             json = json.Replace("${username}", User).Replace("${password}", Password);
             var response = MakePost.MPostjson(AuthShemes.Authserver + AuthShemes.Authenticate, json);
@@ -39,7 +39,7 @@ namespace Luncher
         }
         public String Logout()
         {
-            string json = JObject.Parse(AuthShemes.Signoutsheme).ToString();
+            var json = JObject.Parse(AuthShemes.Signoutsheme).ToString();
             json = json.Replace("${username}", User).Replace("${password}", Password);
             return MakePost.MPostjson(AuthShemes.Authserver + AuthShemes.Signout, json) == string.Empty ? "Successful" : "Unsuccessful";
         }

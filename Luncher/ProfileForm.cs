@@ -27,15 +27,7 @@ namespace Luncher
 
         private void ProfileForm_Load(object sender, EventArgs e)
         {
-            switch (radButton4.Enabled)
-            {
-                case false:
-                    Size = MinimumSize;
-                    break;
-                default:
-                    Size = MaximumSize;
-                    break;
-            }
+            Size = !radButton4.Enabled ? MinimumSize : MaximumSize;
             _profile = ProfileName.Text;
             GetVersions(EnableExp.Checked, EnableBeta.Checked, EnableAlpha.Checked, EnableOther.Checked);
             GetParams(ProfileName.Text);
@@ -138,28 +130,14 @@ namespace Luncher
             catch { }
             try
             {
-                if (json["profiles"][pName]["gameDir"].ToString() != null)
-                {
-                    Gamedir.Text = json["profiles"][pName]["gameDir"].ToString();
-                    UseDirectory.ToggleState = Telerik.WinControls.Enumerations.ToggleState.On;
-                }
-                else
-                {
-                    Gamedir.Text = _minecraft;
-                }
+                Gamedir.Text = json["profiles"][pName]["gameDir"].ToString();
+                UseDirectory.ToggleState = Telerik.WinControls.Enumerations.ToggleState.On;
             }
             catch { Gamedir.Text = _minecraft; }
             try
             {
-                if (json["profiles"][pName]["javaDir"].ToString() != null)
-                {
-                    ExecJava.Text = json["profiles"][pName]["javaDir"].ToString();
-                    UseExec.ToggleState = Telerik.WinControls.Enumerations.ToggleState.On;
-                }
-                else
-                {
-                    ExecJava.Text = Variables.JavaExe;
-                }
+                ExecJava.Text = json["profiles"][pName]["javaDir"].ToString();
+                UseExec.ToggleState = Telerik.WinControls.Enumerations.ToggleState.On;
             }
             catch { ExecJava.Text = Variables.JavaExe; }
             try
@@ -171,10 +149,10 @@ namespace Luncher
                 }
                 else
                 {
-                    Args.Text = "-Xmx1G";
+                    Args.Text = @"-Xmx1G";
                 }
             }
-            catch { Args.Text = "-Xmx1G"; }
+            catch { Args.Text = @"-Xmx1G"; }
             string ver = null;
             try
             {
@@ -292,7 +270,8 @@ namespace Luncher
                 json["profiles"] = Processing.Rename(json1, name => name == _profile ? ProfileName.Text : name);
                 json["selectedProfile"] = ProfileName.Text;
                 Newprofilename = ProfileName.Text;
-                if (!Versions.SelectedItem.Text.Contains(_locRm.GetString("uselastversion")))
+                var v1 = _locRm.GetString("uselastversion");
+                if (v1 != null && !Versions.SelectedItem.Text.Contains(v1))
                 {
                     var lastversionid = Versions.SelectedItem.Text.Split(' ');
                     curprofile["lastVersionId"] = lastversionid[1];
@@ -401,7 +380,7 @@ namespace Luncher
             }
             else
             {
-                Logging.Log("err", true, true, error);
+                Logging.Info(error);
             }
         }
 
@@ -434,13 +413,11 @@ namespace Luncher
             {
                 var dr = MessageBox.Show(_locRm.GetString("message.deleteprofiletext"), _locRm.GetString("message.deleteprofile"),
                     MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                if (dr == DialogResult.Yes)
-                {
-                    json1.Property(_profile).Remove();
-                    File.WriteAllText(Variables.LocalProfileList, json.ToString());
-                    Deleted = true;
-                    Close();
-                }
+                if (dr != DialogResult.Yes) return;
+                json1.Property(_profile).Remove();
+                File.WriteAllText(Variables.LocalProfileList, json.ToString());
+                Deleted = true;
+                Close();
             }
             else
             {

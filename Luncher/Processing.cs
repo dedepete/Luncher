@@ -22,24 +22,25 @@ namespace Luncher
             foreach (var s in Directory.GetDirectories(Variables.McFolder + "/versions/"))
             {
                 var versionname = new DirectoryInfo(s).Name;
-                if (File.Exists(Variables.McFolder + "/versions/" + versionname + "/" + versionname + ".jar") & File.Exists(Variables.McFolder + "/versions/" + versionname + "/" + versionname + ".json"))
+                if (
+                    !(File.Exists(Variables.McFolder + "/versions/" + versionname + "/" + versionname + ".jar") &
+                      File.Exists(Variables.McFolder + "/versions/" + versionname + "/" + versionname + ".json")))
+                    continue;
+                var json = JObject.Parse(File.ReadAllText(Variables.McFolder + "/versions/" + versionname + "/" + versionname + ".json"));
+                var id = "null";
+                var type = "null";
+                var time = "null";
+                try
                 {
-                    var json = JObject.Parse(File.ReadAllText(Variables.McFolder + "/versions/" + versionname + "/" + versionname + ".json"));
-                    var id = "null";
-                    var type = "null";
-                    var time = "null";
-                    try
-                    {
-                        id = json["id"].ToString();
-                        type = json["type"].ToString();
-                        time = json["releaseTime"].ToString();
-                    }
-                    catch (Exception ex)
-                    {
-                        Logging.Log("err", true, true, ex.ToString());
-                    }
-                    list.Items.Add(id, type, time);
+                    id = json["id"].ToString();
+                    type = json["type"].ToString();
+                    time = json["releaseTime"].ToString();
                 }
+                catch (Exception ex)
+                {
+                    Logging.Error(ex.ToString());
+                }
+                list.Items.Add(id, type, time);
             }
         }
         public static JToken Rename(JToken json, Func<string, string> map)
@@ -76,10 +77,13 @@ namespace Luncher
                     var baseKey =
                         RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry64).OpenSubKey(javaKey))
                 {
-                    var currentVersion = baseKey.GetValue("CurrentVersion").ToString();
-                    using (var homeKey = baseKey.OpenSubKey(currentVersion))
+                    if (baseKey != null)
                     {
-                        return homeKey.GetValue("JavaHome").ToString();
+                        var currentVersion = baseKey.GetValue("CurrentVersion").ToString();
+                        using (var homeKey = baseKey.OpenSubKey(currentVersion))
+                        {
+                            if (homeKey != null) return homeKey.GetValue("JavaHome").ToString();
+                        }
                     }
                 }
             }
@@ -90,13 +94,15 @@ namespace Luncher
                     var baseKey =
                         RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry64).OpenSubKey(javaKey))
                 {
+                    if (baseKey == null) return null;
                     var currentVersion = baseKey.GetValue("CurrentVersion").ToString();
                     using (var homeKey = baseKey.OpenSubKey(currentVersion))
                     {
-                        return homeKey.GetValue("JavaHome").ToString();
+                        if (homeKey != null) return homeKey.GetValue("JavaHome").ToString();
                     }
                 }
             }
+            return null;
         }
     }
 }
