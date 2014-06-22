@@ -392,10 +392,8 @@ namespace Luncher
         }
         void CheckApplicationUpdate(object sender, EventArgs e)
         {
-            switch (LoadConfiguration.Updaterupdateprogram)
+            if (LoadConfiguration.Updaterupdateprogram == "True")
             {
-                case "True":
-                {
                     var mi1 = new MethodInvoker(() => Logging.Log("", false, false,  "Checking for update..."));
                     Invoke(mi1);
                     try
@@ -446,13 +444,11 @@ namespace Luncher
                         Invoke(mi);
                     }
                 }
-                    break;
-                case "False":
+                else
                 {
                     var mi = new MethodInvoker(delegate { Logging.Log("", false, false,  "Проверка наличия обновлений отлючена пользователем"); CheckVersions(); });
                     Invoke(mi);
                 }
-                    break;
             }
         }
 
