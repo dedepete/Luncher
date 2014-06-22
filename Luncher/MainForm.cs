@@ -399,71 +399,76 @@ namespace Luncher
                 }
             }
         }
-        void CheckApplicationUpdate(object sender, EventArgs e)
+        private void CheckApplicationUpdate(object sender, EventArgs e)
         {
             if (LoadConfiguration.Updaterupdateprogram == "True")
             {
-<<<<<<< HEAD
-                case "True":
+                var mi1 = new MethodInvoker(() => WriteLog("Checking for update..."));
+                Invoke(mi1);
+                try
                 {
-                    var mi1 = new MethodInvoker(() => WriteLog("Checking for update..."));
-=======
-                    var mi1 = new MethodInvoker(() => Logging.Log("", false, false,  "Checking for update..."));
->>>>>>> origin/master
-                    Invoke(mi1);
-                    try
+                    var request =
+                        (HttpWebRequest) WebRequest.Create("http://file.ru-minecraft.ru/verlu.html");
+                    var response = (HttpWebResponse) request.GetResponse();
+                    var sr = new StreamReader(response.GetResponseStream());
+                    var line = sr.ReadLine();
+                    if (line == ProductVersion)
                     {
-                        var request =
-                            (HttpWebRequest) WebRequest.Create("http://file.ru-minecraft.ru/verlu.html");
-                        var response = (HttpWebResponse) request.GetResponse();
-                        var sr = new StreamReader(response.GetResponseStream());
-                        var line = sr.ReadLine();
-                        if (line == ProductVersion)
+                        var mi2 = new MethodInvoker(delegate
                         {
-                            var mi2 = new MethodInvoker(delegate { WriteLog("No update found."); CheckVersions(); });
-                            Invoke(mi2);
-                        }
-                        if (line != ProductVersion)
-                        {
-                            var mi2 = new MethodInvoker(() => WriteLog("Update avaible: " + line));
-                            Invoke(mi2);
-                            var dr = new RadMessageBoxForm
-                            {
-                                Text = @"Найдено обновление",
-                                MessageText =
-                                    "<html>Найдено обновление лаунчера: <b>" + line + "</b>\nТекущая версия: <b>" +
-                                    ProductVersion +
-                                    "</b>\n Хотите ли вы пройти на страницу загрузки данного обновления?\n\nP.S. В противном случае, это уведомление будет появляться при каждом запуске лаунчера >:3",
-                                StartPosition = FormStartPosition.CenterScreen,
-                                ButtonsConfiguration = MessageBoxButtons.YesNo,
-                                TopMost = true,
-                                MessageIcon = null
-                            }.ShowDialog();
-                            if (dr == DialogResult.Yes)
-                            {
-                                Process.Start(
-                                    @"https://docs.google.com/spreadsheet/ccc?key=0AlHr5lFJzStndHpHVEFORHBYUGd6eXEtQjQ2Y1ZIaWc&usp=sharing");
-                                new MethodInvoker(Application.Exit).Invoke();
-                            }
-                            else
-                            {
-                                var mi = new MethodInvoker(CheckVersions);
-                                Invoke(mi);
-                            }
-                        }
-                        response.Close();
+                            WriteLog("No update found.");
+                            CheckVersions();
+                        });
+                        Invoke(mi2);
                     }
-                    catch (Exception ex)
+                    if (line != ProductVersion)
                     {
-                        var mi = new MethodInvoker(delegate { WriteLog("Во время проверки обновлений возникла ошибка:\n" + ex); CheckVersions(); });
-                        Invoke(mi);
+                        var mi2 = new MethodInvoker(() => WriteLog("Update avaible: " + line));
+                        Invoke(mi2);
+                        var dr = new RadMessageBoxForm
+                        {
+                            Text = @"Найдено обновление",
+                            MessageText =
+                                "<html>Найдено обновление лаунчера: <b>" + line + "</b>\nТекущая версия: <b>" +
+                                ProductVersion +
+                                "</b>\n Хотите ли вы пройти на страницу загрузки данного обновления?\n\nP.S. В противном случае, это уведомление будет появляться при каждом запуске лаунчера >:3",
+                            StartPosition = FormStartPosition.CenterScreen,
+                            ButtonsConfiguration = MessageBoxButtons.YesNo,
+                            TopMost = true,
+                            MessageIcon = null
+                        }.ShowDialog();
+                        if (dr == DialogResult.Yes)
+                        {
+                            Process.Start(
+                                @"https://docs.google.com/spreadsheet/ccc?key=0AlHr5lFJzStndHpHVEFORHBYUGd6eXEtQjQ2Y1ZIaWc&usp=sharing");
+                            new MethodInvoker(Application.Exit).Invoke();
+                        }
+                        else
+                        {
+                            var mi = new MethodInvoker(CheckVersions);
+                            Invoke(mi);
+                        }
                     }
+                    response.Close();
                 }
-                else
+                catch (Exception ex)
                 {
-                    var mi = new MethodInvoker(delegate { WriteLog("Проверка наличия обновлений отлючена пользователем"); CheckVersions(); });
+                    var mi = new MethodInvoker(delegate
+                    {
+                        WriteLog("Во время проверки обновлений возникла ошибка:\n" + ex);
+                        CheckVersions();
+                    });
                     Invoke(mi);
                 }
+            }
+            else
+            {
+                var mi = new MethodInvoker(delegate
+                {
+                    WriteLog("Проверка наличия обновлений отлючена пользователем");
+                    CheckVersions();
+                });
+                Invoke(mi);
             }
         }
 
