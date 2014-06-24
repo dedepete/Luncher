@@ -338,7 +338,10 @@ namespace Luncher
                 }
             }
         }
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/master
         private void CheckApplicationUpdate(object sender, EventArgs e)
         {
             if (LoadConfiguration.Updaterupdateprogram == "True")
@@ -347,6 +350,7 @@ namespace Luncher
                 Invoke(mi1);
                 try
                 {
+<<<<<<< HEAD
                     var aver = new WebClient().DownloadString("http://file.ru-minecraft.ru/verlu.html");
                     if (aver == ProductVersion)
                     {
@@ -366,6 +370,31 @@ namespace Luncher
                             Text = @"Найдено обновление",
                             MessageText =
                                 "<html>Найдено обновление лаунчера: <b>" + aver + "</b>\nТекущая версия: <b>" +
+=======
+                    var request =
+                        (HttpWebRequest) WebRequest.Create("http://file.ru-minecraft.ru/verlu.html");
+                    var response = (HttpWebResponse) request.GetResponse();
+                    var sr = new StreamReader(response.GetResponseStream());
+                    var line = sr.ReadLine();
+                    if (line == ProductVersion)
+                    {
+                        var mi2 = new MethodInvoker(delegate
+                        {
+                            WriteLog("No update found.");
+                            CheckVersions();
+                        });
+                        Invoke(mi2);
+                    }
+                    if (line != ProductVersion)
+                    {
+                        var mi2 = new MethodInvoker(() => WriteLog("Update avaible: " + line));
+                        Invoke(mi2);
+                        var dr = new RadMessageBoxForm
+                        {
+                            Text = @"Найдено обновление",
+                            MessageText =
+                                "<html>Найдено обновление лаунчера: <b>" + line + "</b>\nТекущая версия: <b>" +
+>>>>>>> origin/master
                                 ProductVersion +
                                 "</b>\n Хотите ли вы пройти на страницу загрузки данного обновления?\n\nP.S. В противном случае, это уведомление будет появляться при каждом запуске лаунчера >:3",
                             StartPosition = FormStartPosition.CenterScreen,
@@ -385,6 +414,7 @@ namespace Luncher
                             Invoke(mi);
                         }
                     }
+                    response.Close();
                 }
                 catch (Exception ex)
                 {
