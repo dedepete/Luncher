@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using Telerik.WinControls;
 using Telerik.WinControls.UI;
 using Telerik.WinControls.Enumerations;
+using System.Text.RegularExpressions;
 
 namespace Luncher
 {
@@ -239,22 +240,16 @@ namespace Luncher
                             {
                                 if (line != null && line.Contains("snapshot"))
                                 {
-                                    line = line.Replace(" ", String.Empty);
-                                    line = line.Replace(",", String.Empty);
-                                    line = line.Replace("\"", String.Empty);
-                                    var line1 = line.Split(':');
-                                    latestsnaphot = line1[1];
-                                    WriteLog("Latest snapshot: " + line1[1]);
+                                    line = Regex.Replace(line, "[snapshot)(\", :]", "");
+                                    latestsnaphot = line;
+                                    WriteLog("Latest snapshot: " + line);
                                     id++;
                                 }
                                 else if (line != null && line.Contains("release"))
                                 {
-                                    line = line.Replace(" ", String.Empty);
-                                    line = line.Replace(",", String.Empty);
-                                    line = line.Replace("\"", String.Empty);
-                                    var line1 = line.Split(':');
-                                    latestrelease = line1[1];
-                                    WriteLog("Latest release: " + line1[1]);
+                                    line = Regex.Replace(line, "[release)(\", :]", "");
+                                    latestrelease = line;
+                                    WriteLog("Latest release: " + line);
                                     id++;
                                 }
                             }
@@ -272,11 +267,8 @@ namespace Luncher
                                 var line = lines;
                                 if (line.Contains("snapshot"))
                                 {
-                                    line = line.Replace(" ", String.Empty);
-                                    line = line.Replace(",", String.Empty);
-                                    line = line.Replace("\"", String.Empty);
-                                    var line1 = line.Split(':');
-                                    if (latestsnaphot != line1[1])
+                                    line = Regex.Replace(line, "[snapshot)(\", :]", "");
+                                    if (latestsnaphot != line)
                                     {
                                         if (LoadConfiguration.Updateralerts.Contains("True"))
                                         {
@@ -301,11 +293,8 @@ namespace Luncher
                                 }
                                 else if (line.Contains("release"))
                                 {
-                                    line = line.Replace(" ", String.Empty);
-                                    line = line.Replace(",", String.Empty);
-                                    line = line.Replace("\"", String.Empty);
-                                    var line1 = line.Split(':');
-                                    if (latestrelease != line1[1])
+                                    line = Regex.Replace(line, "[release)(\", :]", "");
+                                    if (latestrelease != line)
                                     {
                                         if (LoadConfiguration.Updateralerts.Contains("True"))
                                         {
