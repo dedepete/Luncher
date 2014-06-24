@@ -281,14 +281,11 @@ namespace Luncher
             {
                 SelectProfile.Items.Add(peep.Name);
             }
-            try
+            if (json["selectedProfile"] != null)
             {
                 SelectProfile.SelectedItem = SelectProfile.FindItemExact(json["selectedProfile"].ToString(), true);
             }
-            catch
-            {
-                SelectProfile.SelectedIndex = 0;
-            }
+            else SelectProfile.SelectedIndex = 0;
         }
 
         private void NewsBrowser_Navigating(object sender, WebBrowserNavigatingEventArgs e)
@@ -368,7 +365,8 @@ namespace Luncher
                                     : Variables.LastRelease;
                             }
                             var verJson =
-                                JObject.Parse(File.ReadAllText(_minecraft + "\\versions\\" + ver + "\\" + ver + ".json"));
+                                JObject.Parse(
+                                    File.ReadAllText(String.Format("{0}/versions/{1}/{1}.json", _minecraft, ver)));
                             index = verJson["assets"].ToString();
                         }
                         catch
@@ -403,14 +401,15 @@ namespace Luncher
                                 ? Variables.LastSnapshot
                                 : Variables.LastRelease;
                         }
-                        if (!File.Exists(_minecraft + "/versions/" + _ver + "/" + _ver + ".jar"))
+                        if (!File.Exists(String.Format("{0}/versions/{1}/{1}.jar", _minecraft, _ver)))
                         {
-                            var path = Path.GetDirectoryName(_minecraft + "/versions/" + _ver + "/" + _ver + ".jar");
+                            var path = Path.GetDirectoryName(String.Format("{0}/versions/{1}/{1}.jar", _minecraft, _ver));
                             if (path != null && !Directory.Exists(path)) Directory.CreateDirectory(path);
                             progressBar1.Text = String.Format("{0} {1}/versions/{2}/{2}.jar...",
                                 LocRm.GetString("downloader.inprogress"), _minecraft, _ver);
-                            Logging.Info(LocRm.GetString("downloader.inprogress") + " " + _minecraft + "/versions/" + _ver + "/" +
-                                _ver + ".jar" + "...");
+                            Logging.Info(LocRm.GetString("downloader.inprogress") + " " + _minecraft + "/versions/" +
+                                         _ver + "/" +
+                                         _ver + ".jar" + "...");
                             webc.DownloadFileCompleted += (sender, e) =>
                             {
                                 SetNullProgressBar();
@@ -443,14 +442,16 @@ namespace Luncher
                                 ? Variables.LastSnapshot
                                 : Variables.LastRelease;
                         }
-                        if (!File.Exists(_minecraft + "/versions/" + _ver + "/" + _ver + ".json"))
+                        if (!File.Exists(String.Format("{0}/versions/{1}/{1}.json", _minecraft, _ver)))
                         {
-                            var path = Path.GetDirectoryName(_minecraft + "/versions/" + _ver + "/" + _ver + ".json");
+                            var path =
+                                Path.GetDirectoryName(String.Format("{0}/versions/{1}/{1}.json", _minecraft, _ver));
                             if (path != null && !Directory.Exists(path)) Directory.CreateDirectory(path);
                             progressBar1.Text = String.Format("{0} {1}/versions/{2}/{2}.json...",
                                 LocRm.GetString("downloader.inprogress"), _minecraft, _ver);
-                            Logging.Info(LocRm.GetString("downloader.inprogress") + " " + _minecraft + "/versions/" + _ver + "/" +
-                                _ver + ".json" + "...");
+                            Logging.Info(LocRm.GetString("downloader.inprogress") + " " + _minecraft + "/versions/" +
+                                         _ver + "/" +
+                                         _ver + ".json" + "...");
                             webc.DownloadFileCompleted += (sender, e) =>
                             {
                                 SetNullProgressBar();
@@ -566,8 +567,9 @@ namespace Luncher
                             if (File.Exists(Path.Combine(_minecraft + "/libraries", temp2[0], temp2[1], libFileName)))
                                 continue;
                             missing++;
-                            Logging.Error(Path.Combine(_minecraft + "/libraries", temp2[0], temp2[1], libFileName) + ", " +
-                                LocRm.GetString("lib.notfound"));
+                            Logging.Error(Path.Combine(_minecraft + "/libraries", temp2[0], temp2[1], libFileName) +
+                                          ", " +
+                                          LocRm.GetString("lib.notfound"));
                             if (url == null)
                             {
                                 sb.Append(finalPath + ";");
@@ -577,8 +579,9 @@ namespace Luncher
                                 sb.Append(finalPath + "@" + url + ";");
                             }
                         }
-                        Logging.Info(LocRm.GetString("lib.completed1p") + " " + all + ". " + LocRm.GetString("lib.completed2p") +
-                            " " + missing);
+                        Logging.Info(LocRm.GetString("lib.completed1p") + " " + all + ". " +
+                                     LocRm.GetString("lib.completed2p") +
+                                     " " + missing);
                         var libfinal = sb.ToString();
                         _libs = gsb.ToString();
                         _nativelibs = nsb.ToString().Substring(0, nsb.ToString().Length - 1);
@@ -705,27 +708,16 @@ namespace Luncher
         {
             var json = JObject.Parse(jsonraw);
             if (json["javaArgs"] != null)
-            {
                 _javaArgs = json["javaArgs"] + " ";
-            }
             if (json["javaDir"] != null)
-            {
                 _javaExec = json["javaDir"].ToString();
-            }
             _pName = json["name"].ToString();
-            try
-            {
-                _gameDir = json["gameDir"].ToString();
-            }
-            catch
-            {
-                _gameDir = _minecraft;
-            }
-            try
+            _gameDir = json["gameDir"] != null ? json["gameDir"].ToString() : _minecraft;
+            if (json["lastVersionId"] != null)
             {
                 LastVersionId = json["lastVersionId"].ToString();
             }
-            catch
+            else
             {
                 var allowed = (JArray) json["allowedReleaseTypes"];
                 LastVersionId = allowed.ToString().Contains("snapshot") ? Variables.LastSnapshot : Variables.LastRelease;
@@ -737,8 +729,7 @@ namespace Luncher
                     _allowedReleaseTypes.Add(releaseType.ToString());
                 }
             }
-            try
-            {
+            if (json["launcherVisibilityOnGameClose"] != null)
                 switch (json["launcherVisibilityOnGameClose"].ToString())
                 {
                     case "close launcher when game starts":
@@ -748,10 +739,6 @@ namespace Luncher
                         Hl = true;
                         break;
                 }
-            }
-            catch
-            {
-            }
             _nativesFolder = Path.Combine(_minecraft + "/versions", LastVersionId);
             var profileSJson = File.ReadAllText(_nativesFolder + @"\" + LastVersionId + ".json");
             var profilejsono = JObject.Parse(profileSJson);
@@ -879,24 +866,19 @@ namespace Luncher
                     case 0:
                         if (!File.Exists(_minecraft + "/assets/indexes/" + index + ".json"))
                         {
-                            try
-                            {
-                                Directory.CreateDirectory(_minecraft + "/assets/indexes/");
-                            }
-                            catch
-                            {
-                            }
-                            progressBar1.Text = String.Format("{0} {1}/assets/indexes/{2}.json...",
-                                LocRm.GetString("downloader.inprogress"), _minecraft, index);
-                            Logging.Info(LocRm.GetString("downloader.inprogress") + " " + _minecraft + "/assets/indexes/" + index +
-                                ".json" + "...");
+                            var path = _minecraft + "/assets/indexes/";
+                            if (!Directory.Exists(path)) Directory.CreateDirectory(path);
+                            progressBar1.Text = String.Format("{0} {1}{2}.json...",
+                                LocRm.GetString("downloader.inprogress"), path, index);
+                            Logging.Info(LocRm.GetString("downloader.inprogress") + " " + path + index +
+                                         ".json" + "...");
                             _indexcont = index;
                             progressBar1.Maximum = 100;
                             webc.DownloadFileCompleted += Completed;
                             webc.DownloadProgressChanged += ProgressChanged;
                             webc.DownloadFileAsync(
                                 new Uri("https://s3.amazonaws.com/Minecraft.Download/indexes/" + index + ".json"),
-                                _minecraft + "/assets/indexes/" + index + ".json");
+                                path + index + ".json");
                         }
                         else
                         {
@@ -968,7 +950,7 @@ namespace Luncher
             try
             {
                 progressBar1.Maximum = 100;
-                progressBar1.Value2 = e.ProgressPercentage;
+                progressBar1.Value1 = e.ProgressPercentage;
             }
             catch
             {
@@ -1073,8 +1055,9 @@ namespace Luncher
                 var curprofile = JObject.Parse(toparse);
                 Console.WriteLine(newprofilename);
                 newprofilename = "Copy of " + curprofile["name"] + "(" + newprofilename + ")";
-                Logging.Info(LocRm.GetString("profile.createcopy") + " " + SelectProfile.Text + "(" + newprofilename + ")" +
-                    "...");
+                Logging.Info(LocRm.GetString("profile.createcopy") + " " + SelectProfile.Text + "(" + newprofilename +
+                             ")" +
+                             "...");
                 curprofile["name"] = newprofilename;
                 Console.WriteLine();
                 json1.Add(new JProperty(newprofilename, curprofile));
@@ -1107,7 +1090,7 @@ namespace Luncher
                 if (pf.Canceled != true)
                 {
                     Logging.Info(LocRm.GetString("profile.edited.complete1p") + " " + SelectProfile.Text + " " +
-                        LocRm.GetString("profile.edited.complete2p"));
+                                 LocRm.GetString("profile.edited.complete2p"));
                 }
                 else
                 {
@@ -1151,15 +1134,16 @@ namespace Luncher
                         var c = json["objects"][peep.Name]["hash"].ToString();
                         var filename = c[0].ToString() + c[1].ToString() + "\\" + json["objects"][peep.Name]["hash"];
                         if (File.Exists(_minecraft + "/assets/" + peep.Name)) continue;
-                        Logging.Info(_minecraft + "/assets/objects/" + filename + " -> " + _minecraft + "/assets/" + peep.Name);
+                        Logging.Info(_minecraft + "/assets/objects/" + filename + " -> " + _minecraft + "/assets/" +
+                                     peep.Name);
                         var path = Path.GetDirectoryName(_minecraft + "/assets/" + peep.Name);
                         if (path != null && (!Directory.Exists(path))) Directory.CreateDirectory(path);
                         File.Copy(_minecraft + "/assets/objects/" + filename, _minecraft + "/assets/" + peep.Name);
                         reconstructed++;
                     }
                     Logging.Info(LocRm.GetString("resources.recostructionsuccestotal") + " " + all + ". " +
-                        LocRm.GetString("resources.recostructionsuccestotalrecostructed") + " " +
-                        reconstructed);
+                                 LocRm.GetString("resources.recostructionsuccestotalrecostructed") + " " +
+                                 reconstructed);
                 }
                 catch (Exception ex)
                 {

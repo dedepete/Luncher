@@ -119,7 +119,9 @@ namespace Luncher
                 }
                 catch
                 {
-                    lang = Program.Lang + "(" + "Unknown" + ")";
+                    WriteLog(String.Format("Unknown language: {0}. Setting default language", Program.Lang));
+                    Program.Lang = "";
+                    lang = "ru-default(Русский)";
                 }
             }
             WriteLog("Loading settings for language: " + lang);
@@ -224,134 +226,71 @@ namespace Luncher
                     try
                     {
                         WriteLog("Checking version.json...");
-                        var request =
-                            (HttpWebRequest)
-                                WebRequest.Create("https://s3.amazonaws.com/Minecraft.Download/versions/versions.json");
-                        var response = (HttpWebResponse) request.GetResponse();
-                        var sr = new StreamReader(response.GetResponseStream());
-                        var id = 0;
-                        string latestsnaphot = null;
-                        string latestrelease = null;
-                        while (sr.Peek() >= 0)
+                        var latestsnapshot = String.Empty;
+                        var latestrelease = String.Empty;
+                        var jb =
+                            JObject.Parse(
+                                new WebClient().DownloadString(
+                                    "https://s3.amazonaws.com/Minecraft.Download/versions/versions.json"));
+                        if (jb["latest"]["snapshot"] != null)
                         {
-                            var line = sr.ReadLine();
-                            if (id != 2)
-                            {
-                                if (line != null && line.Contains("snapshot"))
-                                {
-                                    line = line.Replace(" ", String.Empty);
-                                    line = line.Replace(",", String.Empty);
-                                    line = line.Replace("\"", String.Empty);
-                                    var line1 = line.Split(':');
-                                    latestsnaphot = line1[1];
-                                    WriteLog("Latest snapshot: " + line1[1]);
-                                    id++;
-                                }
-                                else if (line != null && line.Contains("release"))
-                                {
-                                    line = line.Replace(" ", String.Empty);
-                                    line = line.Replace(",", String.Empty);
-                                    line = line.Replace("\"", String.Empty);
-                                    var line1 = line.Split(':');
-                                    latestrelease = line1[1];
-                                    WriteLog("Latest release: " + line1[1]);
-                                    id++;
-                                }
-                            }
-                            else
-                            {
-                                break;
-                            }
+                            latestsnapshot = jb["latest"]["snapshot"].ToString();
+                            WriteLog("Latest snapshot: " + latestsnapshot);
+                        }
+                        if (jb["latest"]["release"] != null)
+                        {
+                            latestrelease = jb["latest"]["release"].ToString();
+                            WriteLog("Latest release: " + latestrelease);
                         }
                         var updatefound = false;
-                        var id2 = 0;
-                        foreach (var lines in File.ReadLines(_minecraft + "/versions/versions.json"))
+                        var localsnapshot = String.Empty;
+                        var localrelease = String.Empty;
+                        var ver = JObject.Parse(File.ReadAllText(_minecraft + "/versions/versions.json"));
+                        if (ver["latest"]["snapshot"] != null) localsnapshot = ver["latest"]["snapshot"].ToString();
+                        if (ver["latest"]["release"] != null) localrelease = ver["latest"]["release"].ToString();
+                        if (latestsnapshot != localsnapshot || latestrelease != localrelease)
                         {
-                            if (id2 != 2)
+                            if (LoadConfiguration.Updateralerts.Contains("True"))
                             {
-                                var line = lines;
-                                if (line.Contains("snapshot"))
+                                if (latestsnapshot != localsnapshot)
                                 {
-                                    line = line.Replace(" ", String.Empty);
-                                    line = line.Replace(",", String.Empty);
-                                    line = line.Replace("\"", String.Empty);
-                                    var line1 = line.Split(':');
-                                    if (latestsnaphot != line1[1])
+                                    new RadDesktopAlert
                                     {
-                                        if (LoadConfiguration.Updateralerts.Contains("True"))
-                                        {
-                                            var rd = new RadDesktopAlert
-                                            {
-                                                CaptionText = "A new version available",
-                                                ContentText =
-                                                    "A new Minecraft snapshot is avaible: " + latestsnaphot,
-                                                ShowCloseButton = true,
-                                                ShowOptionsButton = false,
-                                                ShowPinButton = false,
-                                                AutoClose = true,
-                                                AutoCloseDelay = 10,
-                                                ThemeName = "VisualStudio2012Dark",
-                                                CanMove = false
-                                            };
-                                            rd.Show();
-                                        }
-                                        updatefound = true;
-                                    }
-                                    id2++;
+                                        CaptionText = "A new version available",
+                                        ContentText =
+                                            "A new Minecraft snapshot is avaible: " + latestsnapshot,
+                                        ShowCloseButton = true,
+                                        ShowOptionsButton = false,
+                                        ShowPinButton = false,
+                                        AutoClose = true,
+                                        AutoCloseDelay = 10,
+                                        ThemeName = "VisualStudio2012Dark",
+                                        CanMove = false
+                                    }.Show();
                                 }
-                                else if (line.Contains("release"))
+                                if (latestrelease != localrelease)
                                 {
-                                    line = line.Replace(" ", String.Empty);
-                                    line = line.Replace(",", String.Empty);
-                                    line = line.Replace("\"", String.Empty);
-                                    var line1 = line.Split(':');
-                                    if (latestrelease != line1[1])
+                                    new RadDesktopAlert
                                     {
-                                        if (LoadConfiguration.Updateralerts.Contains("True"))
-                                        {
-                                            var rd = new RadDesktopAlert
-                                            {
-                                                CaptionText = "A new version available",
-                                                ContentText = "A new Minecraft release is avaible: " + latestrelease,
-                                                ShowCloseButton = true,
-                                                ShowOptionsButton = false,
-                                                ShowPinButton = false,
-                                                AutoClose = true,
-                                                AutoCloseDelay = 10,
-                                                ThemeName = "VisualStudio2012Dark",
-                                                CanMove = false
-                                            };
-                                            rd.Show();
-                                        }
-                                        updatefound = true;
-                                    }
-                                    id2++;
+                                        CaptionText = "A new version available",
+                                        ContentText = "A new Minecraft release is avaible: " + latestrelease,
+                                        ShowCloseButton = true,
+                                        ShowOptionsButton = false,
+                                        ShowPinButton = false,
+                                        AutoClose = true,
+                                        AutoCloseDelay = 10,
+                                        ThemeName = "VisualStudio2012Dark",
+                                        CanMove = false
+                                    }.Show();
                                 }
                             }
-                            else
-                            {
-                                break;
-                            }
-                        }
-                        var jo = JObject.Parse(File.ReadAllText(Variables.McVersions + "/versions.json"));
-                        JObject njo;
-                        using (var client = new WebClient())
-                        {
-                            if (!File.Exists(Variables.McVersions + "/versions.temp.json"))
-                            {
-                                client.DownloadFile(
-                                    "https://s3.amazonaws.com/Minecraft.Download/versions/versions.json",
-                                    Variables.McVersions + "/versions.temp.json");
-                            }
-                            njo = JObject.Parse(File.ReadAllText(Variables.McVersions + "/versions.temp.json"));
-                        }
-                        WriteLog("Local versions: " + ((JArray)jo["versions"]).Count + ". Remote versions: " + ((JArray)njo["versions"]).Count);
-                        if (((JArray) jo["versions"]).Count != ((JArray) njo["versions"]).Count)
-                        {
                             updatefound = true;
                         }
+                        WriteLog("Local versions: " + ((JArray)jb["versions"]).Count + ". Remote versions: " +
+                                 ((JArray)ver["versions"]).Count);
+                        if (((JArray)jb["versions"]).Count != ((JArray)ver["versions"]).Count) updatefound = true;
                         Variables.LastRelease = latestrelease;
-                        Variables.LastSnapshot = latestsnaphot;
+                        Variables.LastSnapshot = latestsnapshot;
                         if (updatefound)
                         {
                             DownloadVersions();
@@ -385,7 +324,7 @@ namespace Luncher
                                 WriteLog("Локальный versions.json повреждён. Поключите компьютер к Интернету и запустите лаунчер для загрузки этого списка или установите свой вручную.\nПродолжение работы лаунчера невозможно");
                             }
                         }
-                        else if (!File.Exists(_minecraft + "\\versions/versions.json"))
+                        else if (!File.Exists(_minecraft + "/versions/versions.json"))
                         {
                             CrashPanel.Visible = true;
                             WriteLog("Локальный versions.json отсутствует. Поключите компьютер к Интернету и запустите лаунчер для загрузки этого списка или установите свой вручную.\nПродолжение работы лаунчера невозможно");
@@ -399,97 +338,108 @@ namespace Luncher
                 }
             }
         }
-        void CheckApplicationUpdate(object sender, EventArgs e)
+
+        private void CheckApplicationUpdate(object sender, EventArgs e)
         {
             if (LoadConfiguration.Updaterupdateprogram == "True")
             {
-<<<<<<< HEAD
-                case "True":
+                var mi1 = new MethodInvoker(() => WriteLog("Checking for update..."));
+                Invoke(mi1);
+                try
                 {
-                    var mi1 = new MethodInvoker(() => WriteLog("Checking for update..."));
-=======
-                    var mi1 = new MethodInvoker(() => Logging.Log("", false, false,  "Checking for update..."));
->>>>>>> origin/master
-                    Invoke(mi1);
-                    try
+                    var aver = new WebClient().DownloadString("http://file.ru-minecraft.ru/verlu.html");
+                    if (aver == ProductVersion)
                     {
-                        var request =
-                            (HttpWebRequest) WebRequest.Create("http://file.ru-minecraft.ru/verlu.html");
-                        var response = (HttpWebResponse) request.GetResponse();
-                        var sr = new StreamReader(response.GetResponseStream());
-                        var line = sr.ReadLine();
-                        if (line == ProductVersion)
+                        var mi2 = new MethodInvoker(delegate
                         {
-                            var mi2 = new MethodInvoker(delegate { WriteLog("No update found."); CheckVersions(); });
-                            Invoke(mi2);
-                        }
-                        if (line != ProductVersion)
-                        {
-                            var mi2 = new MethodInvoker(() => WriteLog("Update avaible: " + line));
-                            Invoke(mi2);
-                            var dr = new RadMessageBoxForm
-                            {
-                                Text = @"Найдено обновление",
-                                MessageText =
-                                    "<html>Найдено обновление лаунчера: <b>" + line + "</b>\nТекущая версия: <b>" +
-                                    ProductVersion +
-                                    "</b>\n Хотите ли вы пройти на страницу загрузки данного обновления?\n\nP.S. В противном случае, это уведомление будет появляться при каждом запуске лаунчера >:3",
-                                StartPosition = FormStartPosition.CenterScreen,
-                                ButtonsConfiguration = MessageBoxButtons.YesNo,
-                                TopMost = true,
-                                MessageIcon = null
-                            }.ShowDialog();
-                            if (dr == DialogResult.Yes)
-                            {
-                                Process.Start(
-                                    @"https://docs.google.com/spreadsheet/ccc?key=0AlHr5lFJzStndHpHVEFORHBYUGd6eXEtQjQ2Y1ZIaWc&usp=sharing");
-                                new MethodInvoker(Application.Exit).Invoke();
-                            }
-                            else
-                            {
-                                var mi = new MethodInvoker(CheckVersions);
-                                Invoke(mi);
-                            }
-                        }
-                        response.Close();
+                            WriteLog("No update found.");
+                            CheckVersions();
+                        });
+                        Invoke(mi2);
                     }
-                    catch (Exception ex)
+                    else if (aver != ProductVersion)
                     {
-                        var mi = new MethodInvoker(delegate { WriteLog("Во время проверки обновлений возникла ошибка:\n" + ex); CheckVersions(); });
-                        Invoke(mi);
+                        var mi2 = new MethodInvoker(() => WriteLog("Update avaible: " + aver));
+                        Invoke(mi2);
+                        var dr = new RadMessageBoxForm
+                        {
+                            Text = @"Найдено обновление",
+                            MessageText =
+                                "<html>Найдено обновление лаунчера: <b>" + aver + "</b>\nТекущая версия: <b>" +
+                                ProductVersion +
+                                "</b>\n Хотите ли вы пройти на страницу загрузки данного обновления?\n\nP.S. В противном случае, это уведомление будет появляться при каждом запуске лаунчера >:3",
+                            StartPosition = FormStartPosition.CenterScreen,
+                            ButtonsConfiguration = MessageBoxButtons.YesNo,
+                            TopMost = true,
+                            MessageIcon = null
+                        }.ShowDialog();
+                        if (dr == DialogResult.Yes)
+                        {
+                            Process.Start(
+                                @"https://docs.google.com/spreadsheet/ccc?key=0AlHr5lFJzStndHpHVEFORHBYUGd6eXEtQjQ2Y1ZIaWc&usp=sharing");
+                            new MethodInvoker(Application.Exit).Invoke();
+                        }
+                        else
+                        {
+                            var mi = new MethodInvoker(CheckVersions);
+                            Invoke(mi);
+                        }
                     }
                 }
-                else
+                catch (Exception ex)
                 {
-                    var mi = new MethodInvoker(delegate { WriteLog("Проверка наличия обновлений отлючена пользователем"); CheckVersions(); });
+                    var mi = new MethodInvoker(delegate
+                    {
+                        WriteLog("Во время проверки обновлений возникла ошибка:\n" + ex);
+                        CheckVersions();
+                    });
                     Invoke(mi);
                 }
             }
+            else
+            {
+                var mi = new MethodInvoker(delegate
+                {
+                    WriteLog("Проверка наличия обновлений отлючена пользователем");
+                    CheckVersions();
+                });
+                Invoke(mi);
+            }
         }
 
-        void Launch()
+        private void Launch()
         {
+            WriteLog("Starting launcher...");
             try
             {
-                var tempfilepath = Variables.McVersions + "/versions.temp.json";
-                if (File.Exists(tempfilepath)) File.Delete(tempfilepath);
                 var ln = new Launcher {Size = Size, Location = Location};
                 CheckLauncherProfiles();
                 Hide();
-                WriteLog("Starting launcher...");
                 ln.Log.Text = Log.Text;
 
-                ln.AllowReconstruct.ToggleState = LoadConfiguration.Resoucersenablerebuilding.Contains("True") ? ToggleState.On : ToggleState.Off;
+                ln.AllowReconstruct.ToggleState = LoadConfiguration.Resoucersenablerebuilding.Contains("True")
+                    ? ToggleState.On
+                    : ToggleState.Off;
 
-                ln.EnableMinecraftLogging.ToggleState = LoadConfiguration.Gamelogging.Contains("True") ? ToggleState.On : ToggleState.Off;
+                ln.EnableMinecraftLogging.ToggleState = LoadConfiguration.Gamelogging.Contains("True")
+                    ? ToggleState.On
+                    : ToggleState.Off;
 
-                ln.UseGamePrefix.ToggleState = LoadConfiguration.GameLoggingusegameprefix.Contains("True") ? ToggleState.On : ToggleState.Off;
+                ln.UseGamePrefix.ToggleState = LoadConfiguration.GameLoggingusegameprefix.Contains("True")
+                    ? ToggleState.On
+                    : ToggleState.Off;
 
-                ln.AllowUpdateVersions.ToggleState = LoadConfiguration.Updaterupdateversions.Contains("True") ? ToggleState.On : ToggleState.Off;
+                ln.AllowUpdateVersions.ToggleState = LoadConfiguration.Updaterupdateversions.Contains("True")
+                    ? ToggleState.On
+                    : ToggleState.Off;
 
-                ln.EnableMinecraftUpdateAlerts.ToggleState = LoadConfiguration.Updateralerts.Contains("True") ? ToggleState.On : ToggleState.Off;
+                ln.EnableMinecraftUpdateAlerts.ToggleState = LoadConfiguration.Updateralerts.Contains("True")
+                    ? ToggleState.On
+                    : ToggleState.Off;
 
-                ln.radCheckBox1.ToggleState = LoadConfiguration.Updaterupdateprogram == "True" ? ToggleState.On : ToggleState.Off;
+                ln.radCheckBox1.ToggleState = LoadConfiguration.Updaterupdateprogram == "True"
+                    ? ToggleState.On
+                    : ToggleState.Off;
 
                 ln.ReconstructingIndex.Text = LoadConfiguration.Resoucerrebuildresource;
                 ln.usingAssets.Text = LoadConfiguration.Resoucerassetspath;
@@ -499,7 +449,9 @@ namespace Luncher
             catch (Exception ex)
             {
                 CrashPanel.Visible = true;
-                WriteLog("Во время чтения файла профилей возникла ошибка:\n" + ex + "\n\n#######\nВозможное решение: Удалите " + Variables.ProfileJsonFile + ". Если у вас есть какая-либо ценная информация в этом файле, то сделайте бэкап");
+                WriteLog("Во время чтения файла профилей возникла ошибка:\n" + ex +
+                         "\n\n#######\nВозможное решение: Удалите " + Variables.ProfileJsonFile +
+                         ". Если у вас есть какая-либо ценная информация в этом файле, то сделайте бэкап");
             }
         }
     }

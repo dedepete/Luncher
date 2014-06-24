@@ -1,6 +1,6 @@
 ﻿namespace Luncher
 {
-    class AuthShemes
+    static class AuthShemes
     {
         public const string Authserver = @"https://authserver.mojang.com";
 

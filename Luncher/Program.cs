@@ -12,7 +12,7 @@ namespace Luncher
 
         public static string Minecraft = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\.minecraft";
 
-        public static string Lang = "uk";
+        public static string Lang = "";
 
         public static string[] Arg;
 
