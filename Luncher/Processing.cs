@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using Microsoft.Win32;
@@ -67,7 +68,6 @@ namespace Luncher
 
             return json;
         }
-
         public static String GetJavaInstallationPath()
         {
             try
@@ -103,6 +103,19 @@ namespace Luncher
                 }
             }
             return null;
+        }
+        public static bool IsRunning(Process process)
+        {
+            if (process == null) return false;
+            try
+            {
+                Process.GetProcessById(process.Id);
+            }
+            catch (ArgumentException)
+            {
+                return false;
+            }
+            return true;
         }
     }
 }

@@ -401,4 +401,10 @@ Published by Space Earth Studio</value>
   <data name="close.text" xml:space="preserve">
     <value>Close</value>
   </data>
+  <data name="contextver.del.b" xml:space="preserve">
+    <value>Confirmation</value>
+  </data>
+  <data name="contextver.del.progress" xml:space="preserve">
+    <value>Deletion</value>
+  </data>
 </root>

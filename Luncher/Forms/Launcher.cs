@@ -1,6 +1,4 @@
-﻿using Ionic.Zip;
-using Newtonsoft.Json.Linq;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -13,11 +11,14 @@ using System.Resources;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
+using Ionic.Zip;
+using Luncher.Properties;
+using Newtonsoft.Json.Linq;
 using Telerik.WinControls;
 using Telerik.WinControls.UI;
 using Telerik.WinControls.UI.Data;
 
-namespace Luncher
+namespace Luncher.Forms
 {
     public partial class Launcher : RadForm
     {
@@ -49,20 +50,20 @@ namespace Luncher
                     if (String.IsNullOrEmpty(radListView1.SelectedItem[0].ToString())) return;
                     var dr =
                         RadMessageBox.Show(
-                            LocRm.GetString("contextver.del.a") + "(" + radListView1.SelectedItem[0] + ")?",
+                            string.Format("{0}({1})?", LocRm.GetString("contextver.del.a"), radListView1.SelectedItem[0]),
                             LocRm.GetString("contextver.del.b"),
                             MessageBoxButtons.YesNo, RadMessageIcon.Question);
                     if (dr != DialogResult.Yes) return;
-                    Logging.Info(LocRm.GetString("contextver.del.progress") + " " + radListView1.SelectedItem[0] + "...");
+                    Logging.Info(String.Format("{0} {1}...", LocRm.GetString("contextver.del.progress"), radListView1.SelectedItem[0]));
                     try
                     {
-                        Directory.Delete(Variables.McVersions + "/" + radListView1.SelectedItem[0] + "/", true);
+                        Directory.Delete(String.Format("{0}/{1}/", Variables.McVersions, radListView1.SelectedItem[0]), true);
                         GetVersions();
                         GetSelectedVersion(SelectProfile.SelectedItem.Text);
                     }
                     catch (Exception ex)
                     {
-                        Logging.Error(LocRm.GetString("contextver.del.error") + "\n" + ex);
+                        Logging.Error(String.Format("{0}\n{1}", LocRm.GetString("contextver.del.error"), ex));
                     }
                 }
                 catch
@@ -72,30 +73,42 @@ namespace Luncher
             VerContext.Items.Add(delVer);
         }
 
-        public readonly ResourceManager LocRm = new ResourceManager("Luncher.Launcher", typeof (Launcher).Assembly);
+        public readonly ResourceManager LocRm = new ResourceManager("Luncher.Forms.Launcher", typeof (Launcher).Assembly);
 
         private readonly string _minecraft = Program.Minecraft;
 
         private void Launcher_FormClosing(object sender, FormClosingEventArgs e)
         {
-            var sb = new StringBuilder();
-            sb.AppendLine("#Luncher " + ProductVersion + " configuration file");
-            sb.AppendLine("#");
-            sb.AppendLine();
-            sb.AppendLine("luncher.main.lang=" + Program.Lang);
-            sb.AppendLine("luncher.main.renamewindow=" + RenameWindow.SelectedIndex);
-            sb.AppendLine();
-            sb.AppendLine("luncher.logging.enable=" + EnableMinecraftLogging.Checked);
-            sb.AppendLine("luncher.logging.usegameprefix=" + UseGamePrefix.Checked);
-            sb.AppendLine();
-            sb.AppendLine("luncher.updater.updateversions=" + AllowUpdateVersions.Checked);
-            sb.AppendLine("luncher.updater.updateprogram=" + radCheckBox1.Checked);
-            sb.AppendLine("luncher.updater.alerts=" + EnableMinecraftUpdateAlerts.Checked);
-            sb.AppendLine();
-            sb.AppendLine("luncher.resources.enablerebuilding=" + AllowReconstruct.Checked);
-            sb.AppendLine("luncher.resources.rebuildresource=" + ReconstructingIndex.Text);
-            sb.AppendLine("luncher.resources.assetspath=" + usingAssets.Text);
-            File.WriteAllText(Program.Minecraft + "\\luncher\\configuration.cfg", sb.ToString());
+            var mainObject = new JObject
+            {
+                {"lang", Program.Lang},
+                {"renameWindow", RenameWindow.SelectedIndex}
+            };
+            var loggingObject = new JObject
+            {
+                {"enableGameLogging", EnableMinecraftLogging.Checked},
+                {"useGamePrefix", UseGamePrefix.Checked}
+            };
+            var updatesObject = new JObject
+            {
+                {"checkVersionsUpdate", AllowUpdateVersions.Checked},
+                {"checkProgramUpdate", radCheckBox1.Checked},
+                {"enableMinecraftUpdateAlerts", EnableMinecraftUpdateAlerts.Checked}
+            };
+            var resourcesObject = new JObject
+            {
+                {"enableReconstruction", AllowReconstruct.Checked},
+                {"reconstructionSourceFile", ReconstructingIndex.Text},
+                {"assetsDir", usingAssets.Text}
+            };
+            var jo = new JObject
+            {
+                {"main", mainObject},
+                {"logging", loggingObject},
+                {"updates", updatesObject},
+                {"resources", resourcesObject}
+            };
+            File.WriteAllText(String.Format("{0}\\luncher\\configuration.cfg", Program.Minecraft), jo.ToString());
             Application.Exit();
         }
 
@@ -107,7 +120,7 @@ namespace Luncher
             GetVersions();
             AboutVersion.Text = ProductVersion;
             Log.ScrollToCaret();
-            if (File.Exists(Variables.LocalProfileList))
+            if (File.Exists(Variables.ProfileJsonFile))
             {
                 GetItems();
                 GetSelectedVersion(SelectProfile.SelectedItem.Text);
@@ -128,16 +141,13 @@ namespace Luncher
                 {
                     var fileName = Path.GetFileName(a);
                     return fileName != null && fileName.Contains("name");
-                }))
-                {
-                    LangDropDownList.Items.Add(new RadListDataItem
+                })) LangDropDownList.Items.Add(new RadListDataItem
                     {
                         Text =
                             Path.GetFileNameWithoutExtension(a) + " (" +
                             i.Substring(i.LastIndexOf(Path.DirectorySeparatorChar) + 1) + ")",
                         Tag = i.Substring(i.LastIndexOf(Path.DirectorySeparatorChar) + 1)
                     });
-                }
             }
             var index = -1;
             foreach (var i in LangDropDownList.Items)
@@ -160,10 +170,11 @@ namespace Luncher
 
         private void UpdateUserProfiles()
         {
-            if (File.Exists(_minecraft + "/luncher/userprofiles.json"))
+            var filename = String.Format("{0}/luncher/userprofiles.json", _minecraft);
+            if (File.Exists(filename))
             {
                 Nickname.Items.Clear();
-                var userprofiles = JObject.Parse(File.ReadAllText(_minecraft + "/luncher/userprofiles.json"));
+                var userprofiles = JObject.Parse(File.ReadAllText(filename));
                 foreach (JProperty peep in userprofiles["profiles"])
                 {
                     Nickname.Items.Add(peep.Name);
@@ -175,53 +186,44 @@ namespace Luncher
   'profiles': {
   }
 }";
-                File.WriteAllText(_minecraft + "/luncher/userprofiles.json", templ);
+                File.WriteAllText(filename, templ);
             }
         }
 
-        private RichTextBox ShowReport(string text, string profilename)
+        private Dictionary<int, object> LogTab(string text, string profilename)
         {
-            var report = new RadPageViewPage();
-            var closebutton = new RadButton();
-            //var exitprocess = new RadToggleButton();
-            //var showerrorsonly = new RadToggleButton();
-            //var shownormalonly = new RadToggleButton();
-            var panel = new RadPanel();
-            var reportbox = new RichTextBox();
-            panel.Text = text;
-            panel.Dock = DockStyle.Top;
+            var report = new RadPageViewPage {Text = @"Log: " + profilename};
+            var killprocess = new RadButton { Text = Resources.Launcher_ShowLogTab_Завершить, Anchor = (AnchorStyles.Right | AnchorStyles.Top) };
+            var panel = new RadPanel {Text = text, Dock = DockStyle.Top};
             panel.Size = new Size(panel.Size.Width, 60);
-            closebutton.Text = LocRm.GetString("close.text");
+            var closebutton = new RadButton
+            {
+                Text = LocRm.GetString("close.text"),
+                Anchor = (AnchorStyles.Right | AnchorStyles.Top),
+                Enabled = false
+            };
+            var reportbox = new RichTextBox { Dock = DockStyle.Fill, ReadOnly = true};
             closebutton.Location = new Point(panel.Size.Width - (closebutton.Size.Width + 5), 5);
-            closebutton.Anchor = (AnchorStyles.Right | AnchorStyles.Top);
-            closebutton.Enabled = false;
             closebutton.Click += (sender, e) =>
             {
                 var rb = sender as RadButton;
                 if (rb == null) return;
-                var page = rb.Tag as RadPageViewPage;
-                radPageView1.Pages.Remove(page);
+                radPageView1.Pages.Remove(report);
             };
-            closebutton.Tag = report;
-            //showerrorsonly.Text = "Только ошибки";
-            //showerrorsonly.Location = new Point(closebutton.Location.X - (showerrorsonly.Width+ 5), 5);
-            //showerrorsonly.Anchor = (AnchorStyles.Right | AnchorStyles.Top);
-            //shownormalonly.Text = "Только лог";
-            //shownormalonly.Location = new Point(closebutton.Location.X - (showerrorsonly.Width + 5), 10 + shownormalonly.Height);
-            //shownormalonly.Anchor = (AnchorStyles.Right | AnchorStyles.Top);
-            report.Text = @"Log: " + profilename;
-            reportbox.Dock = DockStyle.Fill;
-            reportbox.ReadOnly = true;
-            reportbox.Tag = closebutton;
+            killprocess.Location = new Point(panel.Size.Width - (killprocess.Size.Width + 5), closebutton.Location.Y + closebutton.Size.Height + 5);
             panel.Controls.Add(closebutton);
-            //panel.Controls.Add(showerrorsonly);
-            //panel.Controls.Add(shownormalonly);
+            panel.Controls.Add(killprocess);
             report.Controls.Add(reportbox);
             report.Controls.Add(panel);
             radPageView1.Pages.Add(report);
             radPageView1.SelectedPage = report;
             reportbox.LinkClicked += (sender, e) => Process.Start(e.LinkText);
-            return reportbox;
+            return new Dictionary<int,object>
+            {
+                {0, reportbox},
+                {1, killprocess},
+                {2, closebutton}
+            };
         }
 
         private void SelectProfile_SelectedIndexChanged(object sender,
@@ -230,9 +232,9 @@ namespace Luncher
             try
             {
                 GetSelectedVersion(SelectProfile.SelectedItem.Text);
-                var json = JObject.Parse(File.ReadAllText(Variables.LocalProfileList));
+                var json = JObject.Parse(File.ReadAllText(Variables.ProfileJsonFile));
                 json["selectedProfile"] = SelectProfile.SelectedItem.Text;
-                File.WriteAllText(Variables.LocalProfileList, json.ToString());
+                File.WriteAllText(Variables.ProfileJsonFile, json.ToString());
             }
             catch
             {
@@ -241,7 +243,7 @@ namespace Luncher
 
         public void GetSelectedVersion(string profile)
         {
-            var json = JObject.Parse(File.ReadAllText(Variables.LocalProfileList));
+            var json = JObject.Parse(File.ReadAllText(Variables.ProfileJsonFile));
             string ver1;
             try
             {
@@ -276,15 +278,11 @@ namespace Luncher
         private void GetItems()
         {
             SelectProfile.Items.Clear();
-            var json = JObject.Parse(File.ReadAllText(Variables.LocalProfileList));
+            var json = JObject.Parse(File.ReadAllText(Variables.ProfileJsonFile));
             foreach (JProperty peep in json["profiles"])
-            {
                 SelectProfile.Items.Add(peep.Name);
-            }
             if (json["selectedProfile"] != null)
-            {
                 SelectProfile.SelectedItem = SelectProfile.FindItemExact(json["selectedProfile"].ToString(), true);
-            }
             else SelectProfile.SelectedIndex = 0;
         }
 
@@ -353,33 +351,27 @@ namespace Luncher
                         {
                             string ver;
                             var obj = JObject.Parse(profileJson);
-                            try
-                            {
+                            if (obj["lastVersionId"] != null)
                                 ver = obj["lastVersionId"].ToString();
-                            }
-                            catch
+                            else
                             {
-                                var allowed = (JArray) obj["lastVersionId"].ToString();
+                                var allowed = (JArray)obj["allowedReleaseTypes"];
                                 ver = allowed.ToString().Contains("snapshot")
                                     ? Variables.LastSnapshot
                                     : Variables.LastRelease;
                             }
                             var verJson =
                                 JObject.Parse(
-                                    File.ReadAllText(String.Format("{0}/versions/{1}/{1}.json", _minecraft, ver)));
+                                    File.ReadAllText(String.Format("{0}\\versions\\{1}\\{1}.json", _minecraft, ver)));
                             index = verJson["assets"].ToString();
                         }
                         catch
                         {
                         }
                         if (index != null)
-                        {
                             CheckResourses(index, 0);
-                        }
                         else
-                        {
                             ReformatAssets();
-                        }
                     }
                         break;
                     case 1:
@@ -390,26 +382,23 @@ namespace Luncher
                     {
                         var webc = new WebClient();
                         var obj = JObject.Parse(profileJson);
-                        try
-                        {
+                        if (obj["lastVersionId"] != null)
                             _ver = obj["lastVersionId"].ToString();
-                        }
-                        catch
+                        else
                         {
                             var allowed = (JArray) obj["allowedReleaseTypes"];
                             _ver = allowed.ToString().Contains("snapshot")
                                 ? Variables.LastSnapshot
                                 : Variables.LastRelease;
                         }
-                        if (!File.Exists(String.Format("{0}/versions/{1}/{1}.jar", _minecraft, _ver)))
+                        var jarPath = String.Format("{0}\\versions\\{1}\\{1}.jar", _minecraft, _ver);
+                        if (!File.Exists(jarPath))
                         {
-                            var path = Path.GetDirectoryName(String.Format("{0}/versions/{1}/{1}.jar", _minecraft, _ver));
+                            var path = Path.GetDirectoryName(jarPath);
                             if (path != null && !Directory.Exists(path)) Directory.CreateDirectory(path);
-                            progressBar1.Text = String.Format("{0} {1}/versions/{2}/{2}.jar...",
-                                LocRm.GetString("downloader.inprogress"), _minecraft, _ver);
-                            Logging.Info(LocRm.GetString("downloader.inprogress") + " " + _minecraft + "/versions/" +
-                                         _ver + "/" +
-                                         _ver + ".jar" + "...");
+                            progressBar1.Text = String.Format("{0} {1}...",
+                                LocRm.GetString("downloader.inprogress"), jarPath);
+                            Logging.Info(String.Format("{0} {1}...", LocRm.GetString("downloader.inprogress"), jarPath));
                             webc.DownloadFileCompleted += (sender, e) =>
                             {
                                 SetNullProgressBar();
@@ -417,8 +406,7 @@ namespace Luncher
                             };
                             webc.DownloadProgressChanged += ProgressChanged;
                             webc.DownloadFileAsync(
-                                new Uri("https://s3.amazonaws.com/Minecraft.Download/versions/" + _ver + "/" + _ver +
-                                        ".jar"), _minecraft + "/versions/" + _ver + "/" + _ver + ".jar");
+                                new Uri(String.Format("https://s3.amazonaws.com/Minecraft.Download/versions/{0}/{0}.jar", _ver)), String.Format("{0}/versions/{1}/{1}.jar", _minecraft, _ver));
                         }
                         else
                         {
@@ -431,27 +419,24 @@ namespace Luncher
                     {
                         var webc = new WebClient();
                         var obj = JObject.Parse(profileJson);
-                        try
-                        {
+                        if (obj["lastVersionId"] != null)
                             _ver = obj["lastVersionId"].ToString();
-                        }
-                        catch
+                        else
                         {
-                            var allowed = (JArray) obj["allowedReleaseTypes"];
+                            var allowed = (JArray)obj["allowedReleaseTypes"];
                             _ver = allowed.ToString().Contains("snapshot")
                                 ? Variables.LastSnapshot
                                 : Variables.LastRelease;
                         }
-                        if (!File.Exists(String.Format("{0}/versions/{1}/{1}.json", _minecraft, _ver)))
+                        var jsonPath = String.Format("{0}\\versions\\{1}\\{1}.json", _minecraft, _ver);
+                        if (!File.Exists(jsonPath))
                         {
                             var path =
-                                Path.GetDirectoryName(String.Format("{0}/versions/{1}/{1}.json", _minecraft, _ver));
+                                Path.GetDirectoryName(jsonPath);
                             if (path != null && !Directory.Exists(path)) Directory.CreateDirectory(path);
-                            progressBar1.Text = String.Format("{0} {1}/versions/{2}/{2}.json...",
-                                LocRm.GetString("downloader.inprogress"), _minecraft, _ver);
-                            Logging.Info(LocRm.GetString("downloader.inprogress") + " " + _minecraft + "/versions/" +
-                                         _ver + "/" +
-                                         _ver + ".json" + "...");
+                            progressBar1.Text = String.Format("{0} {1}...",
+                                LocRm.GetString("downloader.inprogress"), jsonPath);
+                            Logging.Info(String.Format("{0} {1}...", LocRm.GetString("downloader.inprogress"), jsonPath));
                             webc.DownloadFileCompleted += (sender, e) =>
                             {
                                 SetNullProgressBar();
@@ -459,8 +444,7 @@ namespace Luncher
                             };
                             webc.DownloadProgressChanged += ProgressChanged;
                             webc.DownloadFileAsync(
-                                new Uri("https://s3.amazonaws.com/Minecraft.Download/versions/" + _ver + "/" + _ver +
-                                        ".json"), _minecraft + "/versions/" + _ver + "/" + _ver + ".json");
+                                new Uri(String.Format("https://s3.amazonaws.com/Minecraft.Download/versions/{0}/{0}.json", _ver)), jsonPath);
                         }
                         else
                         {
@@ -473,38 +457,30 @@ namespace Luncher
                     {
                         var json =
                             JObject.Parse(File.ReadAllText(_minecraft + "/versions/" + _ver + "/" + _ver + ".json"));
-                        _nativesFolder = Path.Combine(_minecraft + "/versions", _ver);
+                        _nativesFolder = Path.Combine(Variables.McVersions, _ver);
                         Logging.Info(LocRm.GetString("lib.checking"));
                         var sb = new StringBuilder();
                         var gsb = new StringBuilder();
                         var nsb = new StringBuilder();
-                        var temp2 = new string[2];
-                        var libFileName = "";
                         var missing = 0;
                         var all = 0;
                         var jr = (JArray) json["libraries"];
                         for (var i = 0; i < jr.Count; i++)
                         {
                             all++;
-                            string url = null;
-                            temp2[0] = json["libraries"][i]["name"].ToString().Split(':')[0];
-                            temp2[1] = json["libraries"][i]["name"].ToString().Split(':')[1] + @"\" +
-                                       json["libraries"][i]["name"].ToString().Split(':')[2];
-                            try
+                            var temp = json["libraries"][i]["name"].ToString().Split(':');
+                            var temp2 = new[]
                             {
-                                url = json["libraries"][i]["url"].ToString();
-                            }
-                            catch
+                                temp[0], temp[1] + @"\" + temp[2]
+                            };
+                            var url = json["libraries"][i]["url"];
+                            string libFileName;
+                            if (json["libraries"][i]["natives"] != null &&
+                                json["libraries"][i]["natives"]["windows"] != null)
                             {
-                            }
-                            if (json["libraries"][i]["natives"] != null)
-                            {
-                                if (json["libraries"][i]["natives"]["windows"] != null)
-                                {
-                                    libFileName = temp2[1].Replace(@"\", "-") + "-" +
-                                                  json["libraries"][i]["natives"]["windows"] + ".jar";
-                                    libFileName = libFileName.Replace("${arch}", IntPtr.Size == 8 ? "64" : "32");
-                                }
+                                libFileName = temp2[1].Replace(@"\", "-") + "-" +
+                                              json["libraries"][i]["natives"]["windows"] + ".jar";
+                                libFileName = libFileName.Replace("${arch}", IntPtr.Size == 8 ? "64" : "32");
                             }
                             else
                             {
@@ -516,17 +492,11 @@ namespace Luncher
                             {
                                 if (json["libraries"][i]["rules"] != null)
                                 {
-                                    if (json["libraries"][i]["rules"].Count() < 2)
+                                    if (json["libraries"][i]["rules"].Count() < 2 &&
+                                        json["libraries"][i]["rules"][0]["action"].ToString() == "allow" &&
+                                        json["libraries"][i]["rules"][0]["os"]["name"].ToString() == "windows")
                                     {
-                                        if (json["libraries"][i]["rules"][0]["action"].ToString() == "allow" &&
-                                            json["libraries"][i]["rules"][0]["os"]["name"].ToString() == "osx")
-                                        {
-                                        }
-                                        else if (json["libraries"][i]["rules"][0]["action"].ToString() == "allow" &&
-                                                 json["libraries"][i]["rules"][0]["os"]["name"].ToString() == "windows")
-                                        {
-                                            gsb.Append(Variables.McFolder + "\\libraries\\" + finalPath + ";");
-                                        }
+                                        gsb.Append(Variables.McFolder + "\\libraries\\" + finalPath + ";");
                                     }
                                     else
                                     {
@@ -542,17 +512,11 @@ namespace Luncher
                             {
                                 if (json["libraries"][i]["rules"] != null)
                                 {
-                                    if (json["libraries"][i]["rules"].Count() < 2)
+                                    if (json["libraries"][i]["rules"].Count() < 2 &&
+                                        json["libraries"][i]["rules"][0]["action"].ToString() == "allow" &&
+                                        json["libraries"][i]["rules"][0]["os"]["name"].ToString() == "windows")
                                     {
-                                        if (json["libraries"][i]["rules"][0]["action"].ToString() == "allow" &&
-                                            json["libraries"][i]["rules"][0]["os"]["name"].ToString() == "osx")
-                                        {
-                                        }
-                                        else if (json["libraries"][i]["rules"][0]["action"].ToString() == "allow" &&
-                                                 json["libraries"][i]["rules"][0]["os"]["name"].ToString() == "windows")
-                                        {
-                                            nsb.Append(finalPath + ";");
-                                        }
+                                        gsb.Append(Variables.McFolder + "\\libraries\\" + finalPath + ";");
                                     }
                                     else
                                     {
@@ -564,39 +528,26 @@ namespace Luncher
                                     nsb.Append(finalPath + ";");
                                 }
                             }
-                            if (File.Exists(Path.Combine(_minecraft + "/libraries", temp2[0], temp2[1], libFileName)))
+                            var temppath = Path.Combine(_minecraft + "\\libraries", temp2[0], temp2[1], libFileName);
+                            if (File.Exists(temppath))
                                 continue;
                             missing++;
-                            Logging.Error(Path.Combine(_minecraft + "/libraries", temp2[0], temp2[1], libFileName) +
-                                          ", " +
-                                          LocRm.GetString("lib.notfound"));
-                            if (url == null)
-                            {
-                                sb.Append(finalPath + ";");
-                            }
-                            else
-                            {
-                                sb.Append(finalPath + "@" + url + ";");
-                            }
+                            Logging.Error(string.Format("{0}, {1}", temppath, LocRm.GetString("lib.notfound")));
+                            sb.Append(url == null ? finalPath + ";" : finalPath + "@" + url + ";");
                         }
-                        Logging.Info(LocRm.GetString("lib.completed1p") + " " + all + ". " +
-                                     LocRm.GetString("lib.completed2p") +
-                                     " " + missing);
+                        Logging.Info(String.Format("{0} {1}. {2} {3}", LocRm.GetString("lib.completed1p"), all, LocRm.GetString("lib.completed2p"), missing));
                         var libfinal = sb.ToString();
                         _libs = gsb.ToString();
                         _nativelibs = nsb.ToString().Substring(0, nsb.ToString().Length - 1);
-                        switch (missing)
+                        if (missing == 0)
                         {
-                            case 0:
-                                step = 0;
-                                continue;
-                            default:
-                                _libstodownload = libfinal.Substring(0, libfinal.Length - 1).Split(';');
-                                _ltotal = missing;
-                                progressBar1.Maximum = _ltotal + 1;
-                                DownloadLibs();
-                                break;
+                            step = 0;
+                            continue;
                         }
+                        _libstodownload = libfinal.Substring(0, libfinal.Length - 1).Split(';');
+                        _ltotal = missing;
+                        progressBar1.Maximum = _ltotal + 1;
+                        DownloadLibs();
                     }
                         break;
                 }
@@ -611,40 +562,25 @@ namespace Luncher
 
         private void DownloadLibs()
         {
-            string filename;
-            string url = null;
-            if (_libstodownload[_lcur].Contains('@'))
-            {
-
-                filename = _libstodownload[_lcur].Split('@')[0];
-                url = _libstodownload[_lcur].Split('@')[1];
-            }
-            else
-            {
-                filename = _libstodownload[_lcur];
-            }
+            var temp = _libstodownload[_lcur].Contains('@') ? _libstodownload[_lcur].Split('@') : null;
+            var filename = temp == null ? _libstodownload[_lcur] : temp[0];
+            var url = temp != null ? temp[1] : null;
             var webc = new WebClient();
             if (!Directory.Exists(_minecraft))
-            {
                 Directory.CreateDirectory(_minecraft);
-            }
             try
             {
-                try
-                {
-                    Directory.CreateDirectory(_minecraft + "\\libraries\\" +
-                                              filename.Replace(Path.GetFileName(filename), String.Empty));
-                }
-                catch
-                {
-                }
+                var path = _minecraft + "\\libraries\\" +
+                           filename.Replace(Path.GetFileName(filename), String.Empty);
+                if (!Directory.Exists(path))
+                    Directory.CreateDirectory(path);
                 _sw.Start();
                 webc.DownloadFileCompleted += LibCompleted;
                 webc.DownloadProgressChanged += ProgressChangedLib;
-                Logging.Info(LocRm.GetString("downloadprocess.downloading") + " " + filename + "...");
+                Logging.Info(String.Format("{0} {1}...", LocRm.GetString("downloadprocess.downloading"), filename));
                 webc.DownloadFileAsync(
-                    url == null ? new Uri("https://libraries.minecraft.net/" + filename) : new Uri(url + filename),
-                    _minecraft + "\\libraries\\" + filename);
+                    url == null ? new Uri(String.Format("https://libraries.minecraft.net/{0}", filename)) : new Uri(url + filename),
+                    String.Format("{0}\\libraries\\{1}", _minecraft, filename));
             }
             catch (Exception ex)
             {
@@ -655,9 +591,9 @@ namespace Luncher
         private void ProgressChangedLib(object sender, DownloadProgressChangedEventArgs e)
         {
             var filename = _libstodownload[_lcur];
-            var downloaded = string.Format("{0} MB's / {1} MB's", (e.BytesReceived/1024d/1024d).ToString("0.00"),
+            var downloaded = String.Format("{0} MB's / {1} MB's", (e.BytesReceived/1024d/1024d).ToString("0.00"),
                 (e.TotalBytesToReceive/1024d/1024d).ToString("0.00"));
-            var speed = string.Format("{0} kb/s", (e.BytesReceived/1024d/_sw.Elapsed.TotalSeconds).ToString("0.00"));
+            var speed = String.Format("{0} kb/s", (e.BytesReceived/1024d/_sw.Elapsed.TotalSeconds).ToString("0.00"));
             progressBar1.Text = String.Format("{0} \\libraries\\{1}... [{2} | {3}]",
                 LocRm.GetString("downloadprocess.downloading"), filename, speed, downloaded);
         }
@@ -714,21 +650,17 @@ namespace Luncher
             _pName = json["name"].ToString();
             _gameDir = json["gameDir"] != null ? json["gameDir"].ToString() : _minecraft;
             if (json["lastVersionId"] != null)
-            {
                 LastVersionId = json["lastVersionId"].ToString();
-            }
             else
             {
                 var allowed = (JArray) json["allowedReleaseTypes"];
                 LastVersionId = allowed.ToString().Contains("snapshot") ? Variables.LastSnapshot : Variables.LastRelease;
             }
             if (json["allowedReleaseTypes"] != null)
-            {
                 foreach (var releaseType in json["allowedReleaseTypes"])
                 {
                     _allowedReleaseTypes.Add(releaseType.ToString());
                 }
-            }
             if (json["launcherVisibilityOnGameClose"] != null)
                 switch (json["launcherVisibilityOnGameClose"].ToString())
                 {
@@ -739,10 +671,10 @@ namespace Luncher
                         Hl = true;
                         break;
                 }
-            _nativesFolder = Path.Combine(_minecraft + "/versions", LastVersionId);
+            _nativesFolder = Path.Combine(_minecraft + "\\versions", LastVersionId);
             var profileSJson = File.ReadAllText(_nativesFolder + @"\" + LastVersionId + ".json");
             var profilejsono = JObject.Parse(profileSJson);
-            Variables.MainClass = profilejsono["mainClass"].ToString();
+            _mainClass = profilejsono["mainClass"].ToString();
             _arg = profilejsono["minecraftArguments"].ToString();
             _libs = _libs + _nativesFolder + @"\" + LastVersionId + ".jar";
             var natives = _nativelibs.Split(';');
@@ -752,24 +684,16 @@ namespace Luncher
                 {
                     using (var zip = ZipFile.Read(Variables.McFolder + "/libraries/" + a))
                     {
-                        zip.ExtractAll(Variables.McFolder + "/natives/temp/",
+                        zip.ExtractAll(Variables.McFolder + "/natives/",
                             ExtractExistingFileAction.OverwriteSilently);
                     }
                 }
-                foreach (
-                    var a in
-                        new DirectoryInfo(Variables.McFolder + "\\natives\\temp\\").GetFiles("*.dll",
-                            SearchOption.AllDirectories))
-                {
-                    Logging.Info("Перемещаю " + a.Name + " в " + Variables.McFolder + "\\natives\\");
-                    File.Move(a.FullName, Variables.McFolder + "\\natives\\" + a.Name);
-                }
-                Logging.Info("Удаляю временную папку...");
-                Directory.Delete(Variables.McFolder + "\\natives\\temp\\", true);
+                Logging.Info(String.Format("Распаковка natives завершена. Всего {0} файлов", new DirectoryInfo(Variables.McFolder + "/natives/").GetFiles("*.dll",
+                            SearchOption.AllDirectories).Length));
             }
             catch (Exception ex)
             {
-                Logging.Error(ex.ToString());
+                Logging.Error(ex.Data.ToString());
             }
         }
 
@@ -785,6 +709,7 @@ namespace Luncher
         private string _ver;
         private string _javaExec = Variables.JavaExe;
         private string _assets = "1.7.4";
+        private string _mainClass;
         public bool Hl;
         public bool Cl;
 
@@ -793,34 +718,35 @@ namespace Luncher
             try
             {
                 var add = true;
-                var jo = JObject.Parse(File.ReadAllText(Variables.McFolder + "/luncher/userprofiles.json"));
-                var profiles = (JObject) jo["profiles"];
+                var jo = JObject.Parse(File.ReadAllText(Variables.ProfileJsonFile));
+                var profiles = (JObject)jo["profiles"];
                 foreach (JProperty peep in jo["profiles"].Cast<JProperty>().Where(peep => peep.Name == Nickname.Text))
                 {
                     add = false;
                     if (jo["profiles"][peep.Name]["type"].ToString() == "pirate")
                     {
-                        Variables.AccessToken = "someInterestingAccessToken";
-                        Variables.ClientToken = "someInterestingClientToken";
+                        Variables.AccessToken = "1i1ii1i111ii1i1i1i1i1ii1ii1ii111";
+                        Variables.ClientToken = "11i1111i11ii11iii1i1i11iiii11iii";
                     }
                     else
                     {
-                        var topost = new JObject
-                        {
-                            new JProperty("accessToken", jo["profiles"][peep.Name]["accessToken"])
-                        };
-                        var resp = MakePost.MPostjson(AuthShemes.Authserver + AuthShemes.Validate, topost.ToString());
+                        var resp = MakePost.MPostjson(AuthShemes.Authserver + AuthShemes.Validate, new JObject { new JProperty("accessToken", jo["profiles"][peep.Name]["accessToken"]) }.ToString());
                         if (resp.Contains("Error"))
                         {
-                            var topost1 = new JObject();
-                            var part = new JObject();
-                            topost1.Add(new JProperty("accessToken", jo["profiles"][peep.Name]["accessToken"]));
-                            topost1.Add(new JProperty("clientToken", jo["profiles"][peep.Name]["clientToken"]));
-                            part.Add(new JProperty("id", jo["profiles"][peep.Name]["UUID"]));
-                            part.Add("name", peep.Name);
-                            topost1.Add("selectedProfile", part);
+                            var topost = new JObject
+                            {
+                                new JProperty("accessToken", jo["profiles"][peep.Name]["accessToken"]),
+                                new JProperty("clientToken", jo["profiles"][peep.Name]["clientToken"]),
+                                {
+                                    "selectedProfile", new JObject
+                                    {
+                                        new JProperty("id", jo["profiles"][peep.Name]["UUID"]),
+                                        {"name", peep.Name}
+                                    }
+                                }
+                            };
                             var response = MakePost.MPostjson(AuthShemes.Authserver + AuthShemes.Validate,
-                                topost1.ToString());
+                                topost.ToString());
                             if (!response.Contains("Error"))
                             {
                                 var jo1 = JObject.Parse(response);
@@ -833,10 +759,7 @@ namespace Luncher
                     break;
                 }
                 if (add)
-                {
-                    var jo1 = new JObject {new JProperty("type", "pirate")};
-                    profiles.Add(Nickname.Text, jo1);
-                }
+                    profiles.Add(Nickname.Text, new JObject { new JProperty("type", "pirate") });
                 File.WriteAllText(Variables.McFolder + "/luncher/userprofiles.json", jo.ToString());
                 var lselected = Nickname.Text;
                 UpdateUserProfiles();
@@ -847,8 +770,10 @@ namespace Luncher
             }
             HideProgressBar();
             GetDetails(profileJson);
-            new MinecraftProcess(this, _gameDir, _arg, _pName, usingAssets.Text, _javaExec, _libs, _javaArgs, _assets,
-                LastVersionId, ShowReport("Minecraft version: " + LastVersionId, _pName)).Launch();
+            var va = LogTab("Minecraft version: " + LastVersionId, _pName);
+            var mp = new MinecraftProcess(this, _gameDir, _arg, _pName, usingAssets.Text, _javaExec, _libs, _javaArgs, _assets,
+                LastVersionId, _mainClass) { Txt = (RichTextBox)va[0], KillButton = (RadButton)va[1], CloseTabButton = (RadButton)va[2] };
+            mp.Launch();
         }
 
         #endregion
@@ -870,15 +795,14 @@ namespace Luncher
                             if (!Directory.Exists(path)) Directory.CreateDirectory(path);
                             progressBar1.Text = String.Format("{0} {1}{2}.json...",
                                 LocRm.GetString("downloader.inprogress"), path, index);
-                            Logging.Info(LocRm.GetString("downloader.inprogress") + " " + path + index +
-                                         ".json" + "...");
+                            Logging.Info(String.Format("{0} {1}{2}.json" + "...", LocRm.GetString("downloader.inprogress"), path, index));
                             _indexcont = index;
                             progressBar1.Maximum = 100;
                             webc.DownloadFileCompleted += Completed;
                             webc.DownloadProgressChanged += ProgressChanged;
                             webc.DownloadFileAsync(
-                                new Uri("https://s3.amazonaws.com/Minecraft.Download/indexes/" + index + ".json"),
-                                path + index + ".json");
+                                new Uri(String.Format("https://s3.amazonaws.com/Minecraft.Download/indexes/{0}.json", index)),
+                                String.Format("{0}{1}.json", path, index));
                         }
                         else
                         {
@@ -902,21 +826,15 @@ namespace Luncher
                             var c = json["objects"][peep.Name]["hash"].ToString();
                             char с1 = c[0];
                             char с2 = c[1];
-                            var filename = с1.ToString() + с2.ToString() + "\\" + json["objects"][peep.Name]["hash"];
-                            if (File.Exists(_minecraft + "/assets/objects/" + filename))
-                            {
-                            }
-                            else
-                            {
-                                missing++;
-                                Logging.Warning(
-                                    "\\assets\\objects\\" + filename + ", " + LocRm.GetString("lib.notfound"));
-                                _todownload = _todownload + filename + ";";
-                            }
+                            var filename = с1.ToString() + с2.ToString() + "/" + json["objects"][peep.Name]["hash"];
+                            if (File.Exists(_minecraft + "/assets/objects/" + filename)) continue;
+                            missing++;
+                            Logging.Warning(
+                                String.Format("\\assets\\objects\\{0}, {1}", filename, LocRm.GetString("lib.notfound")));
+                            _todownload = _todownload + filename + ";";
                         }
                         Logging.Info(
-                            LocRm.GetString("resources.completed1p") + " " + all + ". " +
-                            LocRm.GetString("resources.completed2p") + " " + missing);
+                            String.Format("{0} {1}. {2} {3}", LocRm.GetString("resources.completed1p"), all, LocRm.GetString("resources.completed2p"), missing));
                         if (missing != 0)
                         {
                             _assetstodownload = _todownload.Substring(0, _todownload.Length - 1).Split(';');
@@ -925,9 +843,7 @@ namespace Luncher
                             DownloadResourses1();
                         }
                         else
-                        {
                             LaunchButtonClicked(1);
-                        }
                     }
                         break;
                 }
@@ -976,9 +892,9 @@ namespace Luncher
                 webc.DownloadFileCompleted += ResCompleted;
                 webc.DownloadProgressChanged += ProgressChangedRes;
                 Logging.Info(
-                    LocRm.GetString("downloadprocess.downloading") + " \\assets\\objects\\" + filename + "...");
-                webc.DownloadFileAsync(new Uri("http://resources.download.minecraft.net/" + filename),
-                    _minecraft + "\\assets\\objects\\" + filename);
+                    String.Format("{0} \\assets\\objects\\{1}...", LocRm.GetString("downloadprocess.downloading"), filename));
+                webc.DownloadFileAsync(new Uri(String.Format("http://resources.download.minecraft.net/{0}", filename)),
+                    String.Format("{0}\\assets\\objects\\{1}", _minecraft, filename));
             }
             catch (Exception ex)
             {
@@ -1049,19 +965,17 @@ namespace Luncher
             try
             {
                 var newprofilename = DateTime.Now.ToString("HH:mm:ss");
-                var json = JObject.Parse(File.ReadAllText(Variables.LocalProfileList));
+                var json = JObject.Parse(File.ReadAllText(Variables.ProfileJsonFile));
                 var json1 = (JObject) json["profiles"];
                 var toparse = "" + json1[SelectProfile.Text];
                 var curprofile = JObject.Parse(toparse);
                 Console.WriteLine(newprofilename);
                 newprofilename = "Copy of " + curprofile["name"] + "(" + newprofilename + ")";
-                Logging.Info(LocRm.GetString("profile.createcopy") + " " + SelectProfile.Text + "(" + newprofilename +
-                             ")" +
-                             "...");
+                Logging.Info(String.Format("{0} {1}({2})" + "...", LocRm.GetString("profile.createcopy"), SelectProfile.Text, newprofilename));
                 curprofile["name"] = newprofilename;
                 Console.WriteLine();
                 json1.Add(new JProperty(newprofilename, curprofile));
-                File.WriteAllText(Variables.LocalProfileList, json.ToString());
+                File.WriteAllText(Variables.ProfileJsonFile, json.ToString());
                 GetItems();
                 SelectProfile.SelectedItem = SelectProfile.FindItemExact(newprofilename, true);
                 ChangeProgile(false);
@@ -1087,15 +1001,10 @@ namespace Luncher
                 SelectProfile.SelectedItem = SelectProfile.FindItemExact(pf.Newprofilename, true);
                 GetItems();
                 GetSelectedVersion(SelectProfile.SelectedItem.Text);
-                if (pf.Canceled != true)
-                {
-                    Logging.Info(LocRm.GetString("profile.edited.complete1p") + " " + SelectProfile.Text + " " +
-                                 LocRm.GetString("profile.edited.complete2p"));
-                }
-                else
-                {
-                    Logging.Info(LocRm.GetString("profile.delete.canceled"));
-                }
+                Logging.Info(pf.Canceled != true
+                    ? String.Format("{0} {1} {2}", LocRm.GetString("profile.edited.complete1p"), SelectProfile.Text,
+                        LocRm.GetString("profile.edited.complete2p"))
+                    : LocRm.GetString("profile.delete.canceled"));
             }
             else
             {
@@ -1127,27 +1036,24 @@ namespace Luncher
                     Logging.Info(LocRm.GetString("resources.reconstructing"));
                     var json =
                         JObject.Parse(
-                            File.ReadAllText(_minecraft + "/assets/indexes/" + ReconstructingIndex.Text + ".json"));
+                            File.ReadAllText(String.Format("{0}/assets/indexes/{1}.json", _minecraft, ReconstructingIndex.Text)));
                     foreach (JProperty peep in json["objects"])
                     {
                         all++;
                         var c = json["objects"][peep.Name]["hash"].ToString();
                         var filename = c[0].ToString() + c[1].ToString() + "\\" + json["objects"][peep.Name]["hash"];
-                        if (File.Exists(_minecraft + "/assets/" + peep.Name)) continue;
-                        Logging.Info(_minecraft + "/assets/objects/" + filename + " -> " + _minecraft + "/assets/" +
-                                     peep.Name);
-                        var path = Path.GetDirectoryName(_minecraft + "/assets/" + peep.Name);
+                        if (File.Exists(String.Format("{0}/assets/{1}", _minecraft, peep.Name))) continue;
+                        Logging.Info(String.Format("{0}/assets/objects/{1} -> {0}/assets/{2}", _minecraft, filename, peep.Name));
+                        var path = Path.GetDirectoryName(String.Format("{0}/assets/{1}", _minecraft, peep.Name));
                         if (path != null && (!Directory.Exists(path))) Directory.CreateDirectory(path);
-                        File.Copy(_minecraft + "/assets/objects/" + filename, _minecraft + "/assets/" + peep.Name);
+                        File.Copy(String.Format("{0}/assets/objects/{1}", _minecraft, filename), String.Format("{0}/assets/{1}", _minecraft, peep.Name));
                         reconstructed++;
                     }
-                    Logging.Info(LocRm.GetString("resources.recostructionsuccestotal") + " " + all + ". " +
-                                 LocRm.GetString("resources.recostructionsuccestotalrecostructed") + " " +
-                                 reconstructed);
+                    Logging.Info(String.Format("{0} {1}. {2} {3}", LocRm.GetString("resources.recostructionsuccestotal"), all, LocRm.GetString("resources.recostructionsuccestotalrecostructed"), reconstructed));
                 }
                 catch (Exception ex)
                 {
-                    Logging.Error(LocRm.GetString("resources.reconstructionerror") + "\n" + ex);
+                    Logging.Error(String.Format("{0}\n{1}", LocRm.GetString("resources.reconstructionerror"), ex));
                 }
             }
             else
@@ -1201,7 +1107,7 @@ namespace Luncher
                 }
                 catch (Exception ex)
                 {
-                    Logging.Error(ex.ToString());
+                    Logging.Error(ex.Data.ToString());
                 }
             }
         }

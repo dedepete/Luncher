@@ -80,64 +80,68 @@
   <ItemGroup>
     <Compile Include="Auth.cs" />
     <Compile Include="AuthShemes.cs" />
-    <Compile Include="Launcher.cs">
+    <Compile Include="Forms\Launcher.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Launcher.Designer.cs">
+    <Compile Include="Forms\Launcher.Designer.cs">
       <DependentUpon>Launcher.cs</DependentUpon>
     </Compile>
-    <Compile Include="LoadConfiguration.cs" />
-    <Compile Include="Logging.cs" />
-    <Compile Include="MainForm.cs">
+    <Compile Include="Forms\LoginDialog.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MainForm.Designer.cs">
-      <DependentUpon>MainForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="MinecraftProcess.cs" />
-    <Compile Include="Processing.cs" />
-    <Compile Include="ProfileForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="ProfileForm.Designer.cs">
-      <DependentUpon>ProfileForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Program.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="LoginDialog.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="LoginDialog.Designer.cs">
+    <Compile Include="Forms\LoginDialog.Designer.cs">
       <DependentUpon>LoginDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\ProfileForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ProfileForm.Designer.cs">
+      <DependentUpon>ProfileForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Configuration.cs" />
+    <Compile Include="Logging.cs" />
+    <Compile Include="MinecraftProcess.cs" />
+    <Compile Include="Processing.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Variables.cs" />
-    <EmbeddedResource Include="Launcher.en.resx">
+    <EmbeddedResource Include="Forms\Launcher.en.resx">
       <DependentUpon>Launcher.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Launcher.resx">
+    <EmbeddedResource Include="Forms\Launcher.resx">
       <DependentUpon>Launcher.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Launcher.ru.resx">
+    <EmbeddedResource Include="Forms\Launcher.ru.resx">
       <DependentUpon>Launcher.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Launcher.uk.resx">
+    <EmbeddedResource Include="Forms\Launcher.uk.resx">
       <DependentUpon>Launcher.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MainForm.resx">
+    <EmbeddedResource Include="Forms\LoginDialog.resx">
+      <DependentUpon>LoginDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ProfileForm.en.resx">
+    <EmbeddedResource Include="Forms\ProfileForm.en.resx">
       <DependentUpon>ProfileForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ProfileForm.resx">
+    <EmbeddedResource Include="Forms\ProfileForm.resx">
       <DependentUpon>ProfileForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="ProfileForm.uk.resx">
+    <EmbeddedResource Include="Forms\ProfileForm.uk.resx">
       <DependentUpon>ProfileForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.en.resx" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -148,9 +152,8 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="LoginDialog.resx">
-      <DependentUpon>LoginDialog.cs</DependentUpon>
-    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.ru.resx" />
+    <EmbeddedResource Include="Properties\Resources.uk.resx" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -176,7 +179,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties StartAt="" Versioning="0" IncrementAction="2" IncrementOnBuild="True" IncrementOnRebuild="True" IncrementInformational="False" />
+      <UserProperties IncrementInformational="False" IncrementOnRebuild="True" IncrementOnBuild="True" IncrementAction="2" Versioning="0" StartAt="" />
     </VisualStudio>
   </ProjectExtensions>
   <PropertyGroup>

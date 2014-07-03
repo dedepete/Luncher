@@ -2,7 +2,7 @@
 using System.IO;
 using Newtonsoft.Json.Linq;
 
-namespace Luncher
+namespace Luncher.Forms
 {
     public partial class LoginDialog : Telerik.WinControls.UI.RadForm
     {

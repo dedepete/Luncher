@@ -1,16 +1,16 @@
-﻿using System.Linq;
-using Newtonsoft.Json.Linq;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Resources;
 using System.Threading;
 using System.Windows.Forms;
+using Newtonsoft.Json.Linq;
 using Telerik.WinControls.UI;
 
-namespace Luncher
+namespace Luncher.Forms
 {
     public partial class ProfileForm : RadForm
     {
@@ -20,7 +20,7 @@ namespace Luncher
             InitializeComponent();
         }
 
-        readonly ResourceManager _locRm = new ResourceManager("Luncher.ProfileForm", typeof(ProfileForm).Assembly);
+        readonly ResourceManager _locRm = new ResourceManager("Luncher.Forms.ProfileForm", typeof(ProfileForm).Assembly);
 
         readonly string _minecraft = Program.Minecraft;
         string _profile;
@@ -104,7 +104,7 @@ namespace Luncher
 
         void GetParams(string pName)
         {
-            var json = JObject.Parse(File.ReadAllText(Variables.LocalProfileList));
+            var json = JObject.Parse(File.ReadAllText(Variables.ProfileJsonFile));
             try
             {
                 var allowedVersions = (JArray)json["profiles"][pName]["allowedReleaseTypes"];
@@ -248,7 +248,7 @@ namespace Luncher
         private void radButton2_Click(object sender, EventArgs e)
         {
             string error = null;
-            var json = JObject.Parse(File.ReadAllText(Variables.LocalProfileList));
+            var json = JObject.Parse(File.ReadAllText(Variables.ProfileJsonFile));
             var json1 = (JObject)json["profiles"];
             var curprofile = (JObject)json1[_profile];
             var allowed = true;
@@ -375,7 +375,7 @@ namespace Luncher
                     curprofile["name"].AddAfterSelf(new JProperty("launcherVisibilityOnGameClose", LState.SelectedItem.Tag.ToString()));
                 }
                 json["profiles"][ProfileName.Text] = curprofile;
-                File.WriteAllText(Variables.LocalProfileList, json.ToString());
+                File.WriteAllText(Variables.ProfileJsonFile, json.ToString());
                 Close();
             }
             else
@@ -407,7 +407,7 @@ namespace Luncher
         public bool Deleted;
         private void radButton4_Click(object sender, EventArgs e)
         {
-            var json = JObject.Parse(File.ReadAllText(Variables.LocalProfileList));
+            var json = JObject.Parse(File.ReadAllText(Variables.ProfileJsonFile));
             var json1 = (JObject)json["profiles"];
             if (json1.Count - 1 != 0)
             {
@@ -415,7 +415,7 @@ namespace Luncher
                     MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (dr != DialogResult.Yes) return;
                 json1.Property(_profile).Remove();
-                File.WriteAllText(Variables.LocalProfileList, json.ToString());
+                File.WriteAllText(Variables.ProfileJsonFile, json.ToString());
                 Deleted = true;
                 Close();
             }

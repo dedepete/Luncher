@@ -5,6 +5,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
+using Luncher.Forms;
 using Telerik.WinControls.UI;
 
 namespace Luncher
@@ -20,11 +21,13 @@ namespace Luncher
         private string Libs { get; set; }
         private string JavaArgs { get; set; }
         private string Assets { get; set; }
+        private string MainClass { get; set; }
 
-        private RichTextBox Txt { get; set; }
+        public RichTextBox Txt { private get; set; }
+        public RadButton KillButton { private get; set; }
+        public RadButton CloseTabButton { private get; set; }
 
         private string LastVersionId { get; set; }
-
         private Process _client;
 
         private string _errors;
@@ -35,7 +38,7 @@ namespace Luncher
         private int _eflood;
         string _elast;
 
-        public MinecraftProcess(object mainForm, string gameDirectory, string arguments, string profileName, string assetsPath, string javaExec, string libraries, string javaArguments, string assetsFileName, string lastVersionId, RichTextBox txt)
+        public MinecraftProcess(object mainForm, string gameDirectory, string arguments, string profileName, string assetsPath, string javaExec, string libraries, string javaArguments, string assetsFileName, string lastVersionId, string mainClass)
         {
             Root = mainForm;
             GameDir = gameDirectory;
@@ -47,7 +50,7 @@ namespace Luncher
             JavaArgs = javaArguments;
             Assets = assetsFileName;
             LastVersionId = lastVersionId;
-            Txt = txt;
+            MainClass = mainClass;
         }
 
         [DllImport("user32.dll")]
@@ -91,9 +94,7 @@ namespace Luncher
                         {
                             line = _client.StandardOutput.ReadLine();
                             if (_tlast == line)
-                            {
                                 _tflood++;
-                            }
                             else
                             {
                                 _tflood = 0;
@@ -102,21 +103,17 @@ namespace Luncher
                             try
                             {
                                 if (line.Contains("Attempting early MinecraftForge initialization") && _rnw)
-                                {
                                     mroot.Invoke((MethodInvoker) delegate
                                     {
                                         _rnw = false;
                                         MLogG("[Forge]Инициализация Minecraft Forge...", false, Txt);
                                     });
-                                }
                                 if (line.Contains("Sound engine started") && _rnw == false)
-                                {
                                     mroot.Invoke((MethodInvoker) delegate
                                     {
                                         _rnw = true;
                                         MLogG("[Forge]Инициализация Minecraft Forge закончена", false, Txt);
                                     });
-                                }
                                 if (_tflood < 3)
                                 {
                                     mroot.Invoke((MethodInvoker) (() => MLogG(line, false, Txt)));
@@ -167,30 +164,24 @@ namespace Luncher
                         {
                             line = _client.StandardError.ReadLine();
                             if (_elast == line)
-                            {
                                 _eflood++;
-                            }
                             else
                             {
                                 _eflood = 0;
                                 _elast = line;
                             }
                             if (line.Contains("Attempting early MinecraftForge initialization"))
-                            {
                                 mroot.Invoke((MethodInvoker) delegate
                                 {
                                     _rnw = false;
                                     MLogG("[Forge]Инициализация Minecraft Forge...", false, Txt);
                                 });
-                            }
                             if (line.Contains("Sound engine started"))
-                            {
                                 mroot.Invoke((MethodInvoker) delegate
                                 {
                                     _rnw = true;
                                     MLogG("[Forge]Инициализация Minecraft Forge закончена", false, Txt);
                                 });
-                            }
                             try
                             {
                                 if (_eflood < 3)
@@ -226,6 +217,7 @@ namespace Luncher
         private static Thread _errorReader;
         public void Launch()
         {
+            KillButton.Click += Kill;
             var mroot = Root as Launcher;
             _client = new Process();
             var proc = new ProcessStartInfo
@@ -257,10 +249,9 @@ namespace Luncher
             Arg = Arg.Replace("${AppData}", Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData));
             Arg = Arg.Replace("${user_type}", "mojang");
             Arg = Arg.Replace("\\\"", "\"");
-            proc.Arguments = JavaArgs + nativespath + " -cp " + Libs + " " + Variables.MainClass + " " + Arg;
+            proc.Arguments = JavaArgs + nativespath + " -cp " + Libs + " " + MainClass + " " + Arg;
             proc.StandardErrorEncoding = Encoding.UTF8;
             _client.StartInfo = proc;
-            if (mroot == null) return;
             Logging.Info(mroot.LocRm.GetString("launch.workingdir") + " " + GameDir);
             Logging.Info(mroot.LocRm.GetString("launch.command") + " " + proc.FileName + " " + proc.Arguments);
             try
@@ -292,19 +283,23 @@ namespace Luncher
         {
             var mroot = Root as Launcher;
             var proc = sender as Process;
-            if (mroot != null)
-                mroot.Invoke((MethodInvoker)delegate
-                {
-                    var radButton = Txt.Tag as RadButton;
-                    if (radButton != null) radButton.Enabled = true;
-                    mroot.CleanNatives();
-                    if (proc != null)
-                        MLogG(("Процесс был завершён с кодом " + proc.ExitCode + ". Сеанс с " + proc.StartTime.ToString("HH:mm:ss") + "(Всего" + (Math.Round(proc.StartTime.Subtract(DateTime.Now).TotalMinutes, 2)).ToString().Replace('-', ' ') + " min)"), false, Txt);
-                    if (!mroot.Hl || mroot.WindowState != FormWindowState.Minimized) return;
-                    mroot.WindowState = FormWindowState.Normal;
-                    mroot.Hl = false;
-                    mroot.Activate();
-                });
+            mroot.Invoke((MethodInvoker)delegate
+            {
+                mroot.CleanNatives();
+                CloseTabButton.Enabled = true;
+                KillButton.Enabled = false;
+                if (proc != null)
+                    MLogG(("Процесс был завершён с кодом " + proc.ExitCode + ". Сеанс с " + proc.StartTime.ToString("HH:mm:ss") + "(Всего" + (Math.Round(proc.StartTime.Subtract(DateTime.Now).TotalMinutes, 2)).ToString().Replace('-', ' ') + " min)"), false, Txt);
+                if (!mroot.Hl || mroot.WindowState != FormWindowState.Minimized) return;
+                mroot.WindowState = FormWindowState.Normal;
+                mroot.Hl = false;
+                mroot.Activate();
+            });
+        }
+
+        private void Kill(object sender, EventArgs e)
+        {
+            if (Processing.IsRunning(_client)) _client.Kill();
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
+using Luncher.Forms;
 using Telerik.WinControls;
 
 namespace Luncher
@@ -10,7 +11,7 @@ namespace Luncher
         /// Главная точка входа для приложения.
         /// </summary>
 
-        public static string Minecraft = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\.minecraft";
+        public static string Minecraft = String.Format("{0}\\.minecraft", Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData));
 
         public static string Lang = "";
 

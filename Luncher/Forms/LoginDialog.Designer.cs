@@ -1,4 +1,4 @@
-﻿namespace Luncher
+﻿namespace Luncher.Forms
 {
     partial class LoginDialog
     {
