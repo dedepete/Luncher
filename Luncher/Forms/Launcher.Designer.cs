@@ -55,8 +55,6 @@
             this.radLabel6 = new Telerik.WinControls.UI.RadLabel();
             this.usingAssets = new Telerik.WinControls.UI.RadTextBox();
             this.AllowReconstruct = new Telerik.WinControls.UI.RadCheckBox();
-            this.ReconstructingIndex = new Telerik.WinControls.UI.RadTextBox();
-            this.radLabel4 = new Telerik.WinControls.UI.RadLabel();
             this.radGroupBox2 = new Telerik.WinControls.UI.RadGroupBox();
             this.RenameWindow = new Telerik.WinControls.UI.RadDropDownList();
             this.label8 = new System.Windows.Forms.Label();
@@ -116,8 +114,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.radLabel6)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.usingAssets)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.AllowReconstruct)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ReconstructingIndex)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radGroupBox2)).BeginInit();
             this.radGroupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.RenameWindow)).BeginInit();
@@ -314,8 +310,6 @@
             this.radGroupBox3.Controls.Add(this.radLabel6);
             this.radGroupBox3.Controls.Add(this.usingAssets);
             this.radGroupBox3.Controls.Add(this.AllowReconstruct);
-            this.radGroupBox3.Controls.Add(this.ReconstructingIndex);
-            this.radGroupBox3.Controls.Add(this.radLabel4);
             resources.ApplyResources(this.radGroupBox3, "radGroupBox3");
             this.radGroupBox3.Name = "radGroupBox3";
             this.radGroupBox3.ThemeName = "VisualStudio2012Dark";
@@ -340,21 +334,6 @@
             resources.ApplyResources(this.AllowReconstruct, "AllowReconstruct");
             this.AllowReconstruct.Name = "AllowReconstruct";
             this.AllowReconstruct.ToggleState = Telerik.WinControls.Enumerations.ToggleState.On;
-            this.AllowReconstruct.ToggleStateChanged += new Telerik.WinControls.UI.StateChangedEventHandler(this.AllowReconstruct_ToggleStateChanged);
-            // 
-            // ReconstructingIndex
-            // 
-            resources.ApplyResources(this.ReconstructingIndex, "ReconstructingIndex");
-            this.ReconstructingIndex.Name = "ReconstructingIndex";
-            this.ReconstructingIndex.ThemeName = "VisualStudio2012Dark";
-            // 
-            // radLabel4
-            // 
-            resources.ApplyResources(this.radLabel4, "radLabel4");
-            this.radLabel4.Name = "radLabel4";
-            this.radLabel4.ThemeName = "VisualStudio2012Dark";
-            ((Telerik.WinControls.UI.RadLabelElement)(this.radLabel4.GetChildAt(0))).Text = resources.GetString("resource.Text6");
-            ((Telerik.WinControls.Primitives.FillPrimitive)(this.radLabel4.GetChildAt(0).GetChildAt(0))).Visibility = Telerik.WinControls.ElementVisibility.Collapsed;
             // 
             // radGroupBox2
             // 
@@ -775,8 +754,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.radLabel6)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.usingAssets)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.AllowReconstruct)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ReconstructingIndex)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.radGroupBox2)).EndInit();
             this.radGroupBox2.ResumeLayout(false);
             this.radGroupBox2.PerformLayout();
@@ -875,8 +852,6 @@
         public Telerik.WinControls.UI.RadCheckBox radCheckBox1;
         public Telerik.WinControls.UI.RadCheckBox UseGamePrefix;
         public Telerik.WinControls.UI.RadCheckBox AllowReconstruct;
-        public Telerik.WinControls.UI.RadTextBox ReconstructingIndex;
-        public Telerik.WinControls.UI.RadLabel radLabel4;
         public Telerik.WinControls.UI.RadCheckBox AllowUpdateVersions;
         public Telerik.WinControls.UI.RadCheckBox EnableMinecraftUpdateAlerts;
         public Telerik.WinControls.UI.RadTextBox usingAssets;

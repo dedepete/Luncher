@@ -98,7 +98,6 @@ namespace Luncher.Forms
             var resourcesObject = new JObject
             {
                 {"enableReconstruction", AllowReconstruct.Checked},
-                {"reconstructionSourceFile", ReconstructingIndex.Text},
                 {"assetsDir", usingAssets.Text}
             };
             var jo = new JObject
@@ -135,30 +134,39 @@ namespace Luncher.Forms
 
         private void GetTranslations()
         {
-            foreach (var i in Directory.GetDirectories(Application.StartupPath))
+            try
             {
-                foreach (var a in Directory.GetFiles(i).Where(a =>
+                foreach (var i in Directory.GetDirectories(Application.StartupPath))
                 {
-                    var fileName = Path.GetFileName(a);
-                    return fileName != null && fileName.Contains("name");
-                })) LangDropDownList.Items.Add(new RadListDataItem
+                    foreach (var a in Directory.GetFiles(i).Where(a =>
                     {
-                        Text =
-                            Path.GetFileNameWithoutExtension(a) + " (" +
-                            i.Substring(i.LastIndexOf(Path.DirectorySeparatorChar) + 1) + ")",
-                        Tag = i.Substring(i.LastIndexOf(Path.DirectorySeparatorChar) + 1)
-                    });
+                        var fileName = Path.GetFileName(a);
+                        return fileName != null && fileName.Contains("name");
+                    }))
+                        LangDropDownList.Items.Add(new RadListDataItem
+                        {
+                            Text =
+                                Path.GetFileNameWithoutExtension(a) + " (" +
+                                i.Substring(i.LastIndexOf(Path.DirectorySeparatorChar) + 1) + ")",
+                            Tag = i.Substring(i.LastIndexOf(Path.DirectorySeparatorChar) + 1)
+                        });
+                }
+                var index = -1;
+                foreach (var i in LangDropDownList.Items)
+                {
+                    index++;
+                    if (!i.Text.Contains(Program.Lang)) continue;
+                    Console.WriteLine(i.Tag + @" " + Program.Lang);
+                    LangDropDownList.SelectedIndex = index;
+                    break;
+                }
+                _loadedlang = true;
             }
-            var index = -1;
-            foreach (var i in LangDropDownList.Items)
+            catch (Exception ex)
             {
-                index++;
-                if (!i.Text.Contains(Program.Lang)) continue;
-                Console.WriteLine(i.Tag + @" " + Program.Lang);
-                LangDropDownList.SelectedIndex = index;
-                break;
+                Logging.Error("Couldn't get localization files!\n" + ex.Data);
+                LangDropDownList.SelectedIndex = 0;
             }
-            _loadedlang = true;
         }
 
         private static void AddUserProfile()
@@ -244,30 +252,31 @@ namespace Luncher.Forms
         public void GetSelectedVersion(string profile)
         {
             var json = JObject.Parse(File.ReadAllText(Variables.ProfileJsonFile));
-            string ver1;
-            try
-            {
-                ver1 = json["profiles"][profile]["lastVersionId"].ToString();
-            }
-            catch
+            string ver;
+            if (json["profiles"][profile]["lastVersionId"] != null)
+                ver = json["profiles"][profile]["lastVersionId"].ToString();
+            else
             {
                 var allowed = (JArray) json["profiles"][profile]["allowedReleaseTypes"];
-                ver1 = allowed.ToString().Contains("snapshot") ? Variables.LastSnapshot : Variables.LastRelease;
+                ver = allowed.ToString().Contains("snapshot") ? Variables.LastSnapshot : Variables.LastRelease;
             }
+            var verJar = String.Format("{0}\\{1}\\{1}.jar", Variables.McVersions, ver);
+            var verJson = String.Format("{0}\\{1}\\{1}.json", Variables.McVersions, ver);
             var state =
-                LocRm.GetString(Directory.Exists(_minecraft + "/versions/" + ver1)
+                LocRm.GetString(File.Exists(verJar) &&
+                                File.Exists(verJson)
                     ? "launcherstate.readytoplay"
                     : "launcherstate.readytodownloadandplay");
-            SelectedVersion.Text = String.Format("{0} {1} {2}", LocRm.GetString("launcherstate.readytext"), state, ver1);
-            if (!File.Exists(Variables.McVersions + "/" + ver1 + "/" + ver1 + ".jar") &&
-                !File.Exists(Variables.McVersions + "/" + ver1 + "/" + ver1 + ".jar") &&
+            SelectedVersion.Text = String.Format("{0} {1} {2}", LocRm.GetString("launcherstate.readytext"), state, ver);
+            if (!File.Exists(verJar) &&
+                !File.Exists(verJson) &&
                 Variables.WorkingOffline)
             {
                 LaunchButton.Enabled = false;
                 LaunchButton.Text = @"Недоступно";
             }
-            else if (File.Exists(Variables.McVersions + "/" + ver1 + "/" + ver1 + ".jar") &&
-                     File.Exists(Variables.McVersions + "/" + ver1 + "/" + ver1 + ".jar") &&
+            else if (File.Exists(verJar) &&
+                     File.Exists(verJson) &&
                      Variables.WorkingOffline)
             {
                 LaunchButton.Enabled = true;
@@ -671,29 +680,32 @@ namespace Luncher.Forms
                         Hl = true;
                         break;
                 }
+            string ip = null;
+            string port = null;
+            if (json["server"] != null)
+            {
+                ip = json["server"]["ip"].ToString();
+                port = json["server"]["port"] != null ? json["server"]["port"].ToString() : null;
+            }
             _nativesFolder = Path.Combine(_minecraft + "\\versions", LastVersionId);
             var profileSJson = File.ReadAllText(_nativesFolder + @"\" + LastVersionId + ".json");
             var profilejsono = JObject.Parse(profileSJson);
             _mainClass = profilejsono["mainClass"].ToString();
-            _arg = profilejsono["minecraftArguments"].ToString();
-            _libs = _libs + _nativesFolder + @"\" + LastVersionId + ".jar";
+            _arg = profilejsono["minecraftArguments"] + (ip != null ? String.Format(" --server {0} --port {1}", ip, (port ?? "25565")) : String.Empty);
+            _libs = String.Format("{0}{1}\\{2}.jar", _libs, _nativesFolder, LastVersionId);
             var natives = _nativelibs.Split(';');
             try
             {
                 foreach (var a in natives)
-                {
                     using (var zip = ZipFile.Read(Variables.McFolder + "/libraries/" + a))
-                    {
                         zip.ExtractAll(Variables.McFolder + "/natives/",
                             ExtractExistingFileAction.OverwriteSilently);
-                    }
-                }
                 Logging.Info(String.Format("Распаковка natives завершена. Всего {0} файлов", new DirectoryInfo(Variables.McFolder + "/natives/").GetFiles("*.dll",
                             SearchOption.AllDirectories).Length));
             }
             catch (Exception ex)
             {
-                Logging.Error(ex.Data.ToString());
+                Logging.Error("Smth went wrong: " + ex.Data);
             }
         }
 
@@ -718,7 +730,8 @@ namespace Luncher.Forms
             try
             {
                 var add = true;
-                var jo = JObject.Parse(File.ReadAllText(Variables.ProfileJsonFile));
+                var txt = Variables.McFolder + "/luncher/userprofiles.json";
+                var jo = JObject.Parse(File.ReadAllText(txt));
                 var profiles = (JObject)jo["profiles"];
                 foreach (JProperty peep in jo["profiles"].Cast<JProperty>().Where(peep => peep.Name == Nickname.Text))
                 {
@@ -760,7 +773,7 @@ namespace Luncher.Forms
                 }
                 if (add)
                     profiles.Add(Nickname.Text, new JObject { new JProperty("type", "pirate") });
-                File.WriteAllText(Variables.McFolder + "/luncher/userprofiles.json", jo.ToString());
+                File.WriteAllText(txt, jo.ToString());
                 var lselected = Nickname.Text;
                 UpdateUserProfiles();
                 Nickname.SelectedValue = lselected;
@@ -1033,27 +1046,37 @@ namespace Luncher.Forms
                 var reconstructed = 0;
                 try
                 {
+                    var jsonPath = String.Format("{0}/assets/indexes/legacy.json", _minecraft);
+                    if (!File.Exists(jsonPath))
+                        new WebClient().DownloadFile(
+                            @"https://s3.amazonaws.com/Minecraft.Download/indexes/legacy.json", jsonPath);
                     Logging.Info(LocRm.GetString("resources.reconstructing"));
                     var json =
                         JObject.Parse(
-                            File.ReadAllText(String.Format("{0}/assets/indexes/{1}.json", _minecraft, ReconstructingIndex.Text)));
+                            File.ReadAllText(jsonPath));
                     foreach (JProperty peep in json["objects"])
                     {
                         all++;
                         var c = json["objects"][peep.Name]["hash"].ToString();
-                        var filename = c[0].ToString() + c[1].ToString() + "\\" + json["objects"][peep.Name]["hash"];
-                        if (File.Exists(String.Format("{0}/assets/{1}", _minecraft, peep.Name))) continue;
-                        Logging.Info(String.Format("{0}/assets/objects/{1} -> {0}/assets/{2}", _minecraft, filename, peep.Name));
-                        var path = Path.GetDirectoryName(String.Format("{0}/assets/{1}", _minecraft, peep.Name));
+                        var filename = String.Format("{0}{1}\\{2}", c[0].ToString(), c[1].ToString(), json["objects"][peep.Name]["hash"]);
+                        var newpath = String.Format("{0}\\assets\\objects\\{1}", _minecraft, filename);
+                        var oldpath = String.Format("{0}\\assets\\{1}", _minecraft, peep.Name);
+                        if (File.Exists(oldpath)) continue;
+                        Logging.Info(String.Format("{0} -> {1}", newpath, oldpath));
+                        var path = Path.GetDirectoryName(oldpath);
                         if (path != null && (!Directory.Exists(path))) Directory.CreateDirectory(path);
-                        File.Copy(String.Format("{0}/assets/objects/{1}", _minecraft, filename), String.Format("{0}/assets/{1}", _minecraft, peep.Name));
+                        if (!File.Exists(newpath))
+                            new WebClient().DownloadFile(
+                                String.Format(@"http://resources.download.minecraft.net/{0}", filename),
+                                oldpath);
+                        else File.Copy(newpath, oldpath);
                         reconstructed++;
                     }
                     Logging.Info(String.Format("{0} {1}. {2} {3}", LocRm.GetString("resources.recostructionsuccestotal"), all, LocRm.GetString("resources.recostructionsuccestotalrecostructed"), reconstructed));
                 }
                 catch (Exception ex)
                 {
-                    Logging.Error(String.Format("{0}\n{1}", LocRm.GetString("resources.reconstructionerror"), ex));
+                    Logging.Error(String.Format("{0}\n{1}", LocRm.GetString("resources.reconstructionerror"), ex.Data));
                 }
             }
             else
@@ -1061,12 +1084,6 @@ namespace Luncher.Forms
                 Logging.Warning(LocRm.GetString("resources.reconstructioncanceled"));
             }
             LaunchButtonClicked(1);
-        }
-
-        private void AllowReconstruct_ToggleStateChanged(object sender, StateChangedEventArgs args)
-        {
-            ReconstructingIndex.Enabled = AllowReconstruct.ToggleState ==
-                                          Telerik.WinControls.Enumerations.ToggleState.On;
         }
 
         private void EnableMinecraftLogging_ToggleStateChanged(object sender, StateChangedEventArgs args)

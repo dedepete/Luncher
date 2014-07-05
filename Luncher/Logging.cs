@@ -103,6 +103,7 @@ namespace Luncher
     public static class LogBox
     {
         public static object Box;
+
         public static string ProductName;
     }
 }

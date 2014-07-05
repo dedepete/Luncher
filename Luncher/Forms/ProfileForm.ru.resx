@@ -117,151 +117,34 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="$this.Text" xml:space="preserve">
-    <value>Profile Editor</value>
-  </data>
-  <data name="ResY.Text" xml:space="preserve">
-    <value>480</value>
-  </data>
-  <data name="ResX.Text" xml:space="preserve">
-    <value>854</value>
-  </data>
-  <data name="resource.Text2" xml:space="preserve">
-    <value>After launching:</value>
-  </data>
-  <data name="radLabel3.Text" xml:space="preserve">
-    <value>X</value>
-  </data>
-  <data name="message.error" xml:space="preserve">
-    <value>Error!</value>
-  </data>
-  <data name="message.deleteprofile" xml:space="preserve">
-    <value>Profile Deletion</value>
-  </data>
-  <data name="message.errornull" xml:space="preserve">
-    <value>Selected version can't be null!</value>
-  </data>
   <data name="message.invalidname" xml:space="preserve">
-    <value>Invalid name!</value>
+    <value>Использование данного названия невозможно!</value>
   </data>
   <data name="uselastversion" xml:space="preserve">
-    <value>Use latest version</value>
+    <value>Использовать последнюю версию</value>
   </data>
   <data name="data.minsize" xml:space="preserve">
-    <value>Hide launcher and re-open when game closes</value>
-  </data>
-  <data name="data.close" xml:space="preserve">
-    <value>Close launcher when game starts</value>
+    <value>Свернуть лаунчер</value>
   </data>
   <data name="data.keepopen" xml:space="preserve">
-    <value>Keep the launcher open</value>
+    <value>Оставить лаунчер открытым</value>
   </data>
-  <data name="radLabel2.Text" xml:space="preserve">
-    <value>Resolution:</value>
+  <data name="data.close" xml:space="preserve">
+    <value>Закрыть лаунчер</value>
   </data>
-  <data name="radLabel1.Text" xml:space="preserve">
-    <value>Profile name:</value>
+  <data name="message.errornull" xml:space="preserve">
+    <value>Выбранная версия не может быть null!</value>
   </data>
-  <data name="radGroupBox3.Text" xml:space="preserve">
-    <value>Java run-time settings</value>
-  </data>
-  <data name="radGroupBox3.HeaderText" xml:space="preserve">
-    <value>Java run-time settings</value>
-  </data>
-  <data name="radButton4.Text" xml:space="preserve">
-    <value>Delete Profile</value>
-  </data>
-  <data name="radButton1.Text" xml:space="preserve">
-    <value>Cancel</value>
-  </data>
-  <data name="UseArgs.Text" xml:space="preserve">
-    <value>Arguments:</value>
-  </data>
-  <data name="UseDirectory.Text" xml:space="preserve">
-    <value>Game directory:</value>
-  </data>
-  <data name="UseExec.Text" xml:space="preserve">
-    <value>Executable:</value>
-  </data>
-  <data name="resource.Text9" xml:space="preserve">
-    <value>Enable experimental builds("snapshots") </value>
-  </data>
-  <data name="resource.Text3" xml:space="preserve">
-    <value>X</value>
-  </data>
-  <data name="resource.Text10" xml:space="preserve">
-    <value>Executable:</value>
-  </data>
-  <data name="radButton3.Text" xml:space="preserve">
-    <value>Open working directory</value>
-  </data>
-  <data name="radButton2.Text" xml:space="preserve">
-    <value>Save profile</value>
+  <data name="message.error" xml:space="preserve">
+    <value>АщИПКА!</value>
   </data>
   <data name="message.deleteprofiletext" xml:space="preserve">
-    <value>Do you want to delete this profile?</value>
+    <value>Вы действительно хотите удалить данный профиль?</value>
   </data>
   <data name="message.deleteprofilelast" xml:space="preserve">
-    <value>This is last one profile. Removal is not possible!</value>
+    <value>Это последний профиль. Удаление невозможно!</value>
   </data>
-  <data name="LState.Text" xml:space="preserve">
-    <value>Keep the launcher open</value>
-  </data>
-  <data name="EnableOther.Text" xml:space="preserve">
-    <value>Enable other versions</value>
-  </data>
-  <data name="EnableExp.Text" xml:space="preserve">
-    <value>Enable experimental builds("snapshots") </value>
-  </data>
-  <data name="EnableBeta.Text" xml:space="preserve">
-    <value>Allow use of old beta builds(2010-2011)</value>
-  </data>
-  <data name="EnableAlpha.Text" xml:space="preserve">
-    <value>Allow use of old alpha builds(from 2010)</value>
-  </data>
-  <data name="radGroupBox1.HeaderText" xml:space="preserve">
-    <value>Main settings</value>
-  </data>
-  <data name="radGroupBox1.Text" xml:space="preserve">
-    <value>Main settings</value>
-  </data>
-  <data name="resource.Text" xml:space="preserve">
-    <value>Profile name:</value>
-  </data>
-  <data name="resource.Text8" xml:space="preserve">
-    <value>Enable old beta builds(2010-2011)</value>
-  </data>
-  <data name="resource.Text7" xml:space="preserve">
-    <value>Enable old alpha builds(from 2010)</value>
-  </data>
-  <data name="resource.Text6" xml:space="preserve">
-    <value>Enable other versions</value>
-  </data>
-  <data name="resource.Text5" xml:space="preserve">
-    <value>Game directory:</value>
-  </data>
-  <data name="resource.Text4" xml:space="preserve">
-    <value>Resolution:</value>
-  </data>
-  <data name="resource.Text1" xml:space="preserve">
-    <value>Connect to:</value>
-  </data>
-  <data name="radLabel4.Text" xml:space="preserve">
-    <value>After launching:</value>
-  </data>
-  <data name="radGroupBox2.Text" xml:space="preserve">
-    <value>Version selection</value>
-  </data>
-  <data name="radGroupBox2.HeaderText" xml:space="preserve">
-    <value>Version selection</value>
-  </data>
-  <data name="fastConnectCheckBox.Text" xml:space="preserve">
-    <value>Connect to:</value>
-  </data>
-  <data name="resource.Text11" xml:space="preserve">
-    <value>Arguments:</value>
-  </data>
-  <data name="portTextBox.NullText" xml:space="preserve">
-    <value>Port</value>
+  <data name="message.deleteprofile" xml:space="preserve">
+    <value>Удаление профиля</value>
   </data>
 </root>

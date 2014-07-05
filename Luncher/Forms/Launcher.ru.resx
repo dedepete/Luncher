@@ -347,9 +347,6 @@
   <data name="resource.Text5" xml:space="preserve">
     <value>Папка с ресурсами:</value>
   </data>
-  <data name="resource.Text6" xml:space="preserve">
-    <value>Для перестроения ресурсов использовать ресурсы</value>
-  </data>
   <data name="resource.Text7" xml:space="preserve">
     <value>Язык/Language:</value>
   </data>

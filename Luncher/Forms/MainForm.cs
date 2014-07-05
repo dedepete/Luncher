@@ -119,14 +119,15 @@ namespace Luncher.Forms
             Program.Lang = (string)Configuration.Main["lang"];
             var lang = "";
             if (Program.Lang == "")
-            {
                 lang = "ru-default(Русский)";
-            }
             else
             {
                 try
                 {
-                    foreach (var a in from a in Directory.GetFiles(Application.StartupPath + "\\" + Program.Lang + "\\") let fileName = Path.GetFileName(a) where fileName != null && fileName.Contains("name") select a)
+                    foreach (var a in from a in Directory.GetFiles(Application.StartupPath + "\\" + Program.Lang + "\\")
+                        let fileName = Path.GetFileName(a)
+                        where fileName != null && fileName.Contains("name")
+                        select a)
                     {
                         lang = Program.Lang + "(" + Path.GetFileNameWithoutExtension(a) + ")";
                         break;
@@ -170,16 +171,10 @@ namespace Luncher.Forms
             try
             {
                 if (ljson["luncher"].ToString() == "true")
-                {
                     if (ljson["selectedProfile"] != null)
-                    {
                         WriteLog("launcher_profiles.json загружен успешно");
-                    }
                     else
-                    {
                         throw new Exception("One of the important file is corrupted!");
-                    }
-                }
                 else
                 {
                     var newname = DateTime.Now.ToString("HHmmss") + ".json";
@@ -218,9 +213,7 @@ namespace Luncher.Forms
         {
             var webc = new WebClient();
             if (!Directory.Exists(_minecraft + "/versions/"))
-            {
                 Directory.CreateDirectory(_minecraft + "/versions/");
-            }
             WriteLog("Downloading versions.json...");
             webc.DownloadFileCompleted += Completed;
             webc.DownloadFileAsync(new Uri("https://s3.amazonaws.com/Minecraft.Download/versions/versions.json"), _minecraft + "/versions/versions.json");
@@ -231,13 +224,10 @@ namespace Luncher.Forms
         void CheckVersions()
         {
             if (!File.Exists(_minecraft + "\\versions\\versions.json"))
-            {
                 DownloadVersions();
-            }
             else
             {
-                if ((bool)Configuration.Updates["checkVersionsUpdate"])
-                {
+                if ((bool) Configuration.Updates["checkVersionsUpdate"])
                     try
                     {
                         WriteLog("Checking version.json...");
@@ -265,10 +255,9 @@ namespace Luncher.Forms
                         if (ver["latest"]["release"] != null) localrelease = ver["latest"]["release"].ToString();
                         if (latestsnapshot != localsnapshot || latestrelease != localrelease)
                         {
-                            if ((bool)Configuration.Updates["enableMinecraftUpdateAlerts"])
+                            if ((bool) Configuration.Updates["enableMinecraftUpdateAlerts"])
                             {
                                 if (latestsnapshot != localsnapshot)
-                                {
                                     new RadDesktopAlert
                                     {
                                         CaptionText = "A new version available",
@@ -282,9 +271,7 @@ namespace Luncher.Forms
                                         ThemeName = "VisualStudio2012Dark",
                                         CanMove = false
                                     }.Show();
-                                }
                                 if (latestrelease != localrelease)
-                                {
                                     new RadDesktopAlert
                                     {
                                         CaptionText = "A new version available",
@@ -297,19 +284,16 @@ namespace Luncher.Forms
                                         ThemeName = "VisualStudio2012Dark",
                                         CanMove = false
                                     }.Show();
-                                }
                             }
                             updatefound = true;
                         }
-                        WriteLog("Local versions: " + ((JArray)jb["versions"]).Count + ". Remote versions: " +
-                                 ((JArray)ver["versions"]).Count);
-                        if (((JArray)jb["versions"]).Count != ((JArray)ver["versions"]).Count) updatefound = true;
+                        WriteLog("Local versions: " + ((JArray) jb["versions"]).Count + ". Remote versions: " +
+                                 ((JArray) ver["versions"]).Count);
+                        if (((JArray) jb["versions"]).Count != ((JArray) ver["versions"]).Count) updatefound = true;
                         Variables.LastRelease = latestrelease;
                         Variables.LastSnapshot = latestsnapshot;
                         if (updatefound)
-                        {
                             DownloadVersions();
-                        }
                         else
                         {
                             WriteLog("No update found.");
@@ -336,16 +320,17 @@ namespace Luncher.Forms
                             catch
                             {
                                 CrashPanel.Visible = true;
-                                WriteLog("Локальный versions.json повреждён. Поключите компьютер к Интернету и запустите лаунчер для загрузки этого списка или установите свой вручную.\nПродолжение работы лаунчера невозможно");
+                                WriteLog(
+                                    "Локальный versions.json повреждён. Поключите компьютер к Интернету и запустите лаунчер для загрузки этого списка или установите свой вручную.\nПродолжение работы лаунчера невозможно");
                             }
                         }
                         else if (!File.Exists(_minecraft + "/versions/versions.json"))
                         {
                             CrashPanel.Visible = true;
-                            WriteLog("Локальный versions.json отсутствует. Поключите компьютер к Интернету и запустите лаунчер для загрузки этого списка или установите свой вручную.\nПродолжение работы лаунчера невозможно");
+                            WriteLog(
+                                "Локальный versions.json отсутствует. Поключите компьютер к Интернету и запустите лаунчер для загрузки этого списка или установите свой вручную.\nПродолжение работы лаунчера невозможно");
                         }
                     }
-                }
                 else
                 {
                     WriteLog("Проверка versions.json выключена пользователем");
@@ -374,31 +359,34 @@ namespace Luncher.Forms
                     }
                     else if (aver != ProductVersion)
                     {
-                        var mi2 = new MethodInvoker(() => WriteLog("Update avaible: " + aver));
+                        var mi2 = new MethodInvoker(() =>
+                        {
+                            WriteLog("Update avaible: " + aver);
+                            var dr = new RadMessageBoxForm
+                            {
+                                Text = @"Найдено обновление",
+                                MessageText =
+                                    "<html>Найдено обновление лаунчера: <b>" + aver + "</b>\nТекущая версия: <b>" +
+                                    ProductVersion +
+                                    "</b>\n Хотите ли вы пройти на страницу загрузки данного обновления?\n\nP.S. В противном случае, это уведомление будет появляться при каждом запуске лаунчера >:3",
+                                StartPosition = FormStartPosition.CenterScreen,
+                                ButtonsConfiguration = MessageBoxButtons.YesNo,
+                                TopMost = true,
+                                MessageIcon = null,
+                                Owner = this
+                            }.ShowDialog();
+                            if (dr == DialogResult.Yes)
+                            {
+                                Process.Start(
+                                    @"https://docs.google.com/spreadsheet/ccc?key=0AlHr5lFJzStndHpHVEFORHBYUGd6eXEtQjQ2Y1ZIaWc&usp=sharing");
+                                Application.Exit();
+                            }
+                            else
+                            {
+                                CheckVersions();
+                            }
+                        });
                         Invoke(mi2);
-                        var dr = new RadMessageBoxForm
-                        {
-                            Text = @"Найдено обновление",
-                            MessageText =
-                                "<html>Найдено обновление лаунчера: <b>" + aver + "</b>\nТекущая версия: <b>" +
-                                ProductVersion +
-                                "</b>\n Хотите ли вы пройти на страницу загрузки данного обновления?\n\nP.S. В противном случае, это уведомление будет появляться при каждом запуске лаунчера >:3",
-                            StartPosition = FormStartPosition.CenterScreen,
-                            ButtonsConfiguration = MessageBoxButtons.YesNo,
-                            TopMost = true,
-                            MessageIcon = null
-                        }.ShowDialog();
-                        if (dr == DialogResult.Yes)
-                        {
-                            Process.Start(
-                                @"https://docs.google.com/spreadsheet/ccc?key=0AlHr5lFJzStndHpHVEFORHBYUGd6eXEtQjQ2Y1ZIaWc&usp=sharing");
-                            new MethodInvoker(Application.Exit).Invoke();
-                        }
-                        else
-                        {
-                            var mi = new MethodInvoker(CheckVersions);
-                            Invoke(mi);
-                        }
                     }
                 }
                 catch (Exception ex)
@@ -456,7 +444,6 @@ namespace Luncher.Forms
                     ? ToggleState.On
                     : ToggleState.Off;
 
-                ln.ReconstructingIndex.Text = (string)Configuration.Resources["reconstructionSourceFile"];
                 ln.usingAssets.Text = (string)Configuration.Resources["assetsDir"];
                 ln.RenameWindow.SelectedIndex = (int)Configuration.Main["renameWindow"];
                 ln.Show();

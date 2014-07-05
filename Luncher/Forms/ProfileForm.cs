@@ -74,10 +74,17 @@ namespace Luncher.Forms
                         break;
                 }
             }
-            foreach (var info in from b in Directory.GetDirectories(_minecraft + "\\versions\\") let add = !(from a in list let splitted = a.Split(' ') where a.Contains(new DirectoryInfo(b).Name) select splitted).Any() where add select JObject.Parse(File.ReadAllText(Variables.McFolder + "/versions/" + new DirectoryInfo(b).Name + "/" + new DirectoryInfo(b).Name + ".json")))
-            {
+            foreach (var info in from b in Directory.GetDirectories(_minecraft + "\\versions\\")
+                let add =
+                    !(from a in list
+                        let splitted = a.Split(' ')
+                        where a.Contains(new DirectoryInfo(b).Name)
+                        select splitted).Any()
+                where add
+                select
+                    JObject.Parse(
+                        File.ReadAllText(String.Format("{0}/versions/{1}/{1}.json", Variables.McFolder, new DirectoryInfo(b).Name))))
                 Versions.Items.Add(info["type"] + " " + info["id"]);
-            }
             try
             {
                 if (_oldver != null & _oldver != "")
@@ -90,14 +97,10 @@ namespace Luncher.Forms
                         break;
                     }
                     if (founded != true)
-                    {
                         Versions.SelectedIndex = 0;
-                    }
                 }
                 else
-                {
                     Versions.SelectedIndex = 0;
-                }
             }
             catch { Versions.SelectedIndex = 0; }
         }
@@ -105,67 +108,44 @@ namespace Luncher.Forms
         void GetParams(string pName)
         {
             var json = JObject.Parse(File.ReadAllText(Variables.ProfileJsonFile));
-            try
+            if (json["profiles"][pName]["allowedReleaseTypes"] != null)
             {
                 var allowedVersions = (JArray)json["profiles"][pName]["allowedReleaseTypes"];
                 if (allowedVersions.ToString().Contains("old_alpha"))
-                {
                     EnableAlpha.ToggleState = Telerik.WinControls.Enumerations.ToggleState.On;
-                }
                 if (allowedVersions.ToString().Contains("snapshot"))
-                {
                     EnableExp.ToggleState = Telerik.WinControls.Enumerations.ToggleState.On;
-                }
                 if (allowedVersions.ToString().Contains("old_beta"))
-                {
                     EnableBeta.ToggleState = Telerik.WinControls.Enumerations.ToggleState.On;
-                }
             }
-            catch { }
-            try
-            {
-                ResX.Text = json["profiles"][pName]["resolution"]["width"].ToString();
-                ResY.Text = json["profiles"][pName]["resolution"]["height"].ToString();
-            }
-            catch { }
-            try
+            ResX.Text = json["profiles"][pName]["resolution"] != null ? json["profiles"][pName]["resolution"]["width"].ToString() : "480";
+            ResY.Text = json["profiles"][pName]["resolution"] != null ? json["profiles"][pName]["resolution"]["height"].ToString() : "854";
+            if (json["profiles"][pName]["gameDir"] != null)
             {
                 Gamedir.Text = json["profiles"][pName]["gameDir"].ToString();
                 UseDirectory.ToggleState = Telerik.WinControls.Enumerations.ToggleState.On;
             }
-            catch { Gamedir.Text = _minecraft; }
-            try
+            else { Gamedir.Text = _minecraft; }
+            if (json["profiles"][pName]["javaDir"] != null)
             {
                 ExecJava.Text = json["profiles"][pName]["javaDir"].ToString();
                 UseExec.ToggleState = Telerik.WinControls.Enumerations.ToggleState.On;
             }
-            catch { ExecJava.Text = Variables.JavaExe; }
+            else ExecJava.Text = Variables.JavaExe;
+            if (json["profiles"][pName]["javaArgs"] != null)
+            {
+                Args.Text = json["profiles"][pName]["javaArgs"].ToString();
+                UseArgs.ToggleState = Telerik.WinControls.Enumerations.ToggleState.On;
+            }
+            else
+                Args.Text = @"-Xmx1G";
+            var ver = json["profiles"][_profile]["lastVersionId"] != null
+                ? json["profiles"][_profile]["lastVersionId"].ToString()
+                : _locRm.GetString("uselastversion");
             try
             {
-                if (json["profiles"][pName]["javaArgs"].ToString() != null)
-                {
-                    Args.Text = json["profiles"][pName]["javaArgs"].ToString();
-                    UseArgs.ToggleState = Telerik.WinControls.Enumerations.ToggleState.On;
-                }
-                else
-                {
-                    Args.Text = @"-Xmx1G";
-                }
-            }
-            catch { Args.Text = @"-Xmx1G"; }
-            string ver = null;
-            try
-            {
-                ver = json["profiles"][_profile]["lastVersionId"].ToString();
-            }
-            catch
-            {
-                _locRm.GetString("uselastversion");
-            }
-            try
-            {
-                var jsonVer = JObject.Parse(File.ReadAllText(_minecraft + "\\versions\\" + ver + "\\" + ver + ".json"));
-                Versions.SelectedItem = Versions.FindItemExact(jsonVer["type"] + " " + ver, true);
+                var jsonVer = JObject.Parse(File.ReadAllText(String.Format("{0}\\versions\\{1}\\{1}.json", _minecraft, ver)));
+                Versions.SelectedItem = Versions.FindItemExact(String.Format("{0} {1}", jsonVer["type"], ver), true);
             }
             catch
             {
@@ -179,17 +159,12 @@ namespace Luncher.Forms
                         break;
                     }
                     if (founded != true)
-                    {
                         Versions.SelectedIndex = 0;
-                    }
                 }
                 else
-                {
                     Versions.SelectedIndex = 0;
-                }
             }
-            try
-            {
+            if (json["profiles"][pName]["launcherVisibilityOnGameClose"] != null)
                 switch (json["profiles"][pName]["launcherVisibilityOnGameClose"].ToString())
                 {
                     case "close launcher when game starts":
@@ -202,8 +177,13 @@ namespace Luncher.Forms
                         LState.SelectedIndex = 0;
                         break;
                 }
+            else LState.SelectedIndex = 0;
+            if (json["profiles"][pName]["server"] != null)
+            {
+                ipTextBox.Text = json["profiles"][pName]["server"]["ip"].ToString();
+                portTextBox.Text = json["profiles"][pName]["server"]["port"] != null? json["profiles"][pName]["server"]["port"].ToString():String.Empty;
+                fastConnectCheckBox.ToggleState = Telerik.WinControls.Enumerations.ToggleState.On;
             }
-            catch { LState.SelectedIndex = 0; }
             _changed = false;
         }
 
@@ -253,13 +233,11 @@ namespace Luncher.Forms
             var curprofile = (JObject)json1[_profile];
             var allowed = true;
             if (_changed)
-            {
                 if (json["profiles"].Cast<JProperty>().Any(peep => peep.Name == ProfileName.Text))
                 {
                     error = _locRm.GetString("message.invalidname");
                     allowed = false;
                 }
-            }
             if (Versions.SelectedItem == null)
             {
                 error = _locRm.GetString("message.errornull");
@@ -278,110 +256,60 @@ namespace Luncher.Forms
                 }
                 else
                 {
-                    try
-                    {
+                    if (curprofile["lastVersionId"] != null)
                         curprofile.Property("lastVersionId").Remove();
-                    }
-                    catch { }
                 }
                 curprofile["name"] = ProfileName.Text;
                 if (UseDirectory.ToggleState == Telerik.WinControls.Enumerations.ToggleState.On)
-                {
-                    try
-                    {
                         curprofile["gameDir"] = Gamedir.Text;
-                    }
-                    catch
-                    {
-                        curprofile["name"].AddAfterSelf(new JProperty("gameDir", Gamedir.Text));
-                    }
-                }
                 else
                 {
-                    try
-                    {
-                    curprofile.Property("gameDir").Remove();
-                    }
-                    catch {  }
+                    if (curprofile["gameDir"] != null)
+                        curprofile.Property("gameDir").Remove();
                 }
                 if (UseExec.ToggleState == Telerik.WinControls.Enumerations.ToggleState.On)
-                {
-                    try
-                    {
                         curprofile["javaDir"] = ExecJava.Text;
-                    }
-                    catch
-                    {
-                        curprofile["name"].AddAfterSelf(new JProperty("javaDir", ExecJava.Text));
-                    }
-                }
                 else
                 {
-                    try
-                    {
+                    if (curprofile["javaDir"] != null)
                         curprofile.Property("javaDir").Remove();
-                    }
-                    catch { }
                 }
                 if (UseArgs.ToggleState == Telerik.WinControls.Enumerations.ToggleState.On)
+                    curprofile["javaArgs"] = Args.Text;
+                else
                 {
-                    try
+                    if (curprofile["javaArgs"] != null)
+                        curprofile.Property("javaArgs").Remove();
+                }
+                if (fastConnectCheckBox.ToggleState == Telerik.WinControls.Enumerations.ToggleState.On)
+                {
+                    var jo = new JObject
                     {
-                        curprofile["javaArgs"] = Args.Text;
-                    }
-                    catch
-                    {
-                        curprofile["name"].AddAfterSelf(new JProperty("javaArgs", Args.Text));
-                    }
+                        {"ip", ipTextBox.Text}
+                    };
+                    if (portTextBox.Text != String.Empty) jo.Add("port", portTextBox.Text);
+                    curprofile["server"] = jo;
                 }
                 else
                 {
-                    try
-                    {
-                        curprofile.Property("javaArgs").Remove();
-                    }
-                    catch { }
+                    if (curprofile["server"] != null)
+                        curprofile.Property("server").Remove();
                 }
-                try
-                {
-                    var item = new JArray();
-                    if (EnableExp.ToggleState == Telerik.WinControls.Enumerations.ToggleState.On)
-                    {
-                        item.Add("snapshot");
-                    }
-                    if (EnableAlpha.ToggleState == Telerik.WinControls.Enumerations.ToggleState.On)
-                    {
-                        item.Add("old_alpha");
-                    }
-                    if (EnableBeta.ToggleState == Telerik.WinControls.Enumerations.ToggleState.On)
-                    {
-                        item.Add("old_beta");
-                    }
-                    item.Add("release");
-                    try
-                    {
-                        curprofile.Property("allowedReleaseTypes").Remove();
-                    }
-                    catch { }
-                    curprofile.Add(new JProperty("allowedReleaseTypes", item));
-                }
-                catch { }
-                try
-                {
-                    curprofile["launcherVisibilityOnGameClose"] = LState.SelectedItem.Tag.ToString();
-                }
-                catch
-                {
-                    curprofile["name"].AddAfterSelf(new JProperty("launcherVisibilityOnGameClose", LState.SelectedItem.Tag.ToString()));
-                }
+                var item = new JArray {"release"};
+                if (EnableExp.ToggleState == Telerik.WinControls.Enumerations.ToggleState.On)
+                    item.Add("snapshot");
+                if (EnableAlpha.ToggleState == Telerik.WinControls.Enumerations.ToggleState.On)
+                    item.Add("old_alpha");
+                if (EnableBeta.ToggleState == Telerik.WinControls.Enumerations.ToggleState.On)
+                    item.Add("old_beta");
+                curprofile["allowedReleaseTypes"] = item;
+                curprofile["launcherVisibilityOnGameClose"] = LState.SelectedItem.Tag.ToString();
                 json["profiles"][ProfileName.Text] = curprofile;
                 File.WriteAllText(Variables.ProfileJsonFile, json.ToString());
                 Close();
             }
             else
-            {
                 Logging.Info(error);
-            }
         }
 
         private void ProfileName_TextChanged(object sender, EventArgs e)
@@ -411,7 +339,8 @@ namespace Luncher.Forms
             var json1 = (JObject)json["profiles"];
             if (json1.Count - 1 != 0)
             {
-                var dr = MessageBox.Show(_locRm.GetString("message.deleteprofiletext"), _locRm.GetString("message.deleteprofile"),
+                var dr = MessageBox.Show(_locRm.GetString("message.deleteprofiletext"),
+                    _locRm.GetString("message.deleteprofile"),
                     MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (dr != DialogResult.Yes) return;
                 json1.Property(_profile).Remove();
@@ -420,9 +349,14 @@ namespace Luncher.Forms
                 Close();
             }
             else
-            {
-                MessageBox.Show(_locRm.GetString("message.deleteprofilelast"), _locRm.GetString("message.error"), MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+                MessageBox.Show(_locRm.GetString("message.deleteprofilelast"), _locRm.GetString("message.error"),
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+        private void radCheckBox1_ToggleStateChanged(object sender, StateChangedEventArgs args)
+        {
+            ipTextBox.Enabled = fastConnectCheckBox.Checked;
+            portTextBox.Enabled = fastConnectCheckBox.Checked;
         }
     }
 }

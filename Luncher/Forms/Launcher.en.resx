@@ -230,9 +230,6 @@ Published by Space Earth Studio</value>
   <data name="AllowReconstruct.Text" xml:space="preserve">
     <value>Enable resource reconstructing(&lt;1.7)</value>
   </data>
-  <data name="resource.Text6" xml:space="preserve">
-    <value>Use following resource file for reconstruct</value>
-  </data>
   <data name="resource.Text3" xml:space="preserve">
     <value>Gratitudes</value>
   </data>

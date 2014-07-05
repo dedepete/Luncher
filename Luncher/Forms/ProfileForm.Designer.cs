@@ -29,12 +29,15 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ProfileForm));
-            Telerik.WinControls.UI.RadListDataItem radListDataItem1 = new Telerik.WinControls.UI.RadListDataItem();
-            Telerik.WinControls.UI.RadListDataItem radListDataItem2 = new Telerik.WinControls.UI.RadListDataItem();
-            Telerik.WinControls.UI.RadListDataItem radListDataItem3 = new Telerik.WinControls.UI.RadListDataItem();
+            Telerik.WinControls.UI.RadListDataItem radListDataItem4 = new Telerik.WinControls.UI.RadListDataItem();
+            Telerik.WinControls.UI.RadListDataItem radListDataItem5 = new Telerik.WinControls.UI.RadListDataItem();
+            Telerik.WinControls.UI.RadListDataItem radListDataItem6 = new Telerik.WinControls.UI.RadListDataItem();
             this.ProfileName = new Telerik.WinControls.UI.RadTextBox();
             this.radLabel1 = new Telerik.WinControls.UI.RadLabel();
             this.radGroupBox1 = new Telerik.WinControls.UI.RadGroupBox();
+            this.portTextBox = new Telerik.WinControls.UI.RadTextBox();
+            this.ipTextBox = new Telerik.WinControls.UI.RadTextBox();
+            this.fastConnectCheckBox = new Telerik.WinControls.UI.RadCheckBox();
             this.radLabel4 = new Telerik.WinControls.UI.RadLabel();
             this.radLabel3 = new Telerik.WinControls.UI.RadLabel();
             this.ResY = new Telerik.WinControls.UI.RadTextBox();
@@ -62,6 +65,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.radLabel1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radGroupBox1)).BeginInit();
             this.radGroupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.portTextBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ipTextBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.fastConnectCheckBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radLabel4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radLabel3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ResY)).BeginInit();
@@ -109,6 +115,9 @@
             // radGroupBox1
             // 
             this.radGroupBox1.AccessibleRole = System.Windows.Forms.AccessibleRole.Grouping;
+            this.radGroupBox1.Controls.Add(this.portTextBox);
+            this.radGroupBox1.Controls.Add(this.ipTextBox);
+            this.radGroupBox1.Controls.Add(this.fastConnectCheckBox);
             this.radGroupBox1.Controls.Add(this.radLabel4);
             this.radGroupBox1.Controls.Add(this.radLabel3);
             this.radGroupBox1.Controls.Add(this.ResY);
@@ -123,13 +132,67 @@
             this.radGroupBox1.Name = "radGroupBox1";
             this.radGroupBox1.ThemeName = "VisualStudio2012Dark";
             // 
+            // portTextBox
+            // 
+            resources.ApplyResources(this.portTextBox, "portTextBox");
+            this.portTextBox.Name = "portTextBox";
+            // 
+            // 
+            // 
+            this.portTextBox.RootElement.AccessibleDescription = resources.GetString("portTextBox.RootElement.AccessibleDescription");
+            this.portTextBox.RootElement.AccessibleName = resources.GetString("portTextBox.RootElement.AccessibleName");
+            this.portTextBox.RootElement.Alignment = ((System.Drawing.ContentAlignment)(resources.GetObject("portTextBox.RootElement.Alignment")));
+            this.portTextBox.RootElement.AngleTransform = ((float)(resources.GetObject("portTextBox.RootElement.AngleTransform")));
+            this.portTextBox.RootElement.FlipText = ((bool)(resources.GetObject("portTextBox.RootElement.FlipText")));
+            this.portTextBox.RootElement.Margin = ((System.Windows.Forms.Padding)(resources.GetObject("portTextBox.RootElement.Margin")));
+            this.portTextBox.RootElement.Text = resources.GetString("portTextBox.RootElement.Text");
+            this.portTextBox.RootElement.TextOrientation = ((System.Windows.Forms.Orientation)(resources.GetObject("portTextBox.RootElement.TextOrientation")));
+            this.portTextBox.ThemeName = "VisualStudio2012Dark";
+            // 
+            // ipTextBox
+            // 
+            resources.ApplyResources(this.ipTextBox, "ipTextBox");
+            this.ipTextBox.Name = "ipTextBox";
+            // 
+            // 
+            // 
+            this.ipTextBox.RootElement.AccessibleDescription = resources.GetString("ipTextBox.RootElement.AccessibleDescription");
+            this.ipTextBox.RootElement.AccessibleName = resources.GetString("ipTextBox.RootElement.AccessibleName");
+            this.ipTextBox.RootElement.Alignment = ((System.Drawing.ContentAlignment)(resources.GetObject("ipTextBox.RootElement.Alignment")));
+            this.ipTextBox.RootElement.AngleTransform = ((float)(resources.GetObject("ipTextBox.RootElement.AngleTransform")));
+            this.ipTextBox.RootElement.FlipText = ((bool)(resources.GetObject("ipTextBox.RootElement.FlipText")));
+            this.ipTextBox.RootElement.Margin = ((System.Windows.Forms.Padding)(resources.GetObject("ipTextBox.RootElement.Margin")));
+            this.ipTextBox.RootElement.Text = resources.GetString("ipTextBox.RootElement.Text");
+            this.ipTextBox.RootElement.TextOrientation = ((System.Windows.Forms.Orientation)(resources.GetObject("ipTextBox.RootElement.TextOrientation")));
+            this.ipTextBox.ThemeName = "VisualStudio2012Dark";
+            // 
+            // fastConnectCheckBox
+            // 
+            resources.ApplyResources(this.fastConnectCheckBox, "fastConnectCheckBox");
+            this.fastConnectCheckBox.Name = "fastConnectCheckBox";
+            // 
+            // 
+            // 
+            this.fastConnectCheckBox.RootElement.AccessibleDescription = resources.GetString("fastConnectCheckBox.RootElement.AccessibleDescription");
+            this.fastConnectCheckBox.RootElement.AccessibleName = resources.GetString("fastConnectCheckBox.RootElement.AccessibleName");
+            this.fastConnectCheckBox.RootElement.Alignment = ((System.Drawing.ContentAlignment)(resources.GetObject("fastConnectCheckBox.RootElement.Alignment")));
+            this.fastConnectCheckBox.RootElement.AngleTransform = ((float)(resources.GetObject("fastConnectCheckBox.RootElement.AngleTransform")));
+            this.fastConnectCheckBox.RootElement.FlipText = ((bool)(resources.GetObject("fastConnectCheckBox.RootElement.FlipText")));
+            this.fastConnectCheckBox.RootElement.Margin = ((System.Windows.Forms.Padding)(resources.GetObject("fastConnectCheckBox.RootElement.Margin")));
+            this.fastConnectCheckBox.RootElement.Text = resources.GetString("fastConnectCheckBox.RootElement.Text");
+            this.fastConnectCheckBox.RootElement.TextOrientation = ((System.Windows.Forms.Orientation)(resources.GetObject("fastConnectCheckBox.RootElement.TextOrientation")));
+            this.fastConnectCheckBox.ThemeName = "VisualStudio2012Dark";
+            this.fastConnectCheckBox.ToggleStateChanged += new Telerik.WinControls.UI.StateChangedEventHandler(this.radCheckBox1_ToggleStateChanged);
+            ((Telerik.WinControls.UI.RadCheckBoxElement)(this.fastConnectCheckBox.GetChildAt(0))).Text = resources.GetString("resource.Text1");
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.fastConnectCheckBox.GetChildAt(0).GetChildAt(0))).Visibility = Telerik.WinControls.ElementVisibility.Collapsed;
+            // 
             // radLabel4
             // 
             this.radLabel4.BackColor = System.Drawing.Color.Transparent;
             resources.ApplyResources(this.radLabel4, "radLabel4");
             this.radLabel4.Name = "radLabel4";
             this.radLabel4.ThemeName = "VisualStudio2012Dark";
-            ((Telerik.WinControls.UI.RadLabelElement)(this.radLabel4.GetChildAt(0))).Text = resources.GetString("resource.Text1");
+            ((Telerik.WinControls.UI.RadLabelElement)(this.radLabel4.GetChildAt(0))).Text = resources.GetString("resource.Text2");
             ((Telerik.WinControls.Primitives.FillPrimitive)(this.radLabel4.GetChildAt(0).GetChildAt(0))).Visibility = Telerik.WinControls.ElementVisibility.Collapsed;
             // 
             // radLabel3
@@ -138,7 +201,7 @@
             resources.ApplyResources(this.radLabel3, "radLabel3");
             this.radLabel3.Name = "radLabel3";
             this.radLabel3.ThemeName = "VisualStudio2012Dark";
-            ((Telerik.WinControls.UI.RadLabelElement)(this.radLabel3.GetChildAt(0))).Text = resources.GetString("resource.Text2");
+            ((Telerik.WinControls.UI.RadLabelElement)(this.radLabel3.GetChildAt(0))).Text = resources.GetString("resource.Text3");
             ((Telerik.WinControls.Primitives.FillPrimitive)(this.radLabel3.GetChildAt(0).GetChildAt(0))).Visibility = Telerik.WinControls.ElementVisibility.Collapsed;
             // 
             // ResY
@@ -159,24 +222,24 @@
             resources.ApplyResources(this.radLabel2, "radLabel2");
             this.radLabel2.Name = "radLabel2";
             this.radLabel2.ThemeName = "VisualStudio2012Dark";
-            ((Telerik.WinControls.UI.RadLabelElement)(this.radLabel2.GetChildAt(0))).Text = resources.GetString("resource.Text3");
+            ((Telerik.WinControls.UI.RadLabelElement)(this.radLabel2.GetChildAt(0))).Text = resources.GetString("resource.Text4");
             ((Telerik.WinControls.Primitives.FillPrimitive)(this.radLabel2.GetChildAt(0).GetChildAt(0))).Visibility = Telerik.WinControls.ElementVisibility.Collapsed;
             // 
             // LState
             // 
             this.LState.DropDownStyle = Telerik.WinControls.RadDropDownStyle.DropDownList;
-            radListDataItem1.Tag = "keep the launcher open";
-            radListDataItem1.Text = _locRm.GetString("data.keepopen");
-            resources.ApplyResources(radListDataItem1, "radListDataItem1");
-            radListDataItem2.Tag = "hide launcher and re-open when game closes";
-            radListDataItem2.Text = _locRm.GetString("data.minsize");
-            resources.ApplyResources(radListDataItem2, "radListDataItem2");
-            radListDataItem3.Tag = "close launcher when game starts";
-            radListDataItem3.Text = _locRm.GetString("data.close");
-            resources.ApplyResources(radListDataItem3, "radListDataItem3");
-            this.LState.Items.Add(radListDataItem1);
-            this.LState.Items.Add(radListDataItem2);
-            this.LState.Items.Add(radListDataItem3);
+            radListDataItem4.Text = _locRm.GetString("data.keepopen");
+            radListDataItem4.Tag = "keep the launcher open";
+            resources.ApplyResources(radListDataItem4, "radListDataItem4");
+            radListDataItem5.Text = _locRm.GetString("data.minsize");
+            radListDataItem5.Tag = "hide launcher and re-open when game closes";
+            resources.ApplyResources(radListDataItem5, "radListDataItem5");
+            radListDataItem6.Text = _locRm.GetString("data.close");
+            radListDataItem6.Tag = "close launcher when game starts";
+            resources.ApplyResources(radListDataItem6, "radListDataItem6");
+            this.LState.Items.Add(radListDataItem4);
+            this.LState.Items.Add(radListDataItem5);
+            this.LState.Items.Add(radListDataItem6);
             resources.ApplyResources(this.LState, "LState");
             this.LState.Name = "LState";
             this.LState.ThemeName = "VisualStudio2012Dark";
@@ -185,6 +248,17 @@
             // 
             resources.ApplyResources(this.Gamedir, "Gamedir");
             this.Gamedir.Name = "Gamedir";
+            // 
+            // 
+            // 
+            this.Gamedir.RootElement.AccessibleDescription = resources.GetString("Gamedir.RootElement.AccessibleDescription");
+            this.Gamedir.RootElement.AccessibleName = resources.GetString("Gamedir.RootElement.AccessibleName");
+            this.Gamedir.RootElement.Alignment = ((System.Drawing.ContentAlignment)(resources.GetObject("Gamedir.RootElement.Alignment")));
+            this.Gamedir.RootElement.AngleTransform = ((float)(resources.GetObject("Gamedir.RootElement.AngleTransform")));
+            this.Gamedir.RootElement.FlipText = ((bool)(resources.GetObject("Gamedir.RootElement.FlipText")));
+            this.Gamedir.RootElement.Margin = ((System.Windows.Forms.Padding)(resources.GetObject("Gamedir.RootElement.Margin")));
+            this.Gamedir.RootElement.Text = resources.GetString("Gamedir.RootElement.Text");
+            this.Gamedir.RootElement.TextOrientation = ((System.Windows.Forms.Orientation)(resources.GetObject("Gamedir.RootElement.TextOrientation")));
             this.Gamedir.ThemeName = "VisualStudio2012Dark";
             // 
             // UseDirectory
@@ -193,7 +267,7 @@
             this.UseDirectory.Name = "UseDirectory";
             this.UseDirectory.ThemeName = "VisualStudio2012Dark";
             this.UseDirectory.ToggleStateChanged += new Telerik.WinControls.UI.StateChangedEventHandler(this.UseDirectory_ToggleStateChanged);
-            ((Telerik.WinControls.UI.RadCheckBoxElement)(this.UseDirectory.GetChildAt(0))).Text = resources.GetString("resource.Text4");
+            ((Telerik.WinControls.UI.RadCheckBoxElement)(this.UseDirectory.GetChildAt(0))).Text = resources.GetString("resource.Text5");
             ((Telerik.WinControls.Primitives.FillPrimitive)(this.UseDirectory.GetChildAt(0).GetChildAt(0))).Visibility = Telerik.WinControls.ElementVisibility.Collapsed;
             // 
             // radGroupBox2
@@ -213,7 +287,7 @@
             resources.ApplyResources(this.EnableOther, "EnableOther");
             this.EnableOther.Name = "EnableOther";
             this.EnableOther.ThemeName = "VisualStudio2012Dark";
-            ((Telerik.WinControls.UI.RadCheckBoxElement)(this.EnableOther.GetChildAt(0))).Text = resources.GetString("resource.Text5");
+            ((Telerik.WinControls.UI.RadCheckBoxElement)(this.EnableOther.GetChildAt(0))).Text = resources.GetString("resource.Text6");
             ((Telerik.WinControls.Primitives.FillPrimitive)(this.EnableOther.GetChildAt(0).GetChildAt(0))).Visibility = Telerik.WinControls.ElementVisibility.Collapsed;
             // 
             // Versions
@@ -230,7 +304,7 @@
             this.EnableAlpha.Name = "EnableAlpha";
             this.EnableAlpha.ThemeName = "VisualStudio2012Dark";
             this.EnableAlpha.ToggleStateChanged += new Telerik.WinControls.UI.StateChangedEventHandler(this.EnableAlpha_ToggleStateChanged);
-            ((Telerik.WinControls.UI.RadCheckBoxElement)(this.EnableAlpha.GetChildAt(0))).Text = resources.GetString("resource.Text6");
+            ((Telerik.WinControls.UI.RadCheckBoxElement)(this.EnableAlpha.GetChildAt(0))).Text = resources.GetString("resource.Text7");
             ((Telerik.WinControls.Primitives.FillPrimitive)(this.EnableAlpha.GetChildAt(0).GetChildAt(0))).Visibility = Telerik.WinControls.ElementVisibility.Collapsed;
             // 
             // EnableBeta
@@ -239,7 +313,7 @@
             this.EnableBeta.Name = "EnableBeta";
             this.EnableBeta.ThemeName = "VisualStudio2012Dark";
             this.EnableBeta.ToggleStateChanged += new Telerik.WinControls.UI.StateChangedEventHandler(this.EnableBeta_ToggleStateChanged);
-            ((Telerik.WinControls.UI.RadCheckBoxElement)(this.EnableBeta.GetChildAt(0))).Text = resources.GetString("resource.Text7");
+            ((Telerik.WinControls.UI.RadCheckBoxElement)(this.EnableBeta.GetChildAt(0))).Text = resources.GetString("resource.Text8");
             ((Telerik.WinControls.Primitives.FillPrimitive)(this.EnableBeta.GetChildAt(0).GetChildAt(0))).Visibility = Telerik.WinControls.ElementVisibility.Collapsed;
             // 
             // EnableExp
@@ -248,7 +322,7 @@
             this.EnableExp.Name = "EnableExp";
             this.EnableExp.ThemeName = "VisualStudio2012Dark";
             this.EnableExp.ToggleStateChanged += new Telerik.WinControls.UI.StateChangedEventHandler(this.EnableExp_ToggleStateChanged);
-            ((Telerik.WinControls.UI.RadCheckBoxElement)(this.EnableExp.GetChildAt(0))).Text = resources.GetString("resource.Text8");
+            ((Telerik.WinControls.UI.RadCheckBoxElement)(this.EnableExp.GetChildAt(0))).Text = resources.GetString("resource.Text9");
             ((Telerik.WinControls.Primitives.FillPrimitive)(this.EnableExp.GetChildAt(0).GetChildAt(0))).Visibility = Telerik.WinControls.ElementVisibility.Collapsed;
             // 
             // radGroupBox3
@@ -274,7 +348,7 @@
             this.UseExec.Name = "UseExec";
             this.UseExec.ThemeName = "VisualStudio2012Dark";
             this.UseExec.ToggleStateChanged += new Telerik.WinControls.UI.StateChangedEventHandler(this.UseExec_ToggleStateChanged);
-            ((Telerik.WinControls.UI.RadCheckBoxElement)(this.UseExec.GetChildAt(0))).Text = resources.GetString("resource.Text9");
+            ((Telerik.WinControls.UI.RadCheckBoxElement)(this.UseExec.GetChildAt(0))).Text = resources.GetString("resource.Text10");
             ((Telerik.WinControls.Primitives.FillPrimitive)(this.UseExec.GetChildAt(0).GetChildAt(0))).Visibility = Telerik.WinControls.ElementVisibility.Collapsed;
             // 
             // Args
@@ -289,7 +363,7 @@
             this.UseArgs.Name = "UseArgs";
             this.UseArgs.ThemeName = "VisualStudio2012Dark";
             this.UseArgs.ToggleStateChanged += new Telerik.WinControls.UI.StateChangedEventHandler(this.UseArgs_ToggleStateChanged);
-            ((Telerik.WinControls.UI.RadCheckBoxElement)(this.UseArgs.GetChildAt(0))).Text = resources.GetString("resource.Text10");
+            ((Telerik.WinControls.UI.RadCheckBoxElement)(this.UseArgs.GetChildAt(0))).Text = resources.GetString("resource.Text11");
             ((Telerik.WinControls.Primitives.FillPrimitive)(this.UseArgs.GetChildAt(0).GetChildAt(0))).Visibility = Telerik.WinControls.ElementVisibility.Collapsed;
             // 
             // radButton1
@@ -341,7 +415,7 @@
             // 
             // 
             this.RootElement.ApplyShapeToControl = true;
-            this.RootElement.MaxSize = new System.Drawing.Size(349, 447);
+            this.RootElement.MaxSize = new System.Drawing.Size(349, 476);
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.ThemeName = "VisualStudio2012Dark";
@@ -351,6 +425,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.radGroupBox1)).EndInit();
             this.radGroupBox1.ResumeLayout(false);
             this.radGroupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.portTextBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ipTextBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.fastConnectCheckBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.radLabel4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.radLabel3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ResY)).EndInit();
@@ -392,7 +469,6 @@
         private Telerik.WinControls.UI.RadTextBox ResX;
         private Telerik.WinControls.UI.RadLabel radLabel2;
         private Telerik.WinControls.UI.RadDropDownList LState;
-        private Telerik.WinControls.UI.RadTextBox Gamedir;
         private Telerik.WinControls.UI.RadCheckBox UseDirectory;
         private Telerik.WinControls.UI.RadGroupBox radGroupBox2;
         private Telerik.WinControls.UI.RadCheckBox EnableAlpha;
@@ -411,5 +487,9 @@
         private Telerik.WinControls.UI.RadLabel radLabel4;
         public Telerik.WinControls.UI.RadButton radButton4;
         private Telerik.WinControls.UI.RadCheckBox EnableOther;
+        private Telerik.WinControls.UI.RadTextBox portTextBox;
+        private Telerik.WinControls.UI.RadTextBox ipTextBox;
+        private Telerik.WinControls.UI.RadCheckBox fastConnectCheckBox;
+        private Telerik.WinControls.UI.RadTextBox Gamedir;
     }
 }

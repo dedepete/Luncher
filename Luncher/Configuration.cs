@@ -52,13 +52,10 @@ namespace Luncher
                         Convert.ToBoolean(jo["updates"]["enableMinecraftUpdateAlerts"].ToString());
                     Resources["enableReconstruction"] =
                         Convert.ToBoolean(jo["resources"]["enableReconstruction"].ToString());
-                    Resources["reconstructionSourceFile"] = jo["resources"]["reconstructionSourceFile"].ToString();
                     Resources["assetsDir"] = jo["resources"]["assetsDir"].ToString();
                 }
                 else
-                {
                     SaveDefault();
-                }
             }
             catch(Exception ex)
             {
@@ -88,7 +85,6 @@ namespace Luncher
             var resourcesObject = new JObject
                 {
                     {"enableReconstruction", (bool) Resources["enableReconstruction"]},
-                    {"reconstructionSourceFile", (string) Resources["reconstructionSourceFile"]},
                     {"assetsDir", (string) Resources["assetsToReconstruct"]}
                 };
             var jo = new JObject

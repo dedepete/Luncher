@@ -656,9 +656,6 @@
   <data name="&gt;&gt;radLabel4.ZOrder" xml:space="preserve">
     <value>4</value>
   </data>
-  <data name="resource.Text6" xml:space="preserve">
-    <value>Для перестроения ресурсов использовать ресурсы</value>
-  </data>
   <data name="radGroupBox3.HeaderText" xml:space="preserve">
     <value>Ресурсы</value>
   </data>
