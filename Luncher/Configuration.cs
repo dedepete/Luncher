@@ -29,7 +29,6 @@ namespace Luncher
         public static readonly Dictionary<string, object> Resources = new Dictionary<string, object>
         {
             {"enableReconstruction", true},
-            {"reconstructionSourceFile", "1.7.4"},
             {"assetsDir", "${AppData}\\.minecraft\\assets\\"}
         };
 
@@ -85,7 +84,7 @@ namespace Luncher
             var resourcesObject = new JObject
                 {
                     {"enableReconstruction", (bool) Resources["enableReconstruction"]},
-                    {"assetsDir", (string) Resources["assetsToReconstruct"]}
+                    {"assetsDir", (string) Resources["assetsDir"]}
                 };
             var jo = new JObject
                 {
@@ -94,7 +93,9 @@ namespace Luncher
                     {"updates", updatesObject},
                     {"resources", resourcesObject}
                 };
-            File.WriteAllText(Path.Combine(Program.Minecraft, "luncher", "configuration.cfg"), jo.ToString());
+            var path = Path.Combine(Program.Minecraft, "luncher");
+            if (!Directory.Exists(path)) Directory.CreateDirectory(path);
+            File.WriteAllText(Path.Combine(path, "configuration.cfg"), jo.ToString());
         }
     }
 }
