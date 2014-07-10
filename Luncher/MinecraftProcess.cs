@@ -58,9 +58,6 @@ namespace Luncher
             MainClass = mainClass;
         }
 
-        [DllImport("user32.dll")]
-        private static extern int SetWindowText(IntPtr hWnd, string text);
-
         private void MLogG(string text, bool iserror, RichTextBox txt)
         {
             var color = iserror ? Color.Red : Color.DarkSlateGray;
@@ -104,35 +101,9 @@ namespace Luncher
                             }
                             try
                             {
-                                if (line.Contains("Attempting early MinecraftForge initialization") && _rnw)
-                                    mroot.Invoke((MethodInvoker) delegate
-                                    {
-                                        _rnw = false;
-                                        MLogG("[Forge]Инициализация Minecraft Forge...", false, Txt);
-                                    });
-                                if (line.Contains("Sound engine started") && _rnw == false)
-                                    mroot.Invoke((MethodInvoker) delegate
-                                    {
-                                        _rnw = true;
-                                        MLogG("[Forge]Инициализация Minecraft Forge закончена", false, Txt);
-                                    });
-                                if (_tflood < 3)
-                                {
-                                    mroot.Invoke((MethodInvoker) (() => MLogG(line, false, Txt)));
-                                    _logs = _logs + "\n" + line;
-                                }
-                                if (!_rnw) continue;
-                                switch (mroot.RenameWindow.SelectedIndex)
-                                {
-                                    case 0:
-                                        SetWindowText(_client.MainWindowHandle,
-                                            "Minecraft - " + mroot.LastVersionId + " - " + mroot.ProductName + " " +
-                                            mroot.ProductVersion);
-                                        break;
-                                    case 2:
-                                        SetWindowText(_client.MainWindowHandle, "Minecraft");
-                                        break;
-                                }
+                                if (_tflood >= 3) continue;
+                                mroot.Invoke((MethodInvoker) (() => MLogG(line, false, Txt)));
+                                _logs = _logs + "\n" + line;
                             }
                             catch
                             {
@@ -152,9 +123,6 @@ namespace Luncher
                 }
             }
         }
-
-        private bool _rnw = true;
-
         private void e_reader()
         {
             while (true)
@@ -175,37 +143,11 @@ namespace Luncher
                                 _eflood = 0;
                                 _elast = line;
                             }
-                            if (line.Contains("Attempting early MinecraftForge initialization"))
-                                mroot.Invoke((MethodInvoker) delegate
-                                {
-                                    _rnw = false;
-                                    MLogG("[Forge]Инициализация Minecraft Forge...", false, Txt);
-                                });
-                            if (line.Contains("Sound engine started"))
-                                mroot.Invoke((MethodInvoker) delegate
-                                {
-                                    _rnw = true;
-                                    MLogG("[Forge]Инициализация Minecraft Forge закончена", false, Txt);
-                                });
                             try
                             {
-                                if (_eflood < 3)
-                                {
-                                    mroot.Invoke((MethodInvoker) (() => MLogG(line, true, Txt)));
-                                    _errors = _errors + "\n" + line;
-                                }
-                                if (!_rnw) continue;
-                                switch (mroot.RenameWindow.SelectedIndex)
-                                {
-                                    case 0:
-                                        SetWindowText(_client.MainWindowHandle,
-                                            "Minecraft - " + LastVersionId + " - " + mroot.ProductName + " " +
-                                            mroot.ProductVersion);
-                                        break;
-                                    case 2:
-                                        SetWindowText(_client.MainWindowHandle, "Minecraft");
-                                        break;
-                                }
+                                if (_eflood >= 3) continue;
+                                mroot.Invoke((MethodInvoker) (() => MLogG(line, true, Txt)));
+                                _errors = _errors + "\n" + line;
                             }
                             catch
                             {
