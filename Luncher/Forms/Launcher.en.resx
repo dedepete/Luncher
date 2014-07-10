@@ -160,9 +160,6 @@ Published by Space Earth Studio</value>
   <data name="resource.Text2" xml:space="preserve">
     <value>LUNCHER</value>
   </data>
-  <data name="ReconstructingIndex.Text" xml:space="preserve">
-    <value>1.7.4</value>
-  </data>
   <data name="resource.Text1" xml:space="preserve">
     <value>0.0.0.000</value>
   </data>
@@ -360,7 +357,7 @@ Published by Space Earth Studio</value>
     <value>Finished. Total resource files:</value>
   </data>
   <data name="resources.reconstructionerror" xml:space="preserve">
-    <value>During restructuring resources error occurred:</value>
+    <value>During restructuring resources an error occurred:</value>
   </data>
   <data name="resources.reconstructioncanceled" xml:space="preserve">
     <value>Resource reconstruction was cancelled by user</value>
@@ -379,9 +376,6 @@ Published by Space Earth Studio</value>
   </data>
   <data name="label8.Text" xml:space="preserve">
     <value>Rename game window:</value>
-  </data>
-  <data name="label9.Text" xml:space="preserve">
-    <value>Processing code belongs to Ilan321. All rights reserved</value>
   </data>
   <data name="lib.downloadingcomplete" xml:space="preserve">
     <value>Finished downloading {0}. Library size: {1} byte(s)</value>
@@ -403,5 +397,8 @@ Published by Space Earth Studio</value>
   </data>
   <data name="contextver.del.progress" xml:space="preserve">
     <value>Deletion</value>
+  </data>
+  <data name="contextver.del.error" xml:space="preserve">
+    <value>During deletion an error occurred:</value>
   </data>
 </root>

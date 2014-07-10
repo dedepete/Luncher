@@ -1,8 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows.Forms;
 using Luncher.Forms;
@@ -34,11 +37,13 @@ namespace Luncher
         private string _logs;
 
         private int _tflood;
-        string _tlast;
+        private string _tlast;
         private int _eflood;
-        string _elast;
+        private string _elast;
 
-        public MinecraftProcess(object mainForm, string gameDirectory, string arguments, string profileName, string assetsPath, string javaExec, string libraries, string javaArguments, string assetsFileName, string lastVersionId, string mainClass)
+        public MinecraftProcess(object mainForm, string gameDirectory, string arguments, string profileName,
+            string assetsPath, string javaExec, string libraries, string javaArguments, string assetsFileName,
+            string lastVersionId, string mainClass)
         {
             Root = mainForm;
             GameDir = gameDirectory;
@@ -61,14 +66,11 @@ namespace Luncher
             var color = iserror ? Color.Red : Color.DarkSlateGray;
             string line;
             var launcher = Root as Launcher;
-            if (launcher != null && launcher.UseGamePrefix.ToggleState == Telerik.WinControls.Enumerations.ToggleState.On)
-            {
+            if (launcher != null &&
+                launcher.UseGamePrefix.ToggleState == Telerik.WinControls.Enumerations.ToggleState.On)
                 line = "[GAME]" + text + "\n";
-            }
             else
-            {
                 line = text + "\n";
-            }
             var start = txt.TextLength;
             txt.AppendText(line);
             var end = txt.TextLength;
@@ -136,7 +138,9 @@ namespace Luncher
                             {
                             }
                         }
-                        catch { }
+                        catch
+                        {
+                        }
 
 
                     }
@@ -149,8 +153,9 @@ namespace Luncher
             }
         }
 
-        bool _rnw = true;
-        void e_reader()
+        private bool _rnw = true;
+
+        private void e_reader()
         {
             while (true)
             {
@@ -206,15 +211,21 @@ namespace Luncher
                             {
                             }
                         }
-                        catch { }
+                        catch
+                        {
+                        }
                     }
                 }
-                catch (NullReferenceException) { break; }
+                catch (NullReferenceException)
+                {
+                    break;
+                }
             }
         }
 
         private static Thread _reader;
         private static Thread _errorReader;
+
         public void Launch()
         {
             KillButton.Click += Kill;
@@ -231,25 +242,31 @@ namespace Luncher
             };
             GameDir = GameDir.Replace("${AppData}", Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData));
             proc.WorkingDirectory = GameDir;
-            var nativespath = "-Djava.library.path=" + Program.Minecraft + "/natives";
-            if (GameDir.Contains(" ")) GameDir = "\"" + GameDir + "\"";
+            var nativespath = "-Djava.library.path=" + Program.Minecraft + "\\natives";
             if (Libs.Contains(" ")) Libs = "\"" + Libs + "\"";
-            if (Assetspath.Contains(" ")) Assetspath = "\"" + Assetspath + "\"";
             if (nativespath.Contains(" ")) nativespath = "\"" + nativespath + "\"";
-            Arg = Arg.Replace("${auth_player_name}", Variables.UserName);
-            Arg = Arg.Replace("${version_name}", PName);
-            Arg = Arg.Replace("${game_directory}", GameDir);
-            Arg = Arg.Replace("${assets_root}", Assetspath);
-            Arg = Arg.Replace("${game_assets}", Assetspath);
-            Arg = Arg.Replace("${assets_index_name}", Assets);
-            Arg = Arg.Replace("${auth_session}", Variables.AccessToken);
-            Arg = Arg.Replace("${auth_access_token}", Variables.AccessToken);
-            Arg = Arg.Replace("${auth_uuid}", Variables.ClientToken);
-            Arg = Arg.Replace("${user_properties}", "{\"luncher\":[1234]}");
+            var re = new Regex(@"\$\{(\w+)\}", RegexOptions.IgnoreCase);
+            var values = new Dictionary<string, string>
+            {
+                {"auth_player_name", Variables.UserName},
+                {"version_name", PName},
+                {"game_directory", GameDir},
+                {"assets_root", Assetspath},
+                {"game_assets", Assetspath},
+                {"assets_index_name", Assets},
+                {"auth_session", Variables.AccessToken},
+                {"auth_access_token", Variables.AccessToken},
+                {"auth_uuid", Variables.ClientToken},
+                {"user_properties", "{\"luncher\":[1234]}"},
+                {"user_type", "mojang"}
+            };
+            Arg = re.Replace(Arg,
+                match =>
+                    !values[match.Groups[1].Value].Contains(' ')
+                        ? values[match.Groups[1].Value]
+                        : String.Format("\"{0}\"", values[match.Groups[1].Value]));
             Arg = Arg.Replace("${AppData}", Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData));
-            Arg = Arg.Replace("${user_type}", "mojang");
-            Arg = Arg.Replace("\\\"", "\"");
-            proc.Arguments = JavaArgs + nativespath + " -cp " + Libs + " " + MainClass + " " + Arg;
+            proc.Arguments = String.Format("{0}{1} -cp {2} {3} {4}", JavaArgs, nativespath, Libs, MainClass, Arg);
             proc.StandardErrorEncoding = Encoding.UTF8;
             _client.StartInfo = proc;
             Logging.Info(mroot.LocRm.GetString("launch.workingdir") + " " + GameDir);
@@ -270,6 +287,7 @@ namespace Luncher
                     _errorReader = new Thread(e_reader);
                     _errorReader.Start();
                 }
+                Variables.ImStillRunning++;
                 _client.Start();
                 if (mroot.Hl) mroot.WindowState = FormWindowState.Minimized;
                 if (mroot.Cl) Application.Exit();
@@ -281,6 +299,7 @@ namespace Luncher
         }
         private void Client_Exited(object sender, EventArgs e)
         {
+            Variables.ImStillRunning--;
             var mroot = Root as Launcher;
             var proc = sender as Process;
             mroot.Invoke((MethodInvoker)delegate

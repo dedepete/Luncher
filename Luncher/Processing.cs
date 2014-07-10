@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using Microsoft.Win32;
 using Newtonsoft.Json.Linq;
+using Telerik.WinControls;
 using Telerik.WinControls.UI;
 
 namespace Luncher
@@ -116,6 +118,40 @@ namespace Luncher
                 return false;
             }
             return true;
+        }
+        public static Bitmap GetRadMessageIcon(RadMessageIcon icon)
+        {
+            Stream stream;
+            Bitmap image;
+
+            switch (icon)
+            {
+                case RadMessageIcon.Info:
+                    stream = (System.Reflection.Assembly.GetAssembly(typeof(RadMessageBox)).
+                        GetManifestResourceStream("Telerik.WinControls.UI.Resources.RadMessageBox.MessageInfo.png"));
+                    image = Bitmap.FromStream(stream) as Bitmap;
+                    stream.Close();
+                    return image;
+                case RadMessageIcon.Question:
+                    stream = (System.Reflection.Assembly.GetAssembly(typeof(RadMessageBox)).
+                        GetManifestResourceStream("Telerik.WinControls.UI.Resources.RadMessageBox.MessageQuestion.png"));
+                    image = Bitmap.FromStream(stream) as Bitmap;
+                    stream.Close();
+                    return image;
+                case RadMessageIcon.Exclamation:
+                    stream = (System.Reflection.Assembly.GetAssembly(typeof(RadMessageBox)).
+                        GetManifestResourceStream("Telerik.WinControls.UI.Resources.RadMessageBox.MessageExclamation.png"));
+                    image = Bitmap.FromStream(stream) as Bitmap;
+                    stream.Close();
+                    return image;
+                case RadMessageIcon.Error:
+                    stream = (System.Reflection.Assembly.GetAssembly(typeof(RadMessageBox)).
+                        GetManifestResourceStream("Telerik.WinControls.UI.Resources.RadMessageBox.MessageError.png"));
+                    image = Bitmap.FromStream(stream) as Bitmap;
+                    stream.Close();
+                    return image;
+            }
+            return null;
         }
     }
 }

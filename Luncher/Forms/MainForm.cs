@@ -372,8 +372,9 @@ namespace Luncher.Forms
                                 StartPosition = FormStartPosition.CenterScreen,
                                 ButtonsConfiguration = MessageBoxButtons.YesNo,
                                 TopMost = true,
-                                MessageIcon = null,
-                                Owner = this
+                                MessageIcon = Processing.GetRadMessageIcon(RadMessageIcon.Info),
+                                Owner = this,
+                                DetailsText = null
                             }.ShowDialog();
                             if (dr == DialogResult.Yes)
                             {
@@ -382,9 +383,7 @@ namespace Luncher.Forms
                                 Application.Exit();
                             }
                             else
-                            {
                                 CheckVersions();
-                            }
                         });
                         Invoke(mi2);
                     }

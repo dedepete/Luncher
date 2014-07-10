@@ -326,9 +326,6 @@
   <data name="radPageViewPage4.Text" xml:space="preserve">
     <value>Настройки</value>
   </data>
-  <data name="ReconstructingIndex.Text" xml:space="preserve">
-    <value>1.7.4</value>
-  </data>
   <data name="resource.Text" xml:space="preserve">
     <value>Партнёры</value>
   </data>
@@ -379,9 +376,6 @@
   </data>
   <data name="usingAssets.Text" xml:space="preserve">
     <value>${AppData}/.minecraft/assets</value>
-  </data>
-  <data name="label9.Text" xml:space="preserve">
-    <value>Processing code belongs to Ilan321. All rights reserved</value>
   </data>
   <data name="lib.downloadingcomplete" xml:space="preserve">
     <value>Завершена загрузка {0}. Размер загруженной библиотеки: {1} байт(ов)</value>

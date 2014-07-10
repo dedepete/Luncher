@@ -260,6 +260,10 @@ namespace Luncher.Forms
                         curprofile.Property("lastVersionId").Remove();
                 }
                 curprofile["name"] = ProfileName.Text;
+                var c = Gamedir.Text;
+                if (Gamedir.Text != String.Empty)
+                    if (c[Gamedir.Text.Length - 1].ToString() == "\\" || c[Gamedir.Text.Length - 1].ToString() == "/")
+                        Gamedir.Text = Gamedir.Text.Substring(0, Gamedir.Text.Length - 1);
                 if (UseDirectory.ToggleState == Telerik.WinControls.Enumerations.ToggleState.On)
                         curprofile["gameDir"] = Gamedir.Text;
                 else
