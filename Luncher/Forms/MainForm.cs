@@ -444,7 +444,6 @@ namespace Luncher.Forms
                     : ToggleState.Off;
 
                 ln.usingAssets.Text = (string)Configuration.Resources["assetsDir"];
-                ln.RenameWindow.SelectedIndex = (int)Configuration.Main["renameWindow"];
                 ln.Show();
             }
             catch (Exception ex)

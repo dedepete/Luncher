@@ -98,7 +98,6 @@ namespace Luncher.Forms
             var mainObject = new JObject
             {
                 {"lang", Program.Lang},
-                {"renameWindow", RenameWindow.SelectedIndex}
             };
             var loggingObject = new JObject
             {

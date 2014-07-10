@@ -9,8 +9,7 @@ namespace Luncher
     {
         public static readonly Dictionary<string, object> Main = new Dictionary<string, object>
         {
-            {"lang", ""},
-            {"renameWindow", 1}
+            {"lang", ""}
         };
 
         public static readonly Dictionary<string, object> Logging = new Dictionary<string, object>
@@ -42,7 +41,6 @@ namespace Luncher
                     var text = File.ReadAllText(filename);
                     var jo = JObject.Parse(text);
                     Main["lang"] = jo["main"]["lang"].ToString();
-                    Main["renameWindow"] = Convert.ToInt32(jo["main"]["renameWindow"].ToString());
                     Logging["enableGameLogging"] = Convert.ToBoolean(jo["logging"]["enableGameLogging"].ToString());
                     Logging["useGamePrefix"] = Convert.ToBoolean(jo["logging"]["useGamePrefix"].ToString());
                     Updates["checkVersionsUpdate"] = Convert.ToBoolean(jo["updates"]["checkVersionsUpdate"].ToString());
@@ -68,7 +66,6 @@ namespace Luncher
             var mainObject = new JObject
                 {
                     {"lang", (string) Main["lang"]},
-                    {"renameWindow", (int) Main["renameWindow"]}
                 };
             var loggingObject = new JObject
                 {
