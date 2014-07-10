@@ -9,7 +9,7 @@ namespace Luncher
     {
         public static readonly Dictionary<string, object> Main = new Dictionary<string, object>
         {
-            {"lang", ""}
+            {"lang", String.Empty}
         };
 
         public static readonly Dictionary<string, object> Logging = new Dictionary<string, object>

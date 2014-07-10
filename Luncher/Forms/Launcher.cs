@@ -1021,6 +1021,8 @@ namespace Luncher.Forms
                 try
                 {
                     var jsonPath = String.Format("{0}/assets/indexes/legacy.json", _minecraft);
+                    var jsonDir = Path.GetDirectoryName(jsonPath);
+                    if (!Directory.Exists(jsonDir)) Directory.CreateDirectory(jsonDir);
                     if (!File.Exists(jsonPath))
                         new WebClient().DownloadFile(
                             @"https://s3.amazonaws.com/Minecraft.Download/indexes/legacy.json", jsonPath);
@@ -1088,9 +1090,10 @@ namespace Luncher.Forms
 
         public void CleanNatives()
         {
-            if (!Directory.Exists(Variables.McFolder + "/natives")) return;
+            var path = String.Format("{0}\\natives", Variables.McFolder);
+            if (!Directory.Exists(path)) return;
             Logging.Info("Очистка natives...");
-            foreach (var file in Directory.GetFiles(Variables.McFolder + "/natives"))
+            foreach (var file in Directory.GetFiles(path))
             {
                 try
                 {
