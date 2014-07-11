@@ -534,7 +534,7 @@
     <value>0, 0</value>
   </data>
   <data name="radLabel6.Location" type="System.Drawing.Point, System.Drawing">
-    <value>5, 71</value>
+    <value>5, 47</value>
   </data>
   <data name="radLabel6.Size" type="System.Drawing.Size, System.Drawing">
     <value>107, 18</value>
@@ -561,7 +561,7 @@
     <value>Папка с ресурсами:</value>
   </data>
   <data name="usingAssets.Location" type="System.Drawing.Point, System.Drawing">
-    <value>150, 69</value>
+    <value>150, 45</value>
   </data>
   <data name="usingAssets.Size" type="System.Drawing.Size, System.Drawing">
     <value>202, 21</value>
@@ -635,87 +635,6 @@
   <data name="&gt;&gt;radGroupBox3.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="radListDataItem1.TextWrap" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="radListDataItem2.TextWrap" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="radListDataItem3.TextWrap" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="RenameWindow.Location" type="System.Drawing.Point, System.Drawing">
-    <value>150, 66</value>
-  </data>
-  <data name="RenameWindow.RootElement.AccessibleDescription" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="RenameWindow.RootElement.AccessibleName" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="RenameWindow.RootElement.Alignment" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>TopLeft</value>
-  </data>
-  <data name="RenameWindow.RootElement.AngleTransform" type="System.Single, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="RenameWindow.RootElement.FlipText" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="RenameWindow.RootElement.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>0, 0, 0, 0</value>
-  </data>
-  <data name="RenameWindow.RootElement.Text" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="RenameWindow.RootElement.TextOrientation" type="System.Windows.Forms.Orientation, System.Windows.Forms">
-    <value>Horizontal</value>
-  </data>
-  <data name="RenameWindow.Size" type="System.Drawing.Size, System.Drawing">
-    <value>202, 21</value>
-  </data>
-  <data name="RenameWindow.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
-  </data>
-  <data name="&gt;&gt;RenameWindow.Name" xml:space="preserve">
-    <value>RenameWindow</value>
-  </data>
-  <data name="&gt;&gt;RenameWindow.Type" xml:space="preserve">
-    <value>Telerik.WinControls.UI.RadDropDownList, Telerik.WinControls.UI, Version=2014.2.617.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
-  </data>
-  <data name="&gt;&gt;RenameWindow.Parent" xml:space="preserve">
-    <value>radGroupBox2</value>
-  </data>
-  <data name="&gt;&gt;RenameWindow.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="label8.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="label8.Location" type="System.Drawing.Point, System.Drawing">
-    <value>2, 69</value>
-  </data>
-  <data name="label8.Size" type="System.Drawing.Size, System.Drawing">
-    <value>139, 13</value>
-  </data>
-  <data name="label8.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="label8.Text" xml:space="preserve">
-    <value>Переименовывать окно:</value>
-  </data>
-  <data name="&gt;&gt;label8.Name" xml:space="preserve">
-    <value>label8</value>
-  </data>
-  <data name="&gt;&gt;label8.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label8.Parent" xml:space="preserve">
-    <value>radGroupBox2</value>
-  </data>
-  <data name="&gt;&gt;label8.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
   <data name="UseGamePrefix.Location" type="System.Drawing.Point, System.Drawing">
     <value>10, 45</value>
   </data>
@@ -738,7 +657,7 @@
     <value>radGroupBox2</value>
   </data>
   <data name="&gt;&gt;UseGamePrefix.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>0</value>
   </data>
   <data name="EnableMinecraftLogging.Location" type="System.Drawing.Point, System.Drawing">
     <value>5, 21</value>
@@ -762,7 +681,7 @@
     <value>radGroupBox2</value>
   </data>
   <data name="&gt;&gt;EnableMinecraftLogging.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>1</value>
   </data>
   <data name="radGroupBox2.HeaderText" xml:space="preserve">
     <value>Логирование</value>
@@ -791,58 +710,58 @@
   <data name="&gt;&gt;radGroupBox2.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <data name="radLabel7.Location" type="System.Drawing.Point, System.Drawing">
-    <value>5, 96</value>
+  <data name="radLabel4.Location" type="System.Drawing.Point, System.Drawing">
+    <value>5, 93</value>
   </data>
-  <data name="radLabel7.RootElement.AccessibleDescription" type="System.Resources.ResXNullRef, System.Windows.Forms">
+  <data name="radLabel4.RootElement.AccessibleDescription" type="System.Resources.ResXNullRef, System.Windows.Forms">
     <value />
   </data>
-  <data name="radLabel7.RootElement.AccessibleName" type="System.Resources.ResXNullRef, System.Windows.Forms">
+  <data name="radLabel4.RootElement.AccessibleName" type="System.Resources.ResXNullRef, System.Windows.Forms">
     <value />
   </data>
-  <data name="radLabel7.RootElement.Alignment" type="System.Drawing.ContentAlignment, System.Drawing">
+  <data name="radLabel4.RootElement.Alignment" type="System.Drawing.ContentAlignment, System.Drawing">
     <value>TopLeft</value>
   </data>
-  <data name="radLabel7.RootElement.AngleTransform" type="System.Single, mscorlib">
+  <data name="radLabel4.RootElement.AngleTransform" type="System.Single, mscorlib">
     <value>0</value>
   </data>
-  <data name="radLabel7.RootElement.FlipText" type="System.Boolean, mscorlib">
+  <data name="radLabel4.RootElement.FlipText" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
-  <data name="radLabel7.RootElement.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+  <data name="radLabel4.RootElement.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>0, 0, 0, 0</value>
   </data>
-  <data name="radLabel7.RootElement.Text" type="System.Resources.ResXNullRef, System.Windows.Forms">
+  <data name="radLabel4.RootElement.Text" type="System.Resources.ResXNullRef, System.Windows.Forms">
     <value />
   </data>
-  <data name="radLabel7.RootElement.TextOrientation" type="System.Windows.Forms.Orientation, System.Windows.Forms">
+  <data name="radLabel4.RootElement.TextOrientation" type="System.Windows.Forms.Orientation, System.Windows.Forms">
     <value>Horizontal</value>
   </data>
-  <data name="radLabel7.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="radLabel4.Size" type="System.Drawing.Size, System.Drawing">
     <value>87, 18</value>
   </data>
-  <data name="radLabel7.TabIndex" type="System.Int32, mscorlib">
+  <data name="radLabel4.TabIndex" type="System.Int32, mscorlib">
     <value>5</value>
   </data>
-  <data name="radLabel7.Text" xml:space="preserve">
+  <data name="radLabel4.Text" xml:space="preserve">
     <value>Язык/Language:</value>
   </data>
-  <data name="&gt;&gt;radLabel7.Name" xml:space="preserve">
-    <value>radLabel7</value>
+  <data name="&gt;&gt;radLabel4.Name" xml:space="preserve">
+    <value>radLabel4</value>
   </data>
-  <data name="&gt;&gt;radLabel7.Type" xml:space="preserve">
+  <data name="&gt;&gt;radLabel4.Type" xml:space="preserve">
     <value>Telerik.WinControls.UI.RadLabel, Telerik.WinControls.UI, Version=2014.2.617.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
   </data>
-  <data name="&gt;&gt;radLabel7.Parent" xml:space="preserve">
+  <data name="&gt;&gt;radLabel4.Parent" xml:space="preserve">
     <value>radGroupBox1</value>
   </data>
-  <data name="&gt;&gt;radLabel7.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;radLabel4.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="resource.Text6" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="resource.Text6" xml:space="preserve">
+    <value>Язык\Language:</value>
   </data>
-  <data name="radListDataItem4.TextWrap" type="System.Boolean, mscorlib">
+  <data name="radListDataItem1.TextWrap" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="LangDropDownList.Location" type="System.Drawing.Point, System.Drawing">
@@ -4281,117 +4200,6 @@
   <data name="&gt;&gt;$this.Type" xml:space="preserve">
     <value>Telerik.WinControls.UI.RadForm, Telerik.WinControls.UI, Version=2014.2.617.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
   </data>
-  <data name="close.text" xml:space="preserve">
-    <value>Закрыть</value>
-  </data>
-  <data name="contextver.del" xml:space="preserve">
-    <value>Удалить</value>
-  </data>
-  <data name="contextver.del.a" xml:space="preserve">
-    <value>Вы действительно хотите удалить эту версию</value>
-  </data>
-  <data name="contextver.del.b" xml:space="preserve">
-    <value>Подтверждение</value>
-  </data>
-  <data name="contextver.del.error" xml:space="preserve">
-    <value>Во время удаления версии возникла ошибка:</value>
-  </data>
-  <data name="contextver.del.progress" xml:space="preserve">
-    <value>Удаление</value>
-  </data>
-  <data name="contextver.open" xml:space="preserve">
-    <value>Показать в проводнике</value>
-  </data>
-  <data name="downloader.error" xml:space="preserve">
-    <value>Во время подготовки к скачиванию возникла ошибка:</value>
-  </data>
-  <data name="downloader.inprogress" xml:space="preserve">
-    <value>Выполняется загрузка</value>
-  </data>
-  <data name="downloading.completed" xml:space="preserve">
-    <value>завершена!</value>
-  </data>
-  <data name="downloadprocess.downloading" xml:space="preserve">
-    <value>Загрузка</value>
-  </data>
-  <data name="getversions.error" xml:space="preserve">
-    <value>Во время получения сведений об установленных версиях возникла ошибка:</value>
-  </data>
-  <data name="lang.changemessage" xml:space="preserve">
-    <value>Изменения вступят в силу только после перезагрузки лаунчера</value>
-  </data>
-  <data name="launch.command" xml:space="preserve">
-    <value>Команда:</value>
-  </data>
-  <data name="launch.error" xml:space="preserve">
-    <value>Во время запуска возникла ошибка:</value>
-  </data>
-  <data name="launch.launchtext" xml:space="preserve">
-    <value>Запуск</value>
-  </data>
-  <data name="launch.text1p" xml:space="preserve">
-    <value>Запуск</value>
-  </data>
-  <data name="launch.text2p" xml:space="preserve">
-    <value>Профиль:</value>
-  </data>
-  <data name="launch.workingdir" xml:space="preserve">
-    <value>Используемая папка:</value>
-  </data>
-  <data name="launcher.wait" xml:space="preserve">
-    <value>Подождите...</value>
-  </data>
-  <data name="launcherstate.readytext" xml:space="preserve">
-    <value>Готов к</value>
-  </data>
-  <data name="launcherstate.readytodownloadandplay" xml:space="preserve">
-    <value>загрузке и запуску</value>
-  </data>
-  <data name="launcherstate.readytoplay" xml:space="preserve">
-    <value>запуску</value>
-  </data>
-  <data name="lib.checking" xml:space="preserve">
-    <value>Проверяется наличие необходимых библиотек...</value>
-  </data>
-  <data name="lib.completed1p" xml:space="preserve">
-    <value>Проверка библиотек завершена. Всего файлов:</value>
-  </data>
-  <data name="lib.completed2p" xml:space="preserve">
-    <value>Из них отсутствует:</value>
-  </data>
-  <data name="lib.downloadingcomplete" xml:space="preserve">
-    <value>Завершена загрузка {0}. Размер загруженной библиотеки: {1} байт(ов)</value>
-  </data>
-  <data name="lib.notfound" xml:space="preserve">
-    <value>не найдено!</value>
-  </data>
-  <data name="profile.createcopy" xml:space="preserve">
-    <value>Создание копии профиля </value>
-  </data>
-  <data name="profile.createerror" xml:space="preserve">
-    <value>Во время создания нового профиля возникла ошибка:</value>
-  </data>
-  <data name="profile.delete.canceled" xml:space="preserve">
-    <value>Отменено</value>
-  </data>
-  <data name="profile.delete.succes" xml:space="preserve">
-    <value>Профиль успешно удалён!</value>
-  </data>
-  <data name="profile.edited.complete1p" xml:space="preserve">
-    <value>Профиль</value>
-  </data>
-  <data name="profile.edited.complete2p" xml:space="preserve">
-    <value>изменён успешно!</value>
-  </data>
-  <data name="profile.editing" xml:space="preserve">
-    <value>Изменение профиля</value>
-  </data>
-  <data name="program.started" xml:space="preserve">
-    <value>Лаунчер успешно запущен.</value>
-  </data>
-  <data name="radLabel4.Text" xml:space="preserve">
-    <value>Для перестроения ресурсов использовать ресурсы</value>
-  </data>
   <data name="resource.Text7" xml:space="preserve">
     <value>Язык/Language:</value>
   </data>
@@ -4418,5 +4226,116 @@
   </data>
   <data name="resources.recostructionsuccestotalrecostructed" xml:space="preserve">
     <value>Из них было перестроено:</value>
+  </data>
+  <data name="program.started" xml:space="preserve">
+    <value>Лаунчер успешно запущен.</value>
+  </data>
+  <data name="profile.editing" xml:space="preserve">
+    <value>Изменение профиля</value>
+  </data>
+  <data name="profile.edited.complete2p" xml:space="preserve">
+    <value>изменён успешно!</value>
+  </data>
+  <data name="profile.edited.complete1p" xml:space="preserve">
+    <value>Профиль</value>
+  </data>
+  <data name="profile.delete.succes" xml:space="preserve">
+    <value>Профиль успешно удалён!</value>
+  </data>
+  <data name="profile.delete.canceled" xml:space="preserve">
+    <value>Отменено</value>
+  </data>
+  <data name="profile.createerror" xml:space="preserve">
+    <value>Во время создания нового профиля возникла ошибка:</value>
+  </data>
+  <data name="profile.createcopy" xml:space="preserve">
+    <value>Создание копии профиля </value>
+  </data>
+  <data name="lib.notfound" xml:space="preserve">
+    <value>не найдено!</value>
+  </data>
+  <data name="lib.downloadingcomplete" xml:space="preserve">
+    <value>Завершена загрузка {0}. Размер загруженной библиотеки: {1} байт(ов)</value>
+  </data>
+  <data name="lib.completed2p" xml:space="preserve">
+    <value>Из них отсутствует:</value>
+  </data>
+  <data name="lib.completed1p" xml:space="preserve">
+    <value>Проверка библиотек завершена. Всего файлов:</value>
+  </data>
+  <data name="lib.checking" xml:space="preserve">
+    <value>Проверяется наличие необходимых библиотек...</value>
+  </data>
+  <data name="launcherstate.readytoplay" xml:space="preserve">
+    <value>запуску</value>
+  </data>
+  <data name="launcherstate.readytodownloadandplay" xml:space="preserve">
+    <value>загрузке и запуску</value>
+  </data>
+  <data name="launcherstate.readytext" xml:space="preserve">
+    <value>Готов к</value>
+  </data>
+  <data name="launcher.wait" xml:space="preserve">
+    <value>Подождите...</value>
+  </data>
+  <data name="launch.workingdir" xml:space="preserve">
+    <value>Используемая папка:</value>
+  </data>
+  <data name="launch.text2p" xml:space="preserve">
+    <value>Профиль:</value>
+  </data>
+  <data name="launch.text1p" xml:space="preserve">
+    <value>Запуск</value>
+  </data>
+  <data name="launch.launchtext" xml:space="preserve">
+    <value>Запуск</value>
+  </data>
+  <data name="launch.error" xml:space="preserve">
+    <value>Во время запуска возникла ошибка:</value>
+  </data>
+  <data name="launch.command" xml:space="preserve">
+    <value>Команда:</value>
+  </data>
+  <data name="label8.Text" xml:space="preserve">
+    <value>Переименовывать окно:</value>
+  </data>
+  <data name="lang.changemessage" xml:space="preserve">
+    <value>Изменения вступят в силу только после перезагрузки лаунчера</value>
+  </data>
+  <data name="getversions.error" xml:space="preserve">
+    <value>Во время получения сведений об установленных версиях возникла ошибка:</value>
+  </data>
+  <data name="downloadprocess.downloading" xml:space="preserve">
+    <value>Загрузка</value>
+  </data>
+  <data name="downloading.completed" xml:space="preserve">
+    <value>завершена!</value>
+  </data>
+  <data name="downloader.inprogress" xml:space="preserve">
+    <value>Выполняется загрузка</value>
+  </data>
+  <data name="downloader.error" xml:space="preserve">
+    <value>Во время подготовки к скачиванию возникла ошибка:</value>
+  </data>
+  <data name="contextver.open" xml:space="preserve">
+    <value>Показать в проводнике</value>
+  </data>
+  <data name="contextver.del.progress" xml:space="preserve">
+    <value>Удаление</value>
+  </data>
+  <data name="contextver.del.error" xml:space="preserve">
+    <value>Во время удаления версии возникла ошибка:</value>
+  </data>
+  <data name="contextver.del.b" xml:space="preserve">
+    <value>Подтверждение</value>
+  </data>
+  <data name="contextver.del.a" xml:space="preserve">
+    <value>Вы действительно хотите удалить эту версию</value>
+  </data>
+  <data name="contextver.del" xml:space="preserve">
+    <value>Удалить</value>
+  </data>
+  <data name="close.text" xml:space="preserve">
+    <value>Закрыть</value>
   </data>
 </root>

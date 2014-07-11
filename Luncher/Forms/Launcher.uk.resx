@@ -250,16 +250,13 @@
     <value>MCoffline - краща програма для серверних адміністраторів!</value>
   </data>
   <data name="radLabel4.Text" xml:space="preserve">
-    <value>Для перестроювання ресурсів використовувати ресурси</value>
+    <value>Мова/Language:</value>
   </data>
   <data name="radLabel5.Text" xml:space="preserve">
     <value>Партнери</value>
   </data>
   <data name="radLabel6.Text" xml:space="preserve">
     <value>Папка з ресурси:</value>
-  </data>
-  <data name="radLabel7.Text" xml:space="preserve">
-    <value>Мова/Language:</value>
   </data>
   <data name="resource.Text7" xml:space="preserve">
     <value>Мова/Language:</value>
@@ -401,5 +398,8 @@
   </data>
   <data name="close.text" xml:space="preserve">
     <value>Закрити</value>
+  </data>
+  <data name="resource.Text6" xml:space="preserve">
+    <value>Мова\Language:</value>
   </data>
 </root>

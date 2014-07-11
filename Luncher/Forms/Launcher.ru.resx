@@ -303,16 +303,13 @@
     <value>by Space Earth Studio</value>
   </data>
   <data name="radLabel4.Text" xml:space="preserve">
-    <value>Для перестроения ресурсов использовать ресурсы</value>
+    <value>Язык/Language:</value>
   </data>
   <data name="radLabel5.Text" xml:space="preserve">
     <value>Партнёры</value>
   </data>
   <data name="radLabel6.Text" xml:space="preserve">
     <value>Папка с ресурсами:</value>
-  </data>
-  <data name="radLabel7.Text" xml:space="preserve">
-    <value>Язык/Language:</value>
   </data>
   <data name="radPageViewPage1.Text" xml:space="preserve">
     <value>О лаунчере</value>
@@ -400,5 +397,8 @@
   </data>
   <data name="close.text" xml:space="preserve">
     <value>Закрыть</value>
+  </data>
+  <data name="resource.Text6" xml:space="preserve">
+    <value>Язык\Language:</value>
   </data>
 </root>

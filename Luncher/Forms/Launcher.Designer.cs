@@ -30,10 +30,10 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Launcher));
-            Telerik.WinControls.UI.RadListDataItem radListDataItem2 = new Telerik.WinControls.UI.RadListDataItem();
-            Telerik.WinControls.UI.ListViewDetailColumn listViewDetailColumn4 = new Telerik.WinControls.UI.ListViewDetailColumn("Column 0", "Версия");
-            Telerik.WinControls.UI.ListViewDetailColumn listViewDetailColumn5 = new Telerik.WinControls.UI.ListViewDetailColumn("Column 1", "Тип");
-            Telerik.WinControls.UI.ListViewDetailColumn listViewDetailColumn6 = new Telerik.WinControls.UI.ListViewDetailColumn("Column 2", "Дата выхода");
+            Telerik.WinControls.UI.RadListDataItem radListDataItem1 = new Telerik.WinControls.UI.RadListDataItem();
+            Telerik.WinControls.UI.ListViewDetailColumn listViewDetailColumn1 = new Telerik.WinControls.UI.ListViewDetailColumn("Column 0", "Версия");
+            Telerik.WinControls.UI.ListViewDetailColumn listViewDetailColumn2 = new Telerik.WinControls.UI.ListViewDetailColumn("Column 1", "Тип");
+            Telerik.WinControls.UI.ListViewDetailColumn listViewDetailColumn3 = new Telerik.WinControls.UI.ListViewDetailColumn("Column 2", "Дата выхода");
             this.radScrollablePanel2 = new Telerik.WinControls.UI.RadScrollablePanel();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
@@ -56,7 +56,7 @@
             this.UseGamePrefix = new Telerik.WinControls.UI.RadCheckBox();
             this.EnableMinecraftLogging = new Telerik.WinControls.UI.RadCheckBox();
             this.radGroupBox1 = new Telerik.WinControls.UI.RadGroupBox();
-            this.radLabel7 = new Telerik.WinControls.UI.RadLabel();
+            this.radLabel4 = new Telerik.WinControls.UI.RadLabel();
             this.LangDropDownList = new Telerik.WinControls.UI.RadDropDownList();
             this.EnableMinecraftUpdateAlerts = new Telerik.WinControls.UI.RadCheckBox();
             this.AllowUpdateVersions = new Telerik.WinControls.UI.RadCheckBox();
@@ -113,7 +113,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.EnableMinecraftLogging)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radGroupBox1)).BeginInit();
             this.radGroupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel7)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.LangDropDownList)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.EnableMinecraftUpdateAlerts)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.AllowUpdateVersions)).BeginInit();
@@ -355,7 +355,7 @@
             // 
             this.radGroupBox1.AccessibleRole = System.Windows.Forms.AccessibleRole.Grouping;
             this.radGroupBox1.BackColor = System.Drawing.Color.Transparent;
-            this.radGroupBox1.Controls.Add(this.radLabel7);
+            this.radGroupBox1.Controls.Add(this.radLabel4);
             this.radGroupBox1.Controls.Add(this.LangDropDownList);
             this.radGroupBox1.Controls.Add(this.EnableMinecraftUpdateAlerts);
             this.radGroupBox1.Controls.Add(this.AllowUpdateVersions);
@@ -364,32 +364,32 @@
             this.radGroupBox1.Name = "radGroupBox1";
             this.radGroupBox1.ThemeName = "VisualStudio2012Dark";
             // 
-            // radLabel7
+            // radLabel4
             // 
-            resources.ApplyResources(this.radLabel7, "radLabel7");
-            this.radLabel7.Name = "radLabel7";
+            resources.ApplyResources(this.radLabel4, "radLabel4");
+            this.radLabel4.Name = "radLabel4";
             // 
             // 
             // 
-            this.radLabel7.RootElement.AccessibleDescription = resources.GetString("radLabel7.RootElement.AccessibleDescription");
-            this.radLabel7.RootElement.AccessibleName = resources.GetString("radLabel7.RootElement.AccessibleName");
-            this.radLabel7.RootElement.Alignment = ((System.Drawing.ContentAlignment)(resources.GetObject("radLabel7.RootElement.Alignment")));
-            this.radLabel7.RootElement.AngleTransform = ((float)(resources.GetObject("radLabel7.RootElement.AngleTransform")));
-            this.radLabel7.RootElement.FlipText = ((bool)(resources.GetObject("radLabel7.RootElement.FlipText")));
-            this.radLabel7.RootElement.Margin = ((System.Windows.Forms.Padding)(resources.GetObject("radLabel7.RootElement.Margin")));
-            this.radLabel7.RootElement.Text = resources.GetString("radLabel7.RootElement.Text");
-            this.radLabel7.RootElement.TextOrientation = ((System.Windows.Forms.Orientation)(resources.GetObject("radLabel7.RootElement.TextOrientation")));
-            this.radLabel7.ThemeName = "VisualStudio2012Dark";
-            ((Telerik.WinControls.UI.RadLabelElement)(this.radLabel7.GetChildAt(0))).Text = resources.GetString("resource.Text6");
-            ((Telerik.WinControls.Primitives.FillPrimitive)(this.radLabel7.GetChildAt(0).GetChildAt(0))).Visibility = Telerik.WinControls.ElementVisibility.Collapsed;
+            this.radLabel4.RootElement.AccessibleDescription = resources.GetString("radLabel4.RootElement.AccessibleDescription");
+            this.radLabel4.RootElement.AccessibleName = resources.GetString("radLabel4.RootElement.AccessibleName");
+            this.radLabel4.RootElement.Alignment = ((System.Drawing.ContentAlignment)(resources.GetObject("radLabel4.RootElement.Alignment")));
+            this.radLabel4.RootElement.AngleTransform = ((float)(resources.GetObject("radLabel4.RootElement.AngleTransform")));
+            this.radLabel4.RootElement.FlipText = ((bool)(resources.GetObject("radLabel4.RootElement.FlipText")));
+            this.radLabel4.RootElement.Margin = ((System.Windows.Forms.Padding)(resources.GetObject("radLabel4.RootElement.Margin")));
+            this.radLabel4.RootElement.Text = resources.GetString("radLabel4.RootElement.Text");
+            this.radLabel4.RootElement.TextOrientation = ((System.Windows.Forms.Orientation)(resources.GetObject("radLabel4.RootElement.TextOrientation")));
+            this.radLabel4.ThemeName = "VisualStudio2012Dark";
+            ((Telerik.WinControls.UI.RadLabelElement)(this.radLabel4.GetChildAt(0))).Text = resources.GetString("resource.Text6");
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.radLabel4.GetChildAt(0).GetChildAt(0))).Visibility = Telerik.WinControls.ElementVisibility.Collapsed;
             // 
             // LangDropDownList
             // 
             this.LangDropDownList.AllowShowFocusCues = false;
             this.LangDropDownList.DropDownStyle = Telerik.WinControls.RadDropDownStyle.DropDownList;
-            radListDataItem2.Text = "Русский (ru-default)";
-            resources.ApplyResources(radListDataItem2, "radListDataItem2");
-            this.LangDropDownList.Items.Add(radListDataItem2);
+            radListDataItem1.Text = "Русский (ru-default)";
+            resources.ApplyResources(radListDataItem1, "radListDataItem1");
+            this.LangDropDownList.Items.Add(radListDataItem1);
             resources.ApplyResources(this.LangDropDownList, "LangDropDownList");
             this.LangDropDownList.Name = "LangDropDownList";
             // 
@@ -503,14 +503,14 @@
             this.radListView1.AllowEdit = false;
             this.radListView1.AllowRemove = false;
             resources.ApplyResources(this.radListView1, "radListView1");
-            listViewDetailColumn4.HeaderText = "Версия";
-            listViewDetailColumn5.HeaderText = "Тип";
-            listViewDetailColumn5.Width = 100F;
-            listViewDetailColumn6.HeaderText = "Дата выхода";
+            listViewDetailColumn1.HeaderText = "Версия";
+            listViewDetailColumn2.HeaderText = "Тип";
+            listViewDetailColumn2.Width = 100F;
+            listViewDetailColumn3.HeaderText = "Дата выхода";
             this.radListView1.Columns.AddRange(new Telerik.WinControls.UI.ListViewDetailColumn[] {
-            listViewDetailColumn4,
-            listViewDetailColumn5,
-            listViewDetailColumn6});
+            listViewDetailColumn1,
+            listViewDetailColumn2,
+            listViewDetailColumn3});
             this.radListView1.EnableColumnSort = true;
             this.radListView1.EnableFiltering = true;
             this.radListView1.EnableSorting = true;
@@ -585,7 +585,6 @@
             // 
             resources.ApplyResources(this.progressBar1, "progressBar1");
             this.progressBar1.Name = "progressBar1";
-            this.progressBar1.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
             this.progressBar1.ThemeName = "VisualStudio2012Dark";
             // 
             // radPanel1
@@ -705,7 +704,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.radGroupBox1)).EndInit();
             this.radGroupBox1.ResumeLayout(false);
             this.radGroupBox1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel7)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.LangDropDownList)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.EnableMinecraftUpdateAlerts)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.AllowUpdateVersions)).EndInit();
@@ -796,7 +795,6 @@
         public Telerik.WinControls.UI.RadCheckBox EnableMinecraftUpdateAlerts;
         public Telerik.WinControls.UI.RadTextBox usingAssets;
         public Telerik.WinControls.UI.RadLabel radLabel6;
-        public Telerik.WinControls.UI.RadLabel radLabel7;
         private Telerik.WinControls.UI.RadDropDownList LangDropDownList;
         public Telerik.WinControls.UI.RadDropDownList Nickname;
         private Telerik.WinControls.UI.RadContextMenuManager radContextMenuManager1;
@@ -804,6 +802,7 @@
         private Telerik.WinControls.UI.RadPageView radPageView3;
         private Telerik.WinControls.UI.RadPageViewPage radPageViewPage6;
         private Telerik.WinControls.UI.RadButton radButton3;
+        public Telerik.WinControls.UI.RadLabel radLabel4;
         //private Telerik.WinControls.UI.RadGridView radGridView1;
     }
 }
