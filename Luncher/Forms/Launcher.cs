@@ -591,7 +591,6 @@ namespace Luncher.Forms
                     current++;
                     progressBar1.Value1++;
                     progressBar1.Text = String.Format("Downloading libraries [{0}\\{1}]", current, total);
-                    progressBar1.TextAlignment = ContentAlignment.MiddleCenter;
                     if (new FileInfo(filename).Length <= 1)
                     {
                         Logging.Warning(String.Format("Library {0} downloaded with wrong size!", a.Key));

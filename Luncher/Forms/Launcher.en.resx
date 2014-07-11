@@ -257,9 +257,6 @@ Published by Space Earth Studio</value>
   <data name="radLabel4.Text" xml:space="preserve">
     <value>Язык/Language:</value>
   </data>
-  <data name="resource.Text7" xml:space="preserve">
-    <value>Язык/Language:</value>
-  </data>
   <data name="launcherstate.readytoplay" xml:space="preserve">
     <value>launch</value>
   </data>

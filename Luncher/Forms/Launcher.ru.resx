@@ -341,9 +341,6 @@
   <data name="resource.Text5" xml:space="preserve">
     <value>Папка с ресурсами:</value>
   </data>
-  <data name="resource.Text7" xml:space="preserve">
-    <value>Язык/Language:</value>
-  </data>
   <data name="resources.checking" xml:space="preserve">
     <value>Проверяется наличие необходимых ресурсов...</value>
   </data>

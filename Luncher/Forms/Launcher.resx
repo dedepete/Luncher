@@ -4200,9 +4200,6 @@
   <data name="&gt;&gt;$this.Type" xml:space="preserve">
     <value>Telerik.WinControls.UI.RadForm, Telerik.WinControls.UI, Version=2014.2.617.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e</value>
   </data>
-  <data name="resource.Text7" xml:space="preserve">
-    <value>Язык/Language:</value>
-  </data>
   <data name="resources.checking" xml:space="preserve">
     <value>Проверяется наличие необходимых ресурсов...</value>
   </data>
