@@ -850,14 +850,9 @@ namespace Luncher.Forms
 
         private void ProgressChanged(object sender, DownloadProgressChangedEventArgs e)
         {
-            try
-            {
+            if (progressBar1.Maximum != 100)
                 progressBar1.Maximum = 100;
-                progressBar1.Value1 = e.ProgressPercentage;
-            }
-            catch
-            {
-            }
+            progressBar1.Value1 = e.ProgressPercentage;
         }
 
         private string[] _assetstodownload;
@@ -1020,7 +1015,7 @@ namespace Luncher.Forms
                 var reconstructed = 0;
                 try
                 {
-                    var jsonPath = String.Format("{0}/assets/indexes/legacy.json", _minecraft);
+                    var jsonPath = String.Format("{0}\\assets\\indexes\\legacy.json", _minecraft);
                     var jsonDir = Path.GetDirectoryName(jsonPath);
                     if (!Directory.Exists(jsonDir)) Directory.CreateDirectory(jsonDir);
                     if (!File.Exists(jsonPath))
