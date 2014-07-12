@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
 using System.Globalization;
@@ -802,9 +801,8 @@ namespace Luncher.Forms
                         break;
                     case 1:
                     {
-                        var json = JObject.Parse(File.ReadAllText(_minecraft + "/assets/indexes/" + index + ".json"));
-                        var ja = (JObject) json["objects"];
-                        var all = ja.Count;
+                        var json = JObject.Parse(File.ReadAllText(String.Format("{0}\\assets\\indexes\\{1}.json", _minecraft, index)));
+                        var all = ((JObject) json["objects"]).Count;
                         Logging.Info(LocRm.GetString("resources.checking"));
                         foreach (
                             var filename in
@@ -902,7 +900,7 @@ namespace Luncher.Forms
                 var newprofilename = DateTime.Now.ToString("HH:mm:ss");
                 var json = JObject.Parse(File.ReadAllText(Variables.ProfileJsonFile));
                 var json1 = (JObject) json["profiles"];
-                var toparse = "" + json1[SelectProfile.Text];
+                var toparse = json1[SelectProfile.Text].ToString();
                 var curprofile = JObject.Parse(toparse);
                 Console.WriteLine(newprofilename);
                 newprofilename = "Copy of " + curprofile["name"] + "(" + newprofilename + ")";
