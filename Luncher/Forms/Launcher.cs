@@ -589,7 +589,7 @@ namespace Luncher.Forms
                 client.DownloadFileCompleted += (sender, e) =>
                 {
                     current++;
-                    progressBar1.Value1++;
+                    progressBar1.Value1 = current;
                     progressBar1.Text = String.Format("Downloading libraries [{0}\\{1}]", current, total);
                     if (new FileInfo(filename).Length <= 1)
                     {
@@ -629,11 +629,11 @@ namespace Luncher.Forms
             _pName = json["name"].ToString();
             _gameDir = json["gameDir"] != null ? json["gameDir"].ToString() : _minecraft;
             if (json["lastVersionId"] != null)
-                LastVersionId = json["lastVersionId"].ToString();
+                _lastVersionId = json["lastVersionId"].ToString();
             else
             {
                 var allowed = (JArray) json["allowedReleaseTypes"];
-                LastVersionId = allowed.ToString().Contains("snapshot") ? Variables.LastSnapshot : Variables.LastRelease;
+                _lastVersionId = allowed.ToString().Contains("snapshot") ? Variables.LastSnapshot : Variables.LastRelease;
             }
             if (json["allowedReleaseTypes"] != null)
                 foreach (var releaseType in json["allowedReleaseTypes"])
@@ -657,12 +657,12 @@ namespace Luncher.Forms
                 ip = json["server"]["ip"].ToString();
                 port = json["server"]["port"] != null ? json["server"]["port"].ToString() : null;
             }
-            _nativesFolder = Path.Combine(_minecraft + "\\versions", LastVersionId);
-            var profileSJson = File.ReadAllText(_nativesFolder + @"\" + LastVersionId + ".json");
+            _nativesFolder = Path.Combine(_minecraft + "\\versions", _lastVersionId);
+            var profileSJson = File.ReadAllText(_nativesFolder + @"\" + _lastVersionId + ".json");
             var profilejsono = JObject.Parse(profileSJson);
             _mainClass = profilejsono["mainClass"].ToString();
             _arg = profilejsono["minecraftArguments"] + (ip != null ? String.Format(" --server {0} --port {1}", ip, (port ?? "25565")) : String.Empty);
-            _libs = String.Format("{0}{1}\\{2}.jar", _libs, _nativesFolder, LastVersionId);
+            _libs = String.Format("{0}{1}\\{2}.jar", _libs, _nativesFolder, _lastVersionId);
             var natives = _nativelibs.Split(';');
             try
             {
@@ -681,7 +681,7 @@ namespace Luncher.Forms
 
         private string _pName;
         private string _gameDir;
-        public string LastVersionId;
+        private string _lastVersionId;
         private readonly List<string> _allowedReleaseTypes = new List<string>();
         private string _javaArgs = "-Xmx1G "; // default
         private string _nativesFolder = Variables.McVersions;
@@ -753,15 +753,13 @@ namespace Luncher.Forms
             }
             HideProgressBar();
             GetDetails(profileJson);
-            var va = LogTab("Minecraft version: " + LastVersionId, _pName);
+            var va = LogTab("Minecraft version: " + _lastVersionId, _pName);
             var mp = new MinecraftProcess(this, _gameDir, _arg, _pName, usingAssets.Text, _javaExec, _libs, _javaArgs, _assets,
-                LastVersionId, _mainClass) { Txt = (RichTextBox)va[0], KillButton = (RadButton)va[1], CloseTabButton = (RadButton)va[2] };
+                _lastVersionId, _mainClass) { Txt = (RichTextBox)va[0], KillButton = (RadButton)va[1], CloseTabButton = (RadButton)va[2] };
             mp.Launch();
         }
 
         #endregion
-
-        private string _todownload;
 
         private void CheckResourses(string index, int step)
         {
@@ -773,7 +771,7 @@ namespace Luncher.Forms
                 {
                     case 0:
                     {
-                        var jsonIndex = String.Format("{0}/assets/indexes/{1}.json", _minecraft, index);
+                        var jsonIndex = String.Format("{0}\\assets\\indexes\\{1}.json", _minecraft, index);
                         if (!File.Exists(jsonIndex))
                         {
                             var path = Path.GetDirectoryName(jsonIndex);
@@ -781,10 +779,15 @@ namespace Luncher.Forms
                             var text = String.Format("{0} {1}...",
                                 LocRm.GetString("downloader.inprogress"), jsonIndex);
                             progressBar1.Text = text;
-                            Logging.Info(text);
-                            _indexcont = index;
                             progressBar1.Maximum = 100;
-                            webc.DownloadFileCompleted += Completed;
+                            Logging.Info(text);
+                            webc.DownloadFileCompleted += (sender, e) =>
+                            {
+                                progressBar1.Text = String.Format("{0} {1} {2}",
+                                    LocRm.GetString("downloadprocess.downloading"), jsonIndex,
+                                    LocRm.GetString("downloading.completed"));
+                                CheckResourses(index, 1);
+                            };
                             webc.DownloadProgressChanged += ProgressChanged;
                             webc.DownloadFileAsync(
                                 new Uri(String.Format("https://s3.amazonaws.com/Minecraft.Download/indexes/{0}.json",
@@ -799,35 +802,25 @@ namespace Luncher.Forms
                         break;
                     case 1:
                     {
-                        _assetstodownload = null;
-                        _total = 0;
-                        _cur = 0;
-                        _indexcont = index;
-                        var all = 0;
-                        var missing = 0;
-                        Logging.Info(LocRm.GetString("resources.checking"));
                         var json = JObject.Parse(File.ReadAllText(_minecraft + "/assets/indexes/" + index + ".json"));
-                        foreach (JProperty peep in json["objects"])
-                        {
-                            all++;
-                            var c = json["objects"][peep.Name]["hash"].ToString();
-                            char с1 = c[0];
-                            char с2 = c[1];
-                            var filename = с1.ToString() + с2.ToString() + "/" + c;
-                            if (File.Exists(_minecraft + "/assets/objects/" + filename)) continue;
-                            missing++;
-                            Logging.Warning(
-                                String.Format("\\assets\\objects\\{0}, {1}", filename, LocRm.GetString("lib.notfound")));
-                            _todownload = _todownload + filename + ";";
-                        }
+                        var ja = (JObject) json["objects"];
+                        var all = ja.Count;
+                        Logging.Info(LocRm.GetString("resources.checking"));
+                        foreach (
+                            var filename in
+                                json["objects"].Cast<JProperty>()
+                                    .Select(peep => json["objects"][peep.Name]["hash"].ToString())
+                                    .Select(c => c[0].ToString() + c[1].ToString() + "\\" + c)
+                                    .Where(
+                                        filename => !File.Exists(Variables.McFolder + "\\assets\\objects\\" + filename))
+                            )
+                            _missedAssets.Add(filename);
                         Logging.Info(
-                            String.Format("{0} {1}. {2} {3}", LocRm.GetString("resources.completed1p"), all, LocRm.GetString("resources.completed2p"), missing));
-                        if (missing != 0)
+                            String.Format("{0} {1}. {2} {3}", LocRm.GetString("resources.completed1p"), all, LocRm.GetString("resources.completed2p"), _missedAssets.Count));
+                        if (_missedAssets.Count != 0)
                         {
-                            _assetstodownload = _todownload.Substring(0, _todownload.Length - 1).Split(';');
-                            _total = missing;
-                            progressBar1.Maximum = _total + 1;
-                            DownloadResourses1();
+                            progressBar1.Maximum = _missedAssets.Count;
+                            DownloadAssets();
                         }
                         else
                             LaunchButtonClicked(1);
@@ -837,86 +830,46 @@ namespace Luncher.Forms
                 break;
             }
         }
-
-        private string _indexcont;
-
-        private void Completed(object sender, AsyncCompletedEventArgs e)
+        private List<string> _missedAssets = new List<string>();
+        private void DownloadAssets()
         {
-            progressBar1.Text = String.Format("{0} {1}/assets/indexes/{2}.json {3}",
-                LocRm.GetString("downloadprocess.downloading"), _minecraft, _indexcont,
-                LocRm.GetString("downloading.completed"));
-            CheckResourses(_indexcont, 1);
+            var missed = 0;
+            var current = 0;
+            var total = _missedAssets.Count();
+            foreach (var a in _missedAssets)
+            {
+                var filename = String.Format("{0}\\assets\\objects\\{1}", Variables.McFolder, a);
+                var path = Path.GetDirectoryName(filename);
+                if (!Directory.Exists(path)) Directory.CreateDirectory(path);
+                var client = new WebClient();
+                client.DownloadFileCompleted += (sender, e) =>
+                {
+                    current++;
+                    progressBar1.Value1 = current;
+                    progressBar1.Text = String.Format("Downloading resources [{0}\\{1}]", current, _missedAssets.Count());
+                    if (new FileInfo(filename).Length <= 1)
+                    {
+                        missed++;
+                        Logging.Warning(String.Format("Resource {0} downloaded with wrong size!", a));
+                    }
+                    else
+                        Logging.Info(String.Format("Finished downloading {0}", a));
+                    total--;
+                    if (total != 0) return;
+                    _missedAssets = new List<string>();
+                    Logging.Info("Done. Missed: " + missed);
+                    LaunchButtonClicked(1);
+                };
+                client.DownloadFileAsync(
+                    new Uri("http://resources.download.minecraft.net/" + a),
+                    filename);
+            }
         }
-
         private void ProgressChanged(object sender, DownloadProgressChangedEventArgs e)
         {
             if (progressBar1.Maximum != 100)
                 progressBar1.Maximum = 100;
             progressBar1.Value1 = e.ProgressPercentage;
-        }
-
-        private string[] _assetstodownload;
-        private int _total;
-        private int _cur;
-        private readonly Stopwatch _sw = new Stopwatch();
-
-        private void DownloadResourses1()
-        {
-            var filename = _assetstodownload[_cur];
-            var webc = new WebClient();
-            if (!Directory.Exists(_minecraft)) Directory.CreateDirectory(_minecraft);
-            try
-            {
-                var mdir = _minecraft + "\\assets\\objects\\" +
-                           filename.Replace(Path.GetFileName(filename), String.Empty);
-                if (!Directory.Exists(mdir)) Directory.CreateDirectory(mdir);
-                _sw.Start();
-                webc.DownloadFileCompleted += ResCompleted;
-                webc.DownloadProgressChanged += ProgressChangedRes;
-                Logging.Info(
-                    String.Format("{0} \\assets\\objects\\{1}...", LocRm.GetString("downloadprocess.downloading"), filename));
-                webc.DownloadFileAsync(new Uri(String.Format("http://resources.download.minecraft.net/{0}", filename)),
-                    String.Format("{0}\\assets\\objects\\{1}", _minecraft, filename));
-            }
-            catch (Exception ex)
-            {
-                Logging.Error(ex.ToString());
-            }
-        }
-
-        private void ProgressChangedRes(object sender, DownloadProgressChangedEventArgs e)
-        {
-            var filename = _assetstodownload[_cur];
-            var downloaded = string.Format("{0} MB's / {1} MB's", (e.BytesReceived/1024d/1024d).ToString("0.00"),
-                (e.TotalBytesToReceive/1024d/1024d).ToString("0.00"));
-            var speed = string.Format("{0} kb/s", (e.BytesReceived/1024d/_sw.Elapsed.TotalSeconds).ToString("0.00"));
-            progressBar1.Text = String.Format("{0} \\assets\\objects\\{1}... [{2} | {3}]",
-                LocRm.GetString("downloadprocess.downloading"), filename, speed, downloaded);
-        }
-
-        private void ResCompleted(object sender, AsyncCompletedEventArgs e)
-        {
-            _sw.Reset();
-            _cur++;
-            if (_cur == _total)
-            {
-                _cur = 0;
-                _total = 0;
-                _assetstodownload = null;
-                CheckResourses(_indexcont, 1);
-                progressBar1.Value1 = progressBar1.Maximum;
-            }
-            else
-            {
-                try
-                {
-                    progressBar1.Value1 = _cur;
-                }
-                catch
-                {
-                }
-                DownloadResourses1();
-            }
         }
 
         private void SetNullProgressBar()
