@@ -198,9 +198,7 @@ namespace Luncher.Forms
                 Nickname.Items.Clear();
                 var userprofiles = JObject.Parse(File.ReadAllText(filename));
                 foreach (JProperty peep in userprofiles["profiles"])
-                {
                     Nickname.Items.Add(peep.Name);
-                }
             }
             else
             {
@@ -319,9 +317,7 @@ namespace Luncher.Forms
                 radPanel2.Visible = true;
             }
             else
-            {
                 radPanel2.Visible = false;
-            }
         }
 
         private void BackButton_Click(object sender, EventArgs e)
@@ -342,9 +338,7 @@ namespace Luncher.Forms
         private void Launch_Click(object sender, EventArgs e)
         {
             if (Nickname.Text == String.Empty)
-            {
                 Nickname.Text = String.Format("Player{0}", DateTime.Now.ToString("HHmmss"));
-            }
             SetNullProgressBar();
             ShowProgressBar();
             LaunchButtonChange(LocRm.GetString("launcher.wait"), false);
@@ -883,7 +877,7 @@ namespace Luncher.Forms
 
         private void HideProgressBar()
         {
-            progressBar1.Text = "";
+            progressBar1.Text = String.Empty;
             progressBar1.Visible = false;
         }
 
@@ -903,7 +897,7 @@ namespace Luncher.Forms
                 var toparse = json1[SelectProfile.Text].ToString();
                 var curprofile = JObject.Parse(toparse);
                 Console.WriteLine(newprofilename);
-                newprofilename = "Copy of " + curprofile["name"] + "(" + newprofilename + ")";
+                newprofilename = String.Format("Copy of {0}({1})", curprofile["name"], newprofilename);
                 Logging.Info(String.Format("{0} {1}({2})" + "...", LocRm.GetString("profile.createcopy"), SelectProfile.Text, newprofilename));
                 curprofile["name"] = newprofilename;
                 Console.WriteLine();
@@ -948,16 +942,6 @@ namespace Luncher.Forms
             }
         }
 
-        private void label3_Click(object sender, EventArgs e)
-        {
-            Process.Start("http://vk.com/sesmc");
-        }
-
-        private void label5_Click(object sender, EventArgs e)
-        {
-            Process.Start("http://ru-minecraft.ru");
-        }
-
         private void ReformatAssets()
         {
             if (AllowReconstruct.ToggleState == Telerik.WinControls.Enumerations.ToggleState.On)
@@ -980,7 +964,8 @@ namespace Luncher.Forms
                     {
                         all++;
                         var c = json["objects"][peep.Name]["hash"].ToString();
-                        var filename = String.Format("{0}{1}\\{2}", c[0].ToString(), c[1].ToString(), json["objects"][peep.Name]["hash"]);
+                        var filename = String.Format("{0}{1}\\{2}", c[0].ToString(), c[1].ToString(),
+                            json["objects"][peep.Name]["hash"]);
                         var newpath = String.Format("{0}\\assets\\objects\\{1}", _minecraft, filename);
                         var oldpath = String.Format("{0}\\assets\\{1}", _minecraft, peep.Name);
                         if (File.Exists(oldpath)) continue;
@@ -994,7 +979,8 @@ namespace Luncher.Forms
                         else File.Copy(newpath, oldpath);
                         reconstructed++;
                     }
-                    Logging.Info(String.Format("{0} {1}. {2} {3}", LocRm.GetString("resources.recostructionsuccestotal"), all, LocRm.GetString("resources.recostructionsuccestotalrecostructed"), reconstructed));
+                    Logging.Info(String.Format("{0} {1}. {2} {3}", LocRm.GetString("resources.recostructionsuccestotal"),
+                        all, LocRm.GetString("resources.recostructionsuccestotalrecostructed"), reconstructed));
                 }
                 catch (Exception ex)
                 {
@@ -1002,9 +988,7 @@ namespace Luncher.Forms
                 }
             }
             else
-            {
                 Logging.Warning(LocRm.GetString("resources.reconstructioncanceled"));
-            }
             LaunchButtonClicked(1);
         }
 
@@ -1013,11 +997,20 @@ namespace Luncher.Forms
             UseGamePrefix.Enabled = EnableMinecraftLogging.ToggleState !=
                                     Telerik.WinControls.Enumerations.ToggleState.Off;
         }
-
+        #region Links
+        private void label3_Click(object sender, EventArgs e)
+        {
+            Process.Start("http://vk.com/sesmc");
+        }
+        private void label5_Click(object sender, EventArgs e)
+        {
+            Process.Start("http://ru-minecraft.ru");
+        }
         private void label6_Click(object sender, EventArgs e)
         {
             Process.Start("http://vk.com/mcoffline");
         }
+        #endregion
 
         private bool _loadedlang;
 
@@ -1025,7 +1018,7 @@ namespace Luncher.Forms
             PositionChangedEventArgs e)
         {
             Program.Lang = LangDropDownList.SelectedItem.Text.Contains("ru")
-                ? ""
+                ? String.Empty
                 : LangDropDownList.SelectedItem.Tag.ToString();
             Thread.CurrentThread.CurrentUICulture = new CultureInfo(Program.Lang);
             if (!_loadedlang) return;

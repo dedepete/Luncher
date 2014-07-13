@@ -21,7 +21,7 @@ namespace Luncher
         
         // custom versioning
         public const string NetJsonVersion = "6.0r3";
-        public const string NetZipVersion = "1.9.2";
+        public const string NetZipVersion = "1.9.3";
         public const string NdOptions = "0.2.1";
 
         // last versions
