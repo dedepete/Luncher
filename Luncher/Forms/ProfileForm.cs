@@ -45,16 +45,10 @@ namespace Luncher.Forms
             var jr = (JArray) json["versions"];
             for (var i = 0; i < jr.Count; i++)
             {
-                var id = "null";
-                var type = "null";
-                try
-                {
-                    id = json["versions"][i]["id"].ToString();
-                    type = json["versions"][i]["type"].ToString();
-
-                }
-                catch { }
-                list.Add(type + " " + id);
+                if (json["versions"][i] == null) continue;
+                var id = json["versions"][i]["id"].ToString();
+                var type = json["versions"][i]["type"].ToString();
+                list.Add(String.Format("{0} {1}", type, id));
                 switch (type)
                 {
                     case "snapshot":
@@ -107,10 +101,11 @@ namespace Luncher.Forms
 
         void GetParams(string pName)
         {
-            var json = JObject.Parse(File.ReadAllText(Variables.ProfileJsonFile));
-            if (json["profiles"][pName]["allowedReleaseTypes"] != null)
+            var temp = JObject.Parse(File.ReadAllText(Variables.ProfileJsonFile));
+            var json = (JObject)temp["profiles"][pName];
+            if (json["allowedReleaseTypes"] != null)
             {
-                var allowedVersions = (JArray)json["profiles"][pName]["allowedReleaseTypes"];
+                var allowedVersions = (JArray)json["allowedReleaseTypes"];
                 if (allowedVersions.ToString().Contains("old_alpha"))
                     EnableAlpha.ToggleState = Telerik.WinControls.Enumerations.ToggleState.On;
                 if (allowedVersions.ToString().Contains("snapshot"))
@@ -118,29 +113,37 @@ namespace Luncher.Forms
                 if (allowedVersions.ToString().Contains("old_beta"))
                     EnableBeta.ToggleState = Telerik.WinControls.Enumerations.ToggleState.On;
             }
-            ResX.Text = json["profiles"][pName]["resolution"] != null ? json["profiles"][pName]["resolution"]["width"].ToString() : "480";
-            ResY.Text = json["profiles"][pName]["resolution"] != null ? json["profiles"][pName]["resolution"]["height"].ToString() : "854";
-            if (json["profiles"][pName]["gameDir"] != null)
+            if (json["resolution"] != null)
             {
-                Gamedir.Text = json["profiles"][pName]["gameDir"].ToString();
+                ResX.Text = json["resolution"]["width"].ToString();
+                ResY.Text = json["resolution"]["height"].ToString();
+            }
+            else
+            {
+                ResX.Text = @"480";
+                ResY.Text = @"854";
+            }
+            if (json["gameDir"] != null)
+            {
+                Gamedir.Text = json["gameDir"].ToString();
                 UseDirectory.ToggleState = Telerik.WinControls.Enumerations.ToggleState.On;
             }
             else { Gamedir.Text = _minecraft; }
-            if (json["profiles"][pName]["javaDir"] != null)
+            if (json["javaDir"] != null)
             {
-                ExecJava.Text = json["profiles"][pName]["javaDir"].ToString();
+                ExecJava.Text = json["javaDir"].ToString();
                 UseExec.ToggleState = Telerik.WinControls.Enumerations.ToggleState.On;
             }
             else ExecJava.Text = Variables.JavaExe;
-            if (json["profiles"][pName]["javaArgs"] != null)
+            if (json["javaArgs"] != null)
             {
-                Args.Text = json["profiles"][pName]["javaArgs"].ToString();
+                Args.Text = json["javaArgs"].ToString();
                 UseArgs.ToggleState = Telerik.WinControls.Enumerations.ToggleState.On;
             }
             else
                 Args.Text = @"-Xmx1G";
-            var ver = json["profiles"][_profile]["lastVersionId"] != null
-                ? json["profiles"][_profile]["lastVersionId"].ToString()
+            var ver = temp["profiles"][_profile]["lastVersionId"] != null
+                ? temp["profiles"][_profile]["lastVersionId"].ToString()
                 : _locRm.GetString("uselastversion");
             try
             {
@@ -164,8 +167,8 @@ namespace Luncher.Forms
                 else
                     Versions.SelectedIndex = 0;
             }
-            if (json["profiles"][pName]["launcherVisibilityOnGameClose"] != null)
-                switch (json["profiles"][pName]["launcherVisibilityOnGameClose"].ToString())
+            if (json["launcherVisibilityOnGameClose"] != null)
+                switch (json["launcherVisibilityOnGameClose"].ToString())
                 {
                     case "close launcher when game starts":
                         LState.SelectedIndex = 2;
@@ -178,10 +181,10 @@ namespace Luncher.Forms
                         break;
                 }
             else LState.SelectedIndex = 0;
-            if (json["profiles"][pName]["server"] != null)
+            if (json["server"] != null)
             {
-                ipTextBox.Text = json["profiles"][pName]["server"]["ip"].ToString();
-                portTextBox.Text = json["profiles"][pName]["server"]["port"] != null? json["profiles"][pName]["server"]["port"].ToString():String.Empty;
+                ipTextBox.Text = json["server"]["ip"].ToString();
+                portTextBox.Text = json["server"]["port"] != null? json["server"]["port"].ToString():String.Empty;
                 fastConnectCheckBox.ToggleState = Telerik.WinControls.Enumerations.ToggleState.On;
             }
             _changed = false;
@@ -212,7 +215,8 @@ namespace Luncher.Forms
             try
             {
                 Process.Start(Gamedir.Text);
-            }catch{}
+            }
+            catch{}
         }
 
         public bool Canceled;
@@ -227,93 +231,86 @@ namespace Luncher.Forms
         bool _changed;
         private void radButton2_Click(object sender, EventArgs e)
         {
-            string error = null;
             var json = JObject.Parse(File.ReadAllText(Variables.ProfileJsonFile));
             var json1 = (JObject)json["profiles"];
             var curprofile = (JObject)json1[_profile];
-            var allowed = true;
             if (_changed)
                 if (json["profiles"].Cast<JProperty>().Any(peep => peep.Name == ProfileName.Text))
                 {
-                    error = _locRm.GetString("message.invalidname");
-                    allowed = false;
+                    Logging.Info(_locRm.GetString("message.invalidname"));
+                    return;
                 }
             if (Versions.SelectedItem == null)
             {
-                error = _locRm.GetString("message.errornull");
-                allowed = false;
+                Logging.Info(_locRm.GetString("message.errornull"));
+                return;
             }
-            if (allowed)
+            json["profiles"] = Processing.Rename(json1, name => name == _profile ? ProfileName.Text : name);
+            json["selectedProfile"] = ProfileName.Text;
+            Newprofilename = ProfileName.Text;
+            var v1 = _locRm.GetString("uselastversion");
+            if (v1 != null && !Versions.SelectedItem.Text.Contains(v1))
             {
-                json["profiles"] = Processing.Rename(json1, name => name == _profile ? ProfileName.Text : name);
-                json["selectedProfile"] = ProfileName.Text;
-                Newprofilename = ProfileName.Text;
-                var v1 = _locRm.GetString("uselastversion");
-                if (v1 != null && !Versions.SelectedItem.Text.Contains(v1))
-                {
-                    var lastversionid = Versions.SelectedItem.Text.Split(' ');
-                    curprofile["lastVersionId"] = lastversionid[1];
-                }
-                else
-                {
-                    if (curprofile["lastVersionId"] != null)
-                        curprofile.Property("lastVersionId").Remove();
-                }
-                curprofile["name"] = ProfileName.Text;
-                var c = Gamedir.Text;
-                if (Gamedir.Text != String.Empty)
-                    if (c[Gamedir.Text.Length - 1].ToString() == "\\" || c[Gamedir.Text.Length - 1].ToString() == "/")
-                        Gamedir.Text = Gamedir.Text.Substring(0, Gamedir.Text.Length - 1);
-                if (UseDirectory.ToggleState == Telerik.WinControls.Enumerations.ToggleState.On)
-                        curprofile["gameDir"] = Gamedir.Text;
-                else
-                {
-                    if (curprofile["gameDir"] != null)
-                        curprofile.Property("gameDir").Remove();
-                }
-                if (UseExec.ToggleState == Telerik.WinControls.Enumerations.ToggleState.On)
-                        curprofile["javaDir"] = ExecJava.Text;
-                else
-                {
-                    if (curprofile["javaDir"] != null)
-                        curprofile.Property("javaDir").Remove();
-                }
-                if (UseArgs.ToggleState == Telerik.WinControls.Enumerations.ToggleState.On)
-                    curprofile["javaArgs"] = Args.Text;
-                else
-                {
-                    if (curprofile["javaArgs"] != null)
-                        curprofile.Property("javaArgs").Remove();
-                }
-                if (fastConnectCheckBox.ToggleState == Telerik.WinControls.Enumerations.ToggleState.On)
-                {
-                    var jo = new JObject
-                    {
-                        {"ip", ipTextBox.Text}
-                    };
-                    if (portTextBox.Text != String.Empty) jo.Add("port", portTextBox.Text);
-                    curprofile["server"] = jo;
-                }
-                else
-                {
-                    if (curprofile["server"] != null)
-                        curprofile.Property("server").Remove();
-                }
-                var item = new JArray {"release"};
-                if (EnableExp.ToggleState == Telerik.WinControls.Enumerations.ToggleState.On)
-                    item.Add("snapshot");
-                if (EnableAlpha.ToggleState == Telerik.WinControls.Enumerations.ToggleState.On)
-                    item.Add("old_alpha");
-                if (EnableBeta.ToggleState == Telerik.WinControls.Enumerations.ToggleState.On)
-                    item.Add("old_beta");
-                curprofile["allowedReleaseTypes"] = item;
-                curprofile["launcherVisibilityOnGameClose"] = LState.SelectedItem.Tag.ToString();
-                json["profiles"][ProfileName.Text] = curprofile;
-                File.WriteAllText(Variables.ProfileJsonFile, json.ToString());
-                Close();
+                var lastversionid = Versions.SelectedItem.Text.Split(' ');
+                curprofile["lastVersionId"] = lastversionid[1];
             }
             else
-                Logging.Info(error);
+            {
+                if (curprofile["lastVersionId"] != null)
+                    curprofile.Property("lastVersionId").Remove();
+            }
+            curprofile["name"] = ProfileName.Text;
+            var c = Gamedir.Text;
+            if (Gamedir.Text != String.Empty)
+                if (c[Gamedir.Text.Length - 1].ToString() == "\\" || c[Gamedir.Text.Length - 1].ToString() == "/")
+                    Gamedir.Text = Gamedir.Text.Substring(0, Gamedir.Text.Length - 1);
+            if (UseDirectory.ToggleState == Telerik.WinControls.Enumerations.ToggleState.On)
+                curprofile["gameDir"] = Gamedir.Text;
+            else
+            {
+                if (curprofile["gameDir"] != null)
+                    curprofile.Property("gameDir").Remove();
+            }
+            if (UseExec.ToggleState == Telerik.WinControls.Enumerations.ToggleState.On)
+                curprofile["javaDir"] = ExecJava.Text;
+            else
+            {
+                if (curprofile["javaDir"] != null)
+                    curprofile.Property("javaDir").Remove();
+            }
+            if (UseArgs.ToggleState == Telerik.WinControls.Enumerations.ToggleState.On)
+                curprofile["javaArgs"] = Args.Text;
+            else
+            {
+                if (curprofile["javaArgs"] != null)
+                    curprofile.Property("javaArgs").Remove();
+            }
+            if (fastConnectCheckBox.ToggleState == Telerik.WinControls.Enumerations.ToggleState.On)
+            {
+                var jo = new JObject
+                {
+                    {"ip", ipTextBox.Text}
+                };
+                if (portTextBox.Text != String.Empty) jo.Add("port", portTextBox.Text);
+                curprofile["server"] = jo;
+            }
+            else
+            {
+                if (curprofile["server"] != null)
+                    curprofile.Property("server").Remove();
+            }
+            var item = new JArray {"release"};
+            if (EnableExp.ToggleState == Telerik.WinControls.Enumerations.ToggleState.On)
+                item.Add("snapshot");
+            if (EnableAlpha.ToggleState == Telerik.WinControls.Enumerations.ToggleState.On)
+                item.Add("old_alpha");
+            if (EnableBeta.ToggleState == Telerik.WinControls.Enumerations.ToggleState.On)
+                item.Add("old_beta");
+            curprofile["allowedReleaseTypes"] = item;
+            curprofile["launcherVisibilityOnGameClose"] = LState.SelectedItem.Tag.ToString();
+            json["profiles"][ProfileName.Text] = curprofile;
+            File.WriteAllText(Variables.ProfileJsonFile, json.ToString());
+            Close();
         }
 
         private void ProfileName_TextChanged(object sender, EventArgs e)
@@ -329,11 +326,6 @@ namespace Luncher.Forms
         private void UseArgs_ToggleStateChanged(object sender, StateChangedEventArgs args)
         {
             Args.Enabled = UseArgs.ToggleState == Telerik.WinControls.Enumerations.ToggleState.On;
-        }
-
-        private void Versions_SelectedIndexChanged(object sender, Telerik.WinControls.UI.Data.PositionChangedEventArgs e)
-        {
-
         }
 
         public bool Deleted;

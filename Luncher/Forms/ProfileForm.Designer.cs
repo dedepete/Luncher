@@ -296,7 +296,6 @@
             resources.ApplyResources(this.Versions, "Versions");
             this.Versions.Name = "Versions";
             this.Versions.ThemeName = "VisualStudio2012Dark";
-            this.Versions.SelectedIndexChanged += new Telerik.WinControls.UI.Data.PositionChangedEventHandler(this.Versions_SelectedIndexChanged);
             // 
             // EnableAlpha
             // 

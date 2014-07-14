@@ -1033,7 +1033,6 @@ namespace Luncher.Forms
             if (!Directory.Exists(path)) return;
             Logging.Info("Очистка natives...");
             foreach (var file in Directory.GetFiles(path))
-            {
                 try
                 {
                     File.Delete(file);
@@ -1042,7 +1041,6 @@ namespace Luncher.Forms
                 {
                     Logging.Error(ex.Data.ToString());
                 }
-            }
         }
 
         private void radListView1_ItemMouseClick(object sender, ListViewItemEventArgs e)

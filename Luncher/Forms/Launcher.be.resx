@@ -1,0 +1,402 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="close.text" xml:space="preserve">
+    <value>Зачынiць</value>
+  </data>
+  <data name="ConsolePage.Text" xml:space="preserve">
+    <value>Кансоль</value>
+  </data>
+  <data name="contextver.del" xml:space="preserve">
+    <value>Выдалiць</value>
+  </data>
+  <data name="contextver.del.a" xml:space="preserve">
+    <value>Вы сапраўды хочаце выдалиць гэту версию?</value>
+  </data>
+  <data name="contextver.del.b" xml:space="preserve">
+    <value>Пацверджанне</value>
+  </data>
+  <data name="contextver.del.error" xml:space="preserve">
+    <value>Падчас выдалення паўстала памылка</value>
+  </data>
+  <data name="$this.Text" xml:space="preserve">
+    <value>Luncher</value>
+  </data>
+  <data name="AboutVersion.Text" xml:space="preserve">
+    <value>0.0.0.000</value>
+  </data>
+  <data name="AddProfile.Text" xml:space="preserve">
+    <value>Дадаць профиль</value>
+  </data>
+  <data name="AllowReconstruct.Text" xml:space="preserve">
+    <value>Перастраиваць рэсурсы пры неабходнасци</value>
+  </data>
+  <data name="AllowUpdateVersions.Text" xml:space="preserve">
+    <value>Аўтаабнаўляць файл версий пры наяўнасци абнаўленняў</value>
+  </data>
+  <data name="contextver.del.progress" xml:space="preserve">
+    <value>Выдаленне</value>
+  </data>
+  <data name="contextver.open" xml:space="preserve">
+    <value>Паказаць у правадніку</value>
+  </data>
+  <data name="downloader.error" xml:space="preserve">
+    <value>Падчас падрыхтоўкі да запампоўкі паўстала памылка:</value>
+  </data>
+  <data name="downloader.inprogress" xml:space="preserve">
+    <value>Выконваецца загрузка</value>
+  </data>
+  <data name="downloading.completed" xml:space="preserve">
+    <value>скончана!</value>
+  </data>
+  <data name="downloadprocess.downloading" xml:space="preserve">
+    <value>Загрузка</value>
+  </data>
+  <data name="resource.Text1" xml:space="preserve">
+    <value>0.0.0.000</value>
+  </data>
+  <data name="resource.Text2" xml:space="preserve">
+    <value>LUNCHER</value>
+  </data>
+  <data name="resource.Text4" xml:space="preserve">
+    <value>by Space Earth Studio</value>
+  </data>
+  <data name="EditProfile.Text" xml:space="preserve">
+    <value>Змяніць профіль</value>
+  </data>
+  <data name="EditVersions.Text" xml:space="preserve">
+    <value>Кіраванне лакальнымі версіямі</value>
+  </data>
+  <data name="EnableMinecraftLogging.Text" xml:space="preserve">
+    <value>Выводзіць лог гульні ў кансоль</value>
+  </data>
+  <data name="EnableMinecraftUpdateAlerts.Text" xml:space="preserve">
+    <value>Паказваць паведамленьні аб наяўнасці новых версій Minecraft</value>
+  </data>
+  <data name="getversions.error" xml:space="preserve">
+    <value>Падчас атрымання звестак аб устаноўленых версіях паўстала памылка:</value>
+  </data>
+  <data name="label1.Text" xml:space="preserve">
+    <value>Распрацавана Space Earth Studio Minecraft
+Выдадзена Space Earth Studio
+Пераведзена NeZoX і The_Faos</value>
+  </data>
+  <data name="label2.Text" xml:space="preserve">
+    <value>Абрэвіятура SESMC расшыфроўваецца як Space Earth Studio Minecraft.
+ "Minecraft" з'яўляецца гандлёвай маркай Notch Development AB</value>
+  </data>
+  <data name="resource.Text6" xml:space="preserve">
+    <value>Мова\Language:</value>
+  </data>
+  <data name="label4.Text" xml:space="preserve">
+    <value>Вялікае дзякуй адміністрацыі партала ru-minecraft.ru за захоўванне файлаў</value>
+  </data>
+  <data name="label7.Text" xml:space="preserve">
+    <value>MCoffline - лепшая праграма для серверных адміністратараў!</value>
+  </data>
+  <data name="label8.Text" xml:space="preserve">
+    <value>Пераназываць акно:</value>
+  </data>
+  <data name="lang.changemessage" xml:space="preserve">
+    <value>Змены ўступяць у сілу толькі пасля перазагрузкі лаунчера</value>
+  </data>
+  <data name="launch.command" xml:space="preserve">
+    <value>Каманда:</value>
+  </data>
+  <data name="launch.error" xml:space="preserve">
+    <value>Падчас запуску паўстала памылка:</value>
+  </data>
+  <data name="launch.launchtext" xml:space="preserve">
+    <value>Запуск</value>
+  </data>
+  <data name="launch.text1p" xml:space="preserve">
+    <value>Запуск</value>
+  </data>
+  <data name="LaunchButton.Text" xml:space="preserve">
+    <value>Запуск</value>
+  </data>
+  <data name="launch.text2p" xml:space="preserve">
+    <value>Профіль:</value>
+  </data>
+  <data name="launch.workingdir" xml:space="preserve">
+    <value>Выкарыстоўваная папка:</value>
+  </data>
+  <data name="launcher.wait" xml:space="preserve">
+    <value>Пачакайце...</value>
+  </data>
+  <data name="launcherstate.readytext" xml:space="preserve">
+    <value>Гатовы да</value>
+  </data>
+  <data name="launcherstate.readytodownloadandplay" xml:space="preserve">
+    <value>загрузцы і запуску</value>
+  </data>
+  <data name="launcherstate.readytoplay" xml:space="preserve">
+    <value>запуску</value>
+  </data>
+  <data name="lib.checking" xml:space="preserve">
+    <value>Правяраецца наяўнасць неабходных бібліятэк...</value>
+  </data>
+  <data name="lib.completed1p" xml:space="preserve">
+    <value>Праверка бібліятэк завершана. Усяго файлаў:</value>
+  </data>
+  <data name="lib.completed2p" xml:space="preserve">
+    <value>З іх адсутнічае:</value>
+  </data>
+  <data name="lib.downloadingcomplete" xml:space="preserve">
+    <value>Завершана загрузка {0}. Памер загружанай бібліятэкі: {1} байт(ов)</value>
+  </data>
+  <data name="lib.notfound" xml:space="preserve">
+    <value>не знойдзена!</value>
+  </data>
+  <data name="label6.Text" xml:space="preserve">
+    <value>http://vk.com/mcoffline</value>
+  </data>
+  <data name="label5.Text" xml:space="preserve">
+    <value>http://ru-minecraft.ru</value>
+  </data>
+  <data name="label3.Text" xml:space="preserve">
+    <value>http://vk.com/sesmc</value>
+  </data>
+  <data name="usingAssets.Text" xml:space="preserve">
+    <value>${AppData}/.minecraft/assets</value>
+  </data>
+  <data name="radLabel3.Text" xml:space="preserve">
+    <value>by Space Earth Studio</value>
+  </data>
+  <data name="radLabel4.Text" xml:space="preserve">
+    <value>Мова\Language:</value>
+  </data>
+  <data name="radLabel1.Text" xml:space="preserve">
+    <value>LUNCHER</value>
+  </data>
+  <data name="radButton2.Text" xml:space="preserve">
+    <value>&lt;</value>
+  </data>
+  <data name="radButton1.Text" xml:space="preserve">
+    <value>&gt;</value>
+  </data>
+  <data name="News.Text" xml:space="preserve">
+    <value>Навіны</value>
+  </data>
+  <data name="Nickname.NullText" xml:space="preserve">
+    <value>Нік</value>
+  </data>
+  <data name="profile.createcopy" xml:space="preserve">
+    <value>Стварэнне копіі профілю </value>
+  </data>
+  <data name="profile.createerror" xml:space="preserve">
+    <value>Падчас стварэння новага профілю паўстала памылка:</value>
+  </data>
+  <data name="profile.delete.canceled" xml:space="preserve">
+    <value>Адменена</value>
+  </data>
+  <data name="profile.delete.succes" xml:space="preserve">
+    <value>Профіль паспяхова выдалены!</value>
+  </data>
+  <data name="profile.edited.complete1p" xml:space="preserve">
+    <value>Профіль</value>
+  </data>
+  <data name="profile.edited.complete2p" xml:space="preserve">
+    <value>зменены паспяхова!</value>
+  </data>
+  <data name="profile.editing" xml:space="preserve">
+    <value>Змена профіля</value>
+  </data>
+  <data name="program.started" xml:space="preserve">
+    <value>Лаунчер паспяхова запушчаны.</value>
+  </data>
+  <data name="radCheckBox1.Text" xml:space="preserve">
+    <value>Правяраць наяўнасць абнаўленняў праграмы</value>
+  </data>
+  <data name="radGroupBox1.HeaderText" xml:space="preserve">
+    <value>Асноўныя</value>
+  </data>
+  <data name="radGroupBox1.Text" xml:space="preserve">
+    <value>Асноўныя</value>
+  </data>
+  <data name="radGroupBox2.HeaderText" xml:space="preserve">
+    <value>Лагаванне</value>
+  </data>
+  <data name="radGroupBox2.Text" xml:space="preserve">
+    <value>Лагаванне</value>
+  </data>
+  <data name="radGroupBox3.HeaderText" xml:space="preserve">
+    <value>Рэсурсы</value>
+  </data>
+  <data name="radGroupBox3.Text" xml:space="preserve">
+    <value>Рэсурсы</value>
+  </data>
+  <data name="radLabel2.Text" xml:space="preserve">
+    <value>Падзякі</value>
+  </data>
+  <data name="radLabel5.Text" xml:space="preserve">
+    <value>Партнёры</value>
+  </data>
+  <data name="radLabel6.Text" xml:space="preserve">
+    <value>Папка з рэсурсамі:</value>
+  </data>
+  <data name="resource.Text" xml:space="preserve">
+    <value>Партнёры</value>
+  </data>
+  <data name="resource.Text5" xml:space="preserve">
+    <value>Папка з рэсурсамі:</value>
+  </data>
+  <data name="resource.Text3" xml:space="preserve">
+    <value>Падзякі</value>
+  </data>
+  <data name="radPageViewPage1.Text" xml:space="preserve">
+    <value>Аб лаунчере</value>
+  </data>
+  <data name="radPageViewPage2.Text" xml:space="preserve">
+    <value>Аб лаунчере</value>
+  </data>
+  <data name="radPageViewPage3.Text" xml:space="preserve">
+    <value>Ліцэнзіі</value>
+  </data>
+  <data name="radPageViewPage4.Text" xml:space="preserve">
+    <value>Наладкі</value>
+  </data>
+  <data name="resources.checking" xml:space="preserve">
+    <value>Правяраецца наяўнасць неабходных рэсурсаў...</value>
+  </data>
+  <data name="resources.completed1p" xml:space="preserve">
+    <value>Праверка рэсурсаў завершана. Усяго файлаў:</value>
+  </data>
+  <data name="resources.completed2p" xml:space="preserve">
+    <value>З іх адсутнічае:</value>
+  </data>
+  <data name="resources.reconstructing" xml:space="preserve">
+    <value>Выконваецца перабудова рэсурсаў...</value>
+  </data>
+  <data name="resources.reconstructioncanceled" xml:space="preserve">
+    <value>Перабудова рэсурсаў была адменена карыстальнікам</value>
+  </data>
+  <data name="resources.reconstructionerror" xml:space="preserve">
+    <value>Падчас перабудовы рэсурсаў паўстала памылка:</value>
+  </data>
+  <data name="resources.recostructionsuccestotal" xml:space="preserve">
+    <value>Перабудова скончана. Усяго файлаў рэсурсаў:</value>
+  </data>
+  <data name="resources.recostructionsuccestotalrecostructed" xml:space="preserve">
+    <value>З іх быў перабудаваны:</value>
+  </data>
+  <data name="UseGamePrefix.Text" xml:space="preserve">
+    <value>Выкарыстоўваць прэфікс [GAME] для логаў Minecraft</value>
+  </data>
+</root>

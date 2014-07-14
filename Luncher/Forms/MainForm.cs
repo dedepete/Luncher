@@ -30,7 +30,7 @@ namespace Luncher.Forms
             };
         int _tick;
 
-        string _minecraft = "";
+        string _minecraft = String.Empty;
 
         private void WriteLog(string message)
         {
@@ -39,7 +39,7 @@ namespace Luncher.Forms
         private void MainForm_Load(object sender, EventArgs e)
         {
             var ver = ProductVersion.Split('.');
-            var finalver = String.Format("{0}.{1}.{2}-build{3}-{4}", ver[0], ver[1], ver[2], ver[3], "stable");
+            var finalver = String.Format("{0}.{1}.{2}-build{3}-{4}", ver[0], ver[1], ver[2], ver[3], "dev");
             Text = String.Format("{0} {1}", ProductName, finalver);
             WriteLog(String.Format("{0} {1}", ProductName, finalver));
             WriteLog("");
@@ -59,7 +59,7 @@ namespace Luncher.Forms
             }
             catch (Exception ex)
             {
-                MessageBox.Show(String.Format("The registry refers to a nonexistent Java Runtime Environment\n\n{0}", ex.Data), "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(String.Format("The registry refers to a nonexistent Java Runtime Environment\n\n{0}", ex.Data), @"Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 WriteLog("Java Path: Missed");
             }
             WriteLog("");
@@ -85,14 +85,14 @@ namespace Luncher.Forms
                 {
                     WriteLog("###########################");
                     WriteLog(ex.ToString());
-                    Program.Minecraft = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\.minecraft";
+                    Program.Minecraft = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) +
+                                        "\\.minecraft";
                 }
                 WriteLog("Setting Minecraft directory: " + Program.Minecraft);
             }
             else
-            {
-                Program.Minecraft = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\.minecraft";
-            }
+                Program.Minecraft = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) +
+                                    "\\.minecraft";
             _minecraft = Program.Minecraft;
             if (!Directory.Exists(_minecraft))
             {
@@ -108,17 +108,9 @@ namespace Luncher.Forms
             {
                 WriteLog("An error occurred while reading configuration file:\n" + ex);
             }
-            try
-            {
-                Console.WriteLine((string) Configuration.Main["lang"]);
-            }
-            catch(Exception ex)
-            {
-                WriteLog(ex.ToString());
-            }
             Program.Lang = (string)Configuration.Main["lang"];
-            var lang = "";
-            if (Program.Lang == "")
+            var lang = String.Empty;
+            if (Program.Lang == String.Empty)
                 lang = "ru-default(Русский)";
             else
             {
@@ -309,7 +301,7 @@ namespace Luncher.Forms
                             WriteLog("Загружаю локальный список версий...");
                             try
                             {
-                                JObject json =
+                                var json =
                                     JObject.Parse(File.ReadAllText(_minecraft + "/versions/versions.json"));
                                 Variables.LastRelease = json["latest"]["release"].ToString();
                                 WriteLog("Last local release: " + json["latest"]["release"]);
