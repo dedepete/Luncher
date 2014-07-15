@@ -22,14 +22,6 @@ namespace Luncher.Forms
             LogBox.Box = Log;
         }
 
-        readonly Timer _t1 = new Timer
-            {
-                Interval = 1000,
-                Enabled = false,
-                Tag = null
-            };
-        int _tick;
-
         string _minecraft = String.Empty;
 
         private void WriteLog(string message)
@@ -187,19 +179,6 @@ namespace Luncher.Forms
                 File.WriteAllText(Variables.ProfileJsonFile, jsn.ToString());
             }
         }
-        private void Completed(object sender, AsyncCompletedEventArgs e)
-        {
-            _t1.Enabled = false;
-            WriteLog("Completed! Download time: " + _tick + "s");
-            WriteLog("Rechecking versions.json...");
-            _tick = 0;
-            CheckVersions();
-        }
-
-        void t1_tick(object sender, EventArgs e)
-        {
-            _tick++;
-        }
 
         void DownloadVersions()
         {
@@ -207,10 +186,17 @@ namespace Luncher.Forms
             if (!Directory.Exists(_minecraft + "/versions/"))
                 Directory.CreateDirectory(_minecraft + "/versions/");
             WriteLog("Downloading versions.json...");
-            webc.DownloadFileCompleted += Completed;
+            var sw = new Stopwatch();
+            sw.Start();
+            webc.DownloadFileCompleted += (sender, e) =>
+            {
+                sw.Stop();
+                WriteLog("Completed! Download time: " + sw.ElapsedMilliseconds + "ms");
+                if (new FileInfo(String.Format("{0}{1}", Variables.McVersions, "versions.json")).Length < 0)
+                    WriteLog("version.json downloaded with wrong filesize!");
+                Launch();
+            };
             webc.DownloadFileAsync(new Uri("https://s3.amazonaws.com/Minecraft.Download/versions/versions.json"), _minecraft + "/versions/versions.json");
-            _t1.Tick += t1_tick;
-            _t1.Enabled = true;
         }
 
         void CheckVersions()

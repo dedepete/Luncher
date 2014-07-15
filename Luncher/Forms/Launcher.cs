@@ -94,27 +94,27 @@ namespace Luncher.Forms
                 e.Cancel = true;
                 return;
             }
-            var mainObject = new JObject
+            JObject mainObject = new JObject
             {
                 {"lang", Program.Lang},
-            };
-            var loggingObject = new JObject
+            },
+            loggingObject = new JObject
             {
                 {"enableGameLogging", EnableMinecraftLogging.Checked},
                 {"useGamePrefix", UseGamePrefix.Checked}
-            };
-            var updatesObject = new JObject
+            },
+            updatesObject = new JObject
             {
                 {"checkVersionsUpdate", AllowUpdateVersions.Checked},
                 {"checkProgramUpdate", radCheckBox1.Checked},
                 {"enableMinecraftUpdateAlerts", EnableMinecraftUpdateAlerts.Checked}
-            };
-            var resourcesObject = new JObject
+            },
+            resourcesObject = new JObject
             {
                 {"enableReconstruction", AllowReconstruct.Checked},
                 {"assetsDir", usingAssets.Text}
-            };
-            var jo = new JObject
+            },
+            jo = new JObject
             {
                 {"main", mainObject},
                 {"logging", loggingObject},
@@ -478,8 +478,7 @@ namespace Luncher.Forms
                         Logging.Info(LocRm.GetString("lib.checking"));
                         var gsb = new StringBuilder(); // libs
                         var nsb = new StringBuilder(); // libs with natives
-                        var missing = 0;
-                        var all = 0;
+                        int missing = 0, all = 0;
                         var jr = (JArray)json["libraries"];
                         foreach (var t in jr)
                         {
@@ -570,15 +569,15 @@ namespace Luncher.Forms
         private readonly Dictionary<string, string> _librariesMissed = new Dictionary<string, string>();
         private void DownloadLibraries()
         {
-            var total = _librariesMissed.Keys.Count();
-            var current = 0;
-            var librariesWrongSize = 0;
+            int librariesWrongSize = 0, total = _librariesMissed.Keys.Count(), current = 0;
             foreach (var a in _librariesMissed)
             {
                 var filename = String.Format("{0}\\libraries\\{1}", Variables.McFolder, a.Key);
                 var path = Path.GetDirectoryName(filename);
                 if (!Directory.Exists(path)) Directory.CreateDirectory(path);
                 var client = new WebClient();
+                var a1 = a.Key;
+                var a2 = a.Value;
                 client.DownloadFileCompleted += (sender, e) =>
                 {
                     current++;
@@ -586,13 +585,13 @@ namespace Luncher.Forms
                     progressBar1.Text = String.Format("Downloading libraries [{0}\\{1}]", current, total);
                     if (new FileInfo(filename).Length <= 1)
                     {
-                        Logging.Warning(String.Format("Library {0} downloaded with wrong size!", a.Key));
+                        Logging.Warning(String.Format("Library {0} downloaded with wrong size!", a1));
                         librariesWrongSize++;
                     }
                     else
-                        Logging.Info(String.Format("Finished downloading {0}{1}", a.Key,
-                            (a.Value != String.Empty ? " from custom repo " + a.Value : String.Empty)));
-                    _librariesMissed.Remove(a.Key);
+                        Logging.Info(String.Format("Finished downloading {0}{1}", a1,
+                            (a2 != String.Empty ? " from custom repo " + a1 : String.Empty)));
+                    _librariesMissed.Remove(a1);
                     if (_librariesMissed.Keys.Count != 0) return;
                     Logging.Info("Done. Missed: " + librariesWrongSize);
                     LaunchButtonClicked(0);
@@ -825,15 +824,14 @@ namespace Luncher.Forms
         private List<string> _missedAssets = new List<string>();
         private void DownloadAssets()
         {
-            var missed = 0;
-            var current = 0;
-            var total = _missedAssets.Count();
+            int missed = 0, current = 0, total = _missedAssets.Count();
             foreach (var a in _missedAssets)
             {
                 var filename = String.Format("{0}\\assets\\objects\\{1}", Variables.McFolder, a);
                 var path = Path.GetDirectoryName(filename);
                 if (!Directory.Exists(path)) Directory.CreateDirectory(path);
                 var client = new WebClient();
+                var a1 = a;
                 client.DownloadFileCompleted += (sender, e) =>
                 {
                     current++;
@@ -842,10 +840,10 @@ namespace Luncher.Forms
                     if (new FileInfo(filename).Length <= 1)
                     {
                         missed++;
-                        Logging.Warning(String.Format("Resource {0} downloaded with wrong size!", a));
+                        Logging.Warning(String.Format("Resource {0} downloaded with wrong size!", a1));
                     }
                     else
-                        Logging.Info(String.Format("Finished downloading {0}", a));
+                        Logging.Info(String.Format("Finished downloading {0}", a1));
                     total--;
                     if (total != 0) return;
                     _missedAssets = new List<string>();
