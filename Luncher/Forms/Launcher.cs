@@ -421,6 +421,7 @@ namespace Luncher.Forms
                                 SetNullProgressBar();
                                 LaunchButtonClicked(3);
                             };
+                            progressBar1.Maximum = 100;
                             webc.DownloadProgressChanged += ProgressChanged;
                             webc.DownloadFileAsync(
                                 new Uri(String.Format("https://s3.amazonaws.com/Minecraft.Download/versions/{0}/{0}.jar", _ver)), String.Format("{0}/versions/{1}/{1}.jar", _minecraft, _ver));
@@ -459,6 +460,7 @@ namespace Luncher.Forms
                                 SetNullProgressBar();
                                 LaunchButtonClicked(4);
                             };
+                            progressBar1.Maximum = 100;
                             webc.DownloadProgressChanged += ProgressChanged;
                             webc.DownloadFileAsync(
                                 new Uri(String.Format("https://s3.amazonaws.com/Minecraft.Download/versions/{0}/{0}.json", _ver)), jsonPath);
@@ -780,6 +782,7 @@ namespace Luncher.Forms
                                     LocRm.GetString("downloading.completed"));
                                 CheckResourses(index, 1);
                             };
+                            progressBar1.Maximum = 100;
                             webc.DownloadProgressChanged += ProgressChanged;
                             webc.DownloadFileAsync(
                                 new Uri(String.Format("https://s3.amazonaws.com/Minecraft.Download/indexes/{0}.json",
@@ -857,8 +860,6 @@ namespace Luncher.Forms
         }
         private void ProgressChanged(object sender, DownloadProgressChangedEventArgs e)
         {
-            if (progressBar1.Maximum != 100)
-                progressBar1.Maximum = 100;
             progressBar1.Value1 = e.ProgressPercentage;
         }
 
