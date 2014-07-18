@@ -31,24 +31,17 @@ namespace Luncher
             }
             Console.WriteLine(finalstring);
             if (logBox == null) return;
+            logBox.SelectionStart = logBox.TextLength;
+            logBox.SelectionLength = 0;
             logBox.SelectionColor = color;
-            var start = 0;
-            if (colored) start = logBox.TextLength;
             logBox.AppendText(String.Format(String.IsNullOrEmpty(logBox.Text) ? "{0}" : "\n{0}", finalstring));
-            if (colored)
-            {
-                var end = logBox.TextLength;
-                logBox.Select(start, end - start);
-                logBox.SelectionColor = color;
-                logBox.SelectionLength = 0;
-            }
+            logBox.SelectionColor = logBox.ForeColor;
             logBox.ScrollToCaret();
         }
 
         private static void Processing(string message, int t, params string[] args)
         {
-            var colored = false;
-            var pfx = true;
+            bool colored = false, pfx = true;
             if (args != null)
                 foreach (var a in args)
                 {
