@@ -30,9 +30,7 @@ namespace Luncher
                       File.Exists(Variables.McFolder + "/versions/" + versionname + "/" + versionname + ".json")))
                     continue;
                 var json = JObject.Parse(File.ReadAllText(Variables.McFolder + "/versions/" + versionname + "/" + versionname + ".json"));
-                var id = "null";
-                var type = "null";
-                var time = "null";
+                string id = "null", type = "null", time = "null";
                 try
                 {
                     id = json["id"].ToString();
