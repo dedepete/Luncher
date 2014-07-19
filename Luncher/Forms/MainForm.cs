@@ -105,7 +105,6 @@ namespace Luncher.Forms
             if (Program.Lang == String.Empty)
                 lang = "ru-default(Русский)";
             else
-            {
                 try
                 {
                     foreach (var a in from a in Directory.GetFiles(Application.StartupPath + "\\" + Program.Lang + "\\")
@@ -123,7 +122,6 @@ namespace Luncher.Forms
                     Program.Lang = "";
                     lang = "ru-default(Русский)";
                 }
-            }
             WriteLog("Loading settings for language: " + lang);
             var bgw = new BackgroundWorker();
             bgw.DoWork += CheckApplicationUpdate;
