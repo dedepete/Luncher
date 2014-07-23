@@ -133,6 +133,138 @@
     <value>480</value>
   </data>
   <data name="data.close" xml:space="preserve">
-    <value>Зачынiць лаунчер</value>
+    <value>Зачынiць лаўнчер</value>
+  </data>
+  <data name="data.keepopen" xml:space="preserve">
+    <value>Пакiнуць лаўнчер адкрытым</value>
+  </data>
+  <data name="data.minsize" xml:space="preserve">
+    <value>Звярнуць лаўнчер</value>
+  </data>
+  <data name="EnableAlpha.Text" xml:space="preserve">
+    <value>Уключыць старыя "Alpha" зборкi (ад 2010)</value>
+  </data>
+  <data name="EnableBeta.Text" xml:space="preserve">
+    <value>Уключыць старыя "Beta" зборкi (2010-2011)</value>
+  </data>
+  <data name="EnableExp.Text" xml:space="preserve">
+    <value>Уключыць эксперыментальныя зборкi ("snapshots")</value>
+  </data>
+  <data name="resource.Text9" xml:space="preserve">
+    <value>Уключыць эксперыментальныя зборки ("snapshots")</value>
+  </data>
+  <data name="resource.Text8" xml:space="preserve">
+    <value>Уключыць старыя "Beta" зборки (2010-2011)</value>
+  </data>
+  <data name="resource.Text7" xml:space="preserve">
+    <value>Уключыць старыя "Alpha" зборки (ад 2010)</value>
+  </data>
+  <data name="resource.Text6" xml:space="preserve">
+    <value>Уключыць иншыя версии</value>
+  </data>
+  <data name="EnableOther.Text" xml:space="preserve">
+    <value>Уключыць iншыя версii</value>
+  </data>
+  <data name="fastConnectCheckBox.Text" xml:space="preserve">
+    <value>Хуткае падключэнне:</value>
+  </data>
+  <data name="ipTextBox.NullText" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="LState.Text" xml:space="preserve">
+    <value>Пакiнуць лаўнчер адкрытым </value>
+  </data>
+  <data name="message.deleteprofile" xml:space="preserve">
+    <value>Выдаленне профiлю</value>
+  </data>
+  <data name="message.deleteprofilelast" xml:space="preserve">
+    <value>Гэта апошни профiль. Выдаленне немагчыма! </value>
+  </data>
+  <data name="message.deleteprofiletext" xml:space="preserve">
+    <value>Вы сапраўды хочаце выдалiць дадзены профiль?</value>
+  </data>
+  <data name="message.error" xml:space="preserve">
+    <value>Памылка!</value>
+  </data>
+  <data name="message.errornull" xml:space="preserve">
+    <value>Выбраная версiя не можа быць null!</value>
+  </data>
+  <data name="message.invalidname" xml:space="preserve">
+    <value>Выкарыстанне дадзенай назвы немагчыма!</value>
+  </data>
+  <data name="portTextBox.NullText" xml:space="preserve">
+    <value>Порт</value>
+  </data>
+  <data name="radButton1.Text" xml:space="preserve">
+    <value>Адмянiць</value>
+  </data>
+  <data name="radButton2.Text" xml:space="preserve">
+    <value>Захаваць профiль</value>
+  </data>
+  <data name="radButton3.Text" xml:space="preserve">
+    <value>Адкрыць гульнявую дырэкторыю</value>
+  </data>
+  <data name="radButton4.Text" xml:space="preserve">
+    <value>Выдалiць профiль</value>
+  </data>
+  <data name="radGroupBox1.HeaderText" xml:space="preserve">
+    <value>Асноуныя налады профiлю</value>
+  </data>
+  <data name="radGroupBox1.Text" xml:space="preserve">
+    <value>Асноуныя налады профiлю</value>
+  </data>
+  <data name="radGroupBox2.HeaderText" xml:space="preserve">
+    <value>Выбар версii</value>
+  </data>
+  <data name="radGroupBox2.Text" xml:space="preserve">
+    <value>Выбар версii</value>
+  </data>
+  <data name="radGroupBox3.HeaderText" xml:space="preserve">
+    <value>Налады Java</value>
+  </data>
+  <data name="radGroupBox3.Text" xml:space="preserve">
+    <value>Налады Java</value>
+  </data>
+  <data name="radLabel1.Text" xml:space="preserve">
+    <value>Назва профiлю:</value>
+  </data>
+  <data name="radLabel2.Text" xml:space="preserve">
+    <value>Памер экрана:</value>
+  </data>
+  <data name="radLabel4.Text" xml:space="preserve">
+    <value>Пасля запуску Minecraft:</value>
+  </data>
+  <data name="resource.Text2" xml:space="preserve">
+    <value>Пасля запуску Minecraft:</value>
+  </data>
+  <data name="uselastversion" xml:space="preserve">
+    <value>Выкарыстоўваць апошнюю версiю</value>
+  </data>
+  <data name="UseExec.Text" xml:space="preserve">
+    <value>Выкананы файл:</value>
+  </data>
+  <data name="resource.Text5" xml:space="preserve">
+    <value>Выкананы файл:</value>
+  </data>
+  <data name="resource.Text4" xml:space="preserve">
+    <value>Памер экрана: </value>
+  </data>
+  <data name="UseArgs.Text" xml:space="preserve">
+    <value>Аргументы:</value>
+  </data>
+  <data name="UseDirectory.Text" xml:space="preserve">
+    <value>Гульнявая дырэкторыя:</value>
+  </data>
+  <data name="resource.Text11" xml:space="preserve">
+    <value>Аргументы:</value>
+  </data>
+  <data name="resource.Text10" xml:space="preserve">
+    <value>Выкананы файл:</value>
+  </data>
+  <data name="resource.Text1" xml:space="preserve">
+    <value>Хуткае падключэнне:</value>
+  </data>
+  <data name="resource.Text" xml:space="preserve">
+    <value>Назва профiлю:</value>
   </data>
 </root>

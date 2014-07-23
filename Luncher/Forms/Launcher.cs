@@ -707,7 +707,7 @@ namespace Luncher.Forms
                     }
                     else
                     {
-                        var resp = MakePost.MPostjson(AuthShemes.Authserver + AuthShemes.Validate, new JObject { new JProperty("accessToken", jo["profiles"][peep.Name]["accessToken"]) }.ToString());
+                        var resp = Request.DoPost(AuthShemes.Validate, new JObject { new JProperty("accessToken", jo["profiles"][peep.Name]["accessToken"]) }.ToString());
                         if (resp.Contains("Error"))
                         {
                             var topost = new JObject
@@ -722,7 +722,7 @@ namespace Luncher.Forms
                                     }
                                 }
                             };
-                            var response = MakePost.MPostjson(AuthShemes.Authserver + AuthShemes.Validate,
+                            var response = Request.DoPost(AuthShemes.Validate,
                                 topost.ToString());
                             if (!response.Contains("Error"))
                             {

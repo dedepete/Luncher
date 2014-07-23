@@ -22,14 +22,9 @@ namespace Luncher
         }
         public static void GetVersions(RadListView list)
         {
-            foreach (var s in Directory.GetDirectories(Variables.McFolder + "/versions/"))
+            foreach (var json in from s in Directory.GetDirectories(Variables.McVersions) select new DirectoryInfo(s).Name into versionname where File.Exists(Variables.McVersions + versionname + "/" + versionname + ".jar") &
+                                                                                                                                                  File.Exists(Variables.McVersions + versionname + "/" + versionname + ".json") select JObject.Parse(File.ReadAllText(Variables.McFolder + "/versions/" + versionname + "/" + versionname + ".json")))
             {
-                var versionname = new DirectoryInfo(s).Name;
-                if (
-                    !(File.Exists(Variables.McFolder + "/versions/" + versionname + "/" + versionname + ".jar") &
-                      File.Exists(Variables.McFolder + "/versions/" + versionname + "/" + versionname + ".json")))
-                    continue;
-                var json = JObject.Parse(File.ReadAllText(Variables.McFolder + "/versions/" + versionname + "/" + versionname + ".json"));
                 string id = "null", type = "null", time = "null";
                 try
                 {
@@ -44,6 +39,7 @@ namespace Luncher
                 list.Items.Add(id, type, time);
             }
         }
+
         public static JToken Rename(JToken json, Func<string, string> map)
         {
             var prop = json as JProperty;
@@ -81,9 +77,7 @@ namespace Luncher
                     {
                         var currentVersion = baseKey.GetValue("CurrentVersion").ToString();
                         using (var homeKey = baseKey.OpenSubKey(currentVersion))
-                        {
                             if (homeKey != null) return homeKey.GetValue("JavaHome").ToString();
-                        }
                     }
                 }
             }
@@ -97,9 +91,7 @@ namespace Luncher
                     if (baseKey == null) return null;
                     var currentVersion = baseKey.GetValue("CurrentVersion").ToString();
                     using (var homeKey = baseKey.OpenSubKey(currentVersion))
-                    {
                         if (homeKey != null) return homeKey.GetValue("JavaHome").ToString();
-                    }
                 }
             }
             return null;

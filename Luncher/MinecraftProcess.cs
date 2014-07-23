@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
-using System.Runtime.InteropServices;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
@@ -13,24 +12,13 @@ using Telerik.WinControls.UI;
 
 namespace Luncher
 {
-    public class MinecraftProcess
+    public class MinecraftProcess : McVariables
     {
         private object Root { get; set; }
-        private string GameDir { get; set; }
-        private string Arg { get; set; }
-        private string PName { get; set; }
-        private string Assetspath { get; set; }
-        private string JavaExec { get; set; }
-        private string Libs { get; set; }
-        private string JavaArgs { get; set; }
-        private string Assets { get; set; }
-        private string MainClass { get; set; }
 
         public RichTextBox Txt { private get; set; }
         public RadButton KillButton { private get; set; }
         public RadButton CloseTabButton { private get; set; }
-
-        private string LastVersionId { get; set; }
         private Process _client;
 
         private string _errors;
@@ -72,9 +60,7 @@ namespace Luncher
             txt.AppendText(line);
             var end = txt.TextLength;
             txt.Select(start, end - start);
-            {
-                txt.SelectionColor = color;
-            }
+            txt.SelectionColor = color;
             txt.SelectionLength = 0;
             txt.ScrollToCaret();
         }
@@ -262,5 +248,19 @@ namespace Luncher
         {
             if (Processing.IsRunning(_client)) _client.Kill();
         }
+    }
+
+    public abstract class McVariables
+    {
+        protected string GameDir { get; set; }
+        protected string Arg { get; set; }
+        protected string PName { get; set; }
+        protected string Assetspath { get; set; }
+        protected string JavaExec { get; set; }
+        protected string Libs { get; set; }
+        protected string JavaArgs { get; set; }
+        protected string Assets { get; set; }
+        protected string MainClass { get; set; }
+        protected string LastVersionId { get; set; }
     }
 }
