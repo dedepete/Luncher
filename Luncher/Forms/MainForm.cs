@@ -28,13 +28,17 @@ namespace Luncher.Forms
         {
             Logging.Info(message, "pfx:false");
         }
+        private void WriteLog()
+        {
+            Logging.Info("", "pfx:false");
+        }
         private void MainForm_Load(object sender, EventArgs e)
         {
             var ver = ProductVersion.Split('.');
             var finalver = String.Format("{0}.{1}.{2}-build{3}-{4}", ver[0], ver[1], ver[2], ver[3], "git");
             Text = String.Format("{0} {1}", ProductName, finalver);
             WriteLog(String.Format("{0} {1}", ProductName, finalver));
-            WriteLog("");
+            WriteLog();
             WriteLog("#System information:");
             try
             {
@@ -54,12 +58,12 @@ namespace Luncher.Forms
                 MessageBox.Show(String.Format("The registry refers to a nonexistent Java Runtime Environment\n\n{0}", ex.Data), @"Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 WriteLog("Java Path: Missed");
             }
-            WriteLog("");
+            WriteLog();
             WriteLog("#Assembly information:");
             WriteLog("JSON.NET " + Variables.NetJsonVersion);
             WriteLog("DotNetZip " + Variables.NetZipVersion);
             WriteLog("NDesk.Options " + Variables.NdOptions);
-            WriteLog("");
+            WriteLog();
             if (Program.Arg.Length != 0)
             {
                 var p = new OptionSet
