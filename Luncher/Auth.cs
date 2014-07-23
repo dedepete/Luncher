@@ -14,9 +14,9 @@ namespace Luncher
         public String Authenticate()
         {
             Logging.Info("Authenticating...");
-            var json = JObject.Parse(AuthShemes.Authenticatesheme).ToString();
+            var json = JObject.Parse(AuthShemes.AuthenticateSheme).ToString();
             json = json.Replace("${username}", User).Replace("${password}", Password);
-            var response = Request.DoPost(AuthShemes.Authserver + AuthShemes.Authenticate, json);
+            var response = Request.DoPost(AuthShemes.Authenticate, json);
             try
             {
                 var jo = JObject.Parse(response);
@@ -39,9 +39,9 @@ namespace Luncher
         }
         public String Logout()
         {
-            var json = JObject.Parse(AuthShemes.Signoutsheme).ToString();
+            var json = JObject.Parse(AuthShemes.SignoutSheme).ToString();
             json = json.Replace("${username}", User).Replace("${password}", Password);
-            return Request.DoPost(AuthShemes.Authserver + AuthShemes.Signout, json) == string.Empty ? "Successful" : "Unsuccessful";
+            return Request.DoPost(AuthShemes.Signout, json) == string.Empty ? "Successful" : "Unsuccessful";
         }
     }
 
@@ -72,12 +72,8 @@ namespace Luncher
                     stream.Close();
                 }
                 using (var response = (HttpWebResponse) request.GetResponse())
-                {
-                    using (var streamReader = new StreamReader(response.GetResponseStream()))
-                    {
-                        return streamReader.ReadToEnd();
-                    }
-                }
+                using (var streamReader = new StreamReader(response.GetResponseStream()))
+                    return streamReader.ReadToEnd();
             }
             catch (WebException av)
             {
