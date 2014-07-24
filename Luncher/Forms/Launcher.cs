@@ -12,6 +12,7 @@ using System.Threading;
 using System.Windows.Forms;
 using Ionic.Zip;
 using Luncher.Properties;
+using Luncher.YaDra4il;
 using Newtonsoft.Json.Linq;
 using Telerik.WinControls;
 using Telerik.WinControls.UI;
@@ -707,28 +708,17 @@ namespace Luncher.Forms
                     }
                     else
                     {
-                        var resp = Request.DoPost(AuthShemes.Validate, new JObject { new JProperty("accessToken", jo["profiles"][peep.Name]["accessToken"]) }.ToString());
-                        if (resp.Contains("Error"))
+                        var a = new AuthManager
                         {
-                            var topost = new JObject
-                            {
-                                new JProperty("accessToken", jo["profiles"][peep.Name]["accessToken"]),
-                                new JProperty("clientToken", jo["profiles"][peep.Name]["clientToken"]),
-                                {
-                                    "selectedProfile", new JObject
-                                    {
-                                        new JProperty("id", jo["profiles"][peep.Name]["UUID"]),
-                                        {"name", peep.Name}
-                                    }
-                                }
-                            };
-                            var response = Request.DoPost(AuthShemes.Validate,
-                                topost.ToString());
-                            if (!response.Contains("Error"))
-                            {
-                                var jo1 = JObject.Parse(response);
-                                jo["profiles"][peep.Name]["accessToken"] = jo1["accessToken"];
-                            }
+                            sessionToken = jo["profiles"][peep.Name]["accessToken"].ToString(),
+                            uuid = jo["profiles"][peep.Name]["UUID"].ToString()
+                        };
+                        var b = a.CheckSessionToken();
+                        if (!b)
+                        {
+                            a.accessToken = jo["profiles"][peep.Name]["clientToken"].ToString();
+                            a.Refresh();
+                            jo["profiles"][peep.Name]["accessToken"] = a.sessionToken;
                         }
                         Variables.AccessToken = jo["profiles"][peep.Name]["accessToken"].ToString();
                         Variables.ClientToken = jo["profiles"][peep.Name]["UUID"].ToString();

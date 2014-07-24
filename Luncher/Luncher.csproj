@@ -78,8 +78,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Auth.cs" />
-    <Compile Include="AuthShemes.cs" />
+    <Compile Include="YaDra4il.cs" />
     <Compile Include="Forms\Launcher.cs">
       <SubType>Form</SubType>
     </Compile>

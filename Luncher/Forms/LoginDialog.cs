@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using Luncher.YaDra4il;
 using Newtonsoft.Json.Linq;
 
 namespace Luncher.Forms
@@ -14,38 +15,37 @@ namespace Luncher.Forms
 
         private void radButton1_Click(object sender, EventArgs e)
         {
-            var auth = new Auth
+            try
             {
-                User = radTextBox1.Text,
-                Password = radTextBox2.Text
-            };
-            var a = auth.Authenticate();
-            if (!a.Contains(":"))
-            {
-                Logging.Info(a);
-                radLabel1.Text = a;
-            }
-            else
-            {
-                var b = a.Split(':');
+
+                Logging.Info("Authenticating...");
+                var auth = new AuthManager {email = radTextBox1.Text, password = radTextBox2.Text};
+                auth.Login();
+
                 var jo = JObject.Parse(File.ReadAllText(Variables.McFolder + "/luncher/userprofiles.json"));
                 var item = (JObject)jo["profiles"];
                 try
                 {
-                    item.Remove(b[0]);
+                    item.Remove(auth.GetUsernameByUUID());
                 }
                 catch { }
                 var j = new JObject
                 {
                     new JProperty("type", "official"),
-                    new JProperty("accessToken", b[1]),
-                    new JProperty("clientToken", b[2]),
-                    new JProperty("UUID", b[3])
+                    new JProperty("accessToken", auth.sessionToken),
+                    new JProperty("clientToken", auth.accessToken),
+                    new JProperty("UUID", auth.uuid)
                 };
-                item.Add(new JProperty(b[0], j));
+                item.Add(new JProperty(auth.GetUsernameByUUID(), j));
                 File.WriteAllText(Variables.McFolder + "/luncher/userprofiles.json", jo.ToString());
                 Result = "Added successfuly";
                 Close();
+            }
+            catch(Exception a)
+            {
+                const string text = "Smth went wrong. Invalid credentials?";
+                Logging.Info(text + "\n" + a);
+                radLabel1.Text = text + "\n" + a.Data;
             }
         }
 
