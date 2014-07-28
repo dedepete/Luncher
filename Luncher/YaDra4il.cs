@@ -23,7 +23,7 @@ namespace Luncher.YaDra4il
         public Authenticate Login()
         {
             var auth = Login(email, password);
-            accessToken = auth.accessToken;
+            sessionToken = auth.accessToken;
             accessToken = auth.clientToken;
             username = auth.selectedProfile.name;
             uuid = auth.selectedProfile.id;
@@ -35,6 +35,17 @@ namespace Luncher.YaDra4il
             var auth = new Authenticate(email, password);
             auth = (Authenticate)auth.DoPost();
             return auth;
+        }
+
+        public void Logout()
+        {
+            Logout(email, password);
+        }
+
+        private static void Logout(string email, string password)
+        {
+            var signout = new Signout(email, password);
+            signout.DoPost();
         }
 
         public Refresh Refresh()
@@ -88,7 +99,7 @@ namespace Luncher.YaDra4il
         public UserInfo selectedProfile;
         public Authenticate(string email, string password)
         {
-            Url = AuthShemes.Authenticate;
+            Url = AuthLinks.Authenticate;
             ToPost = new JObject()
                 {
                     new JProperty("agent", new JObject()
@@ -102,13 +113,30 @@ namespace Luncher.YaDra4il
         }
     }
 
+    public class Signout : Request
+    {
+        public Signout(string email, string password)
+        {
+            Url = AuthLinks.Signout;
+            ToPost = new JObject
+                            {
+                                new JProperty("username", email),
+                                new JProperty("password", password),
+                            }.ToString();
+        }
+        public override Request Parse(string json)
+        {
+            return null;
+        }
+    }
+
     public class Refresh : Request
     {
         public string accessToken;
         public string clientToken;
         public Refresh(string accessToken, string clientToken)
         {
-            Url = AuthShemes.Refresh;
+            Url = AuthLinks.Refresh;
             ToPost = new JObject
                             {
                                 new JProperty("accessToken", accessToken),
@@ -139,7 +167,7 @@ namespace Luncher.YaDra4il
         public bool valid;
         public AuthentificationCheck(string session)
         {
-            Url = AuthShemes.Validate;
+            Url = AuthLinks.Validate;
             ToPost = "{\"accessToken\":\"" + session + "\"}";
         }
         public override Request DoPost()
@@ -195,7 +223,7 @@ namespace Luncher.YaDra4il
             return jo["name"].ToString();
         }
     }
-    internal static class AuthShemes
+    internal static class AuthLinks
     {
         private const string Authserver = @"https://authserver.mojang.com";
 
