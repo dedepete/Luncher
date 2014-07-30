@@ -55,7 +55,7 @@ namespace Luncher.Forms
             }
             catch (Exception ex)
             {
-                MessageBox.Show(String.Format("The registry refers to a nonexistent Java Runtime Environment\n\n{0}", ex.Data), @"Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(String.Format("The registry refers to a nonexistent Java Runtime Environment\n\n{0}", ex.Data), @"Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 WriteLog("Java Path: Missed");
             }
             WriteLog();

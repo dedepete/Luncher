@@ -26,17 +26,16 @@ namespace Luncher.Forms
                 var item = (JObject)jo["profiles"];
                 try
                 {
-                    item.Remove(auth.GetUsernameByUUID());
+                    item.Remove(auth.username);
                 }
                 catch { }
-                var j = new JObject
+                item.Add(new JProperty(auth.username, new JObject
                 {
                     new JProperty("type", "official"),
                     new JProperty("accessToken", auth.sessionToken),
                     new JProperty("clientToken", auth.accessToken),
                     new JProperty("UUID", auth.uuid)
-                };
-                item.Add(new JProperty(auth.GetUsernameByUUID(), j));
+                }));
                 File.WriteAllText(Variables.McFolder + "/luncher/userprofiles.json", jo.ToString());
                 Result = "Added successfuly";
                 Close();

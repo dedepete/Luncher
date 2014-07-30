@@ -219,7 +219,9 @@ namespace Luncher.YaDra4il
         public string Uuid { private get; set; }
         public String GetUsernameByUuid()
         {
-            var jo = JObject.Parse(new WebClient().DownloadString("https://sessionserver.mojang.com/session/minecraft/profile/" + Uuid));
+            var res =
+                new WebClient().DownloadString("https://sessionserver.mojang.com/session/minecraft/profile/" + Uuid);
+            var jo = JObject.Parse(res);
             return jo["name"].ToString();
         }
     }

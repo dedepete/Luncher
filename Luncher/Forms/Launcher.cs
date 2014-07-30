@@ -152,7 +152,6 @@ namespace Luncher.Forms
             try
             {
                 foreach (var i in Directory.GetDirectories(Application.StartupPath))
-                {
                     foreach (var a in Directory.GetFiles(i).Where(a =>
                     {
                         var fileName = Path.GetFileName(a);
@@ -165,7 +164,6 @@ namespace Luncher.Forms
                                 i.Substring(i.LastIndexOf(Path.DirectorySeparatorChar) + 1) + ")",
                             Tag = i.Substring(i.LastIndexOf(Path.DirectorySeparatorChar) + 1)
                         });
-                }
                 var index = -1;
                 foreach (var i in LangDropDownList.Items)
                 {
