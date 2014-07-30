@@ -477,8 +477,8 @@ namespace Luncher.Forms
                             JObject.Parse(File.ReadAllText(String.Format("{0}\\versions\\{1}\\{1}.json", _minecraft, _ver)));
                         _nativesFolder = Path.Combine(Variables.McVersions, _ver);
                         Logging.Info(LocRm.GetString("lib.checking"));
-                        var gsb = new StringBuilder(); // libs
-                        var nsb = new StringBuilder(); // libs with natives
+                        var templibs = new List<string>(); // libs
+                        var tempnatives = new List<string>(); // libs with natives
                         int missing = 0, all = 0;
                         var jr = (JArray)json["libraries"];
                         foreach (var t in jr)
@@ -541,8 +541,8 @@ namespace Luncher.Forms
                                     (!String.IsNullOrEmpty(natives) ? "-" + natives : String.Empty) + ".jar",
                                     s[0].Replace('.', '\\'), s[1], s[2]);
                             if (natives == String.Empty)
-                                gsb.AppendFormat("{0}\\libraries\\{1};", Variables.McFolder, lib);
-                            else nsb.AppendLine(lib + ";");
+                                templibs.Add(Variables.McFolder + "\\libraries\\" + lib);
+                            else tempnatives.Add(lib);
                             var temppath = Path.Combine(_minecraft + "\\libraries", lib);
                             if (File.Exists(temppath))
                                 continue;
@@ -551,8 +551,8 @@ namespace Luncher.Forms
                             _librariesMissed.Add(lib, url);
                         }
                         Logging.Info(String.Format("{0} {1}. {2} {3}", LocRm.GetString("lib.completed1p"), all, LocRm.GetString("lib.completed2p"), missing));
-                        _libs = gsb.ToString();
-                        _nativelibs = nsb.ToString().Substring(0, nsb.ToString().Length - 1);
+                        _libs = templibs;
+                        _nativelibs = tempnatives;
                         if (missing == 0)
                         {
                             step = 0;
@@ -626,7 +626,9 @@ namespace Luncher.Forms
             else
             {
                 var allowed = (JArray) json["allowedReleaseTypes"];
-                _lastVersionId = allowed.ToString().Contains("snapshot") ? Variables.LastSnapshot : Variables.LastRelease;
+                _lastVersionId = allowed.ToString().Contains("snapshot")
+                    ? Variables.LastSnapshot
+                    : Variables.LastRelease;
             }
             if (json["allowedReleaseTypes"] != null)
                 foreach (var releaseType in json["allowedReleaseTypes"])
@@ -654,22 +656,23 @@ namespace Luncher.Forms
             var profileSJson = File.ReadAllText(_nativesFolder + @"\" + _lastVersionId + ".json");
             var profilejsono = JObject.Parse(profileSJson);
             _mainClass = profilejsono["mainClass"].ToString();
-            _arg = profilejsono["minecraftArguments"] + (ip != null ? String.Format(" --server {0} --port {1}", ip, (port ?? "25565")) : String.Empty);
-            _libs = String.Format("{0}{1}\\{2}.jar", _libs, _nativesFolder, _lastVersionId);
-            var natives = _nativelibs.Split(';');
-            try
-            {
-                foreach (var a in natives)
-                    using (var zip = ZipFile.Read(Variables.McFolder + "/libraries/" + a))
+            _arg = profilejsono["minecraftArguments"] +
+                   (ip != null ? String.Format(" --server {0} --port {1}", ip, (port ?? "25565")) : String.Empty);
+            _libs.Add(String.Format("{0}\\{1}.jar", _nativesFolder, _lastVersionId));
+            foreach (var a in _nativelibs)
+                try
+                {
+                    using (var zip = ZipFile.Read(Variables.McFolder + "\\libraries\\" + a))
                         zip.ExtractAll(Variables.McFolder + "/natives/",
                             ExtractExistingFileAction.OverwriteSilently);
-                Logging.Info(String.Format("Распаковка natives завершена. Всего {0} файлов", new DirectoryInfo(Variables.McFolder + "/natives/").GetFiles("*.dll",
-                            SearchOption.AllDirectories).Length));
-            }
-            catch (Exception ex)
-            {
-                Logging.Error("Smth went wrong: " + ex.Data);
-            }
+                }
+                catch (Exception ex)
+                {
+                    Logging.Error("Smth went wrong due unpacking +"+a+": " + ex.Message);
+                }
+            Logging.Info(String.Format("Распаковка natives завершена. Всего {0} файлов",
+                new DirectoryInfo(Variables.McFolder + "/natives/").GetFiles("*.dll",
+                    SearchOption.AllDirectories).Length));
         }
 
         private string _pName;
@@ -678,8 +681,8 @@ namespace Luncher.Forms
         private readonly List<string> _allowedReleaseTypes = new List<string>();
         private string _javaArgs = "-Xmx1G "; // default
         private string _nativesFolder = Variables.McVersions;
-        private string _libs;
-        private string _nativelibs;
+        private List<string> _libs = new List<string>();
+        private List<string> _nativelibs = new List<string>();
         private string _arg;
         private string _ver;
         private string _javaExec = Variables.JavaExe;
@@ -735,8 +738,11 @@ namespace Luncher.Forms
             }
             HideProgressBar();
             GetDetails(profileJson);
+            var finallibraries = _libs.Aggregate(String.Empty,
+                (current, a) => current + (a + ";"));
+            finallibraries = finallibraries.Substring(1, finallibraries.Length - 2);
             var va = LogTab("Minecraft version: " + _lastVersionId, _pName);
-            var mp = new MinecraftProcess(this, _gameDir, _arg, _pName, usingAssets.Text, _javaExec, _libs, _javaArgs, _assets,
+            var mp = new MinecraftProcess(this, _gameDir, _arg, _pName, usingAssets.Text, _javaExec, finallibraries, _javaArgs, _assets,
                 _lastVersionId, _mainClass) { Txt = (RichTextBox)va[0], KillButton = (RadButton)va[1], CloseTabButton = (RadButton)va[2] };
             mp.Launch();
         }
