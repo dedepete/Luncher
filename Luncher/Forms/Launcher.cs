@@ -7,7 +7,6 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Resources;
-using System.Text;
 using System.Threading;
 using System.Windows.Forms;
 using Ionic.Zip;
@@ -733,8 +732,20 @@ namespace Luncher.Forms
                 UpdateUserProfiles();
                 Nickname.SelectedValue = lselected;
             }
-            catch
+            catch(Exception ex)
             {
+                new RadMessageBoxForm
+                {
+                    Text = @"Re-login required",
+                    MessageText = "Client token or smth else isn't valid. Re-login required for online-mode.\nChanged to offline-mode",
+                    StartPosition = FormStartPosition.CenterScreen,
+                    ButtonsConfiguration = MessageBoxButtons.OK,
+                    TopMost = true,
+                    MessageIcon = Processing.GetRadMessageIcon(RadMessageIcon.Info),
+                    Owner = this,
+                    DetailsText = null,
+                }.ShowDialog();
+                Console.WriteLine(ex);
             }
             HideProgressBar();
             GetDetails(profileJson);
