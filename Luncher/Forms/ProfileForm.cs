@@ -49,35 +49,36 @@ namespace Luncher.Forms
                 var id = json["versions"][i]["id"].ToString();
                 var type = json["versions"][i]["type"].ToString();
                 list.Add(String.Format("{0} {1}", type, id));
+                var ritem = new RadListDataItem {Text = type + " " + id, Tag = id};
                 switch (type)
                 {
                     case "snapshot":
-                        if (useexperementbuilds) Versions.Items.Add(type + " " + id);
+                        if (useexperementbuilds) Versions.Items.Add(ritem);
                         break;
                     case "old_beta":
-                        if (usebetabuilds) Versions.Items.Add(type + " " + id);
+                        if (usebetabuilds) Versions.Items.Add(ritem);
                         break;
                     case "old_alpha":
-                        if (usealphabuilds) Versions.Items.Add(type + " " + id);
+                        if (usealphabuilds) Versions.Items.Add(ritem);
                         break;
                     case "release":
                         Versions.Items.Add(type + " " + id);
                         break;
                     default:
-                        if (useotherbuilds) Versions.Items.Add(type + " " + id);
+                        if (useotherbuilds) Versions.Items.Add(ritem);
                         break;
                 }
             }
-            foreach (var info in from b in Directory.GetDirectories(_minecraft + "\\versions\\")
-                let add =
-                    !(from a in list
-                        let splitted = a.Split(' ')
-                        where a.Contains(new DirectoryInfo(b).Name)
-                        select splitted).Any()
-                where add
-                select
-                    JObject.Parse(
-                        File.ReadAllText(String.Format("{0}/versions/{1}/{1}.json", Variables.McFolder, new DirectoryInfo(b).Name))))
+            foreach (var info in from b in Directory.GetDirectories(Variables.McVersions)
+                                 let add =
+                                     !(from a in list
+                                       let splitted = a.Split(' ')
+                                       where a.Contains(new DirectoryInfo(b).Name)
+                                       select splitted).Any()
+                                 where add
+                                 select
+                                     JObject.Parse(
+                                         File.ReadAllText(String.Format("{0}/versions/{1}/{1}.json", Variables.McFolder, new DirectoryInfo(b).Name))))
                 Versions.Items.Add(info["type"] + " " + info["id"]);
             try
             {
@@ -250,10 +251,9 @@ namespace Luncher.Forms
             Newprofilename = ProfileName.Text;
             var v1 = _locRm.GetString("uselastversion");
             if (v1 != null && !Versions.SelectedItem.Text.Contains(v1))
-            {
-                var lastversionid = Versions.SelectedItem.Text.Split(' ');
-                curprofile["lastVersionId"] = lastversionid[1];
-            }
+                curprofile["lastVersionId"] = (string) Versions.SelectedItem.Tag ??
+                                              (Versions.SelectedItem.Text.Replace(
+                                                  Versions.SelectedItem.Text.Split(' ')[0] + " ", String.Empty));
             else
             {
                 if (curprofile["lastVersionId"] != null)

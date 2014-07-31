@@ -34,17 +34,20 @@
             this.radTextBox2 = new Telerik.WinControls.UI.RadTextBox();
             this.radLabel1 = new Telerik.WinControls.UI.RadLabel();
             this.radButton2 = new Telerik.WinControls.UI.RadButton();
+            this.radLabel2 = new Telerik.WinControls.UI.RadLabel();
             ((System.ComponentModel.ISupportInitialize)(this.radButton1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radTextBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radTextBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radLabel1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radButton2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             this.SuspendLayout();
             // 
             // radButton1
             // 
-            this.radButton1.Location = new System.Drawing.Point(119, 77);
+            this.radButton1.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.radButton1.Location = new System.Drawing.Point(119, 99);
             this.radButton1.Name = "radButton1";
             this.radButton1.Size = new System.Drawing.Size(127, 26);
             this.radButton1.TabIndex = 0;
@@ -73,22 +76,30 @@
             // 
             // radLabel1
             // 
-            this.radLabel1.Location = new System.Drawing.Point(96, 55);
-            this.radLabel1.MinimumSize = new System.Drawing.Size(172, 0);
+            this.radLabel1.Location = new System.Drawing.Point(7, 55);
+            this.radLabel1.MaximumSize = new System.Drawing.Size(350, 38);
+            this.radLabel1.MinimumSize = new System.Drawing.Size(350, 38);
             this.radLabel1.Name = "radLabel1";
             // 
             // 
             // 
-            this.radLabel1.RootElement.MinSize = new System.Drawing.Size(172, 0);
-            this.radLabel1.Size = new System.Drawing.Size(172, 18);
+            this.radLabel1.RootElement.MaxSize = new System.Drawing.Size(350, 38);
+            this.radLabel1.RootElement.MinSize = new System.Drawing.Size(350, 38);
+            this.radLabel1.Size = new System.Drawing.Size(350, 38);
             this.radLabel1.TabIndex = 3;
             this.radLabel1.Text = "wub wub wub";
             this.radLabel1.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
             this.radLabel1.ThemeName = "VisualStudio2012Dark";
+            ((Telerik.WinControls.UI.RadLabelElement)(this.radLabel1.GetChildAt(0))).TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
+            ((Telerik.WinControls.UI.RadLabelElement)(this.radLabel1.GetChildAt(0))).Text = "wub wub wub";
+            ((Telerik.WinControls.Layouts.ImageAndTextLayoutPanel)(this.radLabel1.GetChildAt(0).GetChildAt(2))).TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
+            ((Telerik.WinControls.Primitives.TextPrimitive)(this.radLabel1.GetChildAt(0).GetChildAt(2).GetChildAt(1))).TextWrap = true;
+            ((Telerik.WinControls.Primitives.TextPrimitive)(this.radLabel1.GetChildAt(0).GetChildAt(2).GetChildAt(1))).TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // radButton2
             // 
-            this.radButton2.Location = new System.Drawing.Point(119, 109);
+            this.radButton2.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.radButton2.Location = new System.Drawing.Point(119, 131);
             this.radButton2.Name = "radButton2";
             this.radButton2.Size = new System.Drawing.Size(127, 24);
             this.radButton2.TabIndex = 4;
@@ -96,17 +107,32 @@
             this.radButton2.ThemeName = "VisualStudio2012Dark";
             this.radButton2.Click += new System.EventHandler(this.radButton2_Click);
             // 
+            // radLabel2
+            // 
+            this.radLabel2.Location = new System.Drawing.Point(-2, 159);
+            this.radLabel2.Name = "radLabel2";
+            this.radLabel2.Size = new System.Drawing.Size(207, 18);
+            this.radLabel2.TabIndex = 5;
+            this.radLabel2.Text = "Powered by YaDra4il (Yggdrasil for .Net)";
+            this.radLabel2.ThemeName = "VisualStudio2012Dark";
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.radLabel2.GetChildAt(0).GetChildAt(0))).Visibility = Telerik.WinControls.ElementVisibility.Collapsed;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.radLabel2.GetChildAt(0).GetChildAt(2).GetChildAt(0))).Alignment = System.Drawing.ContentAlignment.MiddleLeft;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.radLabel2.GetChildAt(0).GetChildAt(2).GetChildAt(0))).Visibility = Telerik.WinControls.ElementVisibility.Visible;
+            ((Telerik.WinControls.Primitives.TextPrimitive)(this.radLabel2.GetChildAt(0).GetChildAt(2).GetChildAt(1))).TextAlignment = System.Drawing.ContentAlignment.TopLeft;
+            ((Telerik.WinControls.Primitives.TextPrimitive)(this.radLabel2.GetChildAt(0).GetChildAt(2).GetChildAt(1))).Opacity = 0.3D;
+            // 
             // LoginDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(364, 137);
+            this.ClientSize = new System.Drawing.Size(364, 175);
             this.ControlBox = false;
+            this.Controls.Add(this.radLabel2);
             this.Controls.Add(this.radButton2);
+            this.Controls.Add(this.radButton1);
             this.Controls.Add(this.radLabel1);
             this.Controls.Add(this.radTextBox2);
             this.Controls.Add(this.radTextBox1);
-            this.Controls.Add(this.radButton1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Name = "LoginDialog";
             // 
@@ -114,13 +140,14 @@
             // 
             this.RootElement.ApplyShapeToControl = true;
             this.ShowIcon = false;
-            this.Text = "Добавление лиц. аккаунта[BETA]";
+            this.Text = "Adding premium account";
             this.ThemeName = "VisualStudio2012Dark";
             ((System.ComponentModel.ISupportInitialize)(this.radButton1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.radTextBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.radTextBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.radLabel1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.radButton2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -135,5 +162,6 @@
         private Telerik.WinControls.UI.RadTextBox radTextBox2;
         private Telerik.WinControls.UI.RadLabel radLabel1;
         private Telerik.WinControls.UI.RadButton radButton2;
+        private Telerik.WinControls.UI.RadLabel radLabel2;
     }
 }
