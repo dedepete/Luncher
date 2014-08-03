@@ -751,7 +751,7 @@ namespace Luncher.Forms
             GetDetails(profileJson);
             var finallibraries = _libs.Aggregate(String.Empty,
                 (current, a) => current + (a + ";"));
-            finallibraries = finallibraries.Substring(1, finallibraries.Length - 2);
+            finallibraries = finallibraries.Substring(0, finallibraries.Length - 1);
             var va = LogTab("Minecraft version: " + _lastVersionId, _pName);
             var mp = new MinecraftProcess(this, _gameDir, _arg, _pName, usingAssets.Text, _javaExec, finallibraries, _javaArgs, _assets,
                 _lastVersionId, _mainClass) { Txt = (RichTextBox)va[0], KillButton = (RadButton)va[1], CloseTabButton = (RadButton)va[2] };
