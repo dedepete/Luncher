@@ -12,6 +12,7 @@ using System.Windows.Forms;
 using Ionic.Zip;
 using Luncher.Properties;
 using Luncher.YaDra4il;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Telerik.WinControls;
 using Telerik.WinControls.UI;
@@ -613,29 +614,18 @@ namespace Luncher.Forms
 
         private void GetDetails(string jsonraw)
         {
-            var json = JObject.Parse(jsonraw);
-            if (json["javaArgs"] != null)
-                _javaArgs = json["javaArgs"] + " ";
-            if (json["javaDir"] != null)
-                _javaExec = json["javaDir"].ToString();
-            _pName = json["name"].ToString();
-            _gameDir = json["gameDir"] != null ? json["gameDir"].ToString() : _minecraft;
-            if (json["lastVersionId"] != null)
-                _lastVersionId = json["lastVersionId"].ToString();
-            else
-            {
-                var allowed = (JArray) json["allowedReleaseTypes"];
-                _lastVersionId = allowed.ToString().Contains("snapshot")
-                    ? Variables.LastSnapshot
-                    : Variables.LastRelease;
-            }
-            if (json["allowedReleaseTypes"] != null)
-                foreach (var releaseType in json["allowedReleaseTypes"])
-                {
-                    _allowedReleaseTypes.Add(releaseType.ToString());
-                }
-            if (json["launcherVisibilityOnGameClose"] != null)
-                switch (json["launcherVisibilityOnGameClose"].ToString())
+            var json = JsonConvert.DeserializeObject<ParseProfile>(jsonraw);
+            if (json.javaArgs != null)
+                _javaArgs = json.javaArgs + " ";
+            if (json.javaDir != null)
+                _javaExec = json.javaDir;
+            _pName = json.name;
+            _gameDir = json.gameDir ?? _minecraft;
+            _lastVersionId = json.lastVersionId ?? (json.allowedReleaseTypes.Contains("snapshot")
+                ? Variables.LastSnapshot
+                : Variables.LastRelease);
+            if (json.launcherVisibilityOnGameClose != null)
+                switch (json.launcherVisibilityOnGameClose)
                 {
                     case "close launcher when game starts":
                         Cl = true;
@@ -646,10 +636,10 @@ namespace Luncher.Forms
                 }
             string ip = null;
             string port = null;
-            if (json["server"] != null)
+            if (json.server != null)
             {
-                ip = json["server"]["ip"].ToString();
-                port = json["server"]["port"] != null ? json["server"]["port"].ToString() : null;
+                ip = json.server.ip;
+                port = json.server.port;
             }
             _nativesFolder = Path.Combine(_minecraft + "\\versions", _lastVersionId);
             var profileSJson = File.ReadAllText(_nativesFolder + @"\" + _lastVersionId + ".json");
@@ -677,7 +667,6 @@ namespace Luncher.Forms
         private string _pName;
         private string _gameDir;
         private string _lastVersionId;
-        private readonly List<string> _allowedReleaseTypes = new List<string>();
         private string _javaArgs = "-Xmx1G "; // default
         private string _nativesFolder = Variables.McVersions;
         private List<string> _libs = new List<string>();
@@ -737,15 +726,14 @@ namespace Luncher.Forms
                 new RadMessageBoxForm
                 {
                     Text = @"Re-login required",
-                    MessageText = "Client token or smth else isn't valid. Re-login required for online-mode.\nChanged to offline-mode",
+                    MessageText = "Client token or smth else isn't valid. Re-login required?",
                     StartPosition = FormStartPosition.CenterScreen,
                     ButtonsConfiguration = MessageBoxButtons.OK,
                     TopMost = true,
                     MessageIcon = Processing.GetRadMessageIcon(RadMessageIcon.Info),
                     Owner = this,
-                    DetailsText = null,
+                    DetailsText = ex.Message,
                 }.ShowDialog();
-                Console.WriteLine(ex);
             }
             HideProgressBar();
             GetDetails(profileJson);
