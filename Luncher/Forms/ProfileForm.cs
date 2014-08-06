@@ -34,7 +34,8 @@ namespace Luncher.Forms
         }
 
         string _oldver;
-        void GetVersions(bool useexperementbuilds, bool usebetabuilds, bool usealphabuilds, bool useotherbuilds)
+
+        private void GetVersions(bool useexperementbuilds, bool usebetabuilds, bool usealphabuilds, bool useotherbuilds)
         {
 
             _oldver = Versions.Text;
@@ -70,15 +71,14 @@ namespace Luncher.Forms
                 }
             }
             foreach (var info in from b in Directory.GetDirectories(Variables.McVersions)
-                                 let add =
-                                     !(from a in list
-                                       let splitted = a.Split(' ')
-                                       where a.Contains(new DirectoryInfo(b).Name)
-                                       select splitted).Any()
-                                 where add
-                                 select
-                                     JObject.Parse(
-                                         File.ReadAllText(String.Format("{0}/versions/{1}/{1}.json", Variables.McFolder, new DirectoryInfo(b).Name))))
+                where File.Exists(String.Format("{0}/{1}/{1}.json", Variables.McVersions,
+                    new DirectoryInfo(b).Name))
+                let add = list.All(a => !a.Contains(new DirectoryInfo(b).Name))
+                where add
+                select
+                    JObject.Parse(
+                        File.ReadAllText(String.Format("{0}/{1}/{1}.json", Variables.McVersions,
+                            new DirectoryInfo(b).Name))))
                 Versions.Items.Add(info["type"] + " " + info["id"]);
             try
             {
@@ -97,7 +97,10 @@ namespace Luncher.Forms
                 else
                     Versions.SelectedIndex = 0;
             }
-            catch { Versions.SelectedIndex = 0; }
+            catch
+            {
+                Versions.SelectedIndex = 0;
+            }
         }
 
         void GetParams(string pName)
@@ -148,7 +151,7 @@ namespace Luncher.Forms
                 : _locRm.GetString("uselastversion");
             try
             {
-                var jsonVer = JObject.Parse(File.ReadAllText(String.Format("{0}\\versions\\{1}\\{1}.json", _minecraft, ver)));
+                var jsonVer = JObject.Parse(File.ReadAllText(String.Format("{0}\\{1}\\{1}.json", Variables.McVersions, ver)));
                 Versions.SelectedItem = Versions.FindItemExact(String.Format("{0} {1}", jsonVer["type"], ver), true);
             }
             catch
