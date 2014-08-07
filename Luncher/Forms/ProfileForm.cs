@@ -107,7 +107,7 @@ namespace Luncher.Forms
         private void GetParams(string pName)
         {
             var temp = JObject.Parse(File.ReadAllText(Variables.ProfileJsonFile));
-            var json = JsonConvert.DeserializeObject<ParseProfile>(temp["profiles"][pName].ToString());
+            var json = JsonConvert.DeserializeObject<JsonProfile.Profile>(temp["profiles"][pName].ToString());
             if (json.allowedReleaseTypes != null)
             {
                 if (json.allowedReleaseTypes.Contains("old_alpha"))
@@ -247,19 +247,19 @@ namespace Luncher.Forms
             json["profiles"] = Processing.Rename(json1, name => name == _profile ? ProfileName.Text : name);
             json["selectedProfile"] = ProfileName.Text;
             Newprofilename = ProfileName.Text;
-            ParseProfileServer server = null;
+            JsonProfile.ProfileServer server = null;
             if (ipTextBox.Text != String.Empty)
-                server = new ParseProfileServer
+                server = new JsonProfile.ProfileServer
                 {
                     ip = ipTextBox.Text,
                     port = portTextBox.Text != String.Empty ? portTextBox.Text : null
                 };
-            var resolution = new ParseProfileResolution
+            var resolution = new JsonProfile.ProfileResolution
             {
                 height = ResY.Text,
                 width = ResX.Text
             };
-            var releasetypes = new List<string> { "release" };
+            var releasetypes = new List<string> {"release"};
             if (EnableExp.ToggleState == Telerik.WinControls.Enumerations.ToggleState.On)
                 releasetypes.Add("snapshot");
             if (EnableAlpha.ToggleState == Telerik.WinControls.Enumerations.ToggleState.On)
@@ -274,12 +274,12 @@ namespace Luncher.Forms
                     gamedir[Gamedir.Text.Length - 1].ToString() == "/")
                     Gamedir.Text = Gamedir.Text.Substring(0, Gamedir.Text.Length - 1);
             }
-            var version = new ParseProfile
+            var version = new JsonProfile.Profile
             {
                 name = ProfileName.Text,
                 lastVersionId =
                     !Versions.SelectedItem.Text.Contains(_locRm.GetString("uselastversion"))
-                        ? ((string)Versions.SelectedItem.Tag ??
+                        ? ((string) Versions.SelectedItem.Tag ??
                            (Versions.SelectedItem.Text.Replace(
                                Versions.SelectedItem.Text.Split(' ')[0] + " ", String.Empty)))
                         : null,
@@ -291,7 +291,8 @@ namespace Luncher.Forms
                 allowedReleaseTypes = releasetypes.ToArray<string>(),
                 launcherVisibilityOnGameClose = LState.SelectedItem.Tag.ToString()
             };
-            json["profiles"][ProfileName.Text] = JObject.FromObject(version, new JsonSerializer{NullValueHandling = NullValueHandling.Ignore});
+            json["profiles"][ProfileName.Text] = JObject.FromObject(version,
+                new JsonSerializer {NullValueHandling = NullValueHandling.Ignore});
             File.WriteAllText(Variables.ProfileJsonFile, json.ToString());
             Close();
         }
@@ -341,12 +342,14 @@ namespace Luncher.Forms
     }
 
     #region Profile Deserialization and Serialization
-
-    public class ParseProfile
+}
+namespace JsonProfile
+{
+public class Profile
     {
         public string[] allowedReleaseTypes;
-        public ParseProfileResolution resolution;
-        public ParseProfileServer server;
+        public ProfileResolution resolution;
+        public ProfileServer server;
         public string name;
         public string gameDir;
         public string javaDir;
@@ -355,13 +358,13 @@ namespace Luncher.Forms
         public string launcherVisibilityOnGameClose;
     }
 
-    public class ParseProfileResolution
+    public class ProfileResolution
     {
         public string height;
         public string width;
     }
 
-    public class ParseProfileServer
+    public class ProfileServer
     {
         public string ip;
         public string port;

@@ -169,7 +169,6 @@ namespace Luncher.Forms
                 {
                     index++;
                     if (!i.Text.Contains(Program.Lang)) continue;
-                    Console.WriteLine(i.Tag + @" " + Program.Lang);
                     LangDropDownList.SelectedIndex = index;
                     break;
                 }
@@ -614,7 +613,7 @@ namespace Luncher.Forms
 
         private void GetDetails(string jsonraw)
         {
-            var json = JsonConvert.DeserializeObject<ParseProfile>(jsonraw);
+            var json = JsonConvert.DeserializeObject<JsonProfile.Profile>(jsonraw);
             if (json.javaArgs != null)
                 _javaArgs = json.javaArgs + " ";
             if (json.javaDir != null)
