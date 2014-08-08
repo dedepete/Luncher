@@ -272,7 +272,7 @@ namespace Luncher.Forms
                 gamedir = Gamedir.Text;
                 if (gamedir[Gamedir.Text.Length - 1].ToString() == "\\" ||
                     gamedir[Gamedir.Text.Length - 1].ToString() == "/")
-                    Gamedir.Text = Gamedir.Text.Substring(0, Gamedir.Text.Length - 1);
+                    gamedir = Gamedir.Text.Substring(0, Gamedir.Text.Length - 1);
             }
             var version = new JsonProfile.Profile
             {
@@ -340,12 +340,12 @@ namespace Luncher.Forms
             portTextBox.Enabled = fastConnectCheckBox.Checked;
         }
     }
-
-    #region Profile Deserialization and Serialization
 }
+#region Profile Deserialization and Serialization
+
 namespace JsonProfile
 {
-public class Profile
+    public class Profile
     {
         public string[] allowedReleaseTypes;
         public ProfileResolution resolution;
@@ -369,6 +369,5 @@ public class Profile
         public string ip;
         public string port;
     }
-
-    #endregion
 }
+#endregion
