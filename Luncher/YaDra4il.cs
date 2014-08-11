@@ -101,15 +101,17 @@ namespace Luncher.YaDra4il
         {
             Url = AuthLinks.Authenticate;
             ToPost = new JObject()
+            {
                 {
-                    new JProperty("agent", new JObject()
+                    "agent", new JObject()
                     {
-                        new JProperty("name", "Minecraft"),
-                        new JProperty("version", 1)
-                    }),
-                    new JProperty("username", email),
-                    new JProperty("password", password)
-                }.ToString();
+                        {"name", "Minecraft"},
+                        {"version", 1}
+                    }
+                },
+                {"username", email},
+                {"password", password}
+            }.ToString();
         }
     }
 
@@ -119,10 +121,10 @@ namespace Luncher.YaDra4il
         {
             Url = AuthLinks.Signout;
             ToPost = new JObject
-                            {
-                                new JProperty("username", email),
-                                new JProperty("password", password),
-                            }.ToString();
+            {
+                {"username", email},
+                {"password", password},
+            }.ToString();
         }
         public override Request Parse(string json)
         {
@@ -138,10 +140,10 @@ namespace Luncher.YaDra4il
         {
             Url = AuthLinks.Refresh;
             ToPost = new JObject
-                            {
-                                new JProperty("accessToken", accessToken),
-                                new JProperty("clientToken", clientToken),
-                            }.ToString();
+            {
+                {"accessToken", accessToken},
+                {"clientToken", clientToken},
+            }.ToString();
         }
     }
 

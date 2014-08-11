@@ -647,20 +647,23 @@ namespace Luncher.Forms
             _arg = profilejsono["minecraftArguments"] +
                    (ip != null ? String.Format(" --server {0} --port {1}", ip, (port ?? "25565")) : String.Empty);
             _libs.Add(String.Format("{0}\\{1}.jar", _nativesFolder, _lastVersionId));
+            var total = 0;
             foreach (var a in _nativelibs)
                 try
                 {
                     using (var zip = ZipFile.Read(Variables.McFolder + "\\libraries\\" + a))
-                        zip.ExtractAll(Variables.McFolder + "/natives/",
-                            ExtractExistingFileAction.OverwriteSilently);
+                        foreach (var e in zip.Where(e => e.FileName.EndsWith(".dll")))
+                        {
+                            total++;
+                            e.Extract(Variables.McFolder + "\\natives\\",
+                                ExtractExistingFileAction.OverwriteSilently);
+                        }
                 }
                 catch (Exception ex)
                 {
-                    Logging.Error("Smth went wrong due unpacking +"+a+": " + ex.Message);
+                    Logging.Error("Smth went wrong due unpacking " + a + ": " + ex.Message);
                 }
-            Logging.Info(String.Format("Распаковка natives завершена. Всего {0} файлов",
-                new DirectoryInfo(Variables.McFolder + "/natives/").GetFiles("*.dll",
-                    SearchOption.AllDirectories).Length));
+            Logging.Info(String.Format("Распаковка natives завершена. Всего извлечено {0} файлов", total));
         }
 
         private string _pName;
