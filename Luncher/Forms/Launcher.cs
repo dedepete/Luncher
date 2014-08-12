@@ -633,8 +633,7 @@ namespace Luncher.Forms
                         Hl = true;
                         break;
                 }
-            string ip = null;
-            string port = null;
+            string ip = null, port = null;
             if (json.server != null)
             {
                 ip = json.server.ip;
