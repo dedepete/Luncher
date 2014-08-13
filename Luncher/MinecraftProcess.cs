@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -169,6 +170,15 @@ namespace Luncher
                 FileName = JavaExec
             };
             GameDir = GameDir.Replace("${AppData}", Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData));
+            try
+            {
+                if (!Directory.Exists(GameDir))
+                    Directory.CreateDirectory(GameDir);
+            }
+            catch(Exception ex)
+            {
+                MLogG(ex.Message, true, Txt);
+            }
             proc.WorkingDirectory = GameDir;
             var nativespath = "-Djava.library.path=" + Program.Minecraft + "\\natives";
             if (Libs.Contains(" ")) Libs = "\"" + Libs + "\"";
