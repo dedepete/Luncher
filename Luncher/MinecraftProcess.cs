@@ -252,6 +252,9 @@ namespace Luncher
                 mroot.Hl = false;
                 mroot.Activate();
             });
+            _reader.Abort();
+            _errorReader.Abort();
+            proc.Dispose();
         }
 
         private void Kill(object sender, EventArgs e)
