@@ -128,6 +128,8 @@ namespace Luncher.Forms
 
         private void Launcher_Load(object sender, EventArgs e)
         {
+            var a = ProductVersion.Split('.');
+            Text = String.Format("{0} {1}.{2}.{3}", ProductName, a[0], a[1], a[2]);
             UpdateUserProfiles();
             CleanNatives();
             GetTranslations();
