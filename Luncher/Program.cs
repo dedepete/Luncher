@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 using Luncher.Forms;
+using Luncher.Forms.MainForm;
 using Telerik.WinControls;
 
 namespace Luncher

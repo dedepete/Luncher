@@ -97,28 +97,28 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="YaDra4il.cs" />
-    <Compile Include="Forms\Launcher.cs">
+    <Compile Include="Forms\Launcher\Launcher.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\Launcher.Designer.cs">
+    <Compile Include="Forms\Launcher\Launcher.Designer.cs">
       <DependentUpon>Launcher.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\LoginDialog.cs">
+    <Compile Include="Forms\LoginDialog\LoginDialog.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\LoginDialog.Designer.cs">
+    <Compile Include="Forms\LoginDialog\LoginDialog.Designer.cs">
       <DependentUpon>LoginDialog.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\MainForm.cs">
+    <Compile Include="Forms\MainForm\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\MainForm.Designer.cs">
+    <Compile Include="Forms\MainForm\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\ProfileForm.cs">
+    <Compile Include="Forms\ProfileForm\ProfileForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\ProfileForm.Designer.cs">
+    <Compile Include="Forms\ProfileForm\ProfileForm.Designer.cs">
       <DependentUpon>ProfileForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Configuration.cs" />
@@ -128,43 +128,43 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Variables.cs" />
-    <EmbeddedResource Include="Forms\Launcher.be.resx">
+    <EmbeddedResource Include="Forms\Launcher\Launcher.be.resx">
       <DependentUpon>Launcher.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Launcher.en.resx">
-      <DependentUpon>Launcher.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Launcher.resx">
+    <EmbeddedResource Include="Forms\Launcher\Launcher.en.resx">
       <DependentUpon>Launcher.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Launcher.ru.resx">
+    <EmbeddedResource Include="Forms\Launcher\Launcher.resx">
+      <DependentUpon>Launcher.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Launcher\Launcher.ru.resx">
       <DependentUpon>Launcher.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Launcher.uk.resx">
+    <EmbeddedResource Include="Forms\Launcher\Launcher.uk.resx">
       <DependentUpon>Launcher.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\LoginDialog.resx">
+    <EmbeddedResource Include="Forms\LoginDialog\LoginDialog.resx">
       <DependentUpon>LoginDialog.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\MainForm.resx">
+    <EmbeddedResource Include="Forms\MainForm\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\ProfileForm.be.resx">
+    <EmbeddedResource Include="Forms\ProfileForm\ProfileForm.be.resx">
       <DependentUpon>ProfileForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\ProfileForm.en.resx">
+    <EmbeddedResource Include="Forms\ProfileForm\ProfileForm.en.resx">
       <DependentUpon>ProfileForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\ProfileForm.resx">
+    <EmbeddedResource Include="Forms\ProfileForm\ProfileForm.resx">
       <DependentUpon>ProfileForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\ProfileForm.ru.resx">
+    <EmbeddedResource Include="Forms\ProfileForm\ProfileForm.ru.resx">
       <DependentUpon>ProfileForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\ProfileForm.uk.resx">
+    <EmbeddedResource Include="Forms\ProfileForm\ProfileForm.uk.resx">
       <DependentUpon>ProfileForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.be.resx" />
@@ -208,7 +208,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties IncrementInformational="False" IncrementOnRebuild="True" IncrementOnBuild="True" IncrementAction="2" Versioning="0" StartAt="" />
+      <UserProperties StartAt="" Versioning="0" IncrementAction="2" IncrementOnBuild="True" IncrementOnRebuild="True" IncrementInformational="False" />
     </VisualStudio>
   </ProjectExtensions>
   <PropertyGroup>

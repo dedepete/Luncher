@@ -11,7 +11,7 @@ using Telerik.WinControls;
 using Telerik.WinControls.Enumerations;
 using Telerik.WinControls.UI;
 
-namespace Luncher.Forms
+namespace Luncher.Forms.MainForm
 {
     public partial class MainForm : Form
     {
@@ -392,7 +392,7 @@ namespace Luncher.Forms
             WriteLog("Starting launcher...");
             try
             {
-                var ln = new Launcher {Size = Size, Location = Location};
+                var ln = new Launcher.Launcher {Size = Size, Location = Location};
                 CheckLauncherProfiles();
                 Hide();
                 ln.Log.Text = Log.Text;
