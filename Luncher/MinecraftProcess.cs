@@ -9,6 +9,7 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows.Forms;
 using Luncher.Forms;
+using Luncher.Forms.Launcher;
 using Telerik.WinControls.UI;
 
 namespace Luncher
@@ -99,8 +100,6 @@ namespace Luncher
                         catch
                         {
                         }
-
-
                     }
 
                 }
@@ -252,6 +251,9 @@ namespace Luncher
                 mroot.Hl = false;
                 mroot.Activate();
             });
+            _reader.Abort();
+            _errorReader.Abort();
+            proc.Dispose();
         }
 
         private void Kill(object sender, EventArgs e)

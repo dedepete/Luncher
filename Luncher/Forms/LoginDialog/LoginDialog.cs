@@ -3,7 +3,7 @@ using System.IO;
 using Luncher.YaDra4il;
 using Newtonsoft.Json.Linq;
 
-namespace Luncher.Forms
+namespace Luncher.Forms.LoginDialog
 {
     public partial class LoginDialog : Telerik.WinControls.UI.RadForm
     {

@@ -18,7 +18,7 @@ using Telerik.WinControls;
 using Telerik.WinControls.UI;
 using Telerik.WinControls.UI.Data;
 
-namespace Luncher.Forms
+namespace Luncher.Forms.Launcher
 {
     public partial class Launcher : RadForm
     {
@@ -73,7 +73,7 @@ namespace Luncher.Forms
             VerContext.Items.Add(delVer);
         }
 
-        public readonly ResourceManager LocRm = new ResourceManager("Luncher.Forms.Launcher", typeof (Launcher).Assembly);
+        public readonly ResourceManager LocRm = new ResourceManager("Luncher.Forms.Launcher.Launcher", typeof (Launcher).Assembly);
 
         private readonly string _minecraft = Program.Minecraft;
 
@@ -128,6 +128,8 @@ namespace Luncher.Forms
 
         private void Launcher_Load(object sender, EventArgs e)
         {
+            var a = ProductVersion.Split('.');
+            Text = String.Format("{0} {1}.{2}.{3}", ProductName, a[0], a[1], a[2]);
             UpdateUserProfiles();
             CleanNatives();
             GetTranslations();
@@ -183,7 +185,7 @@ namespace Luncher.Forms
 
         private static void AddUserProfile()
         {
-            var lf = new LoginDialog();
+            var lf = new LoginDialog.LoginDialog();
             lf.ShowDialog();
             Logging.Info(lf.Result);
         }

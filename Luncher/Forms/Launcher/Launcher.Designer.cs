@@ -1,4 +1,4 @@
-﻿namespace Luncher.Forms
+﻿namespace Luncher.Forms.Launcher
 {
     partial class Launcher
     {
