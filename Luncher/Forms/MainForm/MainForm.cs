@@ -36,7 +36,7 @@ namespace Luncher.Forms.MainForm
             if (InvokeRequired)
                 Invoke(new Action<string>(WriteLog));
             else
-            Logging.Info("", "pfx:false");
+                Logging.Info(String.Empty, "pfx:false");
         }
         private void MainForm_Load(object sender, EventArgs e)
         {
@@ -129,7 +129,7 @@ namespace Luncher.Forms.MainForm
                 catch
                 {
                     WriteLog(String.Format("Unknown language: {0}. Setting default language", Program.Lang));
-                    Program.Lang = "";
+                    Program.Lang = String.Empty;
                     lang = "ru-default(Русский)";
                 }
             WriteLog("Loading settings for language: " + lang);
