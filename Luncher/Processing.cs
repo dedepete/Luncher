@@ -103,7 +103,7 @@ namespace Luncher
             {
                 Process.GetProcessById(process.Id);
             }
-            catch (ArgumentException)
+            catch
             {
                 return false;
             }

@@ -8,8 +8,9 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows.Forms;
-using Luncher.Forms;
 using Luncher.Forms.Launcher;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using Telerik.WinControls.UI;
 
 namespace Luncher
@@ -18,9 +19,9 @@ namespace Luncher
     {
         private object Root { get; set; }
 
-        public RichTextBox Txt { private get; set; }
-        public RadButton KillButton { private get; set; }
-        public RadButton CloseTabButton { private get; set; }
+        private RichTextBox Txt { get; set; }
+        private RadButton KillButton { get; set; }
+        private RadButton CloseTabButton { get; set; }
         private Process _client;
 
         private string _errors;
@@ -31,24 +32,54 @@ namespace Luncher
         private int _eflood;
         private string _elast;
 
-        public MinecraftProcess(object mainForm, string gameDirectory, string arguments, string profileName,
-            string assetsPath, string javaExec, string libraries, string javaArguments, string assetsFileName,
-            string lastVersionId, string mainClass)
+        private readonly int _launcherVisibilityOnGameClose;
+
+        public MinecraftProcess(object mainForm, string assetsPath, string libraries, string assetsFileName, string jsonblock)
         {
+            var json = JsonConvert.DeserializeObject<JsonProfile.Profile>(jsonblock);
+            if (json.javaArgs != null)
+                JavaArgs = json.javaArgs + " ";
+            if (json.javaDir != null)
+                JavaExec = json.javaDir;
+            PName = json.name;
+            GameDir = json.gameDir ?? Program.Minecraft;
+            LastVersionId = json.lastVersionId ?? (json.allowedReleaseTypes.Contains("snapshot")
+                ? Variables.LastSnapshot
+                : Variables.LastRelease);
+            if (json.launcherVisibilityOnGameClose != null)
+                switch (json.launcherVisibilityOnGameClose)
+                {
+                    case "close launcher when game starts":
+                        _launcherVisibilityOnGameClose = 1;
+                        break;
+                    case "hide launcher and re-open when game closes":
+                        _launcherVisibilityOnGameClose = 2;
+                        break;
+                }
+            string ip = null, port = null;
+            if (json.server != null)
+            {
+                ip = json.server.ip;
+                port = json.server.port;
+            }
+            var nativesFolder = Path.Combine(Variables.McVersions, LastVersionId);
+            var profileSJson = File.ReadAllText(nativesFolder + @"\" + LastVersionId + ".json");
+            var profilejsono = JObject.Parse(profileSJson);
+            MainClass = profilejsono["mainClass"].ToString();
+            Arg = profilejsono["minecraftArguments"] +
+                  (ip != null ? String.Format(" --server {0} --port {1}", ip, (port ?? "25565")) : String.Empty);
+            libraries += String.Format(";{0}\\{1}.jar", nativesFolder, LastVersionId);
+            var va = ((Launcher)mainForm).LogTab("Minecraft version: " + LastVersionId, PName);
+            Txt = (RichTextBox) va[0];
+            KillButton = (RadButton) va[1];
+            CloseTabButton = (RadButton) va[2];
             Root = mainForm;
-            GameDir = gameDirectory;
-            Arg = arguments;
-            PName = profileName;
             Assetspath = assetsPath;
-            JavaExec = javaExec;
             Libs = libraries;
-            JavaArgs = javaArguments;
             Assets = assetsFileName;
-            LastVersionId = lastVersionId;
-            MainClass = mainClass;
         }
 
-        private void MLogG(string text, bool iserror, RichTextBox txt)
+        private void MLogG(string text, bool iserror)
         {
             var color = iserror ? Color.Red : Color.DarkSlateGray;
             string line;
@@ -58,13 +89,13 @@ namespace Luncher
                 line = "[GAME]" + text + "\n";
             else
                 line = text + "\n";
-            var start = txt.TextLength;
-            txt.AppendText(line);
-            var end = txt.TextLength;
-            txt.Select(start, end - start);
-            txt.SelectionColor = color;
-            txt.SelectionLength = 0;
-            txt.ScrollToCaret();
+            var start = Txt.TextLength;
+            Txt.AppendText(line);
+            var end = Txt.TextLength;
+            Txt.Select(start, end - start);
+            Txt.SelectionColor = color;
+            Txt.SelectionLength = 0;
+            Txt.ScrollToCaret();
         }
 
         private void t_reader()
@@ -90,7 +121,7 @@ namespace Luncher
                             try
                             {
                                 if (_tflood >= 3) continue;
-                                mroot.Invoke((MethodInvoker) (() => MLogG(line, false, Txt)));
+                                mroot.Invoke((MethodInvoker) (() => MLogG(line, false)));
                                 _logs = _logs + "\n" + line;
                             }
                             catch
@@ -132,7 +163,7 @@ namespace Luncher
                             try
                             {
                                 if (_eflood >= 3) continue;
-                                mroot.Invoke((MethodInvoker) (() => MLogG(line, true, Txt)));
+                                mroot.Invoke((MethodInvoker) (() => MLogG(line, true)));
                                 _errors = _errors + "\n" + line;
                             }
                             catch
@@ -176,7 +207,7 @@ namespace Luncher
             }
             catch(Exception ex)
             {
-                MLogG(ex.Message, true, Txt);
+                MLogG(ex.Message, true);
             }
             proc.WorkingDirectory = GameDir;
             var nativespath = "-Djava.library.path=" + Program.Minecraft + "\\natives";
@@ -213,7 +244,7 @@ namespace Luncher
                 mroot.LaunchButtonChange(mroot.LocRm.GetString("launch.launchtext"), true);
                 mroot.GetSelectedVersion(mroot.SelectProfile.SelectedItem.Text);
                 _client.EnableRaisingEvents = true;
-                if (!mroot.Cl)
+                if (_launcherVisibilityOnGameClose != 1)
                 {
                     _client.Exited += Client_Exited;
                     if (mroot.EnableMinecraftLogging.ToggleState == Telerik.WinControls.Enumerations.ToggleState.On)
@@ -226,12 +257,29 @@ namespace Luncher
                 }
                 Variables.ImStillRunning++;
                 _client.Start();
-                if (mroot.Hl) mroot.WindowState = FormWindowState.Minimized;
-                if (mroot.Cl) Application.Exit();
+                switch (_launcherVisibilityOnGameClose)
+                {
+                    case 1:
+                        Application.Exit();
+                        break;
+                    case 2:
+                        mroot.WindowState = FormWindowState.Minimized;
+                        break;
+                }
             }
             catch (Exception ex)
             {
+                Variables.ImStillRunning--;
+                mroot.Invoke((MethodInvoker) delegate
+                {
+                    CloseTabButton.Enabled = true;
+                    KillButton.Enabled = false;
+                });
+                MLogG(mroot.LocRm.GetString("launch.error") + "\n" + ex, true);
                 Logging.Error(mroot.LocRm.GetString("launch.error") + "\n" + ex);
+                _reader.Abort();
+                _errorReader.Abort();
+                _client.Dispose();
             }
         }
         private void Client_Exited(object sender, EventArgs e)
@@ -245,10 +293,9 @@ namespace Luncher
                 CloseTabButton.Enabled = true;
                 KillButton.Enabled = false;
                 if (proc != null)
-                    MLogG(("Процесс был завершён с кодом " + proc.ExitCode + ". Сеанс с " + proc.StartTime.ToString("HH:mm:ss") + "(Всего" + (Math.Round(proc.StartTime.Subtract(DateTime.Now).TotalMinutes, 2)).ToString().Replace('-', ' ') + " min)"), false, Txt);
-                if (!mroot.Hl || mroot.WindowState != FormWindowState.Minimized) return;
+                    MLogG(("Процесс был завершён с кодом " + proc.ExitCode + ". Сеанс с " + proc.StartTime.ToString("HH:mm:ss") + "(Всего" + (Math.Round(proc.StartTime.Subtract(DateTime.Now).TotalMinutes, 2)).ToString().Replace('-', ' ') + " min)"), false);
+                if (_launcherVisibilityOnGameClose != 2 || mroot.WindowState != FormWindowState.Minimized) return;
                 mroot.WindowState = FormWindowState.Normal;
-                mroot.Hl = false;
                 mroot.Activate();
             });
             _reader.Abort();
@@ -268,7 +315,7 @@ namespace Luncher
         protected string Arg { get; set; }
         protected string PName { get; set; }
         protected string Assetspath { get; set; }
-        protected string JavaExec { get; set; }
+        protected string JavaExec = Variables.JavaExe;
         protected string Libs { get; set; }
         protected string JavaArgs { get; set; }
         protected string Assets { get; set; }

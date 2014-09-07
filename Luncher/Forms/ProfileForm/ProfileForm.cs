@@ -11,7 +11,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Telerik.WinControls.UI;
 
-namespace Luncher.Forms
+namespace Luncher.Forms.ProfileForm
 {
     public partial class ProfileForm : RadForm
     {
@@ -21,7 +21,7 @@ namespace Luncher.Forms
             InitializeComponent();
         }
 
-        private readonly ResourceManager _locRm = new ResourceManager("Luncher.Forms.ProfileForm",
+        private readonly ResourceManager _locRm = new ResourceManager("Luncher.Forms.ProfileForm.ProfileForm",
             typeof (ProfileForm).Assembly);
 
         private readonly string _minecraft = Program.Minecraft;
@@ -341,33 +341,3 @@ namespace Luncher.Forms
         }
     }
 }
-#region Profile Deserialization and Serialization
-
-namespace JsonProfile
-{
-    public class Profile
-    {
-        public string[] allowedReleaseTypes;
-        public ProfileResolution resolution;
-        public ProfileServer server;
-        public string name;
-        public string gameDir;
-        public string javaDir;
-        public string javaArgs;
-        public string lastVersionId;
-        public string launcherVisibilityOnGameClose;
-    }
-
-    public class ProfileResolution
-    {
-        public string height;
-        public string width;
-    }
-
-    public class ProfileServer
-    {
-        public string ip;
-        public string port;
-    }
-}
-#endregion

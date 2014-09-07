@@ -12,7 +12,6 @@ using System.Windows.Forms;
 using Ionic.Zip;
 using Luncher.Properties;
 using Luncher.YaDra4il;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Telerik.WinControls;
 using Telerik.WinControls.UI;
@@ -210,7 +209,7 @@ namespace Luncher.Forms.Launcher
             }
         }
 
-        private Dictionary<int, object> LogTab(string text, string profilename)
+        public Dictionary<int, object> LogTab(string text, string profilename)
         {
             var report = new RadPageViewPage {Text = @"Log: " + profilename};
             var killprocess = new RadButton { Text = Resources.Launcher_ShowLogTab_Завершить, Anchor = (AnchorStyles.Right | AnchorStyles.Top) };
@@ -476,7 +475,6 @@ namespace Luncher.Forms.Launcher
                     {
                         var json =
                             JObject.Parse(File.ReadAllText(String.Format("{0}\\versions\\{1}\\{1}.json", _minecraft, _ver)));
-                        _nativesFolder = Path.Combine(Variables.McVersions, _ver);
                         Logging.Info(LocRm.GetString("lib.checking"));
                         var templibs = new List<string>(); // libs
                         var tempnatives = new List<string>(); // libs with natives
@@ -613,41 +611,8 @@ namespace Luncher.Forms.Launcher
 
         #region Launch
 
-        private void GetDetails(string jsonraw)
+        private void UnzipNatives()
         {
-            var json = JsonConvert.DeserializeObject<JsonProfile.Profile>(jsonraw);
-            if (json.javaArgs != null)
-                _javaArgs = json.javaArgs + " ";
-            if (json.javaDir != null)
-                _javaExec = json.javaDir;
-            _pName = json.name;
-            _gameDir = json.gameDir ?? _minecraft;
-            _lastVersionId = json.lastVersionId ?? (json.allowedReleaseTypes.Contains("snapshot")
-                ? Variables.LastSnapshot
-                : Variables.LastRelease);
-            if (json.launcherVisibilityOnGameClose != null)
-                switch (json.launcherVisibilityOnGameClose)
-                {
-                    case "close launcher when game starts":
-                        Cl = true;
-                        break;
-                    case "hide launcher and re-open when game closes":
-                        Hl = true;
-                        break;
-                }
-            string ip = null, port = null;
-            if (json.server != null)
-            {
-                ip = json.server.ip;
-                port = json.server.port;
-            }
-            _nativesFolder = Path.Combine(_minecraft + "\\versions", _lastVersionId);
-            var profileSJson = File.ReadAllText(_nativesFolder + @"\" + _lastVersionId + ".json");
-            var profilejsono = JObject.Parse(profileSJson);
-            _mainClass = profilejsono["mainClass"].ToString();
-            _arg = profilejsono["minecraftArguments"] +
-                   (ip != null ? String.Format(" --server {0} --port {1}", ip, (port ?? "25565")) : String.Empty);
-            _libs.Add(String.Format("{0}\\{1}.jar", _nativesFolder, _lastVersionId));
             var total = 0;
             foreach (var a in _nativelibs)
                 try
@@ -667,20 +632,10 @@ namespace Luncher.Forms.Launcher
             Logging.Info(String.Format("Распаковка natives завершена. Всего извлечено {0} файлов", total));
         }
 
-        private string _pName;
-        private string _gameDir;
-        private string _lastVersionId;
-        private string _javaArgs = "-Xmx1G "; // default
-        private string _nativesFolder = Variables.McVersions;
         private List<string> _libs = new List<string>();
         private List<string> _nativelibs = new List<string>();
-        private string _arg;
         private string _ver;
-        private string _javaExec = Variables.JavaExe;
         private string _assets = "1.7.4";
-        private string _mainClass;
-        public bool Hl;
-        public bool Cl;
 
         private void Launch(string profileJson)
         {
@@ -739,13 +694,11 @@ namespace Luncher.Forms.Launcher
                 }.ShowDialog();
             }
             HideProgressBar();
-            GetDetails(profileJson);
+            UnzipNatives();
             var finallibraries = _libs.Aggregate(String.Empty,
                 (current, a) => current + (a + ";"));
             finallibraries = finallibraries.Substring(0, finallibraries.Length - 1);
-            var va = LogTab("Minecraft version: " + _lastVersionId, _pName);
-            var mp = new MinecraftProcess(this, _gameDir, _arg, _pName, usingAssets.Text, _javaExec, finallibraries, _javaArgs, _assets,
-                _lastVersionId, _mainClass) { Txt = (RichTextBox)va[0], KillButton = (RadButton)va[1], CloseTabButton = (RadButton)va[2] };
+            var mp = new MinecraftProcess(this, usingAssets.Text, finallibraries, _assets, profileJson) ;
             mp.Launch();
         }
 
@@ -911,7 +864,7 @@ namespace Luncher.Forms.Launcher
         private void ChangeProgile(bool isediting)
         {
             Logging.Info(LocRm.GetString("profile.editing") + " " + SelectProfile.Text + "...");
-            var pf = new ProfileForm
+            var pf = new ProfileForm.ProfileForm
             {
                 ProfileName = {Text = SelectProfile.Text},
                 radButton4 = {Enabled = isediting}
