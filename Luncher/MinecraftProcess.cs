@@ -9,7 +9,6 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows.Forms;
 using Luncher.Forms.Launcher;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Telerik.WinControls.UI;
 
@@ -24,9 +23,6 @@ namespace Luncher
         private RadButton CloseTabButton { get; set; }
         private Process _client;
 
-        private string _errors;
-        private string _logs;
-
         private int _tflood;
         private string _tlast;
         private int _eflood;
@@ -36,7 +32,7 @@ namespace Luncher
 
         public MinecraftProcess(object mainForm, string assetsPath, string libraries, string assetsFileName, string jsonblock)
         {
-            var json = JsonConvert.DeserializeObject<JsonProfile.Profile>(jsonblock);
+            dynamic json = JObject.Parse(jsonblock);
             if (json.javaArgs != null)
                 JavaArgs = json.javaArgs + " ";
             if (json.javaDir != null)
@@ -47,7 +43,7 @@ namespace Luncher
                 ? Variables.LastSnapshot
                 : Variables.LastRelease);
             if (json.launcherVisibilityOnGameClose != null)
-                switch (json.launcherVisibilityOnGameClose)
+                switch ((string)json.launcherVisibilityOnGameClose)
                 {
                     case "close launcher when game starts":
                         _launcherVisibilityOnGameClose = 1;
@@ -63,10 +59,9 @@ namespace Luncher
                 port = json.server.port;
             }
             var nativesFolder = Path.Combine(Variables.McVersions, LastVersionId);
-            var profileSJson = File.ReadAllText(nativesFolder + @"\" + LastVersionId + ".json");
-            var profilejsono = JObject.Parse(profileSJson);
-            MainClass = profilejsono["mainClass"].ToString();
-            Arg = profilejsono["minecraftArguments"] +
+            dynamic profileSJson = JObject.Parse(File.ReadAllText(nativesFolder + @"\" + LastVersionId + ".json"));
+            MainClass = profileSJson.mainClass;
+            Arg = profileSJson.minecraftArguments +
                   (ip != null ? String.Format(" --server {0} --port {1}", ip, (port ?? "25565")) : String.Empty);
             libraries += String.Format(";{0}\\{1}.jar", nativesFolder, LastVersionId);
             var va = ((Launcher)mainForm).LogTab("Minecraft version: " + LastVersionId, PName);
@@ -81,32 +76,31 @@ namespace Luncher
 
         private void MLogG(string text, bool iserror)
         {
-            var color = iserror ? Color.Red : Color.DarkSlateGray;
-            string line;
-            var launcher = Root as Launcher;
-            if (launcher != null &&
-                launcher.UseGamePrefix.ToggleState == Telerik.WinControls.Enumerations.ToggleState.On)
-                line = "[GAME]" + text + "\n";
+            if (Txt.InvokeRequired)
+                Txt.Invoke(new Action<string, bool>(MLogG), new object[] {text, iserror});
             else
-                line = text + "\n";
-            var start = Txt.TextLength;
-            Txt.AppendText(line);
-            var end = Txt.TextLength;
-            Txt.Select(start, end - start);
-            Txt.SelectionColor = color;
-            Txt.SelectionLength = 0;
-            Txt.ScrollToCaret();
+            {
+                var color = iserror ? Color.Red : Color.DarkSlateGray;
+                var launcher = Root as Launcher;
+                var line = (launcher.UseGamePrefix.ToggleState == Telerik.WinControls.Enumerations.ToggleState.On ? "[GAME]" : string.Empty) + text + "\n";
+                var start = Txt.TextLength;
+                Txt.AppendText(line);
+                var end = Txt.TextLength;
+                Txt.Select(start, end - start);
+                Txt.SelectionColor = color;
+                Txt.SelectionLength = 0;
+                Txt.ScrollToCaret();
+            }
         }
 
         private void t_reader()
         {
             while (true)
             {
-                var mroot = Root as Launcher;
-                var line = "";
                 try
                 {
-                    while (line.Trim() == "")
+                    var line = String.Empty;
+                    while (line.Trim() == String.Empty)
                     {
                         try
                         {
@@ -121,8 +115,7 @@ namespace Luncher
                             try
                             {
                                 if (_tflood >= 3) continue;
-                                mroot.Invoke((MethodInvoker) (() => MLogG(line, false)));
-                                _logs = _logs + "\n" + line;
+                                MLogG(line, false);
                             }
                             catch
                             {
@@ -144,11 +137,10 @@ namespace Luncher
         {
             while (true)
             {
-                var mroot = Root as Launcher;
                 try
                 {
-                    var line = "";
-                    while (line.Trim() == "")
+                    var line = String.Empty;
+                    while (line.Trim() == String.Empty)
                     {
                         try
                         {
@@ -163,8 +155,7 @@ namespace Luncher
                             try
                             {
                                 if (_eflood >= 3) continue;
-                                mroot.Invoke((MethodInvoker) (() => MLogG(line, true)));
-                                _errors = _errors + "\n" + line;
+                                MLogG(line, true);
                             }
                             catch
                             {
@@ -182,8 +173,7 @@ namespace Luncher
             }
         }
 
-        private static Thread _reader;
-        private static Thread _errorReader;
+        private static Thread _reader,  _errorReader;
 
         public void Launch()
         {
@@ -255,6 +245,7 @@ namespace Luncher
                     _errorReader = new Thread(e_reader);
                     _errorReader.Start();
                 }
+                MLogG("Игра запущена", false);
                 Variables.ImStillRunning++;
                 _client.Start();
                 switch (_launcherVisibilityOnGameClose)

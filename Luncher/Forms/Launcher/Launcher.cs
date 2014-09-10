@@ -94,32 +94,36 @@ namespace Luncher.Forms.Launcher
                 e.Cancel = true;
                 return;
             }
-            JObject mainObject = new JObject
+            var jo = new JObject
             {
-                {"lang", Program.Lang},
-            },
-            loggingObject = new JObject
-            {
-                {"enableGameLogging", EnableMinecraftLogging.Checked},
-                {"useGamePrefix", UseGamePrefix.Checked}
-            },
-            updatesObject = new JObject
-            {
-                {"checkVersionsUpdate", AllowUpdateVersions.Checked},
-                {"checkProgramUpdate", radCheckBox1.Checked},
-                {"enableMinecraftUpdateAlerts", EnableMinecraftUpdateAlerts.Checked}
-            },
-            resourcesObject = new JObject
-            {
-                {"enableReconstruction", AllowReconstruct.Checked},
-                {"assetsDir", usingAssets.Text}
-            },
-            jo = new JObject
-            {
-                {"main", mainObject},
-                {"logging", loggingObject},
-                {"updates", updatesObject},
-                {"resources", resourcesObject}
+                {
+                    "main", new JObject
+                    {
+                        {"lang", Program.Lang},
+                    }
+                },
+                {
+                    "logging", new JObject
+                    {
+                        {"enableGameLogging", EnableMinecraftLogging.Checked},
+                        {"useGamePrefix", UseGamePrefix.Checked}
+                    }
+                },
+                {
+                    "updates", new JObject
+                    {
+                        {"checkVersionsUpdate", AllowUpdateVersions.Checked},
+                        {"checkProgramUpdate", radCheckBox1.Checked},
+                        {"enableMinecraftUpdateAlerts", EnableMinecraftUpdateAlerts.Checked}
+                    }
+                },
+                {
+                    "resources", new JObject
+                    {
+                        {"enableReconstruction", AllowReconstruct.Checked},
+                        {"assetsDir", usingAssets.Text}
+                    }
+                }
             };
             File.WriteAllText(String.Format("{0}\\luncher\\configuration.cfg", Program.Minecraft), jo.ToString());
             Application.Exit();

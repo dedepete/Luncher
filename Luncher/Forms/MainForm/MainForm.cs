@@ -22,7 +22,7 @@ namespace Luncher.Forms.MainForm
             LogBox.Box = Log;
         }
 
-        string _minecraft = String.Empty;
+        string _minecraft = string.Empty;
 
         private void WriteLog(string message)
         {
@@ -36,14 +36,14 @@ namespace Luncher.Forms.MainForm
             if (InvokeRequired)
                 Invoke(new Action<string>(WriteLog));
             else
-                Logging.Info(String.Empty, "pfx:false");
+                Logging.Info(string.Empty, "pfx:false");
         }
         private void MainForm_Load(object sender, EventArgs e)
         {
             var ver = ProductVersion.Split('.');
-            var finalver = String.Format("{0}.{1}.{2}-build{3}-{4}", ver[0], ver[1], ver[2], ver[3], "git");
-            Text = String.Format("{0} {1}", ProductName, finalver);
-            WriteLog(String.Format("{0} {1}", ProductName, finalver));
+            var finalver = string.Format("{0}.{1}.{2}-build{3}-{4}", ver[0], ver[1], ver[2], ver[3], "git");
+            Text = string.Format("{0} {1}", ProductName, finalver);
+            WriteLog(string.Format("{0} {1}", ProductName, finalver));
             WriteLog();
             WriteLog("#System information:");
             try

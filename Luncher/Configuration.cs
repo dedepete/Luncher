@@ -38,8 +38,7 @@ namespace Luncher
                 var filename = Path.Combine(Program.Minecraft, "luncher", "configuration.cfg");
                 if (File.Exists(filename))
                 {
-                    var text = File.ReadAllText(filename);
-                    var jo = JObject.Parse(text);
+                    var jo = JObject.Parse(File.ReadAllText(filename));
                     Main["lang"] = jo["main"]["lang"].ToString();
                     Logging["enableGameLogging"] = Convert.ToBoolean(jo["logging"]["enableGameLogging"].ToString());
                     Logging["useGamePrefix"] = Convert.ToBoolean(jo["logging"]["useGamePrefix"].ToString());
@@ -63,33 +62,37 @@ namespace Luncher
 
         private static void SaveDefault()
         {
-            var mainObject = new JObject
-                {
-                    {"lang", (string) Main["lang"]},
-                };
-            var loggingObject = new JObject
-                {
-                    {"enableGameLogging", (bool) Logging["enableGameLogging"]},
-                    {"useGamePrefix", (bool) Logging["useGamePrefix"]}
-                };
-            var updatesObject = new JObject
-                {
-                    {"checkVersionsUpdate", (bool) Updates["checkVersionsUpdate"]},
-                    {"checkProgramUpdate", (bool) Updates["checkProgramUpdate"]},
-                    {"enableMinecraftUpdateAlerts", (bool) Updates["enableMinecraftUpdateAlerts"]}
-                };
-            var resourcesObject = new JObject
-                {
-                    {"enableReconstruction", (bool) Resources["enableReconstruction"]},
-                    {"assetsDir", (string) Resources["assetsDir"]}
-                };
             var jo = new JObject
+            {
                 {
-                    {"main", mainObject},
-                    {"logging", loggingObject},
-                    {"updates", updatesObject},
-                    {"resources", resourcesObject}
-                };
+                    "main", new JObject
+                    {
+                        {"lang", (string) Main["lang"]},
+                    }
+                },
+                {
+                    "logging", new JObject
+                    {
+                        {"enableGameLogging", (bool) Logging["enableGameLogging"]},
+                        {"useGamePrefix", (bool) Logging["useGamePrefix"]}
+                    }
+                },
+                {
+                    "updates", new JObject
+                    {
+                        {"checkVersionsUpdate", (bool) Updates["checkVersionsUpdate"]},
+                        {"checkProgramUpdate", (bool) Updates["checkProgramUpdate"]},
+                        {"enableMinecraftUpdateAlerts", (bool) Updates["enableMinecraftUpdateAlerts"]}
+                    }
+                },
+                {
+                    "resources", new JObject
+                    {
+                        {"enableReconstruction", (bool) Resources["enableReconstruction"]},
+                        {"assetsDir", (string) Resources["assetsDir"]}
+                    }
+                }
+            };
             var path = Path.Combine(Program.Minecraft, "luncher");
             if (!Directory.Exists(path)) Directory.CreateDirectory(path);
             File.WriteAllText(Path.Combine(path, "configuration.cfg"), jo.ToString());
