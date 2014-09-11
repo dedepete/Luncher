@@ -83,7 +83,7 @@ namespace Luncher.Forms.ProfileForm
                 Versions.Items.Add(info["type"] + " " + info["id"]);
             try
             {
-                if (_oldver != null & _oldver != "")
+                if (_oldver != null & _oldver != String.Empty)
                 {
                     var founded = false;
                     foreach (var a in Versions.Items.Where(a => a.Text.Contains(_oldver)))
@@ -107,21 +107,21 @@ namespace Luncher.Forms.ProfileForm
         private void GetParams(string pName)
         {
             var temp = JObject.Parse(File.ReadAllText(Variables.ProfileJsonFile));
-            var json = JsonConvert.DeserializeObject<JsonProfile.Profile>(temp["profiles"][pName].ToString());
+            dynamic json = JObject.Parse(temp["profiles"][pName].ToString());
             if (json.allowedReleaseTypes != null)
-            {
-                if (json.allowedReleaseTypes.Contains("old_alpha"))
+            { 
+                if (json.allowedReleaseTypes.ToList().Contains("old_alpha"))
                     EnableAlpha.ToggleState = Telerik.WinControls.Enumerations.ToggleState.On;
-                if (json.allowedReleaseTypes.Contains("snapshot"))
+                if (json.allowedReleaseTypes.ToList().Contains("snapshot"))
                     EnableExp.ToggleState = Telerik.WinControls.Enumerations.ToggleState.On;
-                if (json.allowedReleaseTypes.Contains("old_beta"))
+                if (json.allowedReleaseTypes.ToList().Contains("old_beta")) 
                     EnableBeta.ToggleState = Telerik.WinControls.Enumerations.ToggleState.On;
             }
             ResX.Text = json.resolution != null ? json.resolution.width : @"480";
             ResY.Text = json.resolution != null ? json.resolution.height : @"854";
             if (json.gameDir != null)
             {
-                Gamedir.Text = json.gameDir;
+                Gamedir.Text = json.gameDir; 
                 UseDirectory.ToggleState = Telerik.WinControls.Enumerations.ToggleState.On;
             }
             else
@@ -164,7 +164,7 @@ namespace Luncher.Forms.ProfileForm
                     Versions.SelectedIndex = 0;
             }
             if (json.launcherVisibilityOnGameClose != null)
-                switch (json.launcherVisibilityOnGameClose)
+                switch ((string)json.launcherVisibilityOnGameClose)
                 {
                     case "close launcher when game starts":
                         LState.SelectedIndex = 2;

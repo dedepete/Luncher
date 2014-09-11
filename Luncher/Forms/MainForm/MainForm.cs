@@ -18,8 +18,8 @@ namespace Luncher.Forms.MainForm
         public MainForm()
         {
             InitializeComponent();
-            LogBox.ProductName = ProductName;
-            LogBox.Box = Log;
+            LoggingMain.ProductName = ProductName;
+            LoggingMain.LoggingBox = Log;
         }
 
         string _minecraft = string.Empty;
