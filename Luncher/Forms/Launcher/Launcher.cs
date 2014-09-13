@@ -982,7 +982,7 @@ namespace Luncher.Forms.Launcher
         public void CleanNatives()
         {
             var path = String.Format("{0}\\natives", Variables.McFolder);
-            if (!Directory.Exists(path)) return;
+            if (!Directory.Exists(path) || !Directory.GetFiles(path).Any()) return;
             Logging.Info("Очистка natives...");
             foreach (var file in Directory.GetFiles(path))
                 try
