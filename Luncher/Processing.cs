@@ -22,15 +22,15 @@ namespace Luncher
         }
         public static void GetVersions(RadListView list)
         {
-            foreach (var json in from s in Directory.GetDirectories(Variables.McVersions) select new DirectoryInfo(s).Name into versionname where File.Exists(Variables.McVersions + versionname + "/" + versionname + ".jar") &
+            foreach (dynamic json in from s in Directory.GetDirectories(Variables.McVersions) select new DirectoryInfo(s).Name into versionname where File.Exists(Variables.McVersions + versionname + "/" + versionname + ".jar") &
                                                                                                                                                   File.Exists(Variables.McVersions + versionname + "/" + versionname + ".json") select JObject.Parse(File.ReadAllText(Variables.McFolder + "/versions/" + versionname + "/" + versionname + ".json")))
             {
                 string id = "null", type = "null", time = "null";
                 try
                 {
-                    id = json["id"].ToString();
-                    type = json["type"].ToString();
-                    time = json["releaseTime"].ToString();
+                    id = json.id;
+                    type = json.type;
+                    time = json.releaseTime;
                 }
                 catch (Exception ex)
                 {
@@ -103,7 +103,7 @@ namespace Luncher
             {
                 Process.GetProcessById(process.Id);
             }
-            catch (ArgumentException)
+            catch
             {
                 return false;
             }

@@ -1,102 +1,76 @@
 ﻿using System;
 using System.Drawing;
-using System.Windows.Forms;
 
 namespace Luncher
 {
     public static class Logging
     {
-        private static void Log(int type, bool showprefix, bool colored, string text)
+        private enum ErrorState { WARNING, ERROR, INFO }
+        private static void Log(ErrorState state, string text, LoggingOptions options)
         {
-            var logBox = LogBox.Box as RichTextBox;
-            string finalstring;
+            var logBox = LoggingMain.LoggingBox;
             var time = DateTime.Now.ToString("dd-MM-yy HH:mm:ss");
-            var color = Color.Black;
-            switch (type)
-            {
-                case 1:
-                    if (colored) color = Color.Orange;
-                    finalstring = String.Format(showprefix ? "[{0}][WARNING][{1}] {2}" : "{2}", LogBox.ProductName, time,
-                        text);
-                    break;
-                case 2:
-                    if (colored) color = Color.Red;
-                    finalstring = String.Format(showprefix ? "[{0}][ERROR][{1}] {2}" : "{2}", LogBox.ProductName, time,
-                        text);
-                    break;
-                default:
-                    finalstring = String.Format(showprefix ? "[{0}][INFO][{1}] {2}" : "{2}", LogBox.ProductName, time,
-                        text);
-                    break;
-            }
+            var color = state != ErrorState.INFO && options.Colored
+                ? (state == ErrorState.ERROR ? Color.Red : Color.Orange)
+                : Color.Black;
+            var finalstring = string.Format(options.UseTimeAndStatePrefix ? "[{0}][{1}][{2}] {3}" : "{3}", LoggingMain.ProductName, state, time,
+                text);
             Console.WriteLine(finalstring);
             if (logBox == null) return;
             logBox.SelectionStart = logBox.TextLength;
             logBox.SelectionLength = 0;
             logBox.SelectionColor = color;
-            logBox.AppendText(String.Format(String.IsNullOrEmpty(logBox.Text) ? "{0}" : "\n{0}", finalstring));
+            logBox.AppendText(string.Format(string.IsNullOrEmpty(logBox.Text) ? "{0}" : "\n{0}", finalstring));
             logBox.SelectionColor = logBox.ForeColor;
             logBox.ScrollToCaret();
         }
-
-        private static void Processing(string message, int t, params string[] args)
+        public static void Info(string message, LoggingOptions options)
         {
-            bool colored = false, pfx = true;
-            if (args != null)
-                foreach (var a in args)
-                {
-                    var name = a.Split(':')[0];
-                    var value = a.Split(':')[1];
-                    switch (name)
-                    {
-                        case "c": // is colored
-                            colored = value == "true";
-                            break;
-                        case "pfx": // prefix
-                            pfx = value == "true";
-                            break;
-                        default:
-                            continue;
-                    }
-                }
-            Log(t, pfx, colored, message);
+            Log(ErrorState.INFO, message,  options);
         }
-
-        public static void Info(string message, params string[] args)
-        {
-            Processing(message, 0, args);
-        }
-
         public static void Info(string message)
         {
-            Processing(message, 0, "c:false");
+            Log(ErrorState.INFO, message,  new LoggingOptions
+            {
+                Colored = false
+            });
         }
-
-        public static void Error(string message, params string[] args)
+        public static void Error(string message, LoggingOptions options)
         {
-            Processing(message, 2, args);
+            Log(ErrorState.ERROR, message,  options);
         }
-
         public static void Error(string message)
         {
-            Processing(message, 2, "c:true", "pfx:true");
+            Log(ErrorState.ERROR, message,  new LoggingOptions
+            {
+                Colored = true,
+                UseTimeAndStatePrefix = true
+            });
         }
 
-        public static void Warning(string message, params string[] args)
+        public static void Warning(string message, LoggingOptions options)
         {
-            Processing(message, 1, args);
+            Log(ErrorState.WARNING, message,  options);
         }
-
         public static void Warning(string message)
         {
-            Processing(message, 1, "c:true", "pfx:true");
+            Log(ErrorState.WARNING, message,  new LoggingOptions
+            {
+                Colored = true,
+                UseTimeAndStatePrefix = true
+            });
         }
     }
 
-    public static class LogBox
+    public class LoggingOptions
     {
-        public static object Box;
+        public bool Colored;
+        public bool UseTimeAndStatePrefix = true;
+    }
 
+    public static class LoggingMain
+    {
+        public static dynamic LoggingBox;
         public static string ProductName;
     }
 }

@@ -18,32 +18,32 @@ namespace Luncher.Forms.MainForm
         public MainForm()
         {
             InitializeComponent();
-            LogBox.ProductName = ProductName;
-            LogBox.Box = Log;
+            LoggingMain.ProductName = ProductName;
+            LoggingMain.LoggingBox = Log;
         }
 
-        string _minecraft = String.Empty;
+        string _minecraft = string.Empty;
 
         private void WriteLog(string message)
         {
             if (InvokeRequired)
-                Invoke(new Action<string>(WriteLog), new object[] { message });
+                Invoke(new Action<string>(WriteLog), new object[] {message});
             else
-                Logging.Info(message, "pfx:false");
+                Logging.Info(message, new LoggingOptions {UseTimeAndStatePrefix = false});
         }
         private void WriteLog()
         {
             if (InvokeRequired)
                 Invoke(new Action<string>(WriteLog));
             else
-                Logging.Info(String.Empty, "pfx:false");
+                Logging.Info(string.Empty, new LoggingOptions { UseTimeAndStatePrefix = false });
         }
         private void MainForm_Load(object sender, EventArgs e)
         {
             var ver = ProductVersion.Split('.');
-            var finalver = String.Format("{0}.{1}.{2}-build{3}-{4}", ver[0], ver[1], ver[2], ver[3], "git");
-            Text = String.Format("{0} {1}", ProductName, finalver);
-            WriteLog(String.Format("{0} {1}", ProductName, finalver));
+            var finalver = string.Format("{0}.{1}.{2}-build{3}-{4}", ver[0], ver[1], ver[2], ver[3], "git");
+            Text = string.Format("{0} {1}", ProductName, finalver);
+            WriteLog(string.Format("{0} {1}", ProductName, finalver));
             WriteLog();
             WriteLog("#System information:");
             try

@@ -11,7 +11,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Telerik.WinControls.UI;
 
-namespace Luncher.Forms
+namespace Luncher.Forms.ProfileForm
 {
     public partial class ProfileForm : RadForm
     {
@@ -21,7 +21,7 @@ namespace Luncher.Forms
             InitializeComponent();
         }
 
-        private readonly ResourceManager _locRm = new ResourceManager("Luncher.Forms.ProfileForm",
+        private readonly ResourceManager _locRm = new ResourceManager("Luncher.Forms.ProfileForm.ProfileForm",
             typeof (ProfileForm).Assembly);
 
         private readonly string _minecraft = Program.Minecraft;
@@ -83,7 +83,7 @@ namespace Luncher.Forms
                 Versions.Items.Add(info["type"] + " " + info["id"]);
             try
             {
-                if (_oldver != null & _oldver != "")
+                if (_oldver != null & _oldver != String.Empty)
                 {
                     var founded = false;
                     foreach (var a in Versions.Items.Where(a => a.Text.Contains(_oldver)))
@@ -107,21 +107,21 @@ namespace Luncher.Forms
         private void GetParams(string pName)
         {
             var temp = JObject.Parse(File.ReadAllText(Variables.ProfileJsonFile));
-            var json = JsonConvert.DeserializeObject<JsonProfile.Profile>(temp["profiles"][pName].ToString());
+            dynamic json = JObject.Parse(temp["profiles"][pName].ToString());
             if (json.allowedReleaseTypes != null)
-            {
-                if (json.allowedReleaseTypes.Contains("old_alpha"))
+            { 
+                if ((json.allowedReleaseTypes as JArray).ToList().Contains("old_alpha"))
                     EnableAlpha.ToggleState = Telerik.WinControls.Enumerations.ToggleState.On;
-                if (json.allowedReleaseTypes.Contains("snapshot"))
+                if ((json.allowedReleaseTypes as JArray).ToList().Contains("snapshot"))
                     EnableExp.ToggleState = Telerik.WinControls.Enumerations.ToggleState.On;
-                if (json.allowedReleaseTypes.Contains("old_beta"))
+                if ((json.allowedReleaseTypes as JArray).ToList().Contains("old_beta")) 
                     EnableBeta.ToggleState = Telerik.WinControls.Enumerations.ToggleState.On;
             }
             ResX.Text = json.resolution != null ? json.resolution.width : @"480";
             ResY.Text = json.resolution != null ? json.resolution.height : @"854";
             if (json.gameDir != null)
             {
-                Gamedir.Text = json.gameDir;
+                Gamedir.Text = json.gameDir; 
                 UseDirectory.ToggleState = Telerik.WinControls.Enumerations.ToggleState.On;
             }
             else
@@ -164,7 +164,7 @@ namespace Luncher.Forms
                     Versions.SelectedIndex = 0;
             }
             if (json.launcherVisibilityOnGameClose != null)
-                switch (json.launcherVisibilityOnGameClose)
+                switch ((string)json.launcherVisibilityOnGameClose)
                 {
                     case "close launcher when game starts":
                         LState.SelectedIndex = 2;
@@ -341,33 +341,3 @@ namespace Luncher.Forms
         }
     }
 }
-#region Profile Deserialization and Serialization
-
-namespace JsonProfile
-{
-    public class Profile
-    {
-        public string[] allowedReleaseTypes;
-        public ProfileResolution resolution;
-        public ProfileServer server;
-        public string name;
-        public string gameDir;
-        public string javaDir;
-        public string javaArgs;
-        public string lastVersionId;
-        public string launcherVisibilityOnGameClose;
-    }
-
-    public class ProfileResolution
-    {
-        public string height;
-        public string width;
-    }
-
-    public class ProfileServer
-    {
-        public string ip;
-        public string port;
-    }
-}
-#endregion
