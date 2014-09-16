@@ -110,11 +110,11 @@ namespace Luncher.Forms.ProfileForm
             dynamic json = JObject.Parse(temp["profiles"][pName].ToString());
             if (json.allowedReleaseTypes != null)
             { 
-                if (json.allowedReleaseTypes.ToList().Contains("old_alpha"))
+                if ((json.allowedReleaseTypes as JArray).ToList().Contains("old_alpha"))
                     EnableAlpha.ToggleState = Telerik.WinControls.Enumerations.ToggleState.On;
-                if (json.allowedReleaseTypes.ToList().Contains("snapshot"))
+                if ((json.allowedReleaseTypes as JArray).ToList().Contains("snapshot"))
                     EnableExp.ToggleState = Telerik.WinControls.Enumerations.ToggleState.On;
-                if (json.allowedReleaseTypes.ToList().Contains("old_beta")) 
+                if ((json.allowedReleaseTypes as JArray).ToList().Contains("old_beta")) 
                     EnableBeta.ToggleState = Telerik.WinControls.Enumerations.ToggleState.On;
             }
             ResX.Text = json.resolution != null ? json.resolution.width : @"480";
