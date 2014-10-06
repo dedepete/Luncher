@@ -64,10 +64,13 @@ namespace Luncher
             Arg = profileSJson.minecraftArguments +
                   (ip != null ? String.Format(" --server {0} --port {1}", ip, (port ?? "25565")) : String.Empty);
             libraries += String.Format(";{0}\\{1}.jar", nativesFolder, LastVersionId);
-            var va = ((Launcher)mainForm).LogTab("Minecraft version: " + LastVersionId, PName);
-            Txt = (RichTextBox) va[0];
-            KillButton = (RadButton) va[1];
-            CloseTabButton = (RadButton) va[2];
+            if (_launcherVisibilityOnGameClose != 1)
+            {
+                var va = ((Launcher) mainForm).LogTab("Minecraft version: " + LastVersionId, PName);
+                Txt = (RichTextBox) va[0];
+                KillButton = (RadButton) va[1];
+                CloseTabButton = (RadButton) va[2];
+            }
             Root = mainForm;
             Assetspath = assetsPath;
             Libs = libraries;
@@ -177,7 +180,6 @@ namespace Luncher
 
         public void Launch()
         {
-            KillButton.Click += Kill;
             var mroot = Root as Launcher;
             _client = new Process();
             var proc = new ProcessStartInfo
@@ -195,7 +197,7 @@ namespace Luncher
                 if (!Directory.Exists(GameDir))
                     Directory.CreateDirectory(GameDir);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MLogG(ex.Message, true);
             }
@@ -236,6 +238,7 @@ namespace Luncher
                 _client.EnableRaisingEvents = true;
                 if (_launcherVisibilityOnGameClose != 1)
                 {
+                    KillButton.Click += Kill;
                     _client.Exited += Client_Exited;
                     if (mroot.EnableMinecraftLogging.ToggleState == Telerik.WinControls.Enumerations.ToggleState.On)
                     {
@@ -244,13 +247,14 @@ namespace Luncher
                     }
                     _errorReader = new Thread(e_reader);
                     _errorReader.Start();
+                    MLogG("Игра запущена", false);
                 }
-                MLogG("Игра запущена", false);
                 Variables.ImStillRunning++;
                 _client.Start();
                 switch (_launcherVisibilityOnGameClose)
                 {
                     case 1:
+                        Variables.ImStillRunning--;
                         Application.Exit();
                         break;
                     case 2:
@@ -273,6 +277,7 @@ namespace Luncher
                 _client.Dispose();
             }
         }
+
         private void Client_Exited(object sender, EventArgs e)
         {
             Variables.ImStillRunning--;
