@@ -39,8 +39,7 @@ namespace Luncher.Forms.Launcher
                 }
             };
             VerContext.Items.Add(openVer);
-            var verS = new RadMenuSeparatorItem();
-            VerContext.Items.Add(verS);
+            VerContext.Items.Add(new RadMenuSeparatorItem());
             var delVer = new RadMenuItem {Text = LocRm.GetString("contextver.del")};
             delVer.Click += (sender, e) =>
             {
