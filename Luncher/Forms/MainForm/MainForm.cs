@@ -201,8 +201,15 @@ namespace Luncher.Forms.MainForm
             {
                 sw.Stop();
                 WriteLog("Completed! Download time: " + sw.ElapsedMilliseconds + "ms");
-                if (new FileInfo(String.Format("{0}{1}", Variables.McVersions, "versions.json")).Length < 0)
+                var path = String.Format("{0}{1}", Variables.McVersions, "versions.json");
+                if (new FileInfo(path).Length < 0)
                     WriteLog("version.json downloaded with wrong filesize!");
+                else
+                {
+                    var verFile = JObject.Parse(File.ReadAllText(path));
+                    if (verFile["latest"]["snapshot"] != null) Variables.LastSnapshot = verFile["latest"]["snapshot"].ToString();
+                    if (verFile["latest"]["release"] != null) Variables.LastRelease = verFile["latest"]["release"].ToString();
+                }
                 Launch();
             };
             webc.DownloadFileAsync(new Uri("https://s3.amazonaws.com/Minecraft.Download/versions/versions.json"), _minecraft + "/versions/versions.json");
