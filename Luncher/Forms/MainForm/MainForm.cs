@@ -26,17 +26,11 @@ namespace Luncher.Forms.MainForm
 
         private void WriteLog(string message)
         {
-            if (InvokeRequired)
-                Invoke(new Action<string>(WriteLog), new object[] {message});
-            else
-                Logging.Info(message, new LoggingOptions {UseTimeAndStatePrefix = false});
+            Logging.Info(message, new LoggingOptions {UseTimeAndStatePrefix = false});
         }
         private void WriteLog()
         {
-            if (InvokeRequired)
-                Invoke(new Action<string>(WriteLog));
-            else
-                Logging.Info(string.Empty, new LoggingOptions { UseTimeAndStatePrefix = false });
+            Logging.Info(string.Empty, new LoggingOptions {UseTimeAndStatePrefix = false});
         }
         private void MainForm_Load(object sender, EventArgs e)
         {

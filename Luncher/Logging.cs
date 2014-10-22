@@ -9,20 +9,26 @@ namespace Luncher
         private static void Log(ErrorState state, string text, LoggingOptions options)
         {
             var logBox = LoggingConfiguration.LoggingBox;
-            var time = DateTime.Now.ToString("dd-MM-yy HH:mm:ss");
-            var color = state != ErrorState.INFO && options.Colored
-                ? (state == ErrorState.ERROR ? Color.Red : Color.Orange)
-                : Color.Black;
-            var finalstring = string.Format(options.UseTimeAndStatePrefix ? "[{0}][{1}][{2}] {3}" : "{3}", LoggingConfiguration.ProductName, state, time,
-                text);
-            Console.WriteLine(finalstring);
-            if (logBox == null) return;
-            logBox.SelectionStart = logBox.TextLength;
-            logBox.SelectionLength = 0;
-            logBox.SelectionColor = color;
-            logBox.AppendText(string.Format(string.IsNullOrEmpty(logBox.Text) ? "{0}" : "\n{0}", finalstring));
-            logBox.SelectionColor = logBox.ForeColor;
-            logBox.ScrollToCaret();
+            if (logBox.InvokeRequired)
+                logBox.Invoke(new Action<ErrorState, string, LoggingOptions>(Log), new object[] {state, text, options});
+            else
+            {
+                var time = DateTime.Now.ToString("dd-MM-yy HH:mm:ss");
+                var color = state != ErrorState.INFO && options.Colored
+                    ? (state == ErrorState.ERROR ? Color.Red : Color.Orange)
+                    : Color.Black;
+                var finalstring = string.Format(options.UseTimeAndStatePrefix ? "[{0}][{1}][{2}] {3}" : "{3}",
+                    LoggingConfiguration.ProductName, state, time,
+                    text);
+                Console.WriteLine(finalstring);
+                if (logBox == null) return;
+                logBox.SelectionStart = logBox.TextLength;
+                logBox.SelectionLength = 0;
+                logBox.SelectionColor = color;
+                logBox.AppendText(string.Format(string.IsNullOrEmpty(logBox.Text) ? "{0}" : "\n{0}", finalstring));
+                logBox.SelectionColor = logBox.ForeColor;
+                logBox.ScrollToCaret();
+            }
         }
         public static void Info(string message, LoggingOptions options)
         {
