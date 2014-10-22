@@ -8,12 +8,12 @@ namespace Luncher
         private enum ErrorState { WARNING, ERROR, INFO }
         private static void Log(ErrorState state, string text, LoggingOptions options)
         {
-            var logBox = LoggingMain.LoggingBox;
+            var logBox = LoggingConfiguration.LoggingBox;
             var time = DateTime.Now.ToString("dd-MM-yy HH:mm:ss");
             var color = state != ErrorState.INFO && options.Colored
                 ? (state == ErrorState.ERROR ? Color.Red : Color.Orange)
                 : Color.Black;
-            var finalstring = string.Format(options.UseTimeAndStatePrefix ? "[{0}][{1}][{2}] {3}" : "{3}", LoggingMain.ProductName, state, time,
+            var finalstring = string.Format(options.UseTimeAndStatePrefix ? "[{0}][{1}][{2}] {3}" : "{3}", LoggingConfiguration.ProductName, state, time,
                 text);
             Console.WriteLine(finalstring);
             if (logBox == null) return;
@@ -68,7 +68,7 @@ namespace Luncher
         public bool UseTimeAndStatePrefix = true;
     }
 
-    public static class LoggingMain
+    public static class LoggingConfiguration
     {
         public static dynamic LoggingBox;
         public static string ProductName;

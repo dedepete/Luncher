@@ -23,11 +23,6 @@ namespace Luncher
         private RadButton CloseTabButton { get; set; }
         private Process _client;
 
-        private int _tflood;
-        private string _tlast;
-        private int _eflood;
-        private string _elast;
-
         private readonly int _launcherVisibilityOnGameClose;
 
         public MinecraftProcess(object mainForm, string assetsPath, string libraries, string assetsFileName, string jsonblock)
@@ -98,6 +93,8 @@ namespace Luncher
 
         private void t_reader()
         {
+            var flood = 0;
+            var last = string.Empty;
             while (true)
             {
                 try
@@ -108,16 +105,16 @@ namespace Luncher
                         try
                         {
                             line = _client.StandardOutput.ReadLine();
-                            if (_tlast == line)
-                                _tflood++;
+                            if (last == line)
+                                flood++;
                             else
                             {
-                                _tflood = 0;
-                                _tlast = line;
+                                flood = 0;
+                                last = line;
                             }
                             try
                             {
-                                if (_tflood >= 3) continue;
+                                if (flood >= 3) continue;
                                 MLogG(line, false);
                             }
                             catch
@@ -138,6 +135,8 @@ namespace Luncher
         }
         private void e_reader()
         {
+            var flood = 0;
+            var last = string.Empty;
             while (true)
             {
                 try
@@ -148,16 +147,16 @@ namespace Luncher
                         try
                         {
                             line = _client.StandardError.ReadLine();
-                            if (_elast == line)
-                                _eflood++;
+                            if (last == line)
+                                flood++;
                             else
                             {
-                                _eflood = 0;
-                                _elast = line;
+                                flood = 0;
+                                last = line;
                             }
                             try
                             {
-                                if (_eflood >= 3) continue;
+                                if (flood >= 3) continue;
                                 MLogG(line, true);
                             }
                             catch

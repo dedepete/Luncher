@@ -25,7 +25,7 @@ namespace Luncher.Forms.Launcher
         {
             Thread.CurrentThread.CurrentUICulture = new CultureInfo(Program.Lang);
             InitializeComponent();
-            LoggingMain.LoggingBox = Log;
+            LoggingConfiguration.LoggingBox = Log;
             var openVer = new RadMenuItem {Text = LocRm.GetString("contextver.open")};
             openVer.Click += (sender, e) =>
             {
