@@ -50,7 +50,7 @@ namespace Luncher.Forms.ProfileForm
                 if (json["versions"][i] == null) continue;
                 var id = json["versions"][i]["id"].ToString();
                 var type = json["versions"][i]["type"].ToString();
-                list.Add(String.Format("{0} {1}", type, id));
+                list.Add(string.Format("{0} {1}", type, id));
                 var ritem = new RadListDataItem {Text = type + " " + id, Tag = id};
                 switch (type)
                 {
@@ -72,18 +72,18 @@ namespace Luncher.Forms.ProfileForm
                 }
             }
             foreach (var info in from b in Directory.GetDirectories(Variables.McVersions)
-                where File.Exists(String.Format("{0}/{1}/{1}.json", Variables.McVersions,
+                where File.Exists(string.Format("{0}/{1}/{1}.json", Variables.McVersions,
                     new DirectoryInfo(b).Name))
                 let add = list.All(a => !a.Contains(new DirectoryInfo(b).Name))
                 where add
                 select
                     JObject.Parse(
-                        File.ReadAllText(String.Format("{0}/{1}/{1}.json", Variables.McVersions,
+                        File.ReadAllText(string.Format("{0}/{1}/{1}.json", Variables.McVersions,
                             new DirectoryInfo(b).Name))))
                 Versions.Items.Add(info["type"] + " " + info["id"]);
             try
             {
-                if (_oldver != null & _oldver != String.Empty)
+                if (_oldver != null & _oldver != string.Empty)
                 {
                     var founded = false;
                     foreach (var a in Versions.Items.Where(a => a.Text.Contains(_oldver)))
@@ -143,8 +143,8 @@ namespace Luncher.Forms.ProfileForm
             try
             {
                 var jsonVer =
-                    JObject.Parse(File.ReadAllText(String.Format("{0}\\{1}\\{1}.json", Variables.McVersions, ver)));
-                Versions.SelectedItem = Versions.FindItemExact(String.Format("{0} {1}", jsonVer["type"], ver), true);
+                    JObject.Parse(File.ReadAllText(string.Format("{0}\\{1}\\{1}.json", Variables.McVersions, ver)));
+                Versions.SelectedItem = Versions.FindItemExact(string.Format("{0} {1}", jsonVer["type"], ver), true);
             }
             catch
             {
@@ -180,7 +180,7 @@ namespace Luncher.Forms.ProfileForm
             if (json.server != null)
             {
                 ipTextBox.Text = json.server.ip;
-                portTextBox.Text = json.server.port ?? String.Empty;
+                portTextBox.Text = json.server.port ?? string.Empty;
                 fastConnectCheckBox.ToggleState = Telerik.WinControls.Enumerations.ToggleState.On;
             }
             _changed = false;
@@ -248,11 +248,11 @@ namespace Luncher.Forms.ProfileForm
             json["selectedProfile"] = ProfileName.Text;
             Newprofilename = ProfileName.Text;
             JsonProfile.ProfileServer server = null;
-            if (ipTextBox.Text != String.Empty)
+            if (ipTextBox.Text != string.Empty)
                 server = new JsonProfile.ProfileServer
                 {
                     ip = ipTextBox.Text,
-                    port = portTextBox.Text != String.Empty ? portTextBox.Text : null
+                    port = portTextBox.Text != string.Empty ? portTextBox.Text : null
                 };
             var resolution = new JsonProfile.ProfileResolution
             {
@@ -267,7 +267,7 @@ namespace Luncher.Forms.ProfileForm
             if (EnableBeta.ToggleState == Telerik.WinControls.Enumerations.ToggleState.On)
                 releasetypes.Add("old_beta");
             string gamedir = null;
-            if (Gamedir.Text != String.Empty)
+            if (Gamedir.Text != string.Empty)
             {
                 gamedir = Gamedir.Text;
                 if (gamedir[Gamedir.Text.Length - 1].ToString() == "\\" ||
@@ -281,7 +281,7 @@ namespace Luncher.Forms.ProfileForm
                     !Versions.SelectedItem.Text.Contains(_locRm.GetString("uselastversion"))
                         ? ((string) Versions.SelectedItem.Tag ??
                            (Versions.SelectedItem.Text.Replace(
-                               Versions.SelectedItem.Text.Split(' ')[0] + " ", String.Empty)))
+                               Versions.SelectedItem.Text.Split(' ')[0] + " ", string.Empty)))
                         : null,
                 gameDir = UseDirectory.Checked ? gamedir : null,
                 javaDir = UseExec.Checked ? ExecJava.Text : null,
