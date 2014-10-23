@@ -35,7 +35,7 @@ namespace Luncher.Forms.MainForm
         private void MainForm_Load(object sender, EventArgs e)
         {
             var ver = ProductVersion.Split('.');
-            var finalver = string.Format("{0}.{1}.{2}-build{3}-{4}", ver[0], ver[1], ver[2], ver[3], "stable");
+            var finalver = string.Format("{0}.{1}.{2}-build{3}-{4}", ver[0], ver[1], ver[2], ver[3], "git");
             Text = string.Format("{0} {1}", ProductName, finalver);
             WriteLog(string.Format("{0} {1}", ProductName, finalver));
             WriteLog();
