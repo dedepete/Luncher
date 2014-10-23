@@ -488,6 +488,7 @@ namespace Luncher.Forms.Launcher
                         var templibs = new List<string>(); // libs
                         var tempnatives = new List<string>(); // libs with natives
                         int missing = 0, all = 0;
+                        var librariesMissed = new Dictionary<string, string>();
                         using (var thr = new BackgroundWorker())
                         {
                             thr.DoWork += delegate
@@ -561,15 +562,15 @@ namespace Luncher.Forms.Launcher
                                     Invoke(new Action(() =>
                                     {
                                         missing++;
-                                        Logging.Error(string.Format("{0}, {1}", temppath,
+                                        Logging.Error(string.Format("{0}, {1}", lib,
                                             LocRm.GetString("lib.notfound")));
-                                        _librariesMissed.Add(lib, url);
+                                        librariesMissed.Add(lib, url);
                                     }));
                                 }
                                 Logging.Info(string.Format("{0} {1}. {2} {3}", LocRm.GetString("lib.completed1p"),
                                     all,
                                     LocRm.GetString("lib.completed2p"), missing));
-                                    Invoke(new Action(() =>
+                                Invoke(new Action(() =>
                                 {
                                     _libs = templibs;
                                     _nativelibs = tempnatives;
@@ -582,8 +583,8 @@ namespace Luncher.Forms.Launcher
                                     LaunchButtonClicked(0);
                                     return;
                                 }
-                                progressBar1.Maximum = _librariesMissed.Keys.Count;
-                                DownloadLibraries();
+                                progressBar1.Maximum = librariesMissed.Keys.Count;
+                                DownloadLibraries(librariesMissed);
                             };
                             thr.RunWorkerAsync();
                         }
@@ -594,11 +595,10 @@ namespace Luncher.Forms.Launcher
             }
         }
 
-        private readonly Dictionary<string, string> _librariesMissed = new Dictionary<string, string>();
-        private void DownloadLibraries()
+        private void DownloadLibraries(Dictionary<string, string> librariesMissed)
         {
-            int librariesWrongSize = 0, total = _librariesMissed.Keys.Count(), current = 0;
-            foreach (var a in _librariesMissed)
+            int librariesWrongSize = 0, total = librariesMissed.Keys.Count(), current = 0;
+            foreach (var a in librariesMissed)
             {
                 var filename = string.Format("{0}\\libraries\\{1}", Variables.McFolder, a.Key);
                 var path = Path.GetDirectoryName(filename);
@@ -619,8 +619,8 @@ namespace Luncher.Forms.Launcher
                     else
                         Logging.Info(string.Format("Finished downloading {0}{1}", a1,
                             (a2 != string.Empty ? " from custom repo " + a1 : string.Empty)));
-                    _librariesMissed.Remove(a1);
-                    if (_librariesMissed.Keys.Count != 0) return;
+                    librariesMissed.Remove(a1);
+                    if (librariesMissed.Keys.Count != 0) return;
                     Logging.Info("Done. Missed: " + librariesWrongSize);
                     LaunchButtonClicked(0);
                     progressBar1.Value1 = progressBar1.Maximum;
