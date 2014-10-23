@@ -23,11 +23,6 @@ namespace Luncher
         private RadButton CloseTabButton { get; set; }
         private Process _client;
 
-        private int _tflood;
-        private string _tlast;
-        private int _eflood;
-        private string _elast;
-
         private readonly int _launcherVisibilityOnGameClose;
 
         public MinecraftProcess(object mainForm, string assetsPath, string libraries, string assetsFileName, string jsonblock)
@@ -62,8 +57,8 @@ namespace Luncher
             dynamic profileSJson = JObject.Parse(File.ReadAllText(nativesFolder + @"\" + LastVersionId + ".json"));
             MainClass = profileSJson.mainClass;
             Arg = profileSJson.minecraftArguments +
-                  (ip != null ? String.Format(" --server {0} --port {1}", ip, (port ?? "25565")) : String.Empty);
-            libraries += String.Format(";{0}\\{1}.jar", nativesFolder, LastVersionId);
+                  (ip != null ? string.Format(" --server {0} --port {1}", ip, (port ?? "25565")) : string.Empty);
+            libraries += string.Format(";{0}\\{1}.jar", nativesFolder, LastVersionId);
             if (_launcherVisibilityOnGameClose != 1)
             {
                 var va = ((Launcher) mainForm).LogTab("Minecraft version: " + LastVersionId, PName);
@@ -98,26 +93,28 @@ namespace Luncher
 
         private void t_reader()
         {
+            var flood = 0;
+            var last = string.Empty;
             while (true)
             {
                 try
                 {
-                    var line = String.Empty;
-                    while (line.Trim() == String.Empty)
+                    var line = string.Empty;
+                    while (line.Trim() == string.Empty)
                     {
                         try
                         {
                             line = _client.StandardOutput.ReadLine();
-                            if (_tlast == line)
-                                _tflood++;
+                            if (last == line)
+                                flood++;
                             else
                             {
-                                _tflood = 0;
-                                _tlast = line;
+                                flood = 0;
+                                last = line;
                             }
                             try
                             {
-                                if (_tflood >= 3) continue;
+                                if (flood >= 3) continue;
                                 MLogG(line, false);
                             }
                             catch
@@ -138,26 +135,28 @@ namespace Luncher
         }
         private void e_reader()
         {
+            var flood = 0;
+            var last = string.Empty;
             while (true)
             {
                 try
                 {
-                    var line = String.Empty;
-                    while (line.Trim() == String.Empty)
+                    var line = string.Empty;
+                    while (line.Trim() == string.Empty)
                     {
                         try
                         {
                             line = _client.StandardError.ReadLine();
-                            if (_elast == line)
-                                _eflood++;
+                            if (last == line)
+                                flood++;
                             else
                             {
-                                _eflood = 0;
-                                _elast = line;
+                                flood = 0;
+                                last = line;
                             }
                             try
                             {
-                                if (_eflood >= 3) continue;
+                                if (flood >= 3) continue;
                                 MLogG(line, true);
                             }
                             catch
@@ -224,9 +223,9 @@ namespace Luncher
                 match =>
                     !values[match.Groups[1].Value].Contains(' ')
                         ? values[match.Groups[1].Value]
-                        : String.Format("\"{0}\"", values[match.Groups[1].Value]));
+                        : string.Format("\"{0}\"", values[match.Groups[1].Value]));
             Arg = Arg.Replace("${AppData}", Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData));
-            proc.Arguments = String.Format("{0}{1} -cp {2} {3} {4}", JavaArgs, nativespath, Libs, MainClass, Arg);
+            proc.Arguments = string.Format("{0}{1} -cp {2} {3} {4}", JavaArgs, nativespath, Libs, MainClass, Arg);
             proc.StandardErrorEncoding = Encoding.UTF8;
             _client.StartInfo = proc;
             Logging.Info(mroot.LocRm.GetString("launch.workingdir") + " " + GameDir);

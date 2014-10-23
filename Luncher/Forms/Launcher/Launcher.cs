@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
 using System.Globalization;
@@ -25,13 +26,13 @@ namespace Luncher.Forms.Launcher
         {
             Thread.CurrentThread.CurrentUICulture = new CultureInfo(Program.Lang);
             InitializeComponent();
-            LoggingMain.LoggingBox = Log;
+            LoggingConfiguration.LoggingBox = Log;
             var openVer = new RadMenuItem {Text = LocRm.GetString("contextver.open")};
             openVer.Click += (sender, e) =>
             {
                 try
                 {
-                    if (String.IsNullOrEmpty(radListView1.SelectedItem[0].ToString())) return;
+                    if (string.IsNullOrEmpty(radListView1.SelectedItem[0].ToString())) return;
                     Process.Start(Variables.McVersions + "/" + radListView1.SelectedItem[0] + "/");
                 }
                 catch
@@ -45,23 +46,23 @@ namespace Luncher.Forms.Launcher
             {
                 try
                 {
-                    if (String.IsNullOrEmpty(radListView1.SelectedItem[0].ToString())) return;
+                    if (string.IsNullOrEmpty(radListView1.SelectedItem[0].ToString())) return;
                     var dr =
                         RadMessageBox.Show(
                             string.Format("{0}({1})?", LocRm.GetString("contextver.del.a"), radListView1.SelectedItem[0]),
                             LocRm.GetString("contextver.del.b"),
                             MessageBoxButtons.YesNo, RadMessageIcon.Question);
                     if (dr != DialogResult.Yes) return;
-                    Logging.Info(String.Format("{0} {1}...", LocRm.GetString("contextver.del.progress"), radListView1.SelectedItem[0]));
+                    Logging.Info(string.Format("{0} {1}...", LocRm.GetString("contextver.del.progress"), radListView1.SelectedItem[0]));
                     try
                     {
-                        Directory.Delete(String.Format("{0}/{1}/", Variables.McVersions, radListView1.SelectedItem[0]), true);
+                        Directory.Delete(string.Format("{0}/{1}/", Variables.McVersions, radListView1.SelectedItem[0]), true);
                         GetVersions();
                         GetSelectedVersion(SelectProfile.SelectedItem.Text);
                     }
                     catch (Exception ex)
                     {
-                        Logging.Error(String.Format("{0}\n{1}", LocRm.GetString("contextver.del.error"), ex));
+                        Logging.Error(string.Format("{0}\n{1}", LocRm.GetString("contextver.del.error"), ex));
                     }
                 }
                 catch
@@ -124,14 +125,14 @@ namespace Luncher.Forms.Launcher
                     }
                 }
             };
-            File.WriteAllText(String.Format("{0}\\luncher\\configuration.cfg", Program.Minecraft), jo.ToString());
+            File.WriteAllText(string.Format("{0}\\luncher\\configuration.cfg", Program.Minecraft), jo.ToString());
             Application.Exit();
         }
 
         private void Launcher_Load(object sender, EventArgs e)
         {
             var a = ProductVersion.Split('.');
-            Text = String.Format("{0} {1}.{2}.{3}", ProductName, a[0], a[1], a[2]);
+            Text = string.Format("{0} {1}.{2}.{3}", ProductName, a[0], a[1], a[2]);
             UpdateUserProfiles();
             CleanNatives();
             GetTranslations();
@@ -194,7 +195,7 @@ namespace Luncher.Forms.Launcher
 
         private void UpdateUserProfiles()
         {
-            var filename = String.Format("{0}/luncher/userprofiles.json", _minecraft);
+            var filename = string.Format("{0}/luncher/userprofiles.json", _minecraft);
             if (File.Exists(filename))
             {
                 Nickname.Items.Clear();
@@ -274,14 +275,14 @@ namespace Luncher.Forms.Launcher
                 var allowed = (JArray) json["profiles"][profile]["allowedReleaseTypes"];
                 ver = allowed.ToString().Contains("snapshot") ? Variables.LastSnapshot : Variables.LastRelease;
             }
-            var verJar = String.Format("{0}\\{1}\\{1}.jar", Variables.McVersions, ver);
-            var verJson = String.Format("{0}\\{1}\\{1}.json", Variables.McVersions, ver);
+            var verJar = string.Format("{0}\\{1}\\{1}.jar", Variables.McVersions, ver);
+            var verJson = string.Format("{0}\\{1}\\{1}.json", Variables.McVersions, ver);
             var state =
                 LocRm.GetString(File.Exists(verJar) &&
                                 File.Exists(verJson)
                     ? "launcherstate.readytoplay"
                     : "launcherstate.readytodownloadandplay");
-            SelectedVersion.Text = String.Format("{0} {1} {2}", LocRm.GetString("launcherstate.readytext"), state, ver);
+            SelectedVersion.Text = string.Format("{0} {1} {2}", LocRm.GetString("launcherstate.readytext"), state, ver);
             if (!File.Exists(verJar) &&
                 !File.Exists(verJson) &&
                 Variables.WorkingOffline)
@@ -339,8 +340,8 @@ namespace Luncher.Forms.Launcher
 
         private void Launch_Click(object sender, EventArgs e)
         {
-            if (Nickname.Text == String.Empty)
-                Nickname.Text = String.Format("Player{0}", DateTime.Now.ToString("HHmmss"));
+            if (Nickname.Text == string.Empty)
+                Nickname.Text = string.Format("Player{0}", DateTime.Now.ToString("HHmmss"));
             SetNullProgressBar();
             ShowProgressBar();
             LaunchButtonChange(LocRm.GetString("launcher.wait"), false);
@@ -374,14 +375,14 @@ namespace Luncher.Forms.Launcher
                                 ver = obj["lastVersionId"].ToString();
                             else
                             {
-                                var allowed = (JArray)obj["allowedReleaseTypes"];
+                                var allowed = (JArray) obj["allowedReleaseTypes"];
                                 ver = allowed.ToString().Contains("snapshot")
                                     ? Variables.LastSnapshot
                                     : Variables.LastRelease;
                             }
                             var verJson =
                                 JObject.Parse(
-                                    File.ReadAllText(String.Format("{0}\\versions\\{1}\\{1}.json", _minecraft, ver)));
+                                    File.ReadAllText(string.Format("{0}\\versions\\{1}\\{1}.json", _minecraft, ver)));
                             index = verJson["assets"].ToString();
                         }
                         catch
@@ -410,14 +411,14 @@ namespace Luncher.Forms.Launcher
                                 ? Variables.LastSnapshot
                                 : Variables.LastRelease;
                         }
-                        var jarPath = String.Format("{0}\\versions\\{1}\\{1}.jar", _minecraft, _ver);
+                        var jarPath = string.Format("{0}\\versions\\{1}\\{1}.jar", _minecraft, _ver);
                         if (!File.Exists(jarPath))
                         {
                             var path = Path.GetDirectoryName(jarPath);
                             if (path != null && !Directory.Exists(path)) Directory.CreateDirectory(path);
-                            progressBar1.Text = String.Format("{0} {1}...",
+                            progressBar1.Text = string.Format("{0} {1}...",
                                 LocRm.GetString("downloader.inprogress"), jarPath);
-                            Logging.Info(String.Format("{0} {1}...", LocRm.GetString("downloader.inprogress"), jarPath));
+                            Logging.Info(string.Format("{0} {1}...", LocRm.GetString("downloader.inprogress"), jarPath));
                             webc.DownloadFileCompleted += (sender, e) =>
                             {
                                 SetNullProgressBar();
@@ -426,7 +427,9 @@ namespace Luncher.Forms.Launcher
                             progressBar1.Maximum = 100;
                             webc.DownloadProgressChanged += ProgressChanged;
                             webc.DownloadFileAsync(
-                                new Uri(String.Format("https://s3.amazonaws.com/Minecraft.Download/versions/{0}/{0}.jar", _ver)), String.Format("{0}/versions/{1}/{1}.jar", _minecraft, _ver));
+                                new Uri(string.Format(
+                                    "https://s3.amazonaws.com/Minecraft.Download/versions/{0}/{0}.jar", _ver)),
+                                string.Format("{0}/versions/{1}/{1}.jar", _minecraft, _ver));
                         }
                         else
                         {
@@ -443,20 +446,20 @@ namespace Luncher.Forms.Launcher
                             _ver = obj["lastVersionId"].ToString();
                         else
                         {
-                            var allowed = (JArray)obj["allowedReleaseTypes"];
+                            var allowed = (JArray) obj["allowedReleaseTypes"];
                             _ver = allowed.ToString().Contains("snapshot")
                                 ? Variables.LastSnapshot
                                 : Variables.LastRelease;
                         }
-                        var jsonPath = String.Format("{0}\\versions\\{1}\\{1}.json", _minecraft, _ver);
+                        var jsonPath = string.Format("{0}\\versions\\{1}\\{1}.json", _minecraft, _ver);
                         if (!File.Exists(jsonPath))
                         {
                             var path =
                                 Path.GetDirectoryName(jsonPath);
                             if (path != null && !Directory.Exists(path)) Directory.CreateDirectory(path);
-                            progressBar1.Text = String.Format("{0} {1}...",
+                            progressBar1.Text = string.Format("{0} {1}...",
                                 LocRm.GetString("downloader.inprogress"), jsonPath);
-                            Logging.Info(String.Format("{0} {1}...", LocRm.GetString("downloader.inprogress"), jsonPath));
+                            Logging.Info(string.Format("{0} {1}...", LocRm.GetString("downloader.inprogress"), jsonPath));
                             webc.DownloadFileCompleted += (sender, e) =>
                             {
                                 SetNullProgressBar();
@@ -465,7 +468,9 @@ namespace Luncher.Forms.Launcher
                             progressBar1.Maximum = 100;
                             webc.DownloadProgressChanged += ProgressChanged;
                             webc.DownloadFileAsync(
-                                new Uri(String.Format("https://s3.amazonaws.com/Minecraft.Download/versions/{0}/{0}.json", _ver)), jsonPath);
+                                new Uri(
+                                    string.Format("https://s3.amazonaws.com/Minecraft.Download/versions/{0}/{0}.json",
+                                        _ver)), jsonPath);
                         }
                         else
                         {
@@ -477,91 +482,112 @@ namespace Luncher.Forms.Launcher
                     case 4:
                     {
                         var json =
-                            JObject.Parse(File.ReadAllText(String.Format("{0}\\versions\\{1}\\{1}.json", _minecraft, _ver)));
+                            JObject.Parse(
+                                File.ReadAllText(string.Format("{0}\\versions\\{1}\\{1}.json", _minecraft, _ver)));
                         Logging.Info(LocRm.GetString("lib.checking"));
                         var templibs = new List<string>(); // libs
                         var tempnatives = new List<string>(); // libs with natives
                         int missing = 0, all = 0;
-                        var jr = (JArray)json["libraries"];
-                        foreach (var t in jr)
+                        var librariesMissed = new Dictionary<string, string>();
+                        using (var thr = new BackgroundWorker())
                         {
-                            all++;
-                            var successfully = false;
-                            var s = t["name"].ToString().Split(':');
-                            if (t["rules"] != null)
+                            thr.DoWork += delegate
                             {
-                                var ja = (JArray)t["rules"];
-                                if (ja.Count > 1)
-                                    for (var j = 0; j < ja.Count; j++)
-                                    {
-                                        if (ja[j]["action"].ToString() == "allow")
-                                        {
-                                            if (ja[j]["os"] != null)
-                                                if (ja[j]["os"]["name"].ToString() != "windows")
-                                                    continue;
-                                            j++;
-                                        }
-                                        if (ja[j] != null)
-                                            if (ja[j]["action"].ToString() == "disallow")
-                                            {
-                                                if (ja[j]["os"] == null) continue;
-                                                if (ja[j]["os"]["name"].ToString() == "windows") continue;
-                                            }
-                                        successfully = true;
-                                    }
-                                else
+                                var jr = (JArray) json["libraries"];
+                                foreach (var t in jr)
                                 {
-                                    switch (ja[0]["action"].ToString())
+                                    all++;
+                                    var successfully = false;
+                                    var s = t["name"].ToString().Split(':');
+                                    if (t["rules"] != null)
                                     {
-                                        case "allow":
-                                            if (ja[0]["os"] != null)
-                                                if (ja[0]["os"]["name"].ToString() != "windows")
-                                                    continue;
-                                            break;
-                                        case "disallow":
-                                            if (ja[0]["os"] == null) continue;
-                                            if (ja[0]["os"]["name"].ToString() == "windows") continue;
-                                            break;
+                                        var ja = (JArray) t["rules"];
+                                        if (ja.Count > 1)
+                                            for (var j = 0; j < ja.Count; j++)
+                                            {
+                                                if (ja[j]["action"].ToString() == "allow")
+                                                {
+                                                    if (ja[j]["os"] != null)
+                                                        if (ja[j]["os"]["name"].ToString() != "windows")
+                                                            continue;
+                                                    j++;
+                                                }
+                                                if (ja[j] != null)
+                                                    if (ja[j]["action"].ToString() == "disallow")
+                                                    {
+                                                        if (ja[j]["os"] == null) continue;
+                                                        if (ja[j]["os"]["name"].ToString() == "windows") continue;
+                                                    }
+                                                successfully = true;
+                                            }
+                                        else
+                                        {
+                                            switch (ja[0]["action"].ToString())
+                                            {
+                                                case "allow":
+                                                    if (ja[0]["os"] != null)
+                                                        if (ja[0]["os"]["name"].ToString() != "windows")
+                                                            continue;
+                                                    break;
+                                                case "disallow":
+                                                    if (ja[0]["os"] == null) continue;
+                                                    if (ja[0]["os"]["name"].ToString() == "windows") continue;
+                                                    break;
+                                            }
+                                            successfully = true;
+                                        }
                                     }
-                                    successfully = true;
+                                    else
+                                        successfully = true;
+                                    if (successfully == false) continue;
+                                    var natives = string.Empty;
+                                    if (t["natives"] != null)
+                                        if (t["natives"]["windows"] != null)
+                                            natives = t["natives"]["windows"].ToString()
+                                                .Replace("${arch}", IntPtr.Size == 8 ? "64" : "32");
+                                    var url = string.Empty;
+                                    if (t["url"] != null)
+                                        url = t["url"].ToString();
+                                    var lib =
+                                        string.Format(
+                                            "{0}\\{1}\\{2}\\{1}-{2}" +
+                                            (!string.IsNullOrEmpty(natives) ? "-" + natives : string.Empty) + ".jar",
+                                            s[0].Replace('.', '\\'), s[1], s[2]);
+                                    if (natives == string.Empty)
+                                        templibs.Add(Variables.McFolder + "\\libraries\\" + lib);
+                                    else tempnatives.Add(lib);
+                                    var temppath = Path.Combine(_minecraft + "\\libraries", lib);
+                                    if (File.Exists(temppath))
+                                        continue;
+                                    Invoke(new Action(() =>
+                                    {
+                                        missing++;
+                                        Logging.Error(string.Format("{0}, {1}", lib,
+                                            LocRm.GetString("lib.notfound")));
+                                        librariesMissed.Add(lib, url);
+                                    }));
                                 }
-                            }
-                            else
-                                successfully = true;
-                            if (successfully == false) continue;
-                            var natives = String.Empty;
-                            if (t["natives"] != null)
-                                if (t["natives"]["windows"] != null)
-                                    natives = t["natives"]["windows"].ToString()
-                                        .Replace("${arch}", IntPtr.Size == 8 ? "64" : "32");
-                            var url = String.Empty;
-                            if (t["url"] != null)
-                                url = t["url"].ToString();
-                            var lib =
-                                String.Format(
-                                    "{0}\\{1}\\{2}\\{1}-{2}" +
-                                    (!String.IsNullOrEmpty(natives) ? "-" + natives : String.Empty) + ".jar",
-                                    s[0].Replace('.', '\\'), s[1], s[2]);
-                            if (natives == String.Empty)
-                                templibs.Add(Variables.McFolder + "\\libraries\\" + lib);
-                            else tempnatives.Add(lib);
-                            var temppath = Path.Combine(_minecraft + "\\libraries", lib);
-                            if (File.Exists(temppath))
-                                continue;
-                            missing++;
-                            Logging.Error(string.Format("{0}, {1}", temppath, LocRm.GetString("lib.notfound")));
-                            _librariesMissed.Add(lib, url);
+                                Logging.Info(string.Format("{0} {1}. {2} {3}", LocRm.GetString("lib.completed1p"),
+                                    all,
+                                    LocRm.GetString("lib.completed2p"), missing));
+                                Invoke(new Action(() =>
+                                {
+                                    _libs = templibs;
+                                    _nativelibs = tempnatives;
+                                }));
+                            };
+                            thr.RunWorkerCompleted += delegate
+                            {
+                                if (missing == 0)
+                                {
+                                    LaunchButtonClicked(0);
+                                    return;
+                                }
+                                progressBar1.Maximum = librariesMissed.Keys.Count;
+                                DownloadLibraries(librariesMissed);
+                            };
+                            thr.RunWorkerAsync();
                         }
-                        Logging.Info(String.Format("{0} {1}. {2} {3}", LocRm.GetString("lib.completed1p"), all, LocRm.GetString("lib.completed2p"), missing));
-                        _libs = templibs;
-                        _nativelibs = tempnatives;
-                        if (missing == 0)
-                        {
-                            step = 0;
-                            continue;
-                        }
-                        progressBar1.Maximum = _librariesMissed.Keys.Count;
-                        DownloadLibraries();
                     }
                         break;
                 }
@@ -569,13 +595,12 @@ namespace Luncher.Forms.Launcher
             }
         }
 
-        private readonly Dictionary<string, string> _librariesMissed = new Dictionary<string, string>();
-        private void DownloadLibraries()
+        private void DownloadLibraries(Dictionary<string, string> librariesMissed)
         {
-            int librariesWrongSize = 0, total = _librariesMissed.Keys.Count(), current = 0;
-            foreach (var a in _librariesMissed)
+            int librariesWrongSize = 0, total = librariesMissed.Keys.Count(), current = 0;
+            foreach (var a in librariesMissed)
             {
-                var filename = String.Format("{0}\\libraries\\{1}", Variables.McFolder, a.Key);
+                var filename = string.Format("{0}\\libraries\\{1}", Variables.McFolder, a.Key);
                 var path = Path.GetDirectoryName(filename);
                 if (!Directory.Exists(path)) Directory.CreateDirectory(path);
                 var client = new WebClient();
@@ -585,23 +610,23 @@ namespace Luncher.Forms.Launcher
                 {
                     current++;
                     progressBar1.Value1 = current;
-                    progressBar1.Text = String.Format("Downloading libraries [{0}\\{1}]", current, total);
+                    progressBar1.Text = string.Format("Downloading libraries [{0}\\{1}]", current, total);
                     if (new FileInfo(filename).Length <= 1)
                     {
-                        Logging.Warning(String.Format("Library {0} downloaded with wrong size!", a1));
+                        Logging.Warning(string.Format("Library {0} downloaded with wrong size!", a1));
                         librariesWrongSize++;
                     }
                     else
-                        Logging.Info(String.Format("Finished downloading {0}{1}", a1,
-                            (a2 != String.Empty ? " from custom repo " + a1 : String.Empty)));
-                    _librariesMissed.Remove(a1);
-                    if (_librariesMissed.Keys.Count != 0) return;
+                        Logging.Info(string.Format("Finished downloading {0}{1}", a1,
+                            (a2 != string.Empty ? " from custom repo " + a1 : string.Empty)));
+                    librariesMissed.Remove(a1);
+                    if (librariesMissed.Keys.Count != 0) return;
                     Logging.Info("Done. Missed: " + librariesWrongSize);
                     LaunchButtonClicked(0);
                     progressBar1.Value1 = progressBar1.Maximum;
                 };
                 client.DownloadFileAsync(
-                    new Uri((a.Value == String.Empty ? "https://libraries.minecraft.net/" : a.Value) + a.Key),
+                    new Uri((a.Value == string.Empty ? "https://libraries.minecraft.net/" : a.Value) + a.Key),
                     filename);
             }
         }
@@ -614,31 +639,8 @@ namespace Luncher.Forms.Launcher
 
         #region Launch
 
-        private void UnzipNatives()
-        {
-            var total = 0;
-            foreach (var a in _nativelibs)
-                try
-                {
-                    using (var zip = ZipFile.Read(Variables.McFolder + "\\libraries\\" + a))
-                        foreach (var e in zip.Where(e => e.FileName.EndsWith(".dll")))
-                        {
-                            total++;
-                            e.Extract(Variables.McFolder + "\\natives\\",
-                                ExtractExistingFileAction.OverwriteSilently);
-                        }
-                }
-                catch (Exception ex)
-                {
-                    Logging.Error("Smth went wrong due unpacking " + a + ": " + ex.Message);
-                }
-            Logging.Info(String.Format("Распаковка natives завершена. Всего извлечено {0} файлов", total));
-        }
-
-        private List<string> _libs = new List<string>();
-        private List<string> _nativelibs = new List<string>();
-        private string _ver;
-        private string _assets = "1.7.4";
+        private List<string> _libs = new List<string>(), _nativelibs = new List<string>();
+        private string _ver, _assets = "1.7.4";
 
         private void Launch(string profileJson)
         {
@@ -686,8 +688,8 @@ namespace Luncher.Forms.Launcher
             {
                 new RadMessageBoxForm
                 {
-                    Text = @"Re-login required",
-                    MessageText = "Client token or smth else isn't valid. Re-login required?",
+                    Text = @"Authorization required",
+                    MessageText = "Client token or smth else isn't valid. Authorization required?",
                     StartPosition = FormStartPosition.CenterScreen,
                     ButtonsConfiguration = MessageBoxButtons.OK,
                     TopMost = true,
@@ -697,12 +699,38 @@ namespace Luncher.Forms.Launcher
                 }.ShowDialog();
             }
             HideProgressBar();
-            UnzipNatives();
-            var finallibraries = _libs.Aggregate(String.Empty,
-                (current, a) => current + (a + ";"));
-            finallibraries = finallibraries.Substring(0, finallibraries.Length - 1);
-            var mp = new MinecraftProcess(this, usingAssets.Text, finallibraries, _assets, profileJson) ;
-            mp.Launch();
+            using (var thr = new BackgroundWorker())
+            {
+                thr.DoWork += delegate
+                {
+                    var total = 0;
+                    foreach (var a in _nativelibs)
+                        try
+                        {
+                            using (var zip = ZipFile.Read(Variables.McFolder + "\\libraries\\" + a))
+                                foreach (var e in zip.Where(e => e.FileName.EndsWith(".dll")))
+                                {
+                                    total++;
+                                    e.Extract(Variables.McFolder + "\\natives\\",
+                                        ExtractExistingFileAction.OverwriteSilently);
+                                }
+                        }
+                        catch (Exception ex)
+                        {
+                            Logging.Error("Smth went wrong due unpacking " + a + ": " + ex.Message);
+                        }
+                    Logging.Info(string.Format("Распаковка natives завершена. Всего извлечено {0} файлов", total));
+                };
+                thr.RunWorkerCompleted += delegate
+                {
+                    var finallibraries = _libs.Aggregate(string.Empty,
+                        (current, a) => current + (a + ";"));
+                    finallibraries = finallibraries.Substring(0, finallibraries.Length - 1);
+                    var mp = new MinecraftProcess(this, usingAssets.Text, finallibraries, _assets, profileJson);
+                    mp.Launch();
+                };
+                thr.RunWorkerAsync();
+            }
         }
 
         #endregion
@@ -717,19 +745,19 @@ namespace Luncher.Forms.Launcher
                 {
                     case 0:
                     {
-                        var jsonIndex = String.Format("{0}\\assets\\indexes\\{1}.json", _minecraft, index);
+                        var jsonIndex = string.Format("{0}\\assets\\indexes\\{1}.json", _minecraft, index);
                         if (!File.Exists(jsonIndex))
                         {
                             var path = Path.GetDirectoryName(jsonIndex);
                             if (!Directory.Exists(path)) Directory.CreateDirectory(path);
-                            var text = String.Format("{0} {1}...",
+                            var text = string.Format("{0} {1}...",
                                 LocRm.GetString("downloader.inprogress"), jsonIndex);
                             progressBar1.Text = text;
                             progressBar1.Maximum = 100;
                             Logging.Info(text);
                             webc.DownloadFileCompleted += (sender, e) =>
                             {
-                                progressBar1.Text = String.Format("{0} {1} {2}",
+                                progressBar1.Text = string.Format("{0} {1} {2}",
                                     LocRm.GetString("downloadprocess.downloading"), jsonIndex,
                                     LocRm.GetString("downloading.completed"));
                                 CheckResourses(index, 1);
@@ -737,7 +765,7 @@ namespace Luncher.Forms.Launcher
                             progressBar1.Maximum = 100;
                             webc.DownloadProgressChanged += ProgressChanged;
                             webc.DownloadFileAsync(
-                                new Uri(String.Format("https://s3.amazonaws.com/Minecraft.Download/indexes/{0}.json",
+                                new Uri(string.Format("https://s3.amazonaws.com/Minecraft.Download/indexes/{0}.json",
                                     index)), jsonIndex);
                         }
                         else
@@ -749,40 +777,48 @@ namespace Luncher.Forms.Launcher
                         break;
                     case 1:
                     {
-                        var json = JObject.Parse(File.ReadAllText(String.Format("{0}\\assets\\indexes\\{1}.json", _minecraft, index)));
-                        var all = ((JObject) json["objects"]).Count;
-                        Logging.Info(LocRm.GetString("resources.checking"));
-                        foreach (
-                            var filename in
+                        new Thread(() =>
+                        {
+                            var json =
+                                JObject.Parse(
+                                    File.ReadAllText(string.Format("{0}\\assets\\indexes\\{1}.json", _minecraft,
+                                        index)));
+                            var all = ((JObject) json["objects"]).Count;
+                            Logging.Info(LocRm.GetString("resources.checking"));
+                            var missedAssets =
                                 json["objects"].Cast<JProperty>()
                                     .Select(peep => json["objects"][peep.Name]["hash"].ToString())
                                     .Select(c => c[0].ToString() + c[1].ToString() + "\\" + c)
                                     .Where(
-                                        filename => !File.Exists(Variables.McFolder + "\\assets\\objects\\" + filename))
-                            )
-                            _missedAssets.Add(filename);
-                        Logging.Info(
-                            String.Format("{0} {1}. {2} {3}", LocRm.GetString("resources.completed1p"), all, LocRm.GetString("resources.completed2p"), _missedAssets.Count));
-                        if (_missedAssets.Count != 0)
-                        {
-                            progressBar1.Maximum = _missedAssets.Count;
-                            DownloadAssets();
-                        }
-                        else
-                            LaunchButtonClicked(1);
+                                        filename =>
+                                            !File.Exists(Variables.McFolder + "\\assets\\objects\\" + filename))
+                                    .ToList();
+                            Logging.Info(
+                                    string.Format("{0} {1}. {2} {3}", LocRm.GetString("resources.completed1p"), all,
+                                        LocRm.GetString("resources.completed2p"), missedAssets.Count));
+                            Invoke(new Action(() =>
+                            {
+                                if (missedAssets.Count != 0)
+                                {
+                                    progressBar1.Maximum = missedAssets.Count;
+                                    DownloadAssets(missedAssets);
+                                }
+                                else
+                                    LaunchButtonClicked(1);
+                            }));
+                        }).Start();
                     }
                         break;
                 }
                 break;
             }
         }
-        private List<string> _missedAssets = new List<string>();
-        private void DownloadAssets()
+        private void DownloadAssets(List<string> missedAssets)
         {
-            int missed = 0, current = 0, total = _missedAssets.Count();
-            foreach (var a in _missedAssets)
+            int missed = 0, current = 0, total = missedAssets.Count();
+            foreach (var a in missedAssets)
             {
-                var filename = String.Format("{0}\\assets\\objects\\{1}", Variables.McFolder, a);
+                var filename = string.Format("{0}\\assets\\objects\\{1}", Variables.McFolder, a);
                 var path = Path.GetDirectoryName(filename);
                 if (!Directory.Exists(path)) Directory.CreateDirectory(path);
                 var client = new WebClient();
@@ -791,17 +827,17 @@ namespace Luncher.Forms.Launcher
                 {
                     current++;
                     progressBar1.Value1 = current;
-                    progressBar1.Text = String.Format("Downloading resources [{0}\\{1}]", current, _missedAssets.Count());
+                    progressBar1.Text = string.Format("Downloading resources [{0}\\{1}]", current, missedAssets.Count());
                     if (new FileInfo(filename).Length <= 1)
                     {
                         missed++;
-                        Logging.Warning(String.Format("Resource {0} downloaded with wrong size!", a1));
+                        Logging.Warning(string.Format("Resource {0} downloaded with wrong size!", a1));
                     }
                     else
-                        Logging.Info(String.Format("Finished downloading {0}", a1));
+                        Logging.Info(string.Format("Finished downloading {0}", a1));
                     total--;
                     if (total != 0) return;
-                    _missedAssets = new List<string>();
+                    missedAssets = new List<string>();
                     Logging.Info("Done. Missed: " + missed);
                     LaunchButtonClicked(1);
                 };
@@ -842,20 +878,18 @@ namespace Luncher.Forms.Launcher
         {
             try
             {
-                var newprofilename = DateTime.Now.ToString("HH:mm:ss");
+                var newProfileName = DateTime.Now.ToString("HH:mm:ss");
                 var json = JObject.Parse(File.ReadAllText(Variables.ProfileJsonFile));
-                var json1 = (JObject) json["profiles"];
-                var toparse = json1[SelectProfile.Text].ToString();
-                var curprofile = JObject.Parse(toparse);
-                Console.WriteLine(newprofilename);
-                newprofilename = String.Format("Copy of {0}({1})", curprofile["name"], newprofilename);
-                Logging.Info(String.Format("{0} {1}({2})" + "...", LocRm.GetString("profile.createcopy"), SelectProfile.Text, newprofilename));
-                curprofile["name"] = newprofilename;
-                Console.WriteLine();
-                json1.Add(new JProperty(newprofilename, curprofile));
+                var jsonProfile = (JObject) json["profiles"][SelectProfile.Text];
+                newProfileName = string.Format("Copy of {0}({1})", jsonProfile["name"], newProfileName);
+                Logging.Info(string.Format("{0} {1}({2})" + "...", LocRm.GetString("profile.createcopy"),
+                    SelectProfile.Text, newProfileName));
+                var newProfile = new JObject(jsonProfile);
+                newProfile["name"] = newProfileName;
+                ((JObject) json["profiles"]).Add(new JProperty(newProfileName, newProfile));
                 File.WriteAllText(Variables.ProfileJsonFile, json.ToString());
                 GetItems();
-                SelectProfile.SelectedItem = SelectProfile.FindItemExact(newprofilename, true);
+                SelectProfile.SelectedItem = SelectProfile.FindItemExact(newProfileName, true);
                 ChangeProgile(false);
             }
             catch (Exception ex)
@@ -880,7 +914,7 @@ namespace Luncher.Forms.Launcher
                 GetItems();
                 GetSelectedVersion(SelectProfile.SelectedItem.Text);
                 Logging.Info(pf.Canceled != true
-                    ? String.Format("{0} {1} {2}", LocRm.GetString("profile.edited.complete1p"), SelectProfile.Text,
+                    ? string.Format("{0} {1} {2}", LocRm.GetString("profile.edited.complete1p"), SelectProfile.Text,
                         LocRm.GetString("profile.edited.complete2p"))
                     : LocRm.GetString("profile.delete.canceled"));
             }
@@ -901,7 +935,7 @@ namespace Luncher.Forms.Launcher
                 var reconstructed = 0;
                 try
                 {
-                    var jsonPath = String.Format("{0}\\assets\\indexes\\legacy.json", _minecraft);
+                    var jsonPath = string.Format("{0}\\assets\\indexes\\legacy.json", _minecraft);
                     var jsonDir = Path.GetDirectoryName(jsonPath);
                     if (!Directory.Exists(jsonDir)) Directory.CreateDirectory(jsonDir);
                     if (!File.Exists(jsonPath))
@@ -915,27 +949,27 @@ namespace Luncher.Forms.Launcher
                     {
                         all++;
                         var c = json["objects"][peep.Name]["hash"].ToString();
-                        var filename = String.Format("{0}{1}\\{2}", c[0].ToString(), c[1].ToString(),
+                        var filename = string.Format("{0}{1}\\{2}", c[0].ToString(), c[1].ToString(),
                             json["objects"][peep.Name]["hash"]);
-                        var newpath = String.Format("{0}\\assets\\objects\\{1}", _minecraft, filename);
-                        var oldpath = String.Format("{0}\\assets\\{1}", _minecraft, peep.Name);
+                        var newpath = string.Format("{0}\\assets\\objects\\{1}", _minecraft, filename);
+                        var oldpath = string.Format("{0}\\assets\\{1}", _minecraft, peep.Name);
                         if (File.Exists(oldpath)) continue;
-                        Logging.Info(String.Format("{0} -> {1}", newpath, oldpath));
+                        Logging.Info(string.Format("{0} -> {1}", newpath, oldpath));
                         var path = Path.GetDirectoryName(oldpath);
                         if (path != null && (!Directory.Exists(path))) Directory.CreateDirectory(path);
                         if (!File.Exists(newpath))
                             new WebClient().DownloadFile(
-                                String.Format(@"http://resources.download.minecraft.net/{0}", filename),
+                                string.Format(@"http://resources.download.minecraft.net/{0}", filename),
                                 oldpath);
                         else File.Copy(newpath, oldpath);
                         reconstructed++;
                     }
-                    Logging.Info(String.Format("{0} {1}. {2} {3}", LocRm.GetString("resources.recostructionsuccestotal"),
+                    Logging.Info(string.Format("{0} {1}. {2} {3}", LocRm.GetString("resources.recostructionsuccestotal"),
                         all, LocRm.GetString("resources.recostructionsuccestotalrecostructed"), reconstructed));
                 }
                 catch (Exception ex)
                 {
-                    Logging.Error(String.Format("{0}\n{1}", LocRm.GetString("resources.reconstructionerror"), ex.Data));
+                    Logging.Error(string.Format("{0}\n{1}", LocRm.GetString("resources.reconstructionerror"), ex.Data));
                 }
             }
             else
@@ -965,11 +999,11 @@ namespace Luncher.Forms.Launcher
 
         private bool _loadedlang;
 
-        private void radDropDownList1_SelectedIndexChanged(object sender,
+        private void LangSelection_Changed(object sender,
             PositionChangedEventArgs e)
         {
             Program.Lang = LangDropDownList.SelectedItem.Text.Contains("ru")
-                ? String.Empty
+                ? string.Empty
                 : LangDropDownList.SelectedItem.Tag.ToString();
             Thread.CurrentThread.CurrentUICulture = new CultureInfo(Program.Lang);
             if (!_loadedlang) return;
@@ -980,7 +1014,7 @@ namespace Luncher.Forms.Launcher
 
         public void CleanNatives()
         {
-            var path = String.Format("{0}\\natives", Variables.McFolder);
+            var path = string.Format("{0}\\natives", Variables.McFolder);
             if (!Directory.Exists(path) || !Directory.GetFiles(path).Any()) return;
             Logging.Info("Очистка natives...");
             foreach (var file in Directory.GetFiles(path))

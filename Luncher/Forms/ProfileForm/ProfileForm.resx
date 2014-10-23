@@ -697,7 +697,7 @@
     <value>3</value>
   </data>
   <data name="EnableExp.Text" xml:space="preserve">
-    <value>Включить эксперементальные сборки ("snapshots")</value>
+    <value>Включить экспериментальные сборки ("snapshots")</value>
   </data>
   <data name="&gt;&gt;EnableExp.Name" xml:space="preserve">
     <value>EnableExp</value>
@@ -712,7 +712,7 @@
     <value>4</value>
   </data>
   <data name="resource.Text9" xml:space="preserve">
-    <value>Включить эксперементальные сборки ("snapshots")</value>
+    <value>Включить экспериментальные сборки ("snapshots")</value>
   </data>
   <data name="radGroupBox2.HeaderText" xml:space="preserve">
     <value>Выбор версии</value>

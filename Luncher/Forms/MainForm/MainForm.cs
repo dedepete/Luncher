@@ -18,25 +18,19 @@ namespace Luncher.Forms.MainForm
         public MainForm()
         {
             InitializeComponent();
-            LoggingMain.ProductName = ProductName;
-            LoggingMain.LoggingBox = Log;
+            LoggingConfiguration.ProductName = ProductName;
+            LoggingConfiguration.LoggingBox = Log;
         }
 
         string _minecraft = string.Empty;
 
         private void WriteLog(string message)
         {
-            if (InvokeRequired)
-                Invoke(new Action<string>(WriteLog), new object[] {message});
-            else
-                Logging.Info(message, new LoggingOptions {UseTimeAndStatePrefix = false});
+            Logging.Info(message, new LoggingOptions {UseTimeAndStatePrefix = false});
         }
         private void WriteLog()
         {
-            if (InvokeRequired)
-                Invoke(new Action<string>(WriteLog));
-            else
-                Logging.Info(string.Empty, new LoggingOptions { UseTimeAndStatePrefix = false });
+            Logging.Info(string.Empty, new LoggingOptions {UseTimeAndStatePrefix = false});
         }
         private void MainForm_Load(object sender, EventArgs e)
         {
@@ -55,15 +49,12 @@ namespace Luncher.Forms.MainForm
             {
                 WriteLog("Operating System: Unavaiable");
             }
-            try
-            {
-                WriteLog("Java Path: \"" + Processing.GetJavaInstallationPath() + "\"");
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(String.Format("The registry refers to a nonexistent Java Runtime Environment\n\n{0}", ex.Data), @"Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                WriteLog("Java Path: Missed");
-            }
+            var jpath = Processing.GetJavaInstallationPath();
+            WriteLog("Java Path: \"" + (jpath ?? "MISSED") + "\"");
+            if (jpath == null)
+                MessageBox.Show(
+                    Localization.Localization_MainForm.JavaNotFoundError,
+                    @"Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             WriteLog();
             WriteLog("#Assembly information:");
             WriteLog("JSON.NET " + Variables.NetJsonVersion);
@@ -111,8 +102,8 @@ namespace Luncher.Forms.MainForm
                 WriteLog("An error occurred while reading configuration file:\n" + ex);
             }
             Program.Lang = (string)Configuration.Main["lang"];
-            var lang = String.Empty;
-            if (Program.Lang == String.Empty)
+            var lang = string.Empty;
+            if (Program.Lang == string.Empty)
                 lang = "ru-default(Русский)";
             else
                 try
@@ -128,8 +119,8 @@ namespace Luncher.Forms.MainForm
                 }
                 catch
                 {
-                    WriteLog(String.Format("Unknown language: {0}. Setting default language", Program.Lang));
-                    Program.Lang = String.Empty;
+                    WriteLog(string.Format("Unknown language: {0}. Setting default language", Program.Lang));
+                    Program.Lang = string.Empty;
                     lang = "ru-default(Русский)";
                 }
             WriteLog("Loading settings for language: " + lang);
@@ -141,52 +132,43 @@ namespace Luncher.Forms.MainForm
 
         void CheckLauncherProfiles()
         {
-            if (!File.Exists(Variables.ProfileJsonFile))
-            {
-                const string json = @"{
-  'profiles': {
-    'Luncher': {
-      'name': 'Luncher',
-      'lastVersionId': '1.7.4',
-      'allowedReleaseTypes': [
-        'release'
-      ],
-      'launcherVisibilityOnGameClose': 'keep the launcher open'
-    }
-  },
-  'selectedProfile': 'Luncher'
-}";
-                var parsedjson = JObject.Parse(json);
-                parsedjson["profiles"]["Luncher"]["lastVersionId"] = Variables.LastRelease;
-                File.WriteAllText(Variables.ProfileJsonFile, parsedjson.ToString());
-            }
-            var ljson = JObject.Parse(File.ReadAllText(Variables.ProfileJsonFile));
             try
             {
-                if (ljson["luncher"].ToString() == "true")
-                    if (ljson["selectedProfile"] != null)
-                        WriteLog("launcher_profiles.json загружен успешно");
-                    else
-                        throw new Exception("One of the important file is corrupted!");
-                else
-                {
-                    var newname = DateTime.Now.ToString("HHmmss") + ".json";
-                    WriteLog("Creating backup of old launcher_profiles(launcher_profiles.bup." + newname + ")...");
-                    File.Move(Variables.ProfileJsonFile, Variables.McFolder + "/launcher_profiles.bup." + newname);
-                    var jsn = JObject.Parse(File.ReadAllText(Variables.McFolder + "/launcher_profiles.bup." + newname));
-                    jsn.Add(new JProperty("luncher", "true"));
-                    File.WriteAllText(Variables.ProfileJsonFile, jsn.ToString());
-                }
+                var profile = JObject.Parse(File.ReadAllText(Variables.ProfileJsonFile));
+                if (profile["profiles"] == null)
+                    throw new Exception();
+                if (profile["selectedProfile"] == null)
+                    throw new Exception();
             }
             catch
             {
-                var newname = DateTime.Now.ToString("HHmmss") + ".json";
-                WriteLog("Creating backup of old launcher_profiles(launcher_profiles.bup." + newname + ")...");
-                File.Move(Variables.ProfileJsonFile, Variables.McFolder + "/launcher_profiles.bup." + newname);
-                var jsn = JObject.Parse(File.ReadAllText(Variables.McFolder + "/launcher_profiles.bup." + newname));
-                jsn.Add(new JProperty("luncher", "true"));
-                File.WriteAllText(Variables.ProfileJsonFile, jsn.ToString());
+                File.Delete(Variables.ProfileJsonFile);
             }
+            if (File.Exists(Variables.ProfileJsonFile)) return;
+            var jsonProfile = new JObject
+            {
+                {
+                    "profiles", new JObject
+                    {
+                        {
+                            ProductName, new JObject
+                            {
+                                {"name", ProductName},
+                                {"lastVersionId", Variables.LastRelease},
+                                {
+                                    "allowedReleaseTypes", new JArray
+                                    {
+                                        "release"
+                                    }
+                                },
+                                {"launcherVisibilityOnGameClose", "keep the launcher open"}
+                            }
+                        }
+                    }
+                },
+                {"selectedProfile", ProductName}
+            };
+            File.WriteAllText(Variables.ProfileJsonFile, jsonProfile.ToString());
         }
 
         void DownloadVersions()
@@ -201,7 +183,7 @@ namespace Luncher.Forms.MainForm
             {
                 sw.Stop();
                 WriteLog("Completed! Download time: " + sw.ElapsedMilliseconds + "ms");
-                var path = String.Format("{0}{1}", Variables.McVersions, "versions.json");
+                var path = string.Format("{0}{1}", Variables.McVersions, "versions.json");
                 if (new FileInfo(path).Length < 0)
                     WriteLog("version.json downloaded with wrong filesize!");
                 else
@@ -229,8 +211,8 @@ namespace Luncher.Forms.MainForm
                         try
                         {
                             WriteLog("Checking version.json...");
-                            var latestsnapshot = String.Empty;
-                            var latestrelease = String.Empty;
+                            var latestsnapshot = string.Empty;
+                            var latestrelease = string.Empty;
                             var jb =
                                 JObject.Parse(await new WebClient().DownloadStringTaskAsync(
                                 new Uri("https://s3.amazonaws.com/Minecraft.Download/versions/versions.json")));
@@ -245,8 +227,8 @@ namespace Luncher.Forms.MainForm
                                 WriteLog("Latest release: " + latestrelease);
                             }
                             var updatefound = false;
-                            var localsnapshot = String.Empty;
-                            var localrelease = String.Empty;
+                            var localsnapshot = string.Empty;
+                            var localrelease = string.Empty;
                             var ver = JObject.Parse(File.ReadAllText(_minecraft + "/versions/versions.json"));
                             if (ver["latest"]["snapshot"] != null) localsnapshot = ver["latest"]["snapshot"].ToString();
                             if (ver["latest"]["release"] != null) localrelease = ver["latest"]["release"].ToString();
@@ -257,7 +239,7 @@ namespace Luncher.Forms.MainForm
                                     if (latestsnapshot != localsnapshot)
                                         new RadDesktopAlert
                                         {
-                                            CaptionText = "A new version available",
+                                            CaptionText = "A new version is available",
                                             ContentText =
                                                 "A new Minecraft snapshot is avaible: " + latestsnapshot,
                                             ShowCloseButton = true,
@@ -271,7 +253,7 @@ namespace Luncher.Forms.MainForm
                                     if (latestrelease != localrelease)
                                         new RadDesktopAlert
                                         {
-                                            CaptionText = "A new version available",
+                                            CaptionText = "A new version is available",
                                             ContentText = "A new Minecraft release is avaible: " + latestrelease,
                                             ShowCloseButton = true,
                                             ShowOptionsButton = false,
@@ -303,7 +285,7 @@ namespace Luncher.Forms.MainForm
                             if (File.Exists(_minecraft + "\\versions\\versions.json"))
                             {
                                 Variables.WorkingOffline = true;
-                                WriteLog("Загружаю локальный список версий...");
+                                WriteLog("Loading local versions.json...");
                                 try
                                 {
                                     var json =
@@ -433,6 +415,7 @@ namespace Luncher.Forms.MainForm
             }
             catch (Exception ex)
             {
+                LoggingConfiguration.LoggingBox = Log;
                 CrashPanel.Visible = true;
                 WriteLog("Во время чтения файла профилей возникла ошибка:\n" + ex +
                          "\n\n#######\nВозможное решение: Удалите " + Variables.ProfileJsonFile +

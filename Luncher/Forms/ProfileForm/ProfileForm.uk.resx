@@ -124,7 +124,7 @@
     <value>Включити старі "Beta" збірки(2010-2011)</value>
   </data>
   <data name="EnableExp.Text" xml:space="preserve">
-    <value>Включити експерементальні збірки ("snapshots")</value>
+    <value>Включити експериментальні збірки ("snapshots")</value>
   </data>
   <data name="EnableOther.Text" xml:space="preserve">
     <value>Включити інші версії</value>
@@ -174,38 +174,29 @@
   <data name="resource.Text" xml:space="preserve">
     <value>Назва профілю:</value>
   </data>
-  <data name="resource.Text1" xml:space="preserve">
-    <value>Після запуску:</value>
-  </data>
-  <data name="resource.Text10" xml:space="preserve">
-    <value>Аргументи:</value>
-  </data>
   <data name="resource.Text3" xml:space="preserve">
-    <value>Розмір екрану:</value>
+    <value>Х</value>
   </data>
   <data name="resource.Text4" xml:space="preserve">
-    <value>Ігрова директорія:</value>
+    <value>Розмір екрану:</value>
   </data>
   <data name="resource.Text5" xml:space="preserve">
-    <value>Включити інші версії</value>
+    <value>Ігрова директорія:</value>
   </data>
   <data name="resource.Text6" xml:space="preserve">
-    <value>Включити старі "Alpha" збірки(від 2010)</value>
+    <value>Включити інші версії</value>
   </data>
   <data name="resource.Text7" xml:space="preserve">
-    <value>Включити старі "Beta" збірки(2010-2011)</value>
+    <value>Включити старі "Alpha" збірки(від 2010)</value>
   </data>
   <data name="resource.Text8" xml:space="preserve">
-    <value>Включити експерементальні збірки ("snapshots")</value>
-  </data>
-  <data name="resource.Text2" xml:space="preserve">
-    <value>Х</value>
+    <value>Включити старі "Beta" збірки(2010-2011)</value>
   </data>
   <data name="radLabel3.Text" xml:space="preserve">
     <value>Х</value>
   </data>
   <data name="resource.Text9" xml:space="preserve">
-    <value>Виконуючий файл:</value>
+    <value>Включити експериментальні збірки ("snapshots")</value>
   </data>
   <data name="UseArgs.Text" xml:space="preserve">
     <value>Аргументи:</value>
@@ -254,5 +245,23 @@
   </data>
   <data name="data.keepopen" xml:space="preserve">
     <value>Залишити лаунчер відкритим</value>
+  </data>
+  <data name="resource.Text11" xml:space="preserve">
+    <value>Аргументи:</value>
+  </data>
+  <data name="resource.Text10" xml:space="preserve">
+    <value>Виконуючий файл:</value>
+  </data>
+  <data name="resource.Text2" xml:space="preserve">
+    <value>Після запуску:</value>
+  </data>
+  <data name="portTextBox.NullText" xml:space="preserve">
+    <value>Порт</value>
+  </data>
+  <data name="fastConnectCheckBox.Text" xml:space="preserve">
+    <value>Швидке підключення:</value>
+  </data>
+  <data name="resource.Text1" xml:space="preserve">
+    <value>Швидке підключення:</value>
   </data>
 </root>

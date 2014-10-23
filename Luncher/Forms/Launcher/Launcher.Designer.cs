@@ -404,7 +404,7 @@
             this.LangDropDownList.RootElement.Text = resources.GetString("LangDropDownList.RootElement.Text");
             this.LangDropDownList.RootElement.TextOrientation = ((System.Windows.Forms.Orientation)(resources.GetObject("LangDropDownList.RootElement.TextOrientation")));
             this.LangDropDownList.ThemeName = "VisualStudio2012Dark";
-            this.LangDropDownList.SelectedIndexChanged += new Telerik.WinControls.UI.Data.PositionChangedEventHandler(this.radDropDownList1_SelectedIndexChanged);
+            this.LangDropDownList.SelectedIndexChanged += new Telerik.WinControls.UI.Data.PositionChangedEventHandler(this.LangSelection_Changed);
             // 
             // EnableMinecraftUpdateAlerts
             // 

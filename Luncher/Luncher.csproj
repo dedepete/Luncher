@@ -122,6 +122,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="JSONProfile.cs" />
+    <Compile Include="Localization\Localization.MainForm.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Localization.MainForm.resx</DependentUpon>
+    </Compile>
     <Compile Include="YaDra4il.cs" />
     <Compile Include="Forms\Launcher\Launcher.cs">
       <SubType>Form</SubType>
@@ -193,6 +198,14 @@
     <EmbeddedResource Include="Forms\ProfileForm\ProfileForm.uk.resx">
       <DependentUpon>ProfileForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Localization\Localization.MainForm.be.resx" />
+    <EmbeddedResource Include="Localization\Localization.MainForm.en.resx" />
+    <EmbeddedResource Include="Localization\Localization.MainForm.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Localization.MainForm.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Localization\Localization.MainForm.ru.resx" />
+    <EmbeddedResource Include="Localization\Localization.MainForm.uk.resx" />
     <EmbeddedResource Include="Properties\Resources.be.resx" />
     <EmbeddedResource Include="Properties\Resources.en.resx" />
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -252,10 +265,11 @@
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties IncrementInformational="False" IncrementOnRebuild="True" IncrementOnBuild="True" IncrementAction="2" Versioning="0" StartAt="" />
+      <UserProperties StartAt="" Versioning="0" IncrementAction="2" IncrementOnBuild="True" IncrementOnRebuild="True" IncrementInformational="False" />
     </VisualStudio>
   </ProjectExtensions>
   <PropertyGroup>
