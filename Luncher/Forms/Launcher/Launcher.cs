@@ -884,8 +884,9 @@ namespace Luncher.Forms.Launcher
                 newProfileName = string.Format("Copy of {0}({1})", jsonProfile["name"], newProfileName);
                 Logging.Info(string.Format("{0} {1}({2})" + "...", LocRm.GetString("profile.createcopy"),
                     SelectProfile.Text, newProfileName));
-                jsonProfile["name"] = newProfileName;
-                ((JObject) json["profiles"]).Add(new JProperty(newProfileName, jsonProfile));
+                var newProfile = new JObject(jsonProfile);
+                newProfile["name"] = newProfileName;
+                ((JObject) json["profiles"]).Add(new JProperty(newProfileName, newProfile));
                 File.WriteAllText(Variables.ProfileJsonFile, json.ToString());
                 GetItems();
                 SelectProfile.SelectedItem = SelectProfile.FindItemExact(newProfileName, true);
