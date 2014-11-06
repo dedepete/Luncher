@@ -16,6 +16,8 @@ JSON.Net (http://james.newtonking.com/json)
 
 NDesk.Options (http://www.ndesk.org/Options)
 
+Microsoft Async (https://www.nuget.org/packages/Microsoft.Bcl.Async)
+
 Download launcher
 =======
 
