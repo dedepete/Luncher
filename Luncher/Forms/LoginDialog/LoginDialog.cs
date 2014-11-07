@@ -19,22 +19,22 @@ namespace Luncher.Forms.LoginDialog
             {
 
                 Logging.Info("Authenticating...");
-                var auth = new AuthManager {email = radTextBox1.Text, password = radTextBox2.Text};
+                var auth = new AuthManager {Email = radTextBox1.Text, Password = radTextBox2.Text};
                 auth.Login();
-
                 var jo = JObject.Parse(File.ReadAllText(Variables.McFolder + "/luncher/userprofiles.json"));
+                jo["selectedUsername"] = auth.Username;
                 var item = (JObject)jo["profiles"];
                 try
                 {
-                    item.Remove(auth.username);
+                    item.Remove(auth.Username);
                 }
                 catch { }
-                item.Add(new JProperty(auth.username, new JObject
+                item.Add(new JProperty(auth.Username, new JObject
                 {
                     new JProperty("type", "official"),
-                    new JProperty("accessToken", auth.sessionToken),
-                    new JProperty("clientToken", auth.accessToken),
-                    new JProperty("UUID", auth.uuid)
+                    new JProperty("accessToken", auth.SessionToken),
+                    new JProperty("clientToken", auth.AccessToken),
+                    new JProperty("UUID", auth.Uuid)
                 }));
                 File.WriteAllText(Variables.McFolder + "/luncher/userprofiles.json", jo.ToString());
                 Result = "Added successfuly";

@@ -74,8 +74,6 @@ namespace Luncher.Forms.Launcher
 
         public readonly ResourceManager LocRm = new ResourceManager("Luncher.Forms.Launcher.Launcher", typeof (Launcher).Assembly);
 
-        private readonly string _minecraft = Program.Minecraft;
-
         private void Launcher_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (Variables.ImStillRunning != 0)
@@ -144,11 +142,10 @@ namespace Luncher.Forms.Launcher
                 GetItems();
                 GetSelectedVersion(SelectProfile.SelectedItem.Text);
             }
-            if (File.Exists(Variables.McFolder + "/lastlogin"))
-            {
-                var nickname = File.ReadAllText(Variables.McFolder + "/lastlogin");
-                Nickname.Text = nickname;
-            }
+            var lastlogin =
+                JObject.Parse(File.ReadAllText(string.Format("{0}/luncher/userprofiles.json", Program.Minecraft)));
+            if (lastlogin["selectedUsername"] != null)
+                Nickname.SelectedIndex = Nickname.FindString(lastlogin["selectedUsername"].ToString());
             Logging.Info(LocRm.GetString("program.started"));
         }
 
@@ -186,16 +183,22 @@ namespace Luncher.Forms.Launcher
             }
         }
 
-        private static void AddUserProfile()
+        private void AddUserProfile()
         {
             var lf = new LoginDialog.LoginDialog();
             lf.ShowDialog();
             Logging.Info(lf.Result);
+            lf.Dispose();
+            UpdateUserProfiles();
+            var lastlogin =
+                JObject.Parse(File.ReadAllText(string.Format("{0}/luncher/userprofiles.json", Program.Minecraft)));
+            if (lastlogin["selectedUsername"] != null)
+                Nickname.SelectedIndex = Nickname.FindString(lastlogin["selectedUsername"].ToString());
         }
 
         private void UpdateUserProfiles()
         {
-            var filename = string.Format("{0}/luncher/userprofiles.json", _minecraft);
+            var filename = string.Format("{0}/luncher/userprofiles.json", Program.Minecraft);
             if (File.Exists(filename))
             {
                 Nickname.Items.Clear();
@@ -204,13 +207,15 @@ namespace Luncher.Forms.Launcher
                     Nickname.Items.Add(peep.Name);
             }
             else
-            {
-                const string templ = @"{
-  'profiles': {
-  }
-}";
-                File.WriteAllText(filename, templ);
-            }
+                File.WriteAllText(filename, new JObject
+                {
+                    {"selectedUsername", null},
+                    {"profiles", new JObject()}
+                }.ToString());
+            var lastlogin =
+                JObject.Parse(File.ReadAllText(string.Format("{0}/luncher/userprofiles.json", Program.Minecraft)));
+            if (lastlogin["selectedUsername"] != null)
+                Nickname.SelectedIndex = Nickname.FindString(lastlogin["selectedUsername"].ToString());
         }
 
         public Dictionary<int, object> LogTab(string text, string profilename)
@@ -345,13 +350,11 @@ namespace Luncher.Forms.Launcher
             SetNullProgressBar();
             ShowProgressBar();
             LaunchButtonChange(LocRm.GetString("launcher.wait"), false);
-            try
-            {
-                File.WriteAllText(Variables.McFolder + "/lastlogin", Nickname.Text);
-            }
-            catch
-            {
-            }
+            var path = string.Format("{0}/luncher/userprofiles.json", Program.Minecraft);
+            var lastlogin =
+                JObject.Parse(File.ReadAllText(path));
+            lastlogin["selectedUsername"] = Nickname.Text;
+            File.WriteAllText(path, lastlogin.ToString());
             radPageView1.SelectedPage = ConsolePage;
             LaunchButtonClicked(2);
         }
@@ -382,7 +385,7 @@ namespace Luncher.Forms.Launcher
                             }
                             var verJson =
                                 JObject.Parse(
-                                    File.ReadAllText(string.Format("{0}\\versions\\{1}\\{1}.json", _minecraft, ver)));
+                                    File.ReadAllText(string.Format("{0}\\versions\\{1}\\{1}.json", Program.Minecraft, ver)));
                             index = verJson["assets"].ToString();
                         }
                         catch
@@ -411,7 +414,7 @@ namespace Luncher.Forms.Launcher
                                 ? Variables.LastSnapshot
                                 : Variables.LastRelease;
                         }
-                        var jarPath = string.Format("{0}\\versions\\{1}\\{1}.jar", _minecraft, _ver);
+                        var jarPath = string.Format("{0}\\versions\\{1}\\{1}.jar", Program.Minecraft, _ver);
                         if (!File.Exists(jarPath))
                         {
                             var path = Path.GetDirectoryName(jarPath);
@@ -429,7 +432,7 @@ namespace Luncher.Forms.Launcher
                             webc.DownloadFileAsync(
                                 new Uri(string.Format(
                                     "https://s3.amazonaws.com/Minecraft.Download/versions/{0}/{0}.jar", _ver)),
-                                string.Format("{0}/versions/{1}/{1}.jar", _minecraft, _ver));
+                                string.Format("{0}/versions/{1}/{1}.jar", Program.Minecraft, _ver));
                         }
                         else
                         {
@@ -451,7 +454,7 @@ namespace Luncher.Forms.Launcher
                                 ? Variables.LastSnapshot
                                 : Variables.LastRelease;
                         }
-                        var jsonPath = string.Format("{0}\\versions\\{1}\\{1}.json", _minecraft, _ver);
+                        var jsonPath = string.Format("{0}\\versions\\{1}\\{1}.json", Program.Minecraft, _ver);
                         if (!File.Exists(jsonPath))
                         {
                             var path =
@@ -483,7 +486,7 @@ namespace Luncher.Forms.Launcher
                     {
                         var json =
                             JObject.Parse(
-                                File.ReadAllText(string.Format("{0}\\versions\\{1}\\{1}.json", _minecraft, _ver)));
+                                File.ReadAllText(string.Format("{0}\\versions\\{1}\\{1}.json", Program.Minecraft, _ver)));
                         Logging.Info(LocRm.GetString("lib.checking"));
                         var templibs = new List<string>(); // libs
                         var tempnatives = new List<string>(); // libs with natives
@@ -556,7 +559,7 @@ namespace Luncher.Forms.Launcher
                                     if (natives == string.Empty)
                                         templibs.Add(Variables.McFolder + "\\libraries\\" + lib);
                                     else tempnatives.Add(lib);
-                                    var temppath = Path.Combine(_minecraft + "\\libraries", lib);
+                                    var temppath = Path.Combine(Program.Minecraft + "\\libraries", lib);
                                     if (File.Exists(temppath))
                                         continue;
                                     Invoke(new Action(() =>
@@ -662,15 +665,15 @@ namespace Luncher.Forms.Launcher
                     {
                         var a = new AuthManager
                         {
-                            sessionToken = jo["profiles"][peep.Name]["accessToken"].ToString(),
-                            uuid = jo["profiles"][peep.Name]["UUID"].ToString()
+                            SessionToken = jo["profiles"][peep.Name]["accessToken"].ToString(),
+                            Uuid = jo["profiles"][peep.Name]["UUID"].ToString()
                         };
                         var b = a.CheckSessionToken();
                         if (!b)
                         {
-                            a.accessToken = jo["profiles"][peep.Name]["clientToken"].ToString();
+                            a.AccessToken = jo["profiles"][peep.Name]["clientToken"].ToString();
                             a.Refresh();
-                            jo["profiles"][peep.Name]["accessToken"] = a.sessionToken;
+                            jo["profiles"][peep.Name]["accessToken"] = a.SessionToken;
                         }
                         Variables.AccessToken = jo["profiles"][peep.Name]["accessToken"].ToString();
                         Variables.ClientToken = jo["profiles"][peep.Name]["UUID"].ToString();
@@ -745,7 +748,7 @@ namespace Luncher.Forms.Launcher
                 {
                     case 0:
                     {
-                        var jsonIndex = string.Format("{0}\\assets\\indexes\\{1}.json", _minecraft, index);
+                        var jsonIndex = string.Format("{0}\\assets\\indexes\\{1}.json", Program.Minecraft, index);
                         if (!File.Exists(jsonIndex))
                         {
                             var path = Path.GetDirectoryName(jsonIndex);
@@ -781,7 +784,7 @@ namespace Luncher.Forms.Launcher
                         {
                             var json =
                                 JObject.Parse(
-                                    File.ReadAllText(string.Format("{0}\\assets\\indexes\\{1}.json", _minecraft,
+                                    File.ReadAllText(string.Format("{0}\\assets\\indexes\\{1}.json", Program.Minecraft,
                                         index)));
                             var all = ((JObject) json["objects"]).Count;
                             Logging.Info(LocRm.GetString("resources.checking"));
@@ -935,7 +938,7 @@ namespace Luncher.Forms.Launcher
                 var reconstructed = 0;
                 try
                 {
-                    var jsonPath = string.Format("{0}\\assets\\indexes\\legacy.json", _minecraft);
+                    var jsonPath = string.Format("{0}\\assets\\indexes\\legacy.json", Program.Minecraft);
                     var jsonDir = Path.GetDirectoryName(jsonPath);
                     if (!Directory.Exists(jsonDir)) Directory.CreateDirectory(jsonDir);
                     if (!File.Exists(jsonPath))
@@ -951,8 +954,8 @@ namespace Luncher.Forms.Launcher
                         var c = json["objects"][peep.Name]["hash"].ToString();
                         var filename = string.Format("{0}{1}\\{2}", c[0].ToString(), c[1].ToString(),
                             json["objects"][peep.Name]["hash"]);
-                        var newpath = string.Format("{0}\\assets\\objects\\{1}", _minecraft, filename);
-                        var oldpath = string.Format("{0}\\assets\\{1}", _minecraft, peep.Name);
+                        var newpath = string.Format("{0}\\assets\\objects\\{1}", Program.Minecraft, filename);
+                        var oldpath = string.Format("{0}\\assets\\{1}", Program.Minecraft, peep.Name);
                         if (File.Exists(oldpath)) continue;
                         Logging.Info(string.Format("{0} -> {1}", newpath, oldpath));
                         var path = Path.GetDirectoryName(oldpath);

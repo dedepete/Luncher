@@ -56,10 +56,8 @@ namespace Luncher.Forms.MainForm
                     Localization.Localization_MainForm.JavaNotFoundError,
                     @"Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             WriteLog();
-            WriteLog("#Assembly information:");
-            WriteLog("JSON.NET " + Variables.NetJsonVersion);
-            WriteLog("DotNetZip " + Variables.NetZipVersion);
-            WriteLog("NDesk.Options " + Variables.NdOptions);
+            WriteLog(string.Format("#Assembly information:\nJSON.NET {0}\nDotNetZip {1}\nNDesk.Options {2}",
+                Variables.NetJsonVersion, Variables.NetZipVersion, Variables.NdOptions));
             WriteLog();
             if (Program.Arg.Length != 0)
             {
@@ -215,7 +213,7 @@ namespace Luncher.Forms.MainForm
                             var latestrelease = string.Empty;
                             var jb =
                                 JObject.Parse(await new WebClient().DownloadStringTaskAsync(
-                                new Uri("https://s3.amazonaws.com/Minecraft.Download/versions/versions.json")));
+                                    new Uri("https://s3.amazonaws.com/Minecraft.Download/versions/versions.json")));
                             if (jb["latest"]["snapshot"] != null)
                             {
                                 latestsnapshot = jb["latest"]["snapshot"].ToString();
@@ -272,12 +270,11 @@ namespace Luncher.Forms.MainForm
                             Variables.LastRelease = latestrelease;
                             Variables.LastSnapshot = latestsnapshot;
                             if (updatefound)
-                                DownloadVersions();
-                            else
                             {
-                                WriteLog("No update found.");
-                                Launch();
+                                DownloadVersions();
+                                return;
                             }
+                            WriteLog("No update found.");
                         }
                         catch (Exception ex)
                         {
@@ -294,7 +291,6 @@ namespace Luncher.Forms.MainForm
                                     WriteLog("Last local release: " + json["latest"]["release"]);
                                     Variables.LastSnapshot = json["latest"]["snapshot"].ToString();
                                     WriteLog("Last local snapshot: " + json["latest"]["snapshot"]);
-                                    Launch();
                                 }
                                 catch
                                 {
@@ -311,10 +307,8 @@ namespace Luncher.Forms.MainForm
                             }
                         }
                     else
-                    {
                         WriteLog("Проверка versions.json выключена пользователем");
-                        Launch();
-                    }
+                    Launch();
                 }
             }
         }
@@ -328,10 +322,7 @@ namespace Luncher.Forms.MainForm
                 {
                     var dver = new WebClient().DownloadString(new Uri("http://file.ru-minecraft.ru/verlu.html"));
                     if (dver == ProductVersion)
-                    {
                         WriteLog("No update found.");
-                        CheckVersions();
-                    }
                     else if (dver != ProductVersion)
                     {
                         WriteLog("Update avaible: " + dver);
@@ -351,17 +342,14 @@ namespace Luncher.Forms.MainForm
                                 Owner = this,
                                 DetailsText = null
                             }.ShowDialog();
-                            if (dr == DialogResult.Yes)
-                            {
-                                Process.Start(
-                                    @"https://docs.google.com/spreadsheet/ccc?key=0AlHr5lFJzStndHpHVEFORHBYUGd6eXEtQjQ2Y1ZIaWc&usp=sharing");
-                                Application.Exit();
-                            }
-                            else
-                                CheckVersions();
+                            if (dr != DialogResult.Yes) return;
+                            Process.Start(
+                                @"https://docs.google.com/spreadsheet/ccc?key=0AlHr5lFJzStndHpHVEFORHBYUGd6eXEtQjQ2Y1ZIaWc&usp=sharing");
+                            Application.Exit();
                         });
                         Invoke(mi2);
                     }
+                    CheckVersions();
                 }
                 catch (Exception ex)
                 {
