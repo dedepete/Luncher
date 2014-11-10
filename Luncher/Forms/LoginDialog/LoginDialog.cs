@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using Luncher.Localization;
 using Luncher.YaDra4il;
 using Newtonsoft.Json.Linq;
 
@@ -37,14 +38,14 @@ namespace Luncher.Forms.LoginDialog
                     new JProperty("UUID", auth.Uuid)
                 }));
                 File.WriteAllText(Variables.McFolder + "/luncher/userprofiles.json", jo.ToString());
-                Result = "Added successfuly";
+                Result = Localization_LoginForm.LoginDialog_Added_successfuly;
+                Processing.ShowAlert(Localization_LoginForm.LoginDialog_Added_successfuly, Localization_LoginForm.LoginDialog_Added_successfuly_message);
                 Close();
             }
             catch(Exception a)
             {
-                const string text = "Smth went wrong. Invalid credentials?";
-                Logging.Info(text + "\n" + a);
-                radLabel1.Text = text + "\n" + a.Data;
+                Logging.Info(Localization_LoginForm.LoginDialog_SmthWentWrong + "\n" + a);
+                radLabel1.Text = Localization_LoginForm.LoginDialog_SmthWentWrong + "\n" + a.Data;
             }
         }
 

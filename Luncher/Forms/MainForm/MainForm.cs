@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -235,32 +236,11 @@ namespace Luncher.Forms.MainForm
                                 if ((bool) Configuration.Updates["enableMinecraftUpdateAlerts"])
                                 {
                                     if (latestsnapshot != localsnapshot)
-                                        new RadDesktopAlert
-                                        {
-                                            CaptionText = "A new version is available",
-                                            ContentText =
-                                                "A new Minecraft snapshot is avaible: " + latestsnapshot,
-                                            ShowCloseButton = true,
-                                            ShowOptionsButton = false,
-                                            ShowPinButton = false,
-                                            AutoClose = true,
-                                            AutoCloseDelay = 10,
-                                            ThemeName = "VisualStudio2012Dark",
-                                            CanMove = false
-                                        }.Show();
+                                        Processing.ShowAlert("A new version is available",
+                                            "A new Minecraft snapshot is avaible: " + latestsnapshot);
                                     if (latestrelease != localrelease)
-                                        new RadDesktopAlert
-                                        {
-                                            CaptionText = "A new version is available",
-                                            ContentText = "A new Minecraft release is avaible: " + latestrelease,
-                                            ShowCloseButton = true,
-                                            ShowOptionsButton = false,
-                                            ShowPinButton = false,
-                                            AutoClose = true,
-                                            AutoCloseDelay = 10,
-                                            ThemeName = "VisualStudio2012Dark",
-                                            CanMove = false
-                                        }.Show();
+                                        Processing.ShowAlert("A new version is available",
+                                            "A new Minecraft release is avaible: " + latestrelease);
                                 }
                                 updatefound = true;
                             }
@@ -328,24 +308,34 @@ namespace Luncher.Forms.MainForm
                         WriteLog("Update avaible: " + dver);
                         var mi2 = new MethodInvoker(() =>
                         {
-                            var dr = new RadMessageBoxForm
+                            var alert = new RadDesktopAlert
                             {
-                                Text = @"Найдено обновление",
-                                MessageText =
-                                    "<html>Найдено обновление лаунчера: <b>" + dver + "</b>\nТекущая версия: <b>" +
+                                CaptionText = @"Найдено обновление",
+                                ContentText = "<html>Найдено обновление лаунчера: <b>" + dver + "</b>\nТекущая версия: <b>" +
                                     ProductVersion +
                                     "</b>\n Хотите ли вы пройти на страницу загрузки данного обновления?\n\nP.S. В противном случае, это уведомление будет появляться при каждом запуске лаунчера >:3",
-                                StartPosition = FormStartPosition.CenterScreen,
-                                ButtonsConfiguration = MessageBoxButtons.YesNo,
-                                TopMost = true,
-                                MessageIcon = Processing.GetRadMessageIcon(RadMessageIcon.Info),
-                                Owner = this,
-                                DetailsText = null
-                            }.ShowDialog();
-                            if (dr != DialogResult.Yes) return;
-                            Process.Start(
-                                @"https://docs.google.com/spreadsheet/ccc?key=0AlHr5lFJzStndHpHVEFORHBYUGd6eXEtQjQ2Y1ZIaWc&usp=sharing");
-                            Application.Exit();
+                                ShowCloseButton = false,
+                                ShowOptionsButton = false,
+                                ShowPinButton = false,
+                                AutoClose = false,
+                                CanMove = false,
+                                AutoCloseDelay = 5,
+                                FixedSize = new Size(329, 235),
+                                ThemeName = "VisualStudio2012Dark"
+                            };
+                            var openUrlButton = new RadButtonElement("Получить обновление");
+                            openUrlButton.Click += delegate
+                            {
+                                Process.Start(
+                                    @"https://docs.google.com/spreadsheet/ccc?key=0AlHr5lFJzStndHpHVEFORHBYUGd6eXEtQjQ2Y1ZIaWc&usp=sharing");
+                                alert.Hide();
+                                Application.Exit();
+                            };
+                            var ignoreButton = new RadButtonElement("Игнорировать");
+                            ignoreButton.Click += delegate { alert.Hide(); };
+                            alert.ButtonItems.Add(openUrlButton);
+                            alert.ButtonItems.Add(ignoreButton);
+                            alert.Show();
                         });
                         Invoke(mi2);
                     }

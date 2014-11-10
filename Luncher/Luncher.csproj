@@ -122,6 +122,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="JSONProfile.cs" />
+    <Compile Include="Localization\Localization.LoginForm.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Localization.LoginForm.resx</DependentUpon>
+    </Compile>
     <Compile Include="Localization\Localization.MainForm.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -198,6 +203,14 @@
     <EmbeddedResource Include="Forms\ProfileForm\ProfileForm.uk.resx">
       <DependentUpon>ProfileForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Localization\Localization.LoginForm.be.resx" />
+    <EmbeddedResource Include="Localization\Localization.LoginForm.en.resx" />
+    <EmbeddedResource Include="Localization\Localization.LoginForm.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Localization.LoginForm.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Localization\Localization.LoginForm.ru.resx" />
+    <EmbeddedResource Include="Localization\Localization.LoginForm.uk.resx" />
     <EmbeddedResource Include="Localization\Localization.MainForm.be.resx" />
     <EmbeddedResource Include="Localization\Localization.MainForm.en.resx" />
     <EmbeddedResource Include="Localization\Localization.MainForm.resx">
@@ -269,7 +282,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties IncrementInformational="False" IncrementOnRebuild="True" IncrementOnBuild="True" IncrementAction="2" Versioning="0" StartAt="" />
+      <UserProperties StartAt="" Versioning="0" IncrementAction="2" IncrementOnBuild="True" IncrementOnRebuild="True" IncrementInformational="False" />
     </VisualStudio>
   </ProjectExtensions>
   <PropertyGroup>
