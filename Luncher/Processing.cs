@@ -144,10 +144,8 @@ namespace Luncher
             return null;
         }
 
-        public static void ShowAlert(string title, string message, RadDesktopAlert alert = null)
+        public static void ShowAlert(string title, string message)
         {
-            if (alert != null)
-                alert.Show();
             new RadDesktopAlert
             {
                 CaptionText = title,
