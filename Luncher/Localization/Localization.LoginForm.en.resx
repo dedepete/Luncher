@@ -121,7 +121,7 @@
     <value>Added successfuly</value>
   </data>
   <data name="LoginDialog_Added_successfuly_message" xml:space="preserve">
-    <value>Account has been added successfully!</value>
+    <value>The account has been added successfully!</value>
   </data>
   <data name="LoginDialog_SmthWentWrong" xml:space="preserve">
     <value>Smth went wrong. Invalid credentials?</value>

@@ -121,7 +121,7 @@
     <value>Добавлен успешно!</value>
   </data>
   <data name="LoginDialog_Added_successfuly_message" xml:space="preserve">
-    <value>Лицензионный аккаунт успешно добавлен!</value>
+    <value>Ліцензійний аккаунт успішно доданий!</value>
   </data>
   <data name="LoginDialog_SmthWentWrong" xml:space="preserve">
     <value>Щось пішло не так. Можливо, дані облікового запису були введені невірно</value>
