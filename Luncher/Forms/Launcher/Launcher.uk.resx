@@ -225,8 +225,9 @@
 Перекладено Alex G. </value>
   </data>
   <data name="label2.Text" xml:space="preserve">
-    <value>Абревіатура SESMC розшифровується як простір Space Earth Studio Minecraft. 
-  "Minecraft" є торговою маркою Notch Development AB</value>
+    <value>"SESMC" розшифровується як простір Space Earth Studio Minecraft. 
+"Minecraft" є торговою маркою Mojang AB.
+Mojang AB є дочірньою студією Microsoft Studios.</value>
   </data>
   <data name="label4.Text" xml:space="preserve">
     <value>Велике спасибі адміністрації порталу ru-minecraft.ru за хост файлів</value>
@@ -268,7 +269,7 @@
     <value>запуску</value>
   </data>
   <data name="launcherstate.readytodownloadandplay" xml:space="preserve">
-    <value>завантаженню та запуску</value>
+    <value>завантаженню</value>
   </data>
   <data name="lang.changemessage" xml:space="preserve">
     <value>Зміни вступлять в дію тільки після перезавантаження лаунчеру.</value>

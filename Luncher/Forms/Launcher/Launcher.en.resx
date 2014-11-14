@@ -203,11 +203,12 @@ Published by Space Earth Studio</value>
     <value>http://vk.com/mcoffline</value>
   </data>
   <data name="label7.Text" xml:space="preserve">
-    <value>MCoffline - лучшая программа для серверных администраторов!</value>
+    <value>MCoffline - the best program for Minecraft server! (Russian language only. Sorry, guys)</value>
   </data>
   <data name="label2.Text" xml:space="preserve">
-    <value>SESMC means Space Earth Studio Minecraft. 
-  "Minecraft" is a trademark of Notch Development AB</value>
+    <value>"SESMC" means Space Earth Studio Minecraft. 
+"Minecraft" is a trademark of Mojang AB.
+Mojang AB is a subsidiary of Microsoft Studios.</value>
   </data>
   <data name="ConsolePage.Text" xml:space="preserve">
     <value>Console</value>
@@ -249,7 +250,7 @@ Published by Space Earth Studio</value>
     <value>Check software updates</value>
   </data>
   <data name="EnableMinecraftUpdateAlerts.Text" xml:space="preserve">
-    <value></value>
+    <value>Show notifications about the availability of new Minecraft versions</value>
   </data>
   <data name="radLabel5.Text" xml:space="preserve">
     <value>Partners</value>
@@ -261,7 +262,7 @@ Published by Space Earth Studio</value>
     <value>launch</value>
   </data>
   <data name="launcherstate.readytodownloadandplay" xml:space="preserve">
-    <value>downloadN'play</value>
+    <value>download</value>
   </data>
   <data name="launcherstate.readytext" xml:space="preserve">
     <value>Ready to</value>

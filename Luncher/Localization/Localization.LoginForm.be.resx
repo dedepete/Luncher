@@ -118,12 +118,12 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="LoginDialog_Added_successfuly" xml:space="preserve">
-    <value>Добавлен успешно!</value>
+    <value>Даданы паспяхова!</value>
   </data>
   <data name="LoginDialog_Added_successfuly_message" xml:space="preserve">
-    <value>Лицензионный аккаунт успешно добавлен!</value>
+    <value>Ліцэнзійны акаўнт дададзены паспяхова!</value>
   </data>
   <data name="LoginDialog_SmthWentWrong" xml:space="preserve">
-    <value>Что-то пошло не так. Возможно, данные учётной записи были введены неверно</value>
+    <value>Што-то пайшло не так. Магчыма, дадзеныя ўліковага запісу былі ўведзеныя няправільна</value>
   </data>
 </root>

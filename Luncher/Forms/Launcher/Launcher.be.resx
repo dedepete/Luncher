@@ -198,8 +198,9 @@
 Пераведзена NeZoX і The_Faos</value>
   </data>
   <data name="label2.Text" xml:space="preserve">
-    <value>Абрэвіятура SESMC расшыфроўваецца як Space Earth Studio Minecraft.
- "Minecraft" з'яўляецца гандлёвай маркай Notch Development AB</value>
+    <value>"SESMC" расшыфроўваецца як Space Earth Studio Minecraft.
+"Minecraft" з'яўляецца гандлёвай маркай Mojang AB.
+Mojang AB з'яўляецца даччынай студыяй Microsoft Studios.</value>
   </data>
   <data name="resource.Text6" xml:space="preserve">
     <value>Мова\Language:</value>
@@ -244,7 +245,7 @@
     <value>Гатовы да</value>
   </data>
   <data name="launcherstate.readytodownloadandplay" xml:space="preserve">
-    <value>загрузцы і запуску</value>
+    <value>загрузцы</value>
   </data>
   <data name="launcherstate.readytoplay" xml:space="preserve">
     <value>запуску</value>
