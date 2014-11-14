@@ -8,7 +8,6 @@ using System.Threading;
 using System.Windows.Forms;
 using NDesk.Options;
 using Newtonsoft.Json.Linq;
-using Telerik.WinControls;
 using Telerik.WinControls.Enumerations;
 using Telerik.WinControls.UI;
 
