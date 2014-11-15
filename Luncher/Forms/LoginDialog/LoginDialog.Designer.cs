@@ -29,50 +29,52 @@
         private void InitializeComponent()
         {
             this.visualStudio2012DarkTheme1 = new Telerik.WinControls.Themes.VisualStudio2012DarkTheme();
-            this.radButton1 = new Telerik.WinControls.UI.RadButton();
-            this.radTextBox1 = new Telerik.WinControls.UI.RadTextBox();
-            this.radTextBox2 = new Telerik.WinControls.UI.RadTextBox();
+            this.acceptButton = new Telerik.WinControls.UI.RadButton();
+            this.username = new Telerik.WinControls.UI.RadTextBox();
+            this.password = new Telerik.WinControls.UI.RadTextBox();
             this.radLabel1 = new Telerik.WinControls.UI.RadLabel();
             this.radButton2 = new Telerik.WinControls.UI.RadButton();
             this.radLabel2 = new Telerik.WinControls.UI.RadLabel();
-            ((System.ComponentModel.ISupportInitialize)(this.radButton1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radTextBox1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radTextBox2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.acceptButton)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.username)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.password)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radLabel1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radButton2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radLabel2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             this.SuspendLayout();
             // 
-            // radButton1
+            // acceptButton
             // 
-            this.radButton1.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.radButton1.Location = new System.Drawing.Point(119, 99);
-            this.radButton1.Name = "radButton1";
-            this.radButton1.Size = new System.Drawing.Size(127, 26);
-            this.radButton1.TabIndex = 0;
-            this.radButton1.Text = "Accept";
-            this.radButton1.ThemeName = "VisualStudio2012Dark";
-            this.radButton1.Click += new System.EventHandler(this.radButton1_Click);
+            this.acceptButton.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.acceptButton.Location = new System.Drawing.Point(119, 99);
+            this.acceptButton.Name = "acceptButton";
+            this.acceptButton.Size = new System.Drawing.Size(127, 26);
+            this.acceptButton.TabIndex = 0;
+            this.acceptButton.Text = "Accept";
+            this.acceptButton.ThemeName = "VisualStudio2012Dark";
+            this.acceptButton.Click += new System.EventHandler(this.radButton1_Click);
             // 
-            // radTextBox1
+            // username
             // 
-            this.radTextBox1.Location = new System.Drawing.Point(96, 2);
-            this.radTextBox1.Name = "radTextBox1";
-            this.radTextBox1.NullText = "Mojang e-mail or Nickname";
-            this.radTextBox1.Size = new System.Drawing.Size(172, 21);
-            this.radTextBox1.TabIndex = 1;
-            this.radTextBox1.ThemeName = "VisualStudio2012Dark";
+            this.username.Location = new System.Drawing.Point(96, 2);
+            this.username.Name = "username";
+            this.username.NullText = "Mojang e-mail or Nickname";
+            this.username.Size = new System.Drawing.Size(172, 21);
+            this.username.TabIndex = 1;
+            this.username.ThemeName = "VisualStudio2012Dark";
+            this.username.KeyUp += new System.Windows.Forms.KeyEventHandler(this.KeyPressed);
             // 
-            // radTextBox2
+            // password
             // 
-            this.radTextBox2.Location = new System.Drawing.Point(96, 28);
-            this.radTextBox2.Name = "radTextBox2";
-            this.radTextBox2.NullText = "Password";
-            this.radTextBox2.PasswordChar = '*';
-            this.radTextBox2.Size = new System.Drawing.Size(172, 21);
-            this.radTextBox2.TabIndex = 2;
-            this.radTextBox2.ThemeName = "VisualStudio2012Dark";
+            this.password.Location = new System.Drawing.Point(96, 28);
+            this.password.Name = "password";
+            this.password.NullText = "Password";
+            this.password.PasswordChar = '*';
+            this.password.Size = new System.Drawing.Size(172, 21);
+            this.password.TabIndex = 2;
+            this.password.ThemeName = "VisualStudio2012Dark";
+            this.password.KeyUp += new System.Windows.Forms.KeyEventHandler(this.KeyPressed);
             // 
             // radLabel1
             // 
@@ -115,6 +117,7 @@
             this.radLabel2.TabIndex = 5;
             this.radLabel2.Text = "Powered by YaDra4il (Yggdrasil for .Net)";
             this.radLabel2.ThemeName = "VisualStudio2012Dark";
+            ((Telerik.WinControls.UI.RadLabelElement)(this.radLabel2.GetChildAt(0))).Text = "Powered by YaDra4il (Yggdrasil for .Net)";
             ((Telerik.WinControls.Primitives.FillPrimitive)(this.radLabel2.GetChildAt(0).GetChildAt(0))).Visibility = Telerik.WinControls.ElementVisibility.Collapsed;
             ((Telerik.WinControls.Primitives.ImagePrimitive)(this.radLabel2.GetChildAt(0).GetChildAt(2).GetChildAt(0))).Alignment = System.Drawing.ContentAlignment.MiddleLeft;
             ((Telerik.WinControls.Primitives.ImagePrimitive)(this.radLabel2.GetChildAt(0).GetChildAt(2).GetChildAt(0))).Visibility = Telerik.WinControls.ElementVisibility.Visible;
@@ -129,10 +132,10 @@
             this.ControlBox = false;
             this.Controls.Add(this.radLabel2);
             this.Controls.Add(this.radButton2);
-            this.Controls.Add(this.radButton1);
+            this.Controls.Add(this.acceptButton);
             this.Controls.Add(this.radLabel1);
-            this.Controls.Add(this.radTextBox2);
-            this.Controls.Add(this.radTextBox1);
+            this.Controls.Add(this.password);
+            this.Controls.Add(this.username);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Name = "LoginDialog";
             // 
@@ -142,9 +145,9 @@
             this.ShowIcon = false;
             this.Text = "Adding premium account";
             this.ThemeName = "VisualStudio2012Dark";
-            ((System.ComponentModel.ISupportInitialize)(this.radButton1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radTextBox1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radTextBox2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.acceptButton)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.username)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.password)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.radLabel1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.radButton2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.radLabel2)).EndInit();
@@ -157,9 +160,9 @@
         #endregion
 
         private Telerik.WinControls.Themes.VisualStudio2012DarkTheme visualStudio2012DarkTheme1;
-        private Telerik.WinControls.UI.RadButton radButton1;
-        private Telerik.WinControls.UI.RadTextBox radTextBox1;
-        private Telerik.WinControls.UI.RadTextBox radTextBox2;
+        private Telerik.WinControls.UI.RadButton acceptButton;
+        private Telerik.WinControls.UI.RadTextBox username;
+        private Telerik.WinControls.UI.RadTextBox password;
         private Telerik.WinControls.UI.RadLabel radLabel1;
         private Telerik.WinControls.UI.RadButton radButton2;
         private Telerik.WinControls.UI.RadLabel radLabel2;

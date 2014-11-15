@@ -522,7 +522,7 @@
             this.radListView1.ThemeName = "VisualStudio2012Dark";
             this.radListView1.VerticalScrollState = Telerik.WinControls.UI.ScrollState.AlwaysShow;
             this.radListView1.ViewType = Telerik.WinControls.UI.ListViewType.DetailsView;
-            this.radListView1.ItemMouseClick += new Telerik.WinControls.UI.ListViewItemEventHandler(this.radListView1_ItemMouseClick);
+            this.radListView1.ItemMouseClick += new Telerik.WinControls.UI.ListViewItemEventHandler(this.VersionList_ItemClick);
             // 
             // radPageViewPage1
             // 
@@ -607,7 +607,7 @@
             resources.ApplyResources(this.radButton3, "radButton3");
             this.radButton3.Name = "radButton3";
             this.radButton3.ThemeName = "VisualStudio2012Dark";
-            this.radButton3.Click += new System.EventHandler(this.radButton3_Click);
+            this.radButton3.Click += new System.EventHandler(this.AddUserProfile_Click);
             // 
             // Nickname
             // 
@@ -615,6 +615,7 @@
             resources.ApplyResources(this.Nickname, "Nickname");
             this.Nickname.Name = "Nickname";
             this.Nickname.ThemeName = "VisualStudio2012Dark";
+            this.Nickname.KeyUp += new System.Windows.Forms.KeyEventHandler(this.KeyPressed);
             // 
             // SelectedVersion
             // 

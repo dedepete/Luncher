@@ -20,7 +20,7 @@ namespace Luncher.Forms.LoginDialog
             {
 
                 Logging.Info("Authenticating...");
-                var auth = new AuthManager {Email = radTextBox1.Text, Password = radTextBox2.Text};
+                var auth = new AuthManager {Email = username.Text, Password = password.Text};
                 auth.Login();
                 var jo = JObject.Parse(File.ReadAllText(Variables.McFolder + "/luncher/userprofiles.json"));
                 jo["selectedUsername"] = auth.Username;
@@ -53,6 +53,12 @@ namespace Luncher.Forms.LoginDialog
         {
             Result = "Cancelled";
             Close();
+        }
+
+        private void KeyPressed(object sender, System.Windows.Forms.KeyEventArgs e)
+        {
+            if (e.KeyCode == System.Windows.Forms.Keys.Enter)
+                acceptButton.PerformClick();
         }
     }
 }

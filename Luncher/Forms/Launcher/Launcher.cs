@@ -1031,15 +1031,20 @@ namespace Luncher.Forms.Launcher
                 }
         }
 
-        private void radListView1_ItemMouseClick(object sender, ListViewItemEventArgs e)
+        private void VersionList_ItemClick(object sender, ListViewItemEventArgs e)
         {
             radListView1.SelectedItem = e.Item;
         }
 
-        private void radButton3_Click(object sender, EventArgs e)
+        private void AddUserProfile_Click(object sender, EventArgs e)
         {
             AddUserProfile();
             UpdateUserProfiles();
+        }
+        private void KeyPressed(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+                LaunchButton.PerformClick();
         }
     }
 }

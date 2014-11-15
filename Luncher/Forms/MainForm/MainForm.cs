@@ -22,8 +22,6 @@ namespace Luncher.Forms.MainForm
             LoggingConfiguration.LoggingBox = Log;
         }
 
-        string _minecraft = string.Empty;
-
         private void WriteLog(string message)
         {
             Logging.Info(message, new LoggingOptions {UseTimeAndStatePrefix = false});
@@ -84,11 +82,10 @@ namespace Luncher.Forms.MainForm
             else
                 Program.Minecraft = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) +
                                     "\\.minecraft";
-            _minecraft = Program.Minecraft;
-            if (!Directory.Exists(_minecraft))
+            if (!Directory.Exists(Variables.McFolder))
             {
-                Directory.CreateDirectory(_minecraft);
-                WriteLog("Directory " + _minecraft + " created successful!");
+                Directory.CreateDirectory(Variables.McFolder);
+                WriteLog("Directory " + Variables.McFolder + " created successful!");
             }
             try
             {
@@ -172,8 +169,8 @@ namespace Luncher.Forms.MainForm
         void DownloadVersions()
         {
             var webc = new WebClient();
-            if (!Directory.Exists(_minecraft + "/versions/"))
-                Directory.CreateDirectory(_minecraft + "/versions/");
+            if (!Directory.Exists(Variables.McVersions))
+                Directory.CreateDirectory(Variables.McVersions);
             WriteLog("Downloading versions.json...");
             var sw = new Stopwatch();
             sw.Start();
@@ -192,7 +189,7 @@ namespace Luncher.Forms.MainForm
                 }
                 Launch();
             };
-            webc.DownloadFileAsync(new Uri("https://s3.amazonaws.com/Minecraft.Download/versions/versions.json"), _minecraft + "/versions/versions.json");
+            webc.DownloadFileAsync(new Uri("https://s3.amazonaws.com/Minecraft.Download/versions/versions.json"), Variables.McVersions + "/versions.json");
         }
 
         private async void CheckVersions()
@@ -201,7 +198,7 @@ namespace Luncher.Forms.MainForm
                 Invoke(new Action(CheckVersions));
             else
             {
-                if (!File.Exists(_minecraft + "\\versions\\versions.json"))
+                if (!File.Exists(Variables.McFolder + "\\versions\\versions.json"))
                     DownloadVersions();
                 else
                 {
@@ -227,7 +224,7 @@ namespace Luncher.Forms.MainForm
                             var updatefound = false;
                             var localsnapshot = string.Empty;
                             var localrelease = string.Empty;
-                            var ver = JObject.Parse(File.ReadAllText(_minecraft + "/versions/versions.json"));
+                            var ver = JObject.Parse(File.ReadAllText(Variables.McVersions + "/versions.json"));
                             if (ver["latest"]["snapshot"] != null) localsnapshot = ver["latest"]["snapshot"].ToString();
                             if (ver["latest"]["release"] != null) localrelease = ver["latest"]["release"].ToString();
                             if (latestsnapshot != localsnapshot || latestrelease != localrelease)
@@ -258,14 +255,14 @@ namespace Luncher.Forms.MainForm
                         catch (Exception ex)
                         {
                             WriteLog("An error occurred while checking versions.json:\n" + ex + "\n");
-                            if (File.Exists(_minecraft + "\\versions\\versions.json"))
+                            if (File.Exists(Variables.McFolder + "\\versions\\versions.json"))
                             {
                                 Variables.WorkingOffline = true;
                                 WriteLog("Loading local versions.json...");
                                 try
                                 {
                                     var json =
-                                        JObject.Parse(File.ReadAllText(_minecraft + "/versions/versions.json"));
+                                        JObject.Parse(File.ReadAllText(Variables.McVersions + "/versions.json"));
                                     Variables.LastRelease = json["latest"]["release"].ToString();
                                     WriteLog("Last local release: " + json["latest"]["release"]);
                                     Variables.LastSnapshot = json["latest"]["snapshot"].ToString();
@@ -278,7 +275,7 @@ namespace Luncher.Forms.MainForm
                                         "Локальный versions.json повреждён. Поключите компьютер к Интернету и запустите лаунчер для загрузки этого списка или установите свой вручную.\nПродолжение работы лаунчера невозможно");
                                 }
                             }
-                            else if (!File.Exists(_minecraft + "/versions/versions.json"))
+                            else if (!File.Exists(Variables.McVersions + "/versions.json"))
                             {
                                 CrashPanel.Visible = true;
                                 WriteLog(
