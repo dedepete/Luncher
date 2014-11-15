@@ -167,8 +167,9 @@
 Издано Space Earth Studio</value>
   </data>
   <data name="label2.Text" xml:space="preserve">
-    <value>Аббревиатура SESMC расшифровывается как Space Earth Studio Minecraft.
- "Minecraft" является торговой маркой Notch Development AB</value>
+    <value>"SESMC" расшифровывается как Space Earth Studio Minecraft.
+"Minecraft" является торговой маркой Mojang AB.
+Mojang AB является дочерней студией Microsoft Studios.</value>
   </data>
   <data name="label3.Text" xml:space="preserve">
     <value>http://vk.com/sesmc</value>
@@ -219,7 +220,7 @@
     <value>Готов к</value>
   </data>
   <data name="launcherstate.readytodownloadandplay" xml:space="preserve">
-    <value>загрузке и запуску</value>
+    <value>загрузке</value>
   </data>
   <data name="launcherstate.readytoplay" xml:space="preserve">
     <value>запуску</value>

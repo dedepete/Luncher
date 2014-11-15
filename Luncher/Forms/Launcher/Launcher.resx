@@ -295,8 +295,9 @@
     <value>4</value>
   </data>
   <data name="label2.Text" xml:space="preserve">
-    <value>Аббревиатура SESMC расшифровывается как Space Earth Studio Minecraft.
- "Minecraft" является торговой маркой Notch Development AB</value>
+    <value>"SESMC" расшифровывается как Space Earth Studio Minecraft.
+"Minecraft" является торговой маркой Mojang AB.
+Mojang AB является дочерней студией Microsoft Studios.</value>
   </data>
   <data name="label2.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
     <value>MiddleCenter</value>
@@ -1213,9 +1214,6 @@
   </data>
   <data name="radPageViewPage6.Size" type="System.Drawing.Size, System.Drawing">
     <value>622, 258</value>
-  </data>
-  <data name="radPageViewPage6.Text" xml:space="preserve">
-    <value>Processing code</value>
   </data>
   <data name="&gt;&gt;radPageViewPage6.Name" xml:space="preserve">
     <value>radPageViewPage6</value>
@@ -4267,7 +4265,7 @@
     <value>запуску</value>
   </data>
   <data name="launcherstate.readytodownloadandplay" xml:space="preserve">
-    <value>загрузке и запуску</value>
+    <value>загрузке</value>
   </data>
   <data name="launcherstate.readytext" xml:space="preserve">
     <value>Готов к</value>

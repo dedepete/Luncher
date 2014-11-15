@@ -22,6 +22,7 @@
     <AssemblyVersionSettings>None.None.None.Increment</AssemblyVersionSettings>
     <AssemblyFileVersionSettings>None.None.None.Increment</AssemblyFileVersionSettings>
     <AssemblyInfoVersionSettings>None.None.None.Increment</AssemblyInfoVersionSettings>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -34,7 +35,6 @@
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
@@ -64,6 +64,12 @@
   <PropertyGroup>
     <StartupObject />
   </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>false</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignManifests>false</SignManifests>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Ionic.Zip, Version=1.9.3.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -85,7 +91,7 @@
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Newtonsoft.Json.6.0.5\lib\net40\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\packages\Newtonsoft.Json.6.0.6\lib\net40\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -122,6 +128,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="JSONProfile.cs" />
+    <Compile Include="Localization\Localization.LoginForm.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Localization.LoginForm.resx</DependentUpon>
+    </Compile>
     <Compile Include="Localization\Localization.MainForm.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -198,6 +209,14 @@
     <EmbeddedResource Include="Forms\ProfileForm\ProfileForm.uk.resx">
       <DependentUpon>ProfileForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Localization\Localization.LoginForm.be.resx" />
+    <EmbeddedResource Include="Localization\Localization.LoginForm.en.resx" />
+    <EmbeddedResource Include="Localization\Localization.LoginForm.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Localization.LoginForm.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Localization\Localization.LoginForm.ru.resx" />
+    <EmbeddedResource Include="Localization\Localization.LoginForm.uk.resx" />
     <EmbeddedResource Include="Localization\Localization.MainForm.be.resx" />
     <EmbeddedResource Include="Localization\Localization.MainForm.en.resx" />
     <EmbeddedResource Include="Localization\Localization.MainForm.resx">

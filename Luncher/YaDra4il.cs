@@ -9,24 +9,32 @@ namespace Luncher.YaDra4il
 {
     public class AuthManager
     {
-        public string email;
-        public string password;
+        [JsonProperty("email")]
+        public string Email;
+        [JsonProperty("password")]
+        public string Password;
 
-        public string username;
-        public string uuid;
-        public string sessionToken;
-        public string accessToken;
+        [JsonProperty("username")]
+        public string Username;
+        [JsonProperty("uuid")]
+        public string Uuid;
+        [JsonProperty("sessionToken")]
+        public string SessionToken;
+        [JsonProperty("accessToken")]
+        public string AccessToken;
 
-        public bool demo;
-        public bool legacy;
+        [JsonProperty("demo")]
+        public bool IsDemo;
+        [JsonProperty("legacy")]
+        public bool IsLegacy;
 
         public Authenticate Login()
         {
-            var auth = Login(email, password);
-            sessionToken = auth.accessToken;
-            accessToken = auth.clientToken;
-            username = auth.selectedProfile.name;
-            uuid = auth.selectedProfile.id;
+            var auth = Login(Email, Password);
+            SessionToken = auth.accessToken;
+            AccessToken = auth.clientToken;
+            Username = auth.selectedProfile.name;
+            Uuid = auth.selectedProfile.id;
             return auth;
         }
 
@@ -39,7 +47,7 @@ namespace Luncher.YaDra4il
 
         public void Logout()
         {
-            Logout(email, password);
+            Logout(Email, Password);
         }
 
         private static void Logout(string email, string password)
@@ -50,16 +58,16 @@ namespace Luncher.YaDra4il
 
         public Refresh Refresh()
         {
-            var refresh = new Refresh(sessionToken, accessToken);
+            var refresh = new Refresh(SessionToken, AccessToken);
             refresh = (Refresh) refresh.DoPost();
-            sessionToken = refresh.accessToken;
-            accessToken = refresh.clientToken;
+            SessionToken = refresh.accessToken;
+            AccessToken = refresh.clientToken;
             return refresh;
         }
 
         public bool CheckSessionToken()
         {
-            var valid = CheckSessionToken(sessionToken);
+            var valid = CheckSessionToken(SessionToken);
             return valid;
         }
 
@@ -71,17 +79,17 @@ namespace Luncher.YaDra4il
 
         public string GetUsernameByUUID()
         {
-            username = new Username
+            Username = new Username
             {
-                Uuid = uuid
+                Uuid = Uuid
             }.GetUsernameByUuid();
-            return username;
+            return Username;
         }
 
         public UserInfo GetUserInfo()
         {
-            var inform = GetUserInfo(username);
-            uuid = inform.id;
+            var inform = GetUserInfo(Username);
+            Uuid = inform.id;
             return inform;
         }
         public static UserInfo GetUserInfo(string username)

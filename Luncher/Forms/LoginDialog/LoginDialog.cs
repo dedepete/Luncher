@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using Luncher.Localization;
 using Luncher.YaDra4il;
 using Newtonsoft.Json.Linq;
 
@@ -19,32 +20,32 @@ namespace Luncher.Forms.LoginDialog
             {
 
                 Logging.Info("Authenticating...");
-                var auth = new AuthManager {email = radTextBox1.Text, password = radTextBox2.Text};
+                var auth = new AuthManager {Email = username.Text, Password = password.Text};
                 auth.Login();
-
                 var jo = JObject.Parse(File.ReadAllText(Variables.McFolder + "/luncher/userprofiles.json"));
+                jo["selectedUsername"] = auth.Username;
                 var item = (JObject)jo["profiles"];
                 try
                 {
-                    item.Remove(auth.username);
+                    item.Remove(auth.Username);
                 }
                 catch { }
-                item.Add(new JProperty(auth.username, new JObject
+                item.Add(new JProperty(auth.Username, new JObject
                 {
                     new JProperty("type", "official"),
-                    new JProperty("accessToken", auth.sessionToken),
-                    new JProperty("clientToken", auth.accessToken),
-                    new JProperty("UUID", auth.uuid)
+                    new JProperty("accessToken", auth.SessionToken),
+                    new JProperty("clientToken", auth.AccessToken),
+                    new JProperty("UUID", auth.Uuid)
                 }));
                 File.WriteAllText(Variables.McFolder + "/luncher/userprofiles.json", jo.ToString());
-                Result = "Added successfuly";
+                Result = Localization_LoginForm.LoginDialog_Added_successfuly;
+                Processing.ShowAlert(Localization_LoginForm.LoginDialog_Added_successfuly, Localization_LoginForm.LoginDialog_Added_successfuly_message);
                 Close();
             }
             catch(Exception a)
             {
-                const string text = "Smth went wrong. Invalid credentials?";
-                Logging.Info(text + "\n" + a);
-                radLabel1.Text = text + "\n" + a.Data;
+                Logging.Info(Localization_LoginForm.LoginDialog_SmthWentWrong + "\n" + a);
+                radLabel1.Text = Localization_LoginForm.LoginDialog_SmthWentWrong + "\n" + a.Data;
             }
         }
 
@@ -52,6 +53,12 @@ namespace Luncher.Forms.LoginDialog
         {
             Result = "Cancelled";
             Close();
+        }
+
+        private void KeyPressed(object sender, System.Windows.Forms.KeyEventArgs e)
+        {
+            if (e.KeyCode == System.Windows.Forms.Keys.Enter)
+                acceptButton.PerformClick();
         }
     }
 }

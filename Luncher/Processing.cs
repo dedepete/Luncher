@@ -143,5 +143,21 @@ namespace Luncher
             }
             return null;
         }
+
+        public static void ShowAlert(string title, string message)
+        {
+            new RadDesktopAlert
+            {
+                CaptionText = title,
+                ContentText = message,
+                ShowCloseButton = true,
+                ShowOptionsButton = false,
+                ShowPinButton = false,
+                AutoClose = true,
+                CanMove = false,
+                AutoCloseDelay = 10,
+                ThemeName = "VisualStudio2012Dark"
+            }.Show();
+        }
     }
 }
