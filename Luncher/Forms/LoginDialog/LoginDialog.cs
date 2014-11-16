@@ -35,7 +35,8 @@ namespace Luncher.Forms.LoginDialog
                     new JProperty("type", "official"),
                     new JProperty("accessToken", auth.SessionToken),
                     new JProperty("clientToken", auth.AccessToken),
-                    new JProperty("UUID", auth.Uuid)
+                    new JProperty("UUID", auth.Uuid),
+                    new JProperty("properties", auth.UserProperties)
                 }));
                 File.WriteAllText(Variables.McFolder + "/luncher/userprofiles.json", jo.ToString());
                 Result = Localization_LoginForm.LoginDialog_Added_successfuly;

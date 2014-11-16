@@ -28,6 +28,8 @@ namespace Luncher.YaDra4il
         [JsonProperty("legacy")]
         public bool IsLegacy;
 
+        public JArray UserProperties;
+
         public Authenticate Login()
         {
             var auth = Login(Email, Password);
@@ -35,6 +37,7 @@ namespace Luncher.YaDra4il
             AccessToken = auth.clientToken;
             Username = auth.selectedProfile.name;
             Uuid = auth.selectedProfile.id;
+            UserProperties = (JArray)auth.user["properties"];
             return auth;
         }
 
@@ -105,6 +108,7 @@ namespace Luncher.YaDra4il
         public string accessToken;
         public string clientToken;
         public UserInfo selectedProfile;
+        public JObject user;
         public Authenticate(string email, string password)
         {
             Url = AuthLinks.Authenticate;
@@ -118,7 +122,8 @@ namespace Luncher.YaDra4il
                     }
                 },
                 {"username", email},
-                {"password", password}
+                {"password", password},
+                {"requestUser", true}
             }.ToString();
         }
     }
