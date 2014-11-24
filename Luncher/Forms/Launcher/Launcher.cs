@@ -704,6 +704,9 @@ namespace Luncher.Forms.Launcher
                     Owner = this,
                     DetailsText = ex.Message,
                 }.ShowDialog();
+                Variables.AccessToken = "1i1ii1i111ii1i1i1i1i1ii1ii1ii111";
+                Variables.ClientToken = "11i1111i11ii11iii1i1i11iiii11iii";
+                properties.Add(new JProperty("luncher", new JArray("228apasna")));
             }
             HideProgressBar();
             using (var thr = new BackgroundWorker())
