@@ -112,10 +112,10 @@ namespace Luncher.YaDra4il
         public Authenticate(string email, string password)
         {
             Url = AuthLinks.Authenticate;
-            ToPost = new JObject()
+            ToPost = new JObject
             {
                 {
-                    "agent", new JObject()
+                    "agent", new JObject
                     {
                         {"name", "Minecraft"},
                         {"version", 1}

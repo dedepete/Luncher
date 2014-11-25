@@ -679,8 +679,11 @@ namespace Luncher.Forms.Launcher
                         }
                         Variables.AccessToken = jo["profiles"][peep.Name]["accessToken"].ToString();
                         Variables.ClientToken = jo["profiles"][peep.Name]["UUID"].ToString();
-                        foreach (JObject prop in jo["profiles"][peep.Name]["properties"])
-                            properties.Add(new JProperty(prop["name"].ToString(), new JArray(prop["value"])));
+                        if (jo["profiles"][peep.Name]["properties"].HasValues)
+                            foreach (JObject prop in jo["profiles"][peep.Name]["properties"])
+                                properties.Add(new JProperty(prop["name"].ToString(), new JArray(prop["value"])));
+                        else
+                            properties.Add(new JProperty("luncher", new JArray("228apasna")));
                     }
                     break;
                 }
