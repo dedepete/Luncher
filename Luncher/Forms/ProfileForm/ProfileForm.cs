@@ -139,7 +139,7 @@ namespace Luncher.Forms.ProfileForm
             }
             else
                 Args.Text = @"-Xmx1G";
-            var ver = json.lastVersionId ?? _locRm.GetString("uselastversion");
+            string ver = json.lastVersionId ?? _locRm.GetString("uselastversion");
             try
             {
                 var jsonVer =
@@ -151,7 +151,7 @@ namespace Luncher.Forms.ProfileForm
                 if (ver != null & ver != "")
                 {
                     var founded = false;
-                    foreach (var a in Versions.Items.Where(a => a.Text.Contains(ver)))
+                    foreach (var a in Versions.Items.Where(a => a.Text != _locRm.GetString("uselastversion")).Where(a => a.Text.Split(' ')[1] == ver))
                     {
                         Versions.SelectedItem = a;
                         founded = true;
@@ -247,17 +247,17 @@ namespace Luncher.Forms.ProfileForm
             json["profiles"] = Processing.Rename(json1, name => name == _profile ? ProfileName.Text : name);
             json["selectedProfile"] = ProfileName.Text;
             Newprofilename = ProfileName.Text;
-            JsonProfile.ProfileServer server = null;
-            if (ipTextBox.Text != string.Empty)
-                server = new JsonProfile.ProfileServer
+            var server = ipTextBox.Text != string.Empty
+                ? new JObject
                 {
-                    ip = ipTextBox.Text,
-                    port = portTextBox.Text != string.Empty ? portTextBox.Text : null
-                };
-            var resolution = new JsonProfile.ProfileResolution
+                    {"ip", ipTextBox.Text},
+                    {"port", portTextBox.Text != string.Empty ? portTextBox.Text : null}
+                }
+                : null;
+            var resolution = new JObject
             {
-                height = ResY.Text,
-                width = ResX.Text
+                {"height", ResY.Text},
+                {"width", ResX.Text}
             };
             var releasetypes = new List<string> {"release"};
             if (EnableExp.ToggleState == Telerik.WinControls.Enumerations.ToggleState.On)
@@ -274,25 +274,25 @@ namespace Luncher.Forms.ProfileForm
                     gamedir[Gamedir.Text.Length - 1].ToString() == "/")
                     gamedir = Gamedir.Text.Substring(0, Gamedir.Text.Length - 1);
             }
-            var version = new JsonProfile.Profile
-            {
-                name = ProfileName.Text,
-                lastVersionId =
-                    !Versions.SelectedItem.Text.Contains(_locRm.GetString("uselastversion"))
-                        ? ((string) Versions.SelectedItem.Tag ??
-                           (Versions.SelectedItem.Text.Replace(
-                               Versions.SelectedItem.Text.Split(' ')[0] + " ", string.Empty)))
-                        : null,
-                gameDir = UseDirectory.Checked ? gamedir : null,
-                javaDir = UseExec.Checked ? ExecJava.Text : null,
-                javaArgs = UseArgs.Checked ? Args.Text : null,
-                server = server,
-                resolution = resolution,
-                allowedReleaseTypes = releasetypes.ToArray<string>(),
-                launcherVisibilityOnGameClose = LState.SelectedItem.Tag.ToString()
-            };
+            dynamic version = new JObject();
+            version.name = ProfileName.Text;
+            if (!Versions.SelectedItem.Text.Contains(_locRm.GetString("uselastversion")))
+            version.lastVersionId = ((string) Versions.SelectedItem.Tag ??
+                                     (Versions.SelectedItem.Text.Replace(
+                                         Versions.SelectedItem.Text.Split(' ')[0] + " ", string.Empty)));
+            if (UseDirectory.Checked)
+                version.gameDir = gamedir;
+            if (UseExec.Checked)
+                version.javaDir = ExecJava.Text;
+            if (UseArgs.Checked)
+                version.javaArgs = Args.Text;
+            if (server != null)
+                version.server = server;
+            version.resolution = resolution;
+            version.allowedReleaseTypes = new JArray(releasetypes);
+            version.launcherVisibilityOnGameClose = LState.SelectedItem.Tag.ToString();
             json["profiles"][ProfileName.Text] = JObject.FromObject(version,
-                new JsonSerializer {NullValueHandling = NullValueHandling.Ignore});
+                new JsonSerializer { NullValueHandling = NullValueHandling.Ignore });
             File.WriteAllText(Variables.ProfileJsonFile, json.ToString());
             Close();
         }

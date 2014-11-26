@@ -4208,7 +4208,7 @@ Mojang AB является дочерней студией Microsoft Studios.</v
     <value>Из них отсутствует:</value>
   </data>
   <data name="resources.reconstructing" xml:space="preserve">
-    <value>Выполняется перестойка ресурсов...</value>
+    <value>Выполняется перестройка ресурсов...</value>
   </data>
   <data name="resources.reconstructioncanceled" xml:space="preserve">
     <value>Перестройка ресурсов была отменена пользователем</value>

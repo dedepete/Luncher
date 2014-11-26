@@ -647,6 +647,7 @@ namespace Luncher.Forms.Launcher
 
         private void Launch(string profileJson)
         {
+            var properties = new JObject();
             try
             {
                 var add = true;
@@ -660,6 +661,7 @@ namespace Luncher.Forms.Launcher
                     {
                         Variables.AccessToken = "1i1ii1i111ii1i1i1i1i1ii1ii1ii111";
                         Variables.ClientToken = "11i1111i11ii11iii1i1i11iiii11iii";
+                        properties.Add(new JProperty("luncher", new JArray("228apasna")));
                     }
                     else
                     {
@@ -677,6 +679,11 @@ namespace Luncher.Forms.Launcher
                         }
                         Variables.AccessToken = jo["profiles"][peep.Name]["accessToken"].ToString();
                         Variables.ClientToken = jo["profiles"][peep.Name]["UUID"].ToString();
+                        if (jo["profiles"][peep.Name]["properties"].HasValues)
+                            foreach (JObject prop in jo["profiles"][peep.Name]["properties"])
+                                properties.Add(new JProperty(prop["name"].ToString(), new JArray(prop["value"])));
+                        else
+                            properties.Add(new JProperty("luncher", new JArray("228apasna")));
                     }
                     break;
                 }
@@ -700,6 +707,9 @@ namespace Luncher.Forms.Launcher
                     Owner = this,
                     DetailsText = ex.Message,
                 }.ShowDialog();
+                Variables.AccessToken = "1i1ii1i111ii1i1i1i1i1ii1ii1ii111";
+                Variables.ClientToken = "11i1111i11ii11iii1i1i11iiii11iii";
+                properties.Add(new JProperty("luncher", new JArray("228apasna")));
             }
             HideProgressBar();
             using (var thr = new BackgroundWorker())
@@ -729,7 +739,7 @@ namespace Luncher.Forms.Launcher
                     var finallibraries = _libs.Aggregate(string.Empty,
                         (current, a) => current + (a + ";"));
                     finallibraries = finallibraries.Substring(0, finallibraries.Length - 1);
-                    var mp = new MinecraftProcess(this, usingAssets.Text, finallibraries, _assets, profileJson);
+                    var mp = new MinecraftProcess(this, usingAssets.Text, finallibraries, _assets, profileJson, properties);
                     mp.Launch();
                 };
                 thr.RunWorkerAsync();

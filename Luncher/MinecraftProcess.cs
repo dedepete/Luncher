@@ -9,6 +9,7 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows.Forms;
 using Luncher.Forms.Launcher;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Telerik.WinControls.UI;
 
@@ -25,7 +26,7 @@ namespace Luncher
 
         private readonly int _launcherVisibilityOnGameClose;
 
-        public MinecraftProcess(object mainForm, string assetsPath, string libraries, string assetsFileName, string jsonblock)
+        public MinecraftProcess(object mainForm, string assetsPath, string libraries, string assetsFileName, string jsonblock, JObject properties)
         {
             dynamic json = JObject.Parse(jsonblock);
             if (json.javaArgs != null)
@@ -70,6 +71,7 @@ namespace Luncher
             Assetspath = assetsPath;
             Libs = libraries;
             Assets = assetsFileName;
+            userProperties = properties;
         }
 
         private void MLogG(string text, bool iserror)
@@ -216,7 +218,7 @@ namespace Luncher
                 {"auth_session", Variables.AccessToken},
                 {"auth_access_token", Variables.AccessToken},
                 {"auth_uuid", Variables.ClientToken},
-                {"user_properties", "{\"luncher\":[1234]}"},
+                {"user_properties", userProperties.ToString(Formatting.None)},
                 {"user_type", "mojang"}
             };
             Arg = re.Replace(Arg,
@@ -316,5 +318,6 @@ namespace Luncher
         protected string Assets { get; set; }
         protected string MainClass { get; set; }
         protected string LastVersionId { get; set; }
+        protected JObject userProperties { get; set; }
     }
 }
