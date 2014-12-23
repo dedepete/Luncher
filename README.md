@@ -21,4 +21,4 @@ Microsoft Async (https://www.nuget.org/packages/Microsoft.Bcl.Async)
 Download launcher
 =======
 
-https://docs.google.com/spreadsheet/ccc?key=0AlHr5lFJzStndHpHVEFORHBYUGd6eXEtQjQ2Y1ZIaWc&usp=sharing
+http://goo.gl/YWCrAl
