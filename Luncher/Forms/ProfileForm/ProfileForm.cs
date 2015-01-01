@@ -117,8 +117,8 @@ namespace Luncher.Forms.ProfileForm
                 if ((json.allowedReleaseTypes as JArray).ToList().Contains("old_beta")) 
                     EnableBeta.ToggleState = Telerik.WinControls.Enumerations.ToggleState.On;
             }
-            ResX.Text = json.resolution != null ? json.resolution.width : @"480";
-            ResY.Text = json.resolution != null ? json.resolution.height : @"854";
+            ResX.Text = json.resolution != null ? json.resolution.width : @"854";
+            ResY.Text = json.resolution != null ? json.resolution.height : @"480";
             if (json.gameDir != null)
             {
                 Gamedir.Text = json.gameDir; 

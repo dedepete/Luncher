@@ -58,7 +58,7 @@ namespace Luncher
             dynamic profileSJson = JObject.Parse(File.ReadAllText(nativesFolder + @"\" + LastVersionId + ".json"));
             MainClass = profileSJson.mainClass;
             Arg = profileSJson.minecraftArguments +
-                  (ip != null ? string.Format(" --server {0} --port {1}", ip, (port ?? "25565")) : string.Empty);
+                  (ip != null ? string.Format(" --server {0} --port {1}", ip, (port ?? "25565")) : string.Empty) + (json.resolution != null ? " --width " + json.resolution.width + " --height " + json.resolution.height : null);
             libraries += string.Format(";{0}\\{1}.jar", nativesFolder, LastVersionId);
             if (_launcherVisibilityOnGameClose != 1)
             {

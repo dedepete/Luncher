@@ -63,7 +63,11 @@ namespace Luncher.Forms.MainForm
                 {
                     {
                         "d|directory=", "minecraft custom {PATH}.",
-                        v => Program.Minecraft = v
+                        v =>
+                        {
+                            Program.Minecraft = v;
+                            WriteLog("Setting Minecraft directory: " + Program.Minecraft);
+                        }
                     },
                 };
                 try
@@ -77,7 +81,6 @@ namespace Luncher.Forms.MainForm
                     Program.Minecraft = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) +
                                         "\\.minecraft";
                 }
-                WriteLog("Setting Minecraft directory: " + Program.Minecraft);
             }
             else
                 Program.Minecraft = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) +
@@ -339,7 +342,7 @@ namespace Luncher.Forms.MainForm
                 }
                 catch (Exception ex)
                 {
-                    WriteLog("Во время проверки обновлений возникла ошибка:\n" + ex);
+                    WriteLog("Во время проверки обновлений возникла ошибка:\n" + ex.Message + "\nPlease, head to http://vk.com/sesmc for actual news");
                     CheckVersions();
                 }
             }
