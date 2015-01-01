@@ -325,8 +325,7 @@ namespace Luncher.Forms.MainForm
                             var openUrlButton = new RadButtonElement("Получить обновление");
                             openUrlButton.Click += delegate
                             {
-                                Process.Start(
-                                    @"https://docs.google.com/spreadsheet/ccc?key=0AlHr5lFJzStndHpHVEFORHBYUGd6eXEtQjQ2Y1ZIaWc&usp=sharing");
+                                Process.Start(@"http://goo.gl/YWCrAl");
                                 alert.Hide();
                                 Application.Exit();
                             };
