@@ -11,6 +11,7 @@ using System.Resources;
 using System.Threading;
 using System.Windows.Forms;
 using Ionic.Zip;
+using Luncher.Localization;
 using Luncher.Properties;
 using Luncher.YaDra4il;
 using Newtonsoft.Json.Linq;
@@ -220,7 +221,7 @@ namespace Luncher.Forms.Launcher
 
         public Dictionary<int, object> LogTab(string text, string profilename)
         {
-            var report = new RadPageViewPage {Text = @"Log: " + profilename};
+            var report = new RadPageViewPage {Text = string.Format("{0} ({1})", Localization_LauncherForm.Launcher_LogTab_GameOutputText, profilename)};
             var killprocess = new RadButton { Text = Resources.Launcher_ShowLogTab_Завершить, Anchor = (AnchorStyles.Right | AnchorStyles.Top) };
             var panel = new RadPanel {Text = text, Dock = DockStyle.Top};
             panel.Size = new Size(panel.Size.Width, 60);
