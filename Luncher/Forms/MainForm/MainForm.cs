@@ -297,9 +297,11 @@ namespace Luncher.Forms.MainForm
             if ((bool)Configuration.Updates["checkProgramUpdate"])
             {
                 WriteLog("Checking for update...");
-                try
-                {
-                    var dver = new WebClient().DownloadString(new Uri("http://file.ru-minecraft.ru/verlu.html"));
+                try {
+                    var dver = new WebClient
+                    {
+                        Headers = new WebHeaderCollection { { "user-agent", "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.2; .NET CLR 1.0.3705;)" } }
+                    }.DownloadString(new Uri("http://goo.gl/SIDgFx"));
                     if (dver == ProductVersion)
                         WriteLog("No update found.");
                     else if (dver != ProductVersion)
