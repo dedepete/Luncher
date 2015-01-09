@@ -359,7 +359,7 @@ namespace Luncher.Forms.MainForm
             WriteLog("Starting launcher...");
             try
             {
-                var ln = new Launcher.Launcher {Size = Size, Location = Location};
+                var ln = new Launcher.Launcher {Size = Size, WindowState = WindowState, Location = Location};
                 CheckLauncherProfiles();
                 Hide();
                 ln.Log.Text = Log.Text;

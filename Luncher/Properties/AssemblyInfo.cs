@@ -11,7 +11,7 @@ using System.Resources;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Space Earth Studio Minecraft")]
 [assembly: AssemblyProduct("Luncher")]
-[assembly: AssemblyCopyright("Copyright SESMC©  2014")]
+[assembly: AssemblyCopyright("Copyright SESMC©  2014-2015")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -33,6 +33,6 @@ using System.Resources;
 // Можно задать все значения или принять номера сборки и редакции по умолчанию 
 // используя "*", как показано ниже:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.4.6.2016")]
-[assembly: AssemblyFileVersion("1.4.6.2016")]
+[assembly: AssemblyVersion("1.4.7.2017")]
+[assembly: AssemblyFileVersion("1.4.7.2017")]
 [assembly: NeutralResourcesLanguageAttribute("ru-RU")]
