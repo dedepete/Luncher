@@ -8,10 +8,10 @@ namespace Luncher
         public static int ImStillRunning;
 
         // basic variables
-        public static readonly string McFolder = Program.Minecraft;
-        public static readonly string McVersions = Path.Combine(Program.Minecraft, "versions\\");
-        public static readonly string ProfileJsonFile = string.Format("{0}\\launcher_profiles.json", Program.Minecraft);
-        public static readonly string JavaExe = string.Format("{0}\\bin\\java.exe", Processing.GetJavaInstallationPath());
+        public static string McFolder = Program.Minecraft;
+        public static string McVersions = Path.Combine(McFolder, "versions\\");
+        public static string ProfileJsonFile = string.Format("{0}\\launcher_profiles.json", McFolder);
+        public static string JavaExe = string.Format("{0}\\bin\\java.exe", Processing.GetJavaInstallationPath());
 
         // minecraft basic settings
         public static string UserName;

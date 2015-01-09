@@ -63,9 +63,11 @@ namespace Luncher.Forms.MainForm
                 {
                     {
                         "d|directory=", "minecraft custom {PATH}.",
-                        v =>
-                        {
+                        v => {
                             Program.Minecraft = v;
+                            Variables.McFolder = Program.Minecraft;
+                            Variables.McVersions = Path.Combine(Variables.McFolder, "versions\\");
+                            Variables.ProfileJsonFile = string.Format("{0}\\launcher_profiles.json", Variables.McFolder);
                             WriteLog("Setting Minecraft directory: " + Program.Minecraft);
                         }
                     },
