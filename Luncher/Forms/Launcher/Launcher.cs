@@ -881,7 +881,7 @@ namespace Luncher.Forms.Launcher
 
         private void HideProgressBar()
         {
-            progressBar1.Text = String.Empty;
+            progressBar1.Text = string.Empty;
             progressBar1.Visible = false;
         }
 

@@ -19,7 +19,7 @@ namespace Luncher
         public static string AccessToken = "1i1ii1i111ii1i1i1i1i1ii1ii1ii111";
         
         // custom versioning
-        public const string NetJsonVersion = "6.0r6";
+        public const string NetJsonVersion = "6.0r8";
         public const string NetZipVersion = "1.9.3";
         public const string NdOptions = "0.2.1";
 
