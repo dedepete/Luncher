@@ -62,6 +62,7 @@ namespace Luncher.Localization {
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Реестр ссылается на несуществующую среду Java Runtime.
+        ///Загрузить и/или использовать портативную Java Runtime?.
         /// </summary>
         internal static string JavaNotFoundError {
             get {

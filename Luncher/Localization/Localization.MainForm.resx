@@ -1,4 +1,3 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
 		Microsoft ResX Schema
@@ -98,6 +97,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="JavaNotFoundError" xml:space="preserve">
-    <value>Реестр ссылается на несуществующую среду Java Runtime</value>
+    <value>Реестр ссылается на несуществующую среду Java Runtime.
+Загрузить и/или использовать портативную Java Runtime?</value>
   </data>
 </root>

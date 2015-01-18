@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Threading;
 using System.Windows.Forms;
+using Ionic.Zip;
 using NDesk.Options;
 using Newtonsoft.Json.Linq;
 using Telerik.WinControls.Enumerations;
@@ -49,10 +50,6 @@ namespace Luncher.Forms.MainForm
             }
             var jpath = Processing.GetJavaInstallationPath();
             WriteLog("Java Path: \"" + (jpath ?? "MISSED") + "\"");
-            if (jpath == null)
-                MessageBox.Show(
-                    Localization.Localization_MainForm.JavaNotFoundError,
-                    @"Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             WriteLog();
             WriteLog(string.Format("#Assembly information:\nJSON.NET {0}\nDotNetZip {1}\nNDesk.Options {2}",
                 Variables.NetJsonVersion, Variables.NetZipVersion, Variables.NdOptions));
@@ -124,6 +121,29 @@ namespace Luncher.Forms.MainForm
                     lang = "ru-default(Русский)";
                 }
             WriteLog("Loading settings for language: " + lang);
+            if (jpath == null)
+            {
+                var msg = MessageBox.Show(
+                    Localization.Localization_MainForm.JavaNotFoundError,
+                    @"Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                if (msg == DialogResult.Yes)
+                {
+                    if (!Directory.Exists(Path.Combine(Variables.McFolder, "luncher\\", "jre\\")))
+                    {
+                        WriteLog("Downloading portable Java Runtime...");
+                        new WebClient().DownloadFile(@"http://file.ru-minecraft.ru/jre/jre7.zip",
+                            Path.Combine(Variables.McFolder, "luncher\\", "jre.zip"));
+                        WriteLog("Unpacking...");
+                        using (var zip = ZipFile.Read(Path.Combine(Variables.McFolder, "luncher\\", "jre.zip")))
+                            foreach (var entry in zip.Entries)
+                                entry.Extract(Path.Combine(Variables.McFolder, "luncher/", "jre/"),
+                                    ExtractExistingFileAction.OverwriteSilently);
+                        File.Delete(Path.Combine(Variables.McFolder, "luncher\\", "jre.zip"));
+                    }
+                    Variables.JavaExe = Path.Combine(Variables.McFolder, "luncher\\", "jre\\", "bin\\", "java.exe");
+                    WriteLog("Java Path: \"" + Variables.JavaExe + "\"");
+                }
+            }
             _bgw = new Thread(CheckApplicationUpdate);
             _bgw.Start();
         }
