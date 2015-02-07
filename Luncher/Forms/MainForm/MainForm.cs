@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Threading;
 using System.Windows.Forms;
+using Ionic.Zip;
 using NDesk.Options;
 using Newtonsoft.Json.Linq;
 using Telerik.WinControls.Enumerations;
@@ -49,10 +50,6 @@ namespace Luncher.Forms.MainForm
             }
             var jpath = Processing.GetJavaInstallationPath();
             WriteLog("Java Path: \"" + (jpath ?? "MISSED") + "\"");
-            if (jpath == null)
-                MessageBox.Show(
-                    Localization.Localization_MainForm.JavaNotFoundError,
-                    @"Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             WriteLog();
             WriteLog(string.Format("#Assembly information:\nJSON.NET {0}\nDotNetZip {1}\nNDesk.Options {2}",
                 Variables.NetJsonVersion, Variables.NetZipVersion, Variables.NdOptions));
@@ -63,9 +60,11 @@ namespace Luncher.Forms.MainForm
                 {
                     {
                         "d|directory=", "minecraft custom {PATH}.",
-                        v =>
-                        {
+                        v => {
                             Program.Minecraft = v;
+                            Variables.McFolder = Program.Minecraft;
+                            Variables.McVersions = Path.Combine(Variables.McFolder, "versions\\");
+                            Variables.ProfileJsonFile = string.Format("{0}\\launcher_profiles.json", Variables.McFolder);
                             WriteLog("Setting Minecraft directory: " + Program.Minecraft);
                         }
                     },
@@ -122,6 +121,29 @@ namespace Luncher.Forms.MainForm
                     lang = "ru-default(Русский)";
                 }
             WriteLog("Loading settings for language: " + lang);
+            if (jpath == null)
+            {
+                var msg = MessageBox.Show(
+                    Localization.Localization_MainForm.JavaNotFoundError,
+                    @"Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                if (msg == DialogResult.Yes)
+                {
+                    if (!Directory.Exists(Path.Combine(Variables.McFolder, "luncher\\", "jre\\")))
+                    {
+                        WriteLog("Downloading portable Java Runtime...");
+                        new WebClient().DownloadFile(@"http://file.ru-minecraft.ru/jre/jre7.zip",
+                            Path.Combine(Variables.McFolder, "luncher\\", "jre.zip"));
+                        WriteLog("Unpacking...");
+                        using (var zip = ZipFile.Read(Path.Combine(Variables.McFolder, "luncher\\", "jre.zip")))
+                            foreach (var entry in zip.Entries)
+                                entry.Extract(Path.Combine(Variables.McFolder, "luncher/", "jre/"),
+                                    ExtractExistingFileAction.OverwriteSilently);
+                        File.Delete(Path.Combine(Variables.McFolder, "luncher\\", "jre.zip"));
+                    }
+                    Variables.JavaExe = Path.Combine(Variables.McFolder, "luncher\\", "jre\\", "bin\\", "java.exe");
+                    WriteLog("Java Path: \"" + Variables.JavaExe + "\"");
+                }
+            }
             _bgw = new Thread(CheckApplicationUpdate);
             _bgw.Start();
         }
@@ -297,9 +319,11 @@ namespace Luncher.Forms.MainForm
             if ((bool)Configuration.Updates["checkProgramUpdate"])
             {
                 WriteLog("Checking for update...");
-                try
-                {
-                    var dver = new WebClient().DownloadString(new Uri("http://file.ru-minecraft.ru/verlu.html"));
+                try {
+                    var dver = new WebClient
+                    {
+                        Headers = new WebHeaderCollection { { "user-agent", "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.2; .NET CLR 1.0.3705;)" } }
+                    }.DownloadString(new Uri("http://goo.gl/SIDgFx"));
                     if (dver == ProductVersion)
                         WriteLog("No update found.");
                     else if (dver != ProductVersion)
@@ -357,7 +381,7 @@ namespace Luncher.Forms.MainForm
             WriteLog("Starting launcher...");
             try
             {
-                var ln = new Launcher.Launcher {Size = Size, Location = Location};
+                var ln = new Launcher.Launcher {Size = Size, WindowState = WindowState, Location = Location};
                 CheckLauncherProfiles();
                 Hide();
                 ln.Log.Text = Log.Text;

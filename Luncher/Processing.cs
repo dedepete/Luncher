@@ -64,7 +64,7 @@ namespace Luncher
 
             return json;
         }
-        public static String GetJavaInstallationPath()
+        public static string GetJavaInstallationPath()
         {
             try
             {

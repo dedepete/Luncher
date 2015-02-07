@@ -1,6 +1,5 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using System;
 using System.IO;
 using System.Net;
 using System.Text;
@@ -232,7 +231,7 @@ namespace Luncher.YaDra4il
     public class Username
     {
         public string Uuid { private get; set; }
-        public String GetUsernameByUuid()
+        public string GetUsernameByUuid()
         {
             var res =
                 new WebClient().DownloadString("https://sessionserver.mojang.com/session/minecraft/profile/" + Uuid);

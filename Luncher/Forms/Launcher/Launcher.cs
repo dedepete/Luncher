@@ -689,7 +689,10 @@ namespace Luncher.Forms.Launcher
                     break;
                 }
                 if (add)
-                    profiles.Add(Nickname.Text, new JObject { new JProperty("type", "pirate") });
+                {
+                    profiles.Add(Nickname.Text, new JObject {new JProperty("type", "pirate")});
+                    properties.Add(new JProperty("luncher", new JArray("228apasna")));
+                }
                 File.WriteAllText(txt, jo.ToString());
                 var lselected = Nickname.Text;
                 UpdateUserProfiles();
@@ -878,7 +881,7 @@ namespace Luncher.Forms.Launcher
 
         private void HideProgressBar()
         {
-            progressBar1.Text = String.Empty;
+            progressBar1.Text = string.Empty;
             progressBar1.Visible = false;
         }
 
