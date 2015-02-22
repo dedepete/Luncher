@@ -1,7 +1,7 @@
 @ECHO OFF
 
 rem #    set .NET version and output folder name
-set net="v4, C:\Windows\Microsoft.NET\Framework\v4.0.30319"
+set net="v4, C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.0"
 set output=Output
 
 rem #    process arguments
