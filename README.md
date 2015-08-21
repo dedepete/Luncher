@@ -1,5 +1,7 @@
-Luncher
+Luncher [Discontinued]
 =======
+
+Project rebranded to FreeLauncher(https://github.com/dedepete/FreeLauncher). You can still use this launcher, but it's not highly recommended.
 
 Open source Minecraft piracy launcher
 
